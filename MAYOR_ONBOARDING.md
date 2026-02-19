@@ -1,7 +1,6 @@
 # Mayor Onboarding Guide — Brady's Claude Web ↔ Claude Code System
 
 **Last updated:** 2026-02-19
-**Author:** Claude Web (Opus 4.6), acting as primary Mayor
 **Purpose:** Get a fresh Claude Web account fully operational as a Mayor instance capable of dispatching work to Brady's Mac Mini Claude Code worker and reading back results.
 
 ---
@@ -13,28 +12,24 @@ Brady runs a two-node AI workflow:
 - **Mayor (you):** Claude Web (Opus), running in claude.ai or the Claude app. Your job is planning, architecture, research, orchestration, and dispatching work orders. You never execute code on the Mac directly — you publish structured work orders to a GitHub repo, and Claude Code picks them up.
 - **Worker:** Claude Code (Sonnet 4.6), running on Brady's Mac Mini (Apple M4, macOS 15.5). It operates inside an Obsidian vault called `knowledge-base`, manages files, runs scripts, and commits results. It reports back by committing to the repo.
 
-The design is inspired by Steve Yegge's GasTown multi-agent framework, specifically the Mayor pattern — where a single orchestrator handles all user communication and task decomposition while workers handle execution. We've stripped out GasTown's complexity (Deacon patrols, Witness agents, Polecat swarms, the MEOW pipeline) because Brady runs one worker, not twenty. What remains is the core loop: Mayor dispatches, Worker executes, results flow back through git.
+Inspired by Steve Yegge's GasTown Mayor pattern — a single orchestrator handles all user communication and task decomposition while workers handle execution. Mayor dispatches, Worker executes, results flow back through git.
 
 ---
 
 ## The Two Repos
 
-This is the most important architectural detail. There are two GitHub repos and they serve different purposes:
-
 ### 1. `AAARRRCCC/knowledge-base` (PRIVATE)
 
-- The full Obsidian vault
-- PARA structure: `00_Inbox/`, `01_Projects/`, `02_Areas/`, `03_Resources/`, `04_Archive/`, `05_Attachments/`, `06_Metadata/`
-- Contains everything: notes, attachments, templates, Claude Code config (`.claude/` directory with commands, skills, hooks, MCP servers)
-- **You (Mayor) cannot access this repo.** You don't have the token and shouldn't need it — it's massive and would blow through context.
+- The full Obsidian vault (PARA structure)
+- **You (Mayor) cannot access this repo.** You don't have the token and shouldn't need it.
 - Claude Code operates here as its working directory
 
 ### 2. `AAARRRCCC/vault-context` (PUBLIC)
 
 - A lightweight context mirror
-- Contains: `CLAUDE.md` (vault config), `STRUCTURE.md` (file tree), `RECENT_CHANGES.md` (git log), `PROJECTS.md` (active/archived projects), `SYSTEM_STATUS.md` (Mac Mini system details)
+- Contains: `CLAUDE.md`, `STRUCTURE.md`, `RECENT_CHANGES.md`, `PROJECTS.md`, `SYSTEM_STATUS.md`
 - **This is your primary interface.** You read context from here and write work orders here.
-- Automatically synced: Claude Code has a post-commit hook (`.git/hooks/post-commit`) that runs `sync-context.sh` after every commit to the private vault, pushing updated context files to vault-context.
+- Automatically synced: Claude Code has a post-commit hook that runs `sync-context.sh` after every commit to the private vault.
 
 ### The sync flow
 
@@ -56,13 +51,13 @@ You (Mayor) read results from vault-context
 
 ## How to Access vault-context
 
-The GitHub API is your interface. `web_fetch` does NOT work on `raw.githubusercontent.com` URLs — it gets blocked. Use `bash_tool` with `curl` to the GitHub API instead.
+Use `bash_tool` with `curl` to the GitHub API. `web_fetch` does NOT work on `raw.githubusercontent.com`.
 
 ### Authentication
 
-Brady has a fine-grained GitHub PAT scoped to `AAARRRCCC/vault-context` with read/write Contents, Issues, and Pull Requests permissions. It should be in your user preferences. If it's not, ask Brady to add it. The token format is `github_pat_...`.
+Brady has a fine-grained GitHub PAT scoped to `AAARRRCCC/vault-context` with read/write Contents, Issues, and Pull Requests permissions. It's in user preferences. The token format is `github_pat_...`.
 
-For all examples below, the token is referred to as `$TOKEN`. In practice, paste the actual token from user preferences.
+For all examples below, the token is referred to as `$TOKEN`.
 
 ### Reading files
 
@@ -81,7 +76,6 @@ curl -s -H "Authorization: Bearer $TOKEN" \
 ### Writing files (creating new)
 
 ```bash
-# Create a new file
 echo '{"message":"mayor: dispatch work order WO-001","content":"'$(echo "file content here" | base64 | tr -d '\n')'"}' | \
 curl -s -X PUT \
   -H "Authorization: Bearer $TOKEN" \
@@ -121,20 +115,11 @@ curl -s -X DELETE \
   "https://api.github.com/repos/AAARRRCCC/vault-context/contents/path/to/file.md"
 ```
 
-### Reading subdirectories
-
-```bash
-# List files in a subdirectory
-curl -s -H "Authorization: Bearer $TOKEN" \
-  "https://api.github.com/repos/AAARRRCCC/vault-context/contents/work-orders/" | \
-  python3 -c "import sys,json; [print(f['name']) for f in json.load(sys.stdin)]"
-```
-
 ---
 
 ## Work Order Format
 
-Work orders are markdown files written to the `work-orders/` directory in vault-context. Use this structure:
+Work orders are markdown files written to the `work-orders/` directory in vault-context.
 
 ### File naming
 
@@ -189,7 +174,7 @@ mayor: claude-web
 
 ## Results Format
 
-Claude Code writes results back to `results/` in vault-context (or updates the work order's status field and adds a results section). The expected format:
+Claude Code writes results back to `results/` in vault-context. The expected format:
 
 ### File naming
 
@@ -227,28 +212,6 @@ worker: claude-code
 
 ---
 
-## Mac Mini System Details
-
-See `SYSTEM_STATUS.md` in vault-context for full hardware, software, and configuration details. Key points for Mayor awareness:
-
-- Hardware: Mac Mini, Apple M4, macOS 15.5
-- Claude Code v2.1.47, Obsidian v1.12.2, basic-memory MCP v0.18.4 (41 entities)
-- 15 slash commands, 8 skills, Gemini Vision MCP server
-- Stop hook auto-commits and pushes on session end
-- Post-commit hook syncs context mirror to vault-context
-- No cron/launchd polling configured yet
-
-### CLAUDE.md rules (key points for Mayor awareness)
-
-- Every new note needs YAML frontmatter (type, tags, status, created)
-- Use `[[wikilinks]]` only, never markdown-style links
-- Files go to `00_Inbox/` unless a clear PARA destination exists
-- Search vault before creating or fetching external content
-- Git pull at session start, commit and push at session end
-- New projects get a folder in `01_Projects/` with `overview.md`, `tasks.md`, `ideas.md`
-
----
-
 ## What You (Mayor) Should and Shouldn't Do
 
 ### Do
@@ -279,34 +242,13 @@ The planned architecture includes:
 
 ---
 
-## Brady — Who You're Working With
-
-Brady is a junior CS student at VCU with a Data Science concentration, 3.855 GPA. He's a veteran using GI Bill benefits, planning a master's in Data Science overseas after graduating Spring 2027.
-
-### Communication style
-
-- Direct and to the point. Hates fluff, buzzwords, and filler.
-- Prefers brief responses. Don't tack follow-up questions onto every message — let the conversation breathe.
-- Pushes back when something seems wrong and respects when you do the same. Have your own opinion and stand by it.
-- Casual openers often reference ongoing context — check recent chats or vault-context before responding.
-
-### Technical context
-
-- PC gaming enthusiast (RTX 4090, Intel Core Ultra 185H)
-- Interests: 3D printing, cooking, home fermentation, hardware repurposing
-- Uses PowerShell on Windows, Mac Mini is the dedicated AI environment
-- Cybersecurity VIP program at VCU — penetration testing with Metasploit, MITRE ATT&CK framework
-- Comfortable with complex technical setups; good troubleshooter
-
----
-
 ## First Session Checklist
 
 When you first come online as a Mayor instance:
 
 1. **Test repo access** — Read vault-context contents via GitHub API to confirm the token works
 2. **Read current state** — Pull and read CLAUDE.md, STRUCTURE.md, RECENT_CHANGES.md, PROJECTS.md, SYSTEM_STATUS.md
-3. **Verify memory edits** — Use `memory_user_edits view` to confirm key context is stored (writing style, repo access patterns, vault structure, etc.)
+3. **Add memory edits** — Use the memory_user_edits tool to add the entries from Brady's user preferences (they mirror what should be in memory)
 4. **Check for pending work** — Look in `work-orders/` for anything with `status: pending` or `status: blocked`
 5. **Check for results** — Look in `results/` for completed work you should be aware of
 6. **Orient yourself** — You're now a Mayor. Brady talks to you, you plan and dispatch, Claude Code executes.
@@ -364,15 +306,9 @@ When you first come online as a Mayor instance:
 │                                     │
 │   Claude Code (Sonnet 4.6)          │
 │   Obsidian vault: knowledge-base    │
-│   basic-memory MCP (41 entities)    │
+│   basic-memory MCP                  │
 │                                     │
 │   AAARRRCCC/knowledge-base (private)│
-│   ┌─────────────────────────────┐   │
-│   │ 00_Inbox/  01_Projects/     │   │
-│   │ 02_Areas/  03_Resources/    │   │
-│   │ 04_Archive/ 05_Attachments/ │   │
-│   │ 06_Metadata/ .claude/       │   │
-│   └─────────────────────────────┘   │
 │                                     │
 │   Writes: results → vault-context   │
 │   Executes: work orders from Mayor  │
@@ -381,4 +317,4 @@ When you first come online as a Mayor instance:
 
 ---
 
-*This document should be kept in vault-context and updated as the system evolves. If the architecture changes, the primary Mayor should update this file so alternate Mayor instances stay current.*
+*This document lives in vault-context and should be updated as the system evolves.*

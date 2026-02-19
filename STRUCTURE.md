@@ -3,6 +3,7 @@
 ./.claude
 ./.claude/claude_config.json
 ./.claude/commands
+./.claude/commands/README.md
 ./.claude/commands/add-frontmatter.md
 ./.claude/commands/create-command.md
 ./.claude/commands/daily-review.md
@@ -13,7 +14,6 @@
 ./.claude/commands/install-claudesidian-command.md
 ./.claude/commands/pragmatic-review.md
 ./.claude/commands/pull-request.md
-./.claude/commands/README.md
 ./.claude/commands/release.md
 ./.claude/commands/research-assistant.md
 ./.claude/commands/thinking-partner.md
@@ -23,15 +23,15 @@
 ./.claude/hooks/skill-discovery.sh
 ./.claude/mcp-servers
 ./.claude/mcp-servers/GEMINI_VISION_QUICK_START.md
-./.claude/mcp-servers/gemini-vision.mjs
 ./.claude/mcp-servers/README.md
+./.claude/mcp-servers/gemini-vision.mjs
 ./.claude/settings.json
 ./.claude/settings.local.json
 ./.claude/skills
+./.claude/skills/LICENSE-kepano
 ./.claude/skills/defuddle
 ./.claude/skills/git-worktrees
 ./.claude/skills/json-canvas
-./.claude/skills/LICENSE-kepano
 ./.claude/skills/obsidian-bases
 ./.claude/skills/obsidian-cli
 ./.claude/skills/obsidian-markdown
@@ -47,10 +47,10 @@
 ./.obsidian
 ./.prettierignore
 ./.scripts
+./.scripts/README.md
 ./.scripts/firecrawl-batch.sh
 ./.scripts/firecrawl-scrape.sh
 ./.scripts/fix-renamed-links.js
-./.scripts/README.md
 ./.scripts/sync-context.sh
 ./.scripts/transcript-extract.sh
 ./.scripts/update-attachment-links.js
@@ -93,20 +93,20 @@
 ./06_Metadata/Reference/Common Claude Code Prompts.md
 ./06_Metadata/Templates
 ./06_Metadata/Templates/Daily Note Template.md
+./06_Metadata/Templates/Project Template.md
+./06_Metadata/Templates/Research Note Template.md
 ./06_Metadata/Templates/daily-note.md
 ./06_Metadata/Templates/memory-note.md
 ./06_Metadata/Templates/note.md
-./06_Metadata/Templates/Project Template.md
 ./06_Metadata/Templates/project-overview.md
-./06_Metadata/Templates/Research Note Template.md
 ./CHANGELOG.md
 ./CLAUDE-BOOTSTRAP.md
 ./CLAUDE.md
 ./CONTRIBUTING.md
-./install.sh
 ./LICENSE
+./README.md
+./install.sh
 ./node_modules
 ./package-lock.json
 ./package.json
 ./pnpm-lock.yaml
-./README.md

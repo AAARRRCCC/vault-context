@@ -1,3 +1,4 @@
+0c3f686 config: add context mirror script and fill out .gitignore
 11bf8ab chore: auto-commit session end
 ce05308 cleanup: remove test file
 06bc6b4 test: verify push works
@@ -17,4 +18,3 @@ eb822e6 feat: add skills system with Obsidian and dev-focused skills
 44f6f28 fix: replace sed with cut in /upgrade for zsh compatibility
 f9306e7 fix: preserve CJK characters in filename sanitization
 21460fc chore: release v0.13.1
-dc2cafd Merge pull request #13 from heyitsnoah/9-transcript-extractsh-default-output-path-differs-from-the-structure-in-repo

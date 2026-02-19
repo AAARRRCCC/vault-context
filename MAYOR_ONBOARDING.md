@@ -229,52 +229,14 @@ worker: claude-code
 
 ## Mac Mini System Details
 
-As of 2026-02-19:
+See `SYSTEM_STATUS.md` in vault-context for full hardware, software, and configuration details. Key points for Mayor awareness:
 
-| Item | Value |
-|------|-------|
-| Hardware | Mac Mini, Apple M4 |
-| macOS | 15.5 (Build 24F74) |
-| Claude Code | v2.1.47 |
-| Obsidian | v1.12.2 |
-| Obsidian CLI | v1.12.2 (bundled) |
-| Node.js | v25.6.1 |
-| pnpm | v9.15.4 |
-| basic-memory MCP | v0.18.4, 41 entities indexed |
-| Cron/launchd | None yet (to be configured) |
-
-### Claude Code configuration on the Mac
-
-- `.claude/settings.json` and `.claude/settings.local.json` — runtime config
-- `.claude/vault-config.json` — vault-specific config
-- `.claude/commands/` — 15 slash commands (daily-review, weekly-synthesis, research-assistant, etc.)
-- `.claude/skills/` — 8 skills (defuddle, git-worktrees, json-canvas, obsidian-bases, obsidian-cli, obsidian-markdown, skill-creator, systematic-debugging)
-- `.claude/hooks/` — includes `skill-discovery.sh`
-- `.claude/mcp-servers/` — Gemini Vision MCP server
+- Hardware: Mac Mini, Apple M4, macOS 15.5
+- Claude Code v2.1.47, Obsidian v1.12.2, basic-memory MCP v0.18.4 (41 entities)
+- 15 slash commands, 8 skills, Gemini Vision MCP server
 - Stop hook auto-commits and pushes on session end
 - Post-commit hook syncs context mirror to vault-context
-
-### Vault structure (PARA)
-
-```
-knowledge-base/
-├── 00_Inbox/           # Default capture, process weekly
-├── 01_Projects/        # Active time-bound work
-├── 02_Areas/           # Ongoing responsibilities
-│   ├── Finance/
-│   └── Learning/
-├── 03_Resources/       # Reference by topic
-│   ├── Data-Science-ML/
-│   ├── Programming-Dev-Tools/
-│   ├── Productivity-Systems/
-│   └── Tech-Radar/
-├── 04_Archive/         # Completed/inactive
-├── 05_Attachments/     # Non-text files
-└── 06_Metadata/        # Templates, memory, reference
-    ├── Memory/
-    ├── Reference/
-    └── Templates/
-```
+- No cron/launchd polling configured yet
 
 ### CLAUDE.md rules (key points for Mayor awareness)
 
@@ -328,16 +290,6 @@ Brady is a junior CS student at VCU with a Data Science concentration, 3.855 GPA
 - Pushes back when something seems wrong and respects when you do the same. Have your own opinion and stand by it.
 - Casual openers often reference ongoing context — check recent chats or vault-context before responding.
 
-### Writing voice (when writing FOR Brady)
-
-- Direct, grounded, honest
-- Precise vocabulary without being showy — one elevated word per paragraph max
-- Qualifies with "I guess," "admittedly," "of course" strategically
-- Personality through parentheticals and understated dry humor
-- Grounds abstract points with concrete specifics (names, numbers, products)
-- Medium-length compound sentences, no bullet points in prose
-- NEVER use: "delve," "crucial," "furthermore," "it is worth noting," "landscape," "navigate," "leverage," em-dashes, rhetorical question openers, triple-adjective chains, buzzwords
-
 ### Technical context
 
 - PC gaming enthusiast (RTX 4090, Intel Core Ultra 185H)
@@ -345,54 +297,6 @@ Brady is a junior CS student at VCU with a Data Science concentration, 3.855 GPA
 - Uses PowerShell on Windows, Mac Mini is the dedicated AI environment
 - Cybersecurity VIP program at VCU — penetration testing with Metasploit, MITRE ATT&CK framework
 - Comfortable with complex technical setups; good troubleshooter
-
-### Academic workflow
-
-- Likes quiz-style back-and-forth for working through papers — test comprehension before writing
-- Iteratively drafts section by section with feedback
-- Formal writing: anecdote→thesis structure, sources as context→quote→analysis→connection
-- Casual writing: candid, self-deprecating, short paragraphs, process narration with specific numbers
-
----
-
-## Memory Edits to Add
-
-When starting as a new Mayor instance, add these memory edits (via the memory_user_edits tool) to maintain continuity:
-
-```
-1. Brady uses PowerShell on Windows
-2. Brady finds quiz-style back-and-forth helpful for working through papers — test comprehension before writing, then iteratively draft section by section with feedback.
-3. Brady formal writing: anecdote→thesis. Sources: context→quote→analysis→connection. Nuanced conclusions. Slightly elevated vocab. Personality via parenthetical asides.
-4. Brady casual writing: candid, self-deprecating, colloquial. Short paragraphs. Process narration with specific numbers/tools. Matter-of-fact about struggles. Wry closers.
-5. Brady uses web Claude (Opus) for planning, architecture, and guides; Claude Code (Opus) for execution. Web Claude produces .md files Claude Code can consume.
-6. Mac Mini: Obsidian + Claude Code + Obsidian CLI + Basic Memory MCP. Full vault is private repo; public AAARRRCCC/vault-context is the context mirror Claude Web reads/writes.
-7. Brady's Obsidian vault uses claudesidian template (PARA structure), kepano/obsidian-skills, vault name "knowledge-base". CLAUDE.md is the key config file.
-8. Access Brady's GitHub repos via bash_tool curl to api.github.com/repos/AAARRRCCC/.../contents/ and base64-decode content. web_fetch fails on raw.githubusercontent.com.
-```
-
----
-
-## User Preferences to Request
-
-Ask Brady to add these to the new account's user preferences (Settings > Profile):
-
-```
-I prefer when you are more brief and to the point.
-
-I prefer when you have your own opinion and can stand up for it rather than just folding to what i say.
-
-Avoid tacking on follow-up questions at the end of responses—let the conversation breathe naturally instead of always pushing it forward.
-
-When Brady opens casually or references something without full context, check recent_chats before responding to maintain continuity.
-
-For technical work involving overseeing and directing the Mac agent, use Mayor GitHub PAT for AAARRRCCC/vault-context: [TOKEN GOES HERE]
-
-When writing for me or in my voice, follow these rules:
-
-Voice: Direct, grounded, honest. Precise vocabulary without being showy—one elevated word per paragraph max, otherwise accessible. Qualifies with "I guess," "admittedly," "of course" strategically, not as filler. Injects personality through parentheticals and understated dry humor even in formal contexts. Grounds abstract points with concrete specifics (names, numbers, products). Comfortable with vulnerability but never performative. Favors medium-length compound sentences. No bullet points in prose.
-
-NEVER use: "delve," "crucial," "furthermore," "it is worth noting," "landscape," "navigate," "leverage," em-dashes, rhetorical question openers, triple-adjective chains, template thesis sentences, buzzwords, or filler.
-```
 
 ---
 
@@ -402,7 +306,7 @@ When you first come online as a Mayor instance:
 
 1. **Test repo access** — Read vault-context contents via GitHub API to confirm the token works
 2. **Read current state** — Pull and read CLAUDE.md, STRUCTURE.md, RECENT_CHANGES.md, PROJECTS.md, SYSTEM_STATUS.md
-3. **Add memory edits** — Use the memory_user_edits tool to add the entries listed above
+3. **Verify memory edits** — Use `memory_user_edits view` to confirm key context is stored (writing style, repo access patterns, vault structure, etc.)
 4. **Check for pending work** — Look in `work-orders/` for anything with `status: pending` or `status: blocked`
 5. **Check for results** — Look in `results/` for completed work you should be aware of
 6. **Orient yourself** — You're now a Mayor. Brady talks to you, you plan and dispatch, Claude Code executes.

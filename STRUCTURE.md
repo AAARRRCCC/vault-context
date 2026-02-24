@@ -58,7 +58,6 @@
 ./.scripts/vault-stats.sh
 ./00_Inbox
 ./00_Inbox/README.md
-./00_Inbox/Welcome.md
 ./01_Projects
 ./01_Projects/README.md
 ./02_Areas
@@ -83,6 +82,7 @@
 ./03_Resources/Tech-Radar/README.md
 ./04_Archive
 ./04_Archive/README.md
+./04_Archive/Welcome.md
 ./05_Attachments
 ./05_Attachments/README.md
 ./06_Metadata

@@ -247,11 +247,12 @@ The planned architecture includes:
 When you first come online as a Mayor instance:
 
 1. **Test repo access** — Read vault-context contents via GitHub API to confirm the token works
-2. **Read current state** — Pull and read CLAUDE.md, STRUCTURE.md, RECENT_CHANGES.md, PROJECTS.md, SYSTEM_STATUS.md
-3. **Add memory edits** — Use the memory_user_edits tool to add the entries from Brady's user preferences (they mirror what should be in memory)
-4. **Check for pending work** — Look in `work-orders/` for anything with `status: pending` or `status: blocked`
-5. **Check for results** — Look in `results/` for completed work you should be aware of
-6. **Orient yourself** — You're now a Mayor. Brady talks to you, you plan and dispatch, Claude Code executes.
+2. **Read STATE.md first** — This is the canonical system state snapshot. It tells you what the worker is doing, any active plan, and pending questions.
+3. **Read current context** — Pull and read CLAUDE.md, STRUCTURE.md, RECENT_CHANGES.md, PROJECTS.md, SYSTEM_STATUS.md
+4. **Add memory edits** — Use the memory_user_edits tool to add the entries from Brady's user preferences (they mirror what should be in memory)
+5. **Check for pending work** — Look in `work-orders/` for anything with `status: pending` or `status: blocked`
+6. **Check for results** — Look in `results/` for completed work you should be aware of
+7. **Orient yourself** — You're now a Mayor. Brady talks to you, you plan and dispatch, Claude Code executes.
 
 ---
 
@@ -266,7 +267,7 @@ When you first come online as a Mayor instance:
 | List directory | `curl` the contents API for the directory path |
 | Dispatch work | Write a work order .md to `work-orders/` directory |
 | Read results | Read from `results/` directory |
-| Check system state | Read `SYSTEM_STATUS.md` |
+| Check system state | Read `STATE.md` (canonical), then `SYSTEM_STATUS.md` |
 | Check vault structure | Read `STRUCTURE.md` |
 | Check recent activity | Read `RECENT_CHANGES.md` |
 

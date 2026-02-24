@@ -195,6 +195,17 @@ git push                      # Push to remote
 
 Claude Web (Opus) acts as Mayor — it plans and dispatches tasks by pushing markdown files to `AAARRRCCC/vault-context`. Claude Code is the worker — it picks up pending work orders, executes them in the private vault, and writes results back.
 
+### Orientation protocol (every session, every actor, every time)
+
+1. `git -C /Users/rbradmac/Documents/vault-context pull`
+2. Read `STATE.md` — this is your orientation
+3. If `active_plan` is set, read the active plan file in `vault-context/plans/`
+4. If you need vault structure context, read `STRUCTURE.md`
+5. Now you're oriented. Act.
+6. Before ending session: update `STATE.md`, commit vault-context, push
+
+**Standing rule:** `STATE.md` updated timestamp must not be more than 15 minutes stale during active work. If it is, something crashed.
+
 ### Session start
 
 On every session start, check `vault-context/work-orders/` for pending work:

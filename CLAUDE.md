@@ -234,6 +234,18 @@ Background work orders execute in a dedicated git worktree at `~/knowledge-base-
 - The interactive session should `git pull` at session start to pick up any background work
 - Do not open `~/knowledge-base-worker/` in Obsidian — only the main vault directory should be used with Obsidian
 
+### Signaling Brady via Discord
+
+Use `mayor-signal.sh` to send DMs to Brady through the Mayor bot:
+
+```bash
+~/.local/bin/mayor-signal.sh <type> <message>
+```
+
+Signal types: `notify` (green), `checkpoint` (orange), `blocked` (red), `stalled` (gold), `complete` (blue), `error` (dark red).
+
+Use this for meaningful events — work order completion, blockers, errors — not routine progress. Env vars `MAYOR_DISCORD_TOKEN` and `MAYOR_DISCORD_USER_ID` must be set (they're in `~/.zshrc`).
+
 ### Worker status
 
 When Brady asks "what's the worker doing?", "worker status", or similar, run `mayor-status.sh` and report the results:

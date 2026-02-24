@@ -9,8 +9,10 @@
 
 
 
+
 ---
 
+97e8285 infra: add SYSTEM_STATUS.md for Mayor-Worker infrastructure (WO-007)
 1457bd8 chore: remove claudesidian template scaffolding from vault root
 564eba4 config: update sync-context.sh to preserve manual sections in RECENT_CHANGES and STRUCTURE
 de4bec6 chore: auto-commit session end
@@ -30,4 +32,3 @@ bfb51fa chore: pre-remote sync — add Obsidian config, skills, templates, and r
 353651b chore: add .worktrees/ to gitignore
 0df22ed chore: release v0.14.1
 a7ed30a Merge pull request #22 from xkcoding/fix/sanitize-filename-preserve-cjk
-d6932a3 Merge pull request #24 from xkcoding/fix/upgrade-zsh-compatibility

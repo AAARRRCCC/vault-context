@@ -246,6 +246,8 @@ Signal types: `notify` (green), `checkpoint` (orange), `blocked` (red), `stalled
 
 Use this for meaningful events — work order completion, blockers, errors — not routine progress. Env vars `MAYOR_DISCORD_TOKEN` and `MAYOR_DISCORD_USER_ID` must be set (they're in `~/.zshrc`).
 
+`process-work-orders` fires Discord signals automatically after committing each result: `complete` on success, `blocked` on failure, `error` on unexpected errors.
+
 ### Worker status
 
 When Brady asks "what's the worker doing?", "worker status", or similar, run `mayor-status.sh` and report the results:

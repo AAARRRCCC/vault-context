@@ -6,7 +6,7 @@ created: 2026-02-24
 mayor: claude-web
 ---
 
-# Discord Signal Script Setup & Test
+# Discord Signal Script Setup, Test & Heartbeat Interval Update
 
 ## Objective
 
@@ -128,6 +128,32 @@ In the **same commit** as the script creation (standing rule from AUTONOMOUS-LOO
 - Update `SYSTEM_STATUS.md` to add the Discord bot under a new section
 - Update `CLAUDE.md` to document `mayor-signal.sh` usage in the Mayor-Worker System section
 
+### 5. Update heartbeat interval to 2 minutes
+
+The launchd agent `com.mayor.workorder-check` currently polls at whatever interval it's set to (may be 15 min or 60 min — check the plist). Change it to 120 seconds (2 minutes).
+
+Find the plist at `~/Library/LaunchAgents/com.mayor.workorder-check.plist` (or similar). Update the `StartInterval` key:
+
+```xml
+<key>StartInterval</key>
+<integer>120</integer>
+```
+
+Then reload the agent:
+
+```bash
+launchctl unload ~/Library/LaunchAgents/com.mayor.workorder-check.plist
+launchctl load ~/Library/LaunchAgents/com.mayor.workorder-check.plist
+```
+
+Verify it's running with the new interval:
+
+```bash
+launchctl list | grep mayor
+```
+
+**Standing rule applies:** Update `SYSTEM_STATUS.md` in the same commit to reflect the new interval.
+
 ## Acceptance Criteria
 
 - [ ] `~/.local/bin/mayor-signal.sh` exists and is executable
@@ -135,6 +161,9 @@ In the **same commit** as the script creation (standing rule from AUTONOMOUS-LOO
 - [ ] Brady receives 6 test DMs in Discord (one per signal type)
 - [ ] launchd agent can access the Discord env vars (verified by testing from the launchd context or by confirming the env var sourcing approach)
 - [ ] `SYSTEM_STATUS.md` and `CLAUDE.md` updated in same commit
+- [ ] launchd agent `com.mayor.workorder-check` updated to 120-second interval
+- [ ] Agent reloaded and running with new interval
+- [ ] `SYSTEM_STATUS.md` reflects new interval (same commit as plist change)
 - [ ] Result file documents any decisions made (especially the launchd env var approach)
 
 ## Notes
@@ -142,3 +171,4 @@ In the **same commit** as the script creation (standing rule from AUTONOMOUS-LOO
 - If the Discord API returns errors about intents or permissions, Brady may need to toggle the Message Content Intent on the Discord developer portal under the Bot section.
 - The bot needs to share a server with Brady to open a DM channel. Brady has already joined the bot to a server, so this should work.
 - If `python3` isn't available in the launchd context, the JSON parsing in the script will fail. Fall back to `grep`/`sed` if needed, but document it.
+

@@ -237,6 +237,14 @@ Result file frontmatter: `id`, `status: complete`, `completed: YYYY-MM-DD`, `wor
 
 Update the work order's `status` field in its frontmatter before pushing.
 
+### Plans and the autonomous loop
+
+For multi-phase work, Mayor writes a plan file to `vault-context/plans/PLAN-NNN-slug.md` instead of a single work order. Claude Code runs `/autonomous-loop` to work through phases, signal Brady via Discord at each phase boundary, and maintain STATE.md throughout.
+
+Plan format: frontmatter with `id`, `status`, `phases`, `current_phase`; body with Goal, Phases (each with objective, steps, acceptance criteria, signal type), Fallback Behavior, Success Criteria.
+
+The `plans/` directory README and `vault-context/LOOP.md` document the full format.
+
 ### Worker worktree
 
 Background work orders execute in a dedicated git worktree at `~/knowledge-base-worker/` (on the `worker` branch). This allows headless Claude Code sessions to run concurrently with interactive sessions without filesystem conflict.

@@ -14,8 +14,10 @@
 
 
 
+
 ---
 
+982b42d feat: add frontmatter to files missing it (PLAN-002 Phase 2)
 a5abd5a feat: inbox triage — archive Welcome.md, tag README.md needs-processing (PLAN-001)
 cbde685 feat: add plans directory and autonomous loop doc reference (WO-010)
 0645e56 feat: establish STATE.md protocol and orientation procedure (WO-009)
@@ -35,4 +37,3 @@ bfb51fa chore: pre-remote sync — add Obsidian config, skills, templates, and r
 08ce614 feat: integrate basic-memory MCP with Obsidian vault
 2562043 docs: add reference notes for Claude Code, Obsidian CLI, and scikit-learn
 703dbf9 chore: release v0.14.2
-36b2dc9 chore: fix security vulnerabilities in dependencies

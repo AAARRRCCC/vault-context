@@ -5,6 +5,7 @@
 ./.claude/commands
 ./.claude/commands/README.md
 ./.claude/commands/add-frontmatter.md
+./.claude/commands/autonomous-loop.md
 ./.claude/commands/create-command.md
 ./.claude/commands/daily-review.md
 ./.claude/commands/de-ai-ify.md

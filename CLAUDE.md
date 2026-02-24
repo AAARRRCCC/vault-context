@@ -191,6 +191,49 @@ git push                      # Push to remote
 
 ---
 
+## Mayor-Worker System
+
+Claude Web (Opus) acts as Mayor — it plans and dispatches tasks by pushing markdown files to `AAARRRCCC/vault-context`. Claude Code is the worker — it picks up pending work orders, executes them in the private vault, and writes results back.
+
+### Session start
+
+On every session start, check `vault-context/work-orders/` for pending work:
+
+```bash
+git -C /Users/rbradmac/Documents/vault-context pull
+grep -l "status: pending" /Users/rbradmac/Documents/vault-context/work-orders/*.md 2>/dev/null
+```
+
+Run `/process-work-orders` if any pending orders are found.
+
+### Work order format
+
+```yaml
+---
+id: WO-NNN
+status: pending        # pending → in-progress → complete | blocked | cancelled
+priority: urgent       # urgent | normal | low
+created: YYYY-MM-DD
+mayor: claude-web
+---
+```
+
+### Reporting results
+
+Write `WO-NNN-result.md` to `vault-context/results/`, then commit and push vault-context.
+
+Result file frontmatter: `id`, `status: complete`, `completed: YYYY-MM-DD`, `worker: claude-code`.
+
+Update the work order's `status` field in its frontmatter before pushing.
+
+### Lockfile convention
+
+- Check `~/.mayor-worker.lock` before processing — if it exists, another session is running; exit
+- Create lockfile on start: `touch ~/.mayor-worker.lock`
+- Remove on finish (use a trap to guarantee cleanup even on failure)
+
+---
+
 ## basic-memory MCP
 
 basic-memory indexes the vault as a knowledge graph (SQLite-backed). Use it to search across sessions and build context from linked notes.

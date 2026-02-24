@@ -232,13 +232,36 @@ worker: claude-code
 
 ---
 
-## Polling and Cron (To Be Implemented)
+## Plans and the Autonomous Loop
 
-The planned architecture includes:
+For non-trivial tasks, use **Plans** instead of single work orders:
 
-1. **Session-start polling:** Claude Code checks `vault-context/work-orders/` for any `status: pending` work orders on every session start. This will be configured in CLAUDE.md or as a startup hook.
+1. Write `vault-context/plans/PLAN-NNN-slug.md` with `status: active` and `current_phase: 1`
+2. The heartbeat detects the active plan and invokes `/autonomous-loop`
+3. Claude Code works through phases, signaling Brady via Discord at each boundary
 
-2. **Hourly cron check:** A launchd agent (macOS cron equivalent) will trigger Claude Code to do a lightweight check of vault-context for new work orders every hour. This is not yet set up — it's one of the first work orders the Mayor should dispatch.
+### Signal types
+
+| Signal | Meaning | Worker does |
+|--------|---------|-------------|
+| `notify` | Phase done, continuing | DM Brady, advance to next phase |
+| `checkpoint` | Wants review before continuing | DM Brady, pause |
+| `blocked` | Can't proceed without input | DM Brady, pause |
+| `complete` | Plan finished | DM Brady, go idle |
+
+### Unblocking a paused plan
+
+Resolve pending questions in STATE.md, set `worker_status: active`, commit and push. The next heartbeat (2 minutes) will resume the loop.
+
+See `vault-context/LOOP.md` for the full autonomous loop reference.
+
+## Polling and Heartbeat
+
+The system is fully operational:
+
+1. **Session-start check:** Claude Code reads STATE.md and checks `work-orders/` for pending orders on every session start. Run `/process-work-orders` if orders are found, `/autonomous-loop` if an active plan is detected.
+
+2. **Heartbeat (every 2 min):** A launchd agent (`com.mayor.workorder-check`) fires every 2 minutes. It pulls vault-context, checks STATE.md for an active plan, and if found spawns a headless Claude Code session running `/autonomous-loop`. If no active plan, falls back to checking for pending work orders and runs `/process-work-orders`. If nothing to do, exits immediately — no tokens consumed.
 
 ---
 

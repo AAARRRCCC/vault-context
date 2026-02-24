@@ -239,11 +239,13 @@ Update the work order's `status` field in its frontmatter before pushing.
 
 ### Plans and the autonomous loop
 
-For multi-phase work, Mayor writes a plan file to `vault-context/plans/PLAN-NNN-slug.md` instead of a single work order. Claude Code runs `/autonomous-loop` to work through phases, signal Brady via Discord at each phase boundary, and maintain STATE.md throughout.
+For multi-phase work, Mayor writes a plan file to `vault-context/plans/PLAN-NNN-slug.md` instead of a single work order. Run `/autonomous-loop` to work through phases, signal Brady via Discord at each phase boundary, and maintain STATE.md throughout.
 
-Plan format: frontmatter with `id`, `status`, `phases`, `current_phase`; body with Goal, Phases (each with objective, steps, acceptance criteria, signal type), Fallback Behavior, Success Criteria.
+Plan format: frontmatter with `id`, `status`, `phases`, `current_phase`; body with Goal, Phases (each with objective, steps, acceptance criteria, decision guidance, signal type), Fallback Behavior, Success Criteria.
 
-The `plans/` directory README and `vault-context/LOOP.md` document the full format.
+Signal types: `notify` → continue to next phase; `checkpoint`/`blocked`/`error`/`stalled` → pause and wait for Mayor; `complete` → mark done, go idle.
+
+The `mayor-check.sh` heartbeat checks STATE.md for active plans first, falls back to one-off work orders if none. See `vault-context/LOOP.md` for the full reference protocol.
 
 ### Worker worktree
 

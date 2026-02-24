@@ -85,15 +85,22 @@
 
 | Component | Status | Details |
 |-----------|--------|---------|
-| launchd agent | ✅ Running | `com.mayor.workorder-check` (PID 62306), interval 3600s |
+| launchd agent | ✅ Running | `com.mayor.workorder-check` (PID 62306), interval 120s |
 | Worker worktree | ✅ Active | `~/knowledge-base-worker/` on `worker` branch |
-| `mayor-check.sh` | ✅ Present | `~/.local/bin/mayor-check.sh` — lockfile guard, worktree exec |
+| `mayor-check.sh` | ✅ Updated | Checks STATE.md for active plans first → runs `/autonomous-loop`; falls back to `/process-work-orders` |
 | `mayor-status.sh` | ✅ Present | `~/.local/bin/mayor-status.sh` — status display + `--json` |
 | `mayor-log.sh` | ✅ Present | `~/.local/bin/mayor-log.sh` — log tail wrapper |
 | Status file | ✅ Writing | `~/.local/state/mayor-worker-status.json` — updated each run |
 | Worker log | ✅ Present | `~/.local/log/mayor-check.log` |
-| `/process-work-orders` | ✅ Present | `.claude/commands/process-work-orders.md` |
-| vault-context sync | ✅ Working | `sync-context.sh` post-commit hook; now preserves manual sections |
+| `/process-work-orders` | ✅ Updated | Fires Discord signals after each WO; reads/writes STATE.md |
+| `/autonomous-loop` | ✅ Present | `.claude/commands/autonomous-loop.md` — multi-phase plan executor |
+| `STATE.md` | ✅ Active | `vault-context/STATE.md` — canonical system state, orientation doc |
+| `plans/` directory | ✅ Present | `vault-context/plans/` — multi-phase plan files |
+| `LOOP.md` | ✅ Present | `vault-context/LOOP.md` — autonomous loop reference protocol |
+| Discord signaling | ✅ Working | `mayor-signal.sh` wired into process-work-orders and autonomous-loop |
+| vault-context sync | ✅ Working | `sync-context.sh` post-commit hook; preserves manual sections |
 
-**Work orders completed:** WO-001, WO-002, WO-003, WO-004
+**Work orders completed:** WO-001 through WO-011
+**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit)
 **System operational since:** 2026-02-24
+**Autonomous loop operational since:** 2026-02-24

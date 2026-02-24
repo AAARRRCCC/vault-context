@@ -1,9 +1,9 @@
 ---
-updated: 2026-02-24T22:30:00Z
+updated: 2026-02-24T22:34:00Z
 active_plan: none
 phase: 0
 phase_status: idle
-worker_status: processing
+worker_status: idle
 last_signal: complete
 last_signal_time: 2026-02-24T22:17:00Z
 ---
@@ -25,6 +25,7 @@ No active plan. System idle. PLAN-002 completed.
 | 21:01 | Data-Science-ML.md type=resource | Located in 03_Resources/, clearly reference material |
 | 21:01 | Welcome.md type=note status=archived | Archived onboarding doc, not an ongoing resource |
 | 22:16 | Used jq over python3 for JSON escaping in mayor-signal.sh | jq is cleaner and available at /usr/bin/jq (v1.7.1) |
+| 22:33 | Chose stdin JSON (Option C) for mayor-signal.sh refactor | No arg escaping issues; jq heredoc is readable and handles all special chars cleanly |
 
 ## Pending Questions
 

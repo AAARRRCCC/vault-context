@@ -16,8 +16,10 @@
 
 
 
+
 ---
 
+346a50b chore: auto-commit session end
 6edcbd2 feat: autonomous loop command + CLAUDE.md docs update (WO-011)
 982b42d feat: add frontmatter to files missing it (PLAN-002 Phase 2)
 a5abd5a feat: inbox triage — archive Welcome.md, tag README.md needs-processing (PLAN-001)
@@ -37,4 +39,3 @@ ce05308 cleanup: remove test file
 06bc6b4 test: verify push works
 bfb51fa chore: pre-remote sync — add Obsidian config, skills, templates, and resources
 08ce614 feat: integrate basic-memory MCP with Obsidian vault
-2562043 docs: add reference notes for Claude Code, Obsidian CLI, and scikit-learn

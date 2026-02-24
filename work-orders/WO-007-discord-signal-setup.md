@@ -154,6 +154,12 @@ launchctl list | grep mayor
 
 **Standing rule applies:** Update `SYSTEM_STATUS.md` in the same commit to reflect the new interval.
 
+### 6. Fix CLAUDECODE nesting guard in mayor-check.sh
+
+`mayor-check.sh` fails when called from the menubar "check now" button because a `CLAUDECODE` environment variable is present in the inherited context, triggering Claude Code's nesting protection.
+
+Add `unset CLAUDECODE` near the top of `~/.local/bin/mayor-check.sh`, before the `claude -p` invocation. This ensures it works correctly regardless of where it's called from (menubar, launchd, manual terminal).
+
 ## Acceptance Criteria
 
 - [ ] `~/.local/bin/mayor-signal.sh` exists and is executable
@@ -165,10 +171,13 @@ launchctl list | grep mayor
 - [ ] Agent reloaded and running with new interval
 - [ ] `SYSTEM_STATUS.md` reflects new interval (same commit as plist change)
 - [ ] Result file documents any decisions made (especially the launchd env var approach)
+- [ ] `mayor-check.sh` unsets `CLAUDECODE` env var before launching Claude Code
+- [ ] Menubar "check now" button works without nesting error
 
 ## Notes
 
 - If the Discord API returns errors about intents or permissions, Brady may need to toggle the Message Content Intent on the Discord developer portal under the Bot section.
 - The bot needs to share a server with Brady to open a DM channel. Brady has already joined the bot to a server, so this should work.
 - If `python3` isn't available in the launchd context, the JSON parsing in the script will fail. Fall back to `grep`/`sed` if needed, but document it.
+
 

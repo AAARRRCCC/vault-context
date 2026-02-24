@@ -234,11 +234,18 @@ Background work orders execute in a dedicated git worktree at `~/knowledge-base-
 - The interactive session should `git pull` at session start to pick up any background work
 - Do not open `~/knowledge-base-worker/` in Obsidian — only the main vault directory should be used with Obsidian
 
-### Lockfile convention
+### Worker status
 
-- Check `~/.mayor-worker.lock` before processing — if it exists, another session is running; exit
-- Create lockfile on start: `touch ~/.mayor-worker.lock`
-- Remove on finish (use a trap to guarantee cleanup even on failure)
+When Brady asks "what's the worker doing?", "worker status", or similar, run `mayor-status.sh` and report the results:
+
+```bash
+~/.local/bin/mayor-status.sh          # human-friendly status
+~/.local/bin/mayor-status.sh --json   # raw JSON
+~/.local/bin/mayor-log.sh             # last 30 log lines
+~/.local/bin/mayor-log.sh -f          # follow log live
+```
+
+The status file is at `~/.local/state/mayor-worker-status.json` — states are `idle`, `processing`, or `error`.
 
 ---
 

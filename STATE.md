@@ -1,28 +1,26 @@
 ---
-updated: 2026-02-24T20:56:00Z
-active_plan: PLAN-001-inbox-audit
-phase: 2
-phase_status: in-progress
-worker_status: processing
+updated: 2026-02-24T20:57:00Z
+active_plan: none
+phase: 0
+phase_status: idle
+worker_status: idle
 last_signal: complete
-last_signal_time: 2026-02-24T20:52:19Z
+last_signal_time: 2026-02-24T20:57:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-- **Plan:** PLAN-001 — Inbox Audit & Triage
-- **Current phase:** 2 of 2 — "Triage"
-- **Phase progress:** Executing Phase 2 triage
-- **Started:** 2026-02-24T20:53:00Z
-- **Blockers:** None
+No active plan. System idle. PLAN-001 completed.
 
 ## Decision Log
 
 | Time | Decision | Reasoning |
 |------|----------|-----------|
-| 20:53 | Executing PLAN-001 as part of WO-010 | WO-010 requires manual execution of the test plan |
+| 20:53 | Executed PLAN-001 as part of WO-010 | WO-010 requires manual execution of the test plan |
+| 20:57 | Moved Welcome.md → 04_Archive | File itself instructed archiving once comfortable with system |
+| 20:57 | Tagged README.md with #needs-processing | Ambiguous destination — it's the inbox's own documentation |
 
 ## Pending Questions
 
@@ -30,8 +28,9 @@ None.
 
 ## Completed Phases
 
-None.
+- [x] PLAN-001 Phase 1: Inventory (2026-02-24)
+- [x] PLAN-001 Phase 2: Triage (2026-02-24)
 
 ## Queue
 
-- [ ] Phase 2: Triage — move files with clear destinations, flag ambiguous ones
+None.

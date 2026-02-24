@@ -1,6 +1,6 @@
 ---
 id: PLAN-001
-status: active
+status: complete
 created: 2026-02-24
 mayor: claude-web
 phases: 2

@@ -8,8 +8,10 @@
 | 2026-02-24 | WO-004 | Update Context Mirror Files | complete |
 
 
+
 ---
 
+1457bd8 chore: remove claudesidian template scaffolding from vault root
 564eba4 config: update sync-context.sh to preserve manual sections in RECENT_CHANGES and STRUCTURE
 de4bec6 chore: auto-commit session end
 f24adf8 config: add /process-work-orders command for Mayor-Worker dispatch system
@@ -29,4 +31,3 @@ bfb51fa chore: pre-remote sync — add Obsidian config, skills, templates, and r
 0df22ed chore: release v0.14.1
 a7ed30a Merge pull request #22 from xkcoding/fix/sanitize-filename-preserve-cjk
 d6932a3 Merge pull request #24 from xkcoding/fix/upgrade-zsh-compatibility
-08752bf chore: release v0.14.0

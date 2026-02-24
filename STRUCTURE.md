@@ -100,17 +100,10 @@
 ./06_Metadata/Templates/memory-note.md
 ./06_Metadata/Templates/note.md
 ./06_Metadata/Templates/project-overview.md
-./CHANGELOG.md
 ./CLAUDE-BOOTSTRAP.md
 ./CLAUDE.md
-./CONTRIBUTING.md
-./LICENSE
 ./README.md
-./install.sh
-./node_modules
-./package-lock.json
 ./package.json
-./pnpm-lock.yaml
 ---
 
 ## External Infrastructure

@@ -75,3 +75,25 @@
 - Root-level scaffolding files (`CHANGELOG.md`, `install.sh`, `node_modules/`, etc.) are claudesidian template leftovers. Could be cleaned up or left as-is.
 - `disable_permalinks` is `false` — basic-memory will add `permalink:` frontmatter to any note it indexes. Intentional for now.
 - Obsidian Git plugin not yet installed (auto-commit safety net — manual install required via Obsidian settings).
+
+---
+
+## Mayor-Worker System
+
+**Verified by:** Claude Code (worker, WO-004)
+**Date:** 2026-02-24
+
+| Component | Status | Details |
+|-----------|--------|---------|
+| launchd agent | ✅ Running | `com.mayor.workorder-check` (PID 62306), interval 3600s |
+| Worker worktree | ✅ Active | `~/knowledge-base-worker/` on `worker` branch |
+| `mayor-check.sh` | ✅ Present | `~/.local/bin/mayor-check.sh` — lockfile guard, worktree exec |
+| `mayor-status.sh` | ✅ Present | `~/.local/bin/mayor-status.sh` — status display + `--json` |
+| `mayor-log.sh` | ✅ Present | `~/.local/bin/mayor-log.sh` — log tail wrapper |
+| Status file | ✅ Writing | `~/.local/state/mayor-worker-status.json` — updated each run |
+| Worker log | ✅ Present | `~/.local/log/mayor-check.log` |
+| `/process-work-orders` | ✅ Present | `.claude/commands/process-work-orders.md` |
+| vault-context sync | ✅ Working | `sync-context.sh` post-commit hook; now preserves manual sections |
+
+**Work orders completed:** WO-001, WO-002, WO-003, WO-004
+**System operational since:** 2026-02-24

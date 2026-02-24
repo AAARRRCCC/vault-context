@@ -1,3 +1,14 @@
+## Work Orders
+
+| Date | ID | Title | Status |
+|------|----|-------|--------|
+| 2026-02-24 | WO-001 | Set Up Mayor-Worker Dispatch System | complete |
+| 2026-02-24 | WO-002 | Add Git Worktree for Background Worker Isolation | complete |
+| 2026-02-24 | WO-003 | Background Worker Monitoring & Status Dashboard | complete |
+| 2026-02-24 | WO-004 | Update Context Mirror Files | in-progress |
+
+---
+
 de4bec6 chore: auto-commit session end
 f24adf8 config: add /process-work-orders command for Mayor-Worker dispatch system
 573c1fa vault manual commit 2026-02-19 08:55:43

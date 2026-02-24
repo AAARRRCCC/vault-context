@@ -226,6 +226,14 @@ Result file frontmatter: `id`, `status: complete`, `completed: YYYY-MM-DD`, `wor
 
 Update the work order's `status` field in its frontmatter before pushing.
 
+### Worker worktree
+
+Background work orders execute in a dedicated git worktree at `~/knowledge-base-worker/` (on the `worker` branch). This allows headless Claude Code sessions to run concurrently with interactive sessions without filesystem conflict.
+
+- Changes from background execution are merged into main vault by `mayor-check.sh` after each run
+- The interactive session should `git pull` at session start to pick up any background work
+- Do not open `~/knowledge-base-worker/` in Obsidian — only the main vault directory should be used with Obsidian
+
 ### Lockfile convention
 
 - Check `~/.mayor-worker.lock` before processing — if it exists, another session is running; exit

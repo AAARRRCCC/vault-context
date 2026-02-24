@@ -98,9 +98,10 @@
 | `plans/` directory | ✅ Present | `vault-context/plans/` — multi-phase plan files |
 | `LOOP.md` | ✅ Present | `vault-context/LOOP.md` — autonomous loop reference protocol |
 | Discord signaling | ✅ Working | `mayor-signal.sh` wired into process-work-orders and autonomous-loop |
+| Idle nudge | ✅ Active | `mayor-check.sh` sends Discord DM after 4h idle; quiet hours midnight–8am ET; timestamp at `~/.local/state/mayor-last-activity.txt` |
 | vault-context sync | ✅ Working | `sync-context.sh` post-commit hook; preserves manual sections |
 
-**Work orders completed:** WO-001 through WO-011
+**Work orders completed:** WO-001 through WO-014
 **Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit)
 **System operational since:** 2026-02-24
 **Autonomous loop operational since:** 2026-02-24

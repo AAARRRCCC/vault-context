@@ -1,3 +1,4 @@
+de4bec6 chore: auto-commit session end
 f24adf8 config: add /process-work-orders command for Mayor-Worker dispatch system
 573c1fa vault manual commit 2026-02-19 08:55:43
 628adb2 config: fix sync-context.sh path generation and add PROJECTS.md support
@@ -17,4 +18,3 @@ a7ed30a Merge pull request #22 from xkcoding/fix/sanitize-filename-preserve-cjk
 d6932a3 Merge pull request #24 from xkcoding/fix/upgrade-zsh-compatibility
 08752bf chore: release v0.14.0
 40fd741 Merge pull request #29 from heyitsnoah/feature/add-skills-and-commands
-eb822e6 feat: add skills system with Obsidian and dev-focused skills

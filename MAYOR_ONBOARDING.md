@@ -1,6 +1,6 @@
 # Mayor Onboarding Guide — Brady's Claude Web ↔ Claude Code System
 
-**Last updated:** 2026-02-19
+**Last updated:** 2026-02-25
 **Purpose:** Get a fresh Claude Web account fully operational as a Mayor instance capable of dispatching work to Brady's Mac Mini Claude Code worker and reading back results.
 
 ---
@@ -234,11 +234,23 @@ worker: claude-code
 
 ## Plans and the Autonomous Loop
 
-For non-trivial tasks, use **Plans** instead of single work orders:
+For non-trivial tasks, use **Plans** instead of single work orders.
 
-1. Write `vault-context/plans/PLAN-NNN-slug.md` with `status: active` and `current_phase: 1`
-2. The heartbeat detects the active plan and invokes `/autonomous-loop`
-3. Claude Code works through phases, signaling Brady via Discord at each boundary
+### Plan dispatch protocol (CRITICAL — both steps required)
+
+Dispatching a plan is a **two-step atomic operation**. The worker orients entirely from STATE.md — it does not scan the plans/ directory for new files. If you push a plan file without updating STATE.md, the worker will never see it.
+
+**Step 1:** Write the plan file to `vault-context/plans/PLAN-NNN-slug.md`
+
+**Step 2:** Update `vault-context/STATE.md` to activate it:
+- Set `active_plan` to the plan filename (e.g., `PLAN-003-mayor-dashboard`)
+- Set `phase` to `1`
+- Set `phase_status` to `pending`
+- Set `worker_status` to `active`
+- Update the `Active Plan` section with plan name, current phase, and starting info
+- Update the `Queue` section with all phases from the new plan
+
+Both writes should happen in the same session (back-to-back API calls). If STATE.md isn't updated, the plan is invisible to the worker.
 
 ### Signal types
 
@@ -288,7 +300,8 @@ When you first come online as a Mayor instance:
 | Update existing file | Get SHA first, then PUT with SHA included |
 | Delete file | Get SHA, then DELETE with SHA |
 | List directory | `curl` the contents API for the directory path |
-| Dispatch work | Write a work order .md to `work-orders/` directory |
+| Dispatch work order | Write a WO .md to `work-orders/` directory |
+| Dispatch plan | Write plan to `plans/` **AND** update STATE.md (both required) |
 | Read results | Read from `results/` directory |
 | Check system state | Read `STATE.md` (canonical), then `SYSTEM_STATUS.md` |
 | Check vault structure | Read `STRUCTURE.md` |
@@ -311,16 +324,19 @@ When you first come online as a Mayor instance:
 │                                     │
 │   Reads: vault-context/*            │
 │   Writes: vault-context/work-orders/│
+│           vault-context/plans/      │
+│           vault-context/STATE.md    │
 └──────────────┬──────────────────────┘
                │ GitHub API (PAT)
                ▼
 ┌─────────────────────────────────────┐
 │   AAARRRCCC/vault-context (public)  │
 │                                     │
+│   STATE.md (canonical system state) │
 │   CLAUDE.md      STRUCTURE.md       │
 │   PROJECTS.md    RECENT_CHANGES.md  │
 │   SYSTEM_STATUS.md                  │
-│   work-orders/   results/           │
+│   work-orders/   results/  plans/   │
 └──────────┬───────────▲──────────────┘
            │           │
     polls  │           │ sync-context.sh

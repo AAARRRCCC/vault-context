@@ -1,9 +1,9 @@
 ---
-updated: 2026-02-25T18:00:00Z
+updated: 2026-02-25T18:30:00Z
 active_plan: none
 phase: 0
 phase_status: idle
-worker_status: processing
+worker_status: idle
 last_signal: complete
 last_signal_time: 2026-02-25T17:15:00Z
 ---
@@ -34,6 +34,8 @@ None.
 | 22:16 | Used jq over python3 for JSON escaping in mayor-signal.sh | jq is cleaner and available at /usr/bin/jq (v1.7.1) |
 | 22:33 | Chose stdin JSON (Option C) for mayor-signal.sh refactor | No arg escaping issues; jq heredoc is readable and handles all special chars cleanly |
 | 22:55 | Implemented quiet hours with TZ="America/New_York" date +%H | Simple, available natively in bash; used 10# prefix to avoid octal parsing bugs |
+| WO-024 | Chose Option D for TCC resilience; Options A/B/C inapplicable (claude is standalone Mach-O, not Node.js) | Pre-flight binary change detection + Discord alert is the only viable headless-safe approach |
+| WO-024 | Consolidated heartbeat into single heartbeatStatus() helper for !doctor and !uptime | Removes contradictory "running/not running" — interval agents should report last-fired time |
 
 ## Pending Questions
 

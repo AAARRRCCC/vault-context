@@ -1,11 +1,11 @@
 ---
-updated: 2026-02-25T03:00:00Z
-active_plan: PLAN-003-mayor-dashboard
-phase: 4
-phase_status: in_progress
-worker_status: processing
-last_signal: checkpoint
-last_signal_time: 2026-02-25T02:50:00Z
+updated: 2026-02-25T03:10:00Z
+active_plan: none
+phase: 0
+phase_status: idle
+worker_status: idle
+last_signal: complete
+last_signal_time: 2026-02-25T03:10:00Z
 ---
 
 # System State
@@ -41,6 +41,9 @@ Brady reviewed the dashboard at checkpoint. UI looks good overall. Three changes
 | 22:16 | Used jq over python3 for JSON escaping in mayor-signal.sh | jq is cleaner and available at /usr/bin/jq (v1.7.1) |
 | 22:33 | Chose stdin JSON (Option C) for mayor-signal.sh refactor | No arg escaping issues; jq heredoc is readable and handles all special chars cleanly |
 | 22:55 | Implemented quiet hours with TZ="America/New_York" date +%H | Simple, available natively in bash; used 10# prefix to avoid octal parsing bugs |
+| 03:05 | Killed orphaned node process before loading launchd plist | Previous test run node had PPID=1 (reparented), not registered with launchd — needed clean start |
+| 03:06 | No vault-context/CLAUDE.md update needed | Dashboard is read-only, no worker behavior changes |
+| 03:07 | Log rotation via server-side size check (hourly) | newsyslog requires sudo for /etc/newsyslog.d; server-side rename is simpler and sufficient for a single-machine service |
 
 ## Pending Questions
 
@@ -61,4 +64,4 @@ None.
 - [x] PLAN-003 Phase 1: Signal Log + Project Scaffolding (2026-02-25)
 - [x] PLAN-003 Phase 2: Backend Server (2026-02-25)
 - [x] PLAN-003 Phase 3: Frontend Dashboard (2026-02-25)
-- [ ] PLAN-003 Phase 4: Launchd Service + Polish (includes UI feedback from checkpoint review)
+- [x] PLAN-003 Phase 4: Launchd Service + Polish (2026-02-25) — launchd running, UI polished, log rotation, status.sh updated

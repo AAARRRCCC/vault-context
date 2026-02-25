@@ -1,9 +1,9 @@
 ---
-updated: 2026-02-25T19:15:00Z
-active_plan: none
-phase: 0
-phase_status: idle
-worker_status: idle
+updated: 2026-02-26T00:45:00Z
+active_plan: PLAN-006-token-optimization
+phase: 1
+phase_status: pending
+worker_status: active
 last_signal: complete
 last_signal_time: 2026-02-25T17:15:00Z
 ---
@@ -12,9 +12,9 @@ last_signal_time: 2026-02-25T17:15:00Z
 
 ## Active Plan
 
-- **Plan:** None
-- **Last completed:** PLAN-005 — Foreman Ops Commands (all 3 phases)
-- **Completed:** 2026-02-25
+- **Plan:** PLAN-006 — Token Optimization — Context Window Cleanup
+- **Current phase:** 1 of 2 — "Make Changes"
+- **Phase progress:** Not started
 - **Blockers:** None
 
 ## Mayor Guidance
@@ -61,6 +61,5 @@ None.
 
 ## Queue
 
-- [x] PLAN-005 Phase 1: Diagnostic + Ops Commands (2026-02-25)
-- [x] PLAN-005 Phase 2: Pending Fixes — WO-022 + WO-023 (2026-02-25)
-- [x] PLAN-005 Phase 3: Presence + Polish (2026-02-25)
+- [ ] PLAN-006 Phase 1: Make Changes
+- [ ] PLAN-006 Phase 2: Verify Consistency

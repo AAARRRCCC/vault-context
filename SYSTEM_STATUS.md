@@ -63,7 +63,7 @@
 | Obsidian CLI version | 1.12.2 (bundled with Obsidian) |
 | basic-memory version | 0.18.4 |
 | Cron jobs | None |
-| launchd agents | `com.mayor.workorder-check` (heartbeat, 120s), `com.mayor.dashboard` (web UI, port 3847) |
+| launchd agents | `com.mayor.workorder-check` (heartbeat, 120s), `com.mayor.dashboard` (web UI, port 3847), `com.foreman.bot` (Discord bot, persistent) |
 | GitHub PAT | Present in keychain for `AAARRRCCC` |
 | Vault remote | `github.com/AAARRRCCC/knowledge-base` (private) |
 | Context mirror | `github.com/AAARRRCCC/vault-context` (public) |
@@ -104,6 +104,7 @@
 
 **Work orders completed:** WO-001 through WO-014
 **Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit), PLAN-003 (mayor dashboard)
+**Plans in progress:** PLAN-004 (Foreman Discord bot)
 **System operational since:** 2026-02-24
 **Autonomous loop operational since:** 2026-02-24
 
@@ -137,4 +138,32 @@ launchctl stop com.mayor.dashboard        # stop
 launchctl start com.mayor.dashboard       # start
 launchctl unload ~/Library/LaunchAgents/com.mayor.dashboard.plist  # disable
 mayor-status.sh                           # includes dashboard status
+```
+
+---
+
+## Foreman Discord Bot
+
+**Added:** 2026-02-25 (PLAN-004, Phase 1)
+
+| Property | Value |
+|----------|-------|
+| Bot name | Foreman#7084 |
+| launchd label | `com.foreman.bot` |
+| Service file | `~/Library/LaunchAgents/com.foreman.bot.plist` |
+| Bot code | `~/foreman-bot/bot.js` |
+| Stdout log | `~/.local/log/foreman-bot.log` |
+| Stderr log | `~/.local/log/foreman-bot-error.log` |
+| Auth | Responds only to `MAYOR_DISCORD_USER_ID` DMs |
+| Reconnect | Auto via launchd KeepAlive |
+
+**Phase 1 commands:** `!ping` → Pong.
+
+**To manage:**
+```bash
+launchctl list com.foreman.bot                          # check status
+launchctl stop com.foreman.bot                         # stop
+launchctl start com.foreman.bot                        # start
+launchctl unload ~/Library/LaunchAgents/com.foreman.bot.plist   # disable
+tail -f ~/.local/log/foreman-bot.log                   # live log
 ```

@@ -1,11 +1,11 @@
 ---
 updated: 2026-02-25T14:00:00Z
 active_plan: PLAN-004-discord-bot-upgrade
-phase: 3
-phase_status: pending
+phase: 2
+phase_status: in-progress
 worker_status: processing
 last_signal: checkpoint
-last_signal_time: 2026-02-25T05:10:00Z
+last_signal_time: 2026-02-25T04:56:00Z
 ---
 
 # System State
@@ -13,10 +13,28 @@ last_signal_time: 2026-02-25T05:10:00Z
 ## Active Plan
 
 - **Plan:** PLAN-004 — Foreman Discord Bot Upgrade
-- **Current phase:** 3 of 4 — "Interactive Signals (Tier 2)"
-- **Phase progress:** Not started
+- **Current phase:** 2 of 4 — "Command Suite (Tier 1)"
+- **Phase progress:** Resuming — commands implemented but bot can't receive messages. Fix required before Phase 2 can pass acceptance.
 - **Started:** 2026-02-25
-- **Blockers:** None
+- **Blockers:** Bot doesn't respond to commands (intent issue)
+
+## Mayor Guidance for Phase 2 Resume
+
+Phase 2 cannot pass acceptance — the bot doesn't respond to any commands. Two fixes needed before this phase is done:
+
+1. **`GatewayIntentBits.MessageContent` must be in the Client constructor intents.** Without it, Discord delivers message events with empty content. Also ensure `Partials.Channel` is set (required for DM events).
+
+2. **Replace deprecated `ready` event with `clientReady`** (or `Events.ClientReady`). Error log is spamming deprecation warnings.
+
+3. **Add message receive logging** so we can confirm messages arrive: log author + first 50 chars of content.
+
+4. **Restart the bot** after fixing: `launchctl kickstart -k gui/$(id -u)/com.foreman.bot`
+
+5. **Test:** Send `!ping` from Discord, verify response. Then test `!status` and `!help`.
+
+Brady has already enabled Message Content Intent in the Discord Developer Portal. This is code-side only.
+
+Also pick up WO-021 in work-orders/ which documents the same fix — mark it complete when done.
 
 ## Decision Log
 
@@ -46,12 +64,10 @@ None.
 - [x] PLAN-003 Phase 2: Backend Server (2026-02-25)
 - [x] PLAN-003 Phase 3: Frontend Dashboard (2026-02-25)
 - [x] PLAN-003 Phase 4: Launchd Service + Polish (2026-02-25)
-- [x] PLAN-004 Phase 1: Bot Service Foundation (2026-02-25) — Foreman#7084 online, launchd service running
-- [x] PLAN-004 Phase 2: Command Suite (2026-02-25) — all 8 commands implemented: !ping !status !resume !pause !cancel !confirm !answer !log !signals !help
+- [x] PLAN-004 Phase 1: Bot Service Foundation (2026-02-25)
 
 ## Queue
 
-- [x] PLAN-004 Phase 1: Bot Service Foundation
-- [x] PLAN-004 Phase 2: Command Suite (Tier 1)
+- [ ] PLAN-004 Phase 2: Command Suite — fix intent bug, verify commands work (in progress)
 - [ ] PLAN-004 Phase 3: Interactive Signals (Tier 2)
 - [ ] PLAN-004 Phase 4: Foreman Personality + Conversational Relay (Tier 3)

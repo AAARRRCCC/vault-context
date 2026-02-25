@@ -1,26 +1,22 @@
 ---
-updated: 2026-02-25T05:28:30Z
-active_plan: PLAN-004-discord-bot-upgrade
-phase: 3
-phase_status: complete
-worker_status: processing
-last_signal: notify
-last_signal_time: 2026-02-25T05:28:30Z
+updated: 2026-02-25T05:35:00Z
+active_plan: none
+phase: 0
+phase_status: idle
+worker_status: idle
+last_signal: complete
+last_signal_time: 2026-02-25T05:35:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-- **Plan:** PLAN-004 — Foreman Discord Bot Upgrade
-- **Current phase:** 3 of 4 — "Interactive Signals (Tier 2)" — COMPLETE
-- **Phase progress:** mayor-signal.sh updated with actionable footers for checkpoint/blocked. Context file written to ~/.local/state/last-signal-context.json. bot.js updated to read context on !resume/!answer. Bot restarted. Full loop verified.
-- **Started:** 2026-02-25
-- **Blockers:** None
+None. System idle.
 
 ## Mayor Guidance
 
-Phase 2 verified by Brady. Advancing to Phase 3: Interactive Signals.
+None.
 
 ## Decision Log
 
@@ -60,4 +56,4 @@ None.
 ## Queue
 
 - [x] PLAN-004 Phase 3: Interactive Signals (Tier 2) — complete. Footers added, context file handshake, bot updated.
-- [ ] PLAN-004 Phase 4: Foreman Personality + Conversational Relay (Tier 3)
+- [x] PLAN-004 Phase 4: Foreman Personality + Conversational Relay (Tier 3) — complete. foreman-prompt.md, relay via claude CLI, presence updates, docs updated.

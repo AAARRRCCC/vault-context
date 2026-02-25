@@ -135,4 +135,19 @@ The lockfile guard in `mayor-check.sh` prevents duplicate sessions. Heartbeat se
 
 ---
 
+## Pre-Completion Doc Audit
+
+Before firing any `complete` signal (plan or work order), the worker verifies that system documentation is consistent with changes made during execution.
+
+Check these files for anything that may be stale:
+- `SYSTEM_STATUS.md` — new services, scripts, paths, or config
+- `CLAUDE.md` — worker orientation (commands, protocols, paths)
+- `MAYOR_ONBOARDING.md` — dispatch protocol or system description
+- `LOOP.md` — loop reference vs. current behavior
+- `AUTONOMOUS-LOOP.md` — design doc vs. current architecture
+
+If a discrepancy is found, fix it before completing. If unsure, signal `checkpoint` instead of `complete`.
+
+---
+
 *This document is the canonical reference. `.claude/commands/autonomous-loop.md` is the executable command that implements it.*

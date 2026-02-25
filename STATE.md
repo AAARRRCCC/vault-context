@@ -1,9 +1,9 @@
 ---
-updated: 2026-02-25T14:00:00Z
+updated: 2026-02-25T14:15:00Z
 active_plan: none
 phase: 0
 phase_status: idle
-worker_status: processing
+worker_status: idle
 last_signal: complete
 last_signal_time: 2026-02-25T03:27:00Z
 ---
@@ -45,6 +45,7 @@ Brady reviewed the dashboard at checkpoint. UI looks good overall. Three changes
 | 03:06 | No vault-context/CLAUDE.md update needed | Dashboard is read-only, no worker behavior changes |
 | 03:07 | Log rotation via server-side size check (hourly) | newsyslog requires sudo for /etc/newsyslog.d; server-side rename is simpler and sufficient for a single-machine service |
 | 03:27 | CSS innerHTML transitions skipped for WO-015 | Reliable fade on innerHTML swap requires reflow trick that risks flicker; badge and scroll-btn transitions preserved instead |
+| 14:10 | WO-001 appeared in pending grep due to body text | Frontmatter already shows complete; grep matched "status: pending" in acceptance criteria list — noted in WO-017 result |
 
 ## Pending Questions
 

@@ -265,6 +265,10 @@ When Claude Code starts a session (manual or via launchd):
    - Check `vault-context/work-orders/` for pending one-off WOs (existing behavior)
    - If none: idle
 
+### Pre-Completion Doc Audit
+
+At every plan completion boundary (before firing a `complete` signal), the loop runs a doc audit: a quick check that `SYSTEM_STATUS.md`, `CLAUDE.md`, `MAYOR_ONBOARDING.md`, `LOOP.md`, and `AUTONOMOUS-LOOP.md` reflect any system changes made during the plan. Discrepancies are fixed in the same commit as the final changes. If anything is uncertain, the worker signals `checkpoint` rather than `complete`. See `LOOP.md` for the full checklist.
+
 ### Session Boundaries
 
 Claude Code sessions don't last forever. The loop should be designed to survive session interruption gracefully:

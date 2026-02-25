@@ -62,10 +62,11 @@ When starting any session (manual or via launchd):
 
 1. `git -C /Users/rbradmac/Documents/vault-context pull`
 2. Read `vault-context/STATE.md`
-3. Check `active_plan` and `worker_status`:
-   - `active_plan` is set AND `worker_status` is `active` or `processing` → enter the loop
+3. Read `CLAUDE-LEARNINGS.md` — skim for entries relevant to the current task
+4. Check `active_plan` and `worker_status`:
+   - `active_plan` is set AND `worker_status` is `active` or `processing` → create rollback tag (`git tag -f "pre-PLAN-NNN" HEAD && git push origin "pre-PLAN-NNN" --force`), then enter the loop
    - `active_plan` is set AND `worker_status` is `paused` → check if Mayor has updated STATE.md since last signal (look for resolved pending questions). If resolved, resume. If not, stay idle.
-   - `active_plan` is `none` → fall back to checking `work-orders/` for pending WOs
+   - `active_plan` is `none` → fall back to checking `work-orders/` for pending WOs (rollback tag created per WO in process-work-orders)
 
 ---
 

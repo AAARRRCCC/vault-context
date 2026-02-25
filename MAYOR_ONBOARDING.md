@@ -261,6 +261,22 @@ Both writes should happen in the same session (back-to-back API calls). If STATE
 | `blocked` | Can't proceed without input | DM Brady, pause |
 | `complete` | Plan finished | DM Brady, go idle |
 
+### Rollback tags
+
+The worker creates a git tag on the vault before every plan and work order execution. If changes go wrong, Brady can rollback with one command:
+
+```bash
+# Rollback a bad plan:
+git reset --hard pre-PLAN-003
+git push --force
+
+# Rollback a bad work order:
+git reset --hard pre-WO-015
+git push --force
+```
+
+Tags follow the format `pre-PLAN-NNN` and `pre-WO-NNN`. They're pushed to the remote so they survive a machine restart.
+
 ### Unblocking a paused plan
 
 Resolve pending questions in STATE.md, set `worker_status: active`, commit and push. The next heartbeat (2 minutes) will resume the loop.

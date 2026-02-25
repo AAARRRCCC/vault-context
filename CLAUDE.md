@@ -200,9 +200,10 @@ Claude Web (Opus) acts as Mayor — it plans and dispatches tasks by pushing mar
 1. `git -C /Users/rbradmac/Documents/vault-context pull`
 2. Read `STATE.md` — this is your orientation
 3. If `active_plan` is set, read the active plan file in `vault-context/plans/`
-4. If you need vault structure context, read `STRUCTURE.md`
-5. Now you're oriented. Act.
-6. Before ending session: update `STATE.md`, commit vault-context, push
+4. Read `CLAUDE-LEARNINGS.md` — skim for entries relevant to the current task
+5. If you need vault structure context, read `STRUCTURE.md`
+6. Now you're oriented. Act.
+7. Before ending session: update `STATE.md`, commit vault-context, push
 
 **Standing rule:** `STATE.md` updated timestamp must not be more than 15 minutes stale during active work. If it is, something crashed.
 
@@ -263,7 +264,9 @@ Use `mayor-signal.sh` to send DMs to Brady through the Mayor bot:
 ~/.local/bin/mayor-signal.sh <type> <message>
 ```
 
-Signal types: `notify` (green), `checkpoint` (orange), `blocked` (red), `stalled` (gold), `complete` (blue), `error` (dark red).
+Signal types: `notify` (green), `checkpoint` (orange), `blocked` (red), `stalled` (gold), `complete` (blue), `error` (dark red), `idle` (muted purple).
+
+`checkpoint` and `blocked` signals include actionable reply instructions in the embed footer. Brady can respond directly from Discord via `!resume` or `!answer <text>` — the Foreman bot handles it without requiring a browser.
 
 Use this for meaningful events — work order completion, blockers, errors — not routine progress. Env vars `MAYOR_DISCORD_TOKEN` and `MAYOR_DISCORD_USER_ID` must be set (they're in `~/.zshrc`).
 

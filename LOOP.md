@@ -87,8 +87,8 @@ Claude Code sessions don't last forever. The loop survives interruption because:
 | Signal | When to fire | Worker action | Brady action |
 |--------|-------------|---------------|--------------|
 | `notify` | Phase done, all good, continuing | Send DM, advance to next phase, keep working | No action needed |
-| `checkpoint` | Phase done, wants review before continuing | Send DM, set `worker_status: paused` | Review STATE.md, update to unblock |
-| `blocked` | Can't proceed without input | Send DM, set `worker_status: paused` | Answer the blocking question |
+| `checkpoint` | Phase done, wants review before continuing | Send DM, set `worker_status: paused` | Send `!resume` or `!answer` to Foreman, or update STATE.md directly |
+| `blocked` | Can't proceed without input | Send DM, set `worker_status: paused` | Send `!answer <text>` to Foreman, or update STATE.md directly |
 | `stalled` | Phase taking too long | Send DM, set `worker_status: paused` | Investigate |
 | `complete` | Last phase done, plan finished | Send DM, set `worker_status: idle`, `active_plan: none` | Review results |
 | `error` | Unrecoverable error | Send DM, set `worker_status: paused` | Investigate logs |

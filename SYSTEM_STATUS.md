@@ -157,7 +157,15 @@ mayor-status.sh                           # includes dashboard status
 | Auth | Responds only to `MAYOR_DISCORD_USER_ID` DMs |
 | Reconnect | Auto via launchd KeepAlive |
 
-**Phase 1 commands:** `!ping` → Pong.
+**Commands:** `!ping`, `!status`, `!resume`, `!pause`, `!cancel`, `!confirm`, `!answer <text>`, `!log`, `!signals`, `!help`
+
+**Conversational relay:** Non-command messages route to `claude -p` with a Foreman system prompt, STATE.md context, and `--dangerously-skip-permissions`. Responses sent back through Discord. Max budget $2.00/relay call. Timeout 60s (warns at 30s). Full response attached as .md file if over 1500 chars.
+
+**Interactive signals:** `checkpoint` and `blocked` signals include a reply prompt in the embed footer. Context file `~/.local/state/last-signal-context.json` persists signal context for `!resume`/`!answer`.
+
+**Presence:** Bot Discord presence reflects current worker state (idle/processing/paused).
+
+**Prompt file:** `~/foreman-bot/foreman-prompt.md`
 
 **To manage:**
 ```bash

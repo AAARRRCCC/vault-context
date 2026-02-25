@@ -293,7 +293,7 @@ The lockfile guard in `mayor-check.sh` prevents the heartbeat from spawning a se
 
 ### Approach: Discord Bot (DM-based)
 
-We use a proper Discord bot rather than a webhook. This lets Claude Code DM Brady directly (no server/channel required for signaling), and leaves room for future expansion (commands, interactive responses, etc.).
+We use a proper Discord bot (Foreman) rather than a webhook. This lets Claude Code DM Brady directly (no server/channel required for signaling). Foreman is now fully built — it handles inbound commands (`!status`, `!resume`, `!pause`, `!cancel`, `!answer`, `!log`, `!signals`, `!help`) and natural language relay through Claude Code. Brady can manage the system entirely from Discord without opening claude.ai.
 
 ### Setup (Brady does this)
 
@@ -477,7 +477,7 @@ Write `.claude/commands/autonomous-loop.md` — the full loop logic. Update the 
 
 ## Design Decisions (Resolved)
 
-1. **Discord:** Proper bot that DMs Brady directly, not a webhook. Leaves room for future expansion (interactive commands, etc.). Brady creates the bot on the Discord dev portal and stores the token + user ID as env vars.
+1. **Discord:** Foreman bot (discord.js + launchd) DMs Brady directly. Full command suite and conversational relay now implemented (PLAN-004). Brady creates the bot on the Discord dev portal and stores the token + user ID as env vars.
 
 2. **Signal frequency:** Every phase fires a signal. Brady can mute if it gets noisy.
 

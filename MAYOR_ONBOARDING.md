@@ -292,7 +292,9 @@ Tags follow the format `pre-PLAN-NNN` and `pre-WO-NNN`. They're pushed to the re
 
 ### Unblocking a paused plan
 
-Resolve pending questions in STATE.md, set `worker_status: active`, commit and push. The next heartbeat (2 minutes) will resume the loop.
+Option A (via Discord): Brady can send `!resume` or `!answer <text>` to Foreman directly from his phone. Foreman updates STATE.md and commits.
+
+Option B (via GitHub): Resolve pending questions in STATE.md, set `worker_status: active`, commit and push. The next heartbeat (2 minutes) will resume the loop.
 
 See `vault-context/LOOP.md` for the full autonomous loop reference.
 

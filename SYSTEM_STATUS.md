@@ -99,11 +99,11 @@
 | `LOOP.md` | ✅ Present | `vault-context/LOOP.md` — autonomous loop reference protocol |
 | Discord signaling | ✅ Working | `mayor-signal.sh` wired into process-work-orders and autonomous-loop |
 | Idle nudge | ✅ Active | `mayor-check.sh` sends Discord DM after 4h idle; quiet hours midnight–8am ET; timestamp at `~/.local/state/mayor-last-activity.txt` |
-| vault-context sync | ✅ Working | `sync-context.sh` post-commit hook; preserves manual sections |
+| vault-context sync | ✅ Working | `sync-context.sh` post-commit hook; syncs CLAUDE.md, CLAUDE-LEARNINGS.md, STRUCTURE.md, RECENT_CHANGES.md |
 | Mayor Dashboard | ✅ Running | `com.mayor.dashboard` launchd service; Node.js server at `http://localhost:3847` |
 
 **Work orders completed:** WO-001 through WO-023
-**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit), PLAN-003 (mayor dashboard), PLAN-004 (Foreman bot), PLAN-005 (ops commands)
+**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit), PLAN-003 (mayor dashboard), PLAN-004 (Foreman bot), PLAN-005 (ops commands), PLAN-006 (token optimization)
 **Plans in progress:** None
 **System operational since:** 2026-02-24
 **Autonomous loop operational since:** 2026-02-24

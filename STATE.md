@@ -1,9 +1,9 @@
 ---
-updated: 2026-02-25T02:50:00Z
+updated: 2026-02-25T02:55:00Z
 active_plan: PLAN-003-mayor-dashboard
 phase: 4
 phase_status: pending
-worker_status: paused
+worker_status: active
 last_signal: checkpoint
 last_signal_time: 2026-02-25T02:50:00Z
 ---
@@ -14,9 +14,19 @@ last_signal_time: 2026-02-25T02:50:00Z
 
 - **Plan:** PLAN-003 — Mayor Dashboard
 - **Current phase:** 4 of 4 — "Launchd Service + Polish"
-- **Phase progress:** Pending Brady review of dashboard UI
+- **Phase progress:** Resuming — Brady reviewed UI, approved with feedback below
 - **Started:** 2026-02-25
 - **Blockers:** None
+
+## Mayor Guidance for Phase 4
+
+Brady reviewed the dashboard at checkpoint. UI looks good overall. Three changes to make during Phase 4 polish, before setting up launchd:
+
+1. **Live Session panel — render content nicely.** The raw JSONL text is hard to scan. Render markdown content within session records (bold, code blocks, lists, etc.). Tool call JSON should be syntax-highlighted or at least formatted readably. Anything that can be rendered nicely should be — don't just dump raw text.
+
+2. **Sort order — most recent at top everywhere.** Active Plan decision log should show newest decisions first. Work Order Queue should show most recent WOs at top. Right now the "Show all 14 completed" collapsed view shows WO-001 through WO-003 (the oldest three) instead of the most recent three. Flip to descending sort so the collapsed preview shows the latest activity.
+
+3. **These are polish items** — fold them into Phase 4 alongside the launchd setup, log rotation, and SYSTEM_STATUS.md updates already in the plan.
 
 ## Decision Log
 
@@ -51,4 +61,4 @@ None.
 - [x] PLAN-003 Phase 1: Signal Log + Project Scaffolding (2026-02-25)
 - [x] PLAN-003 Phase 2: Backend Server (2026-02-25)
 - [x] PLAN-003 Phase 3: Frontend Dashboard (2026-02-25)
-- [ ] PLAN-003 Phase 4: Launchd Service + Polish
+- [ ] PLAN-003 Phase 4: Launchd Service + Polish (includes UI feedback from checkpoint review)

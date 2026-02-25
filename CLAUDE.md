@@ -200,7 +200,7 @@ Claude Web (Opus) acts as Mayor — it plans and dispatches tasks by pushing mar
 1. `git -C /Users/rbradmac/Documents/vault-context pull`
 2. Read `STATE.md` — this is your orientation
 3. If `active_plan` is set, read the active plan file in `vault-context/plans/`
-4. Read `CLAUDE-LEARNINGS.md` — skim for entries relevant to the current task
+4. Read `CLAUDE-LEARNINGS.md` (project root) — skim for entries relevant to the current task. This file is also synced to vault-context for Mayor access.
 5. If you need vault structure context, read `STRUCTURE.md`
 6. Now you're oriented. Act.
 7. Before ending session: update `STATE.md`, commit vault-context, push

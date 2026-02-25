@@ -18,8 +18,11 @@
 
 
 
+
 ---
 
+5ae06f0 PLAN-006: add sync-context.sh to main branch
+a04761c PLAN-006: clarify CLAUDE-LEARNINGS.md path in orientation protocol
 5e70bf9 PLAN-005: append Phase 5 learnings to CLAUDE-LEARNINGS.md
 f11b88a PLAN-004: append Phase 4 learnings to CLAUDE-LEARNINGS.md
 e30455c vault auto-commit 2026-02-24 23:31:17
@@ -38,5 +41,3 @@ c555893 context update: 2026-02-24 17:16
 b0eb704 context update: 2026-02-24 17:16
 925bbdb context update: 2026-02-24 17:16
 64bf3b6 context update: 2026-02-24 17:16
-5b51803 context update: 2026-02-24 17:16
-7d37e01 context update: 2026-02-24 17:16

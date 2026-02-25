@@ -6,6 +6,8 @@
 ./.claude/settings.local.json
 ./.git
 ./.obsidian
+./.scripts
+./.scripts/sync-context.sh
 ./AUTONOMOUS-LOOP.md
 ./CLAUDE-LEARNINGS.md
 ./CLAUDE.md

@@ -17,25 +17,26 @@
 
 
 
+
 ---
 
-346a50b chore: auto-commit session end
-6edcbd2 feat: autonomous loop command + CLAUDE.md docs update (WO-011)
-982b42d feat: add frontmatter to files missing it (PLAN-002 Phase 2)
-a5abd5a feat: inbox triage — archive Welcome.md, tag README.md needs-processing (PLAN-001)
-cbde685 feat: add plans directory and autonomous loop doc reference (WO-010)
-0645e56 feat: establish STATE.md protocol and orientation procedure (WO-009)
-11ce93a feat: wire Discord signals into process-work-orders (WO-008)
-97e8285 infra: add SYSTEM_STATUS.md for Mayor-Worker infrastructure (WO-007)
-1457bd8 chore: remove claudesidian template scaffolding from vault root
-564eba4 config: update sync-context.sh to preserve manual sections in RECENT_CHANGES and STRUCTURE
-de4bec6 chore: auto-commit session end
-f24adf8 config: add /process-work-orders command for Mayor-Worker dispatch system
-573c1fa vault manual commit 2026-02-19 08:55:43
-628adb2 config: fix sync-context.sh path generation and add PROJECTS.md support
-0c3f686 config: add context mirror script and fill out .gitignore
-11bf8ab chore: auto-commit session end
-ce05308 cleanup: remove test file
-06bc6b4 test: verify push works
-bfb51fa chore: pre-remote sync — add Obsidian config, skills, templates, and resources
-08ce614 feat: integrate basic-memory MCP with Obsidian vault
+5e70bf9 PLAN-005: append Phase 5 learnings to CLAUDE-LEARNINGS.md
+f11b88a PLAN-004: append Phase 4 learnings to CLAUDE-LEARNINGS.md
+e30455c vault auto-commit 2026-02-24 23:31:17
+37ff4c9 WO-018: add CLAUDE-LEARNINGS.md and pre-plan rollback tags
+f1dd91e WO-017: add pre-completion doc audit step to autonomous-loop and process-work-orders commands
+cf3be71 WO-014: add idle nudge — track 4h idle, signal Discord, quiet hours
+9cd002b Merge branch 'worker'
+76f1295 chore: auto-commit session end
+0b2e2f5 WO-013: refactor signal templates to embed fields format
+30c4717 context update: 2026-02-24 17:16
+e6015da context update: 2026-02-24 17:16
+1e1d25a context update: 2026-02-24 17:16
+b913f67 context update: 2026-02-24 17:16
+c555893 context update: 2026-02-24 17:16
+5a4c9c8 context update: 2026-02-24 17:16
+b0eb704 context update: 2026-02-24 17:16
+925bbdb context update: 2026-02-24 17:16
+64bf3b6 context update: 2026-02-24 17:16
+5b51803 context update: 2026-02-24 17:16
+7d37e01 context update: 2026-02-24 17:16

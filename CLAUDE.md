@@ -200,7 +200,7 @@ Claude Web (Opus) acts as Mayor — it plans and dispatches tasks by pushing mar
 1. `git -C /Users/rbradmac/Documents/vault-context pull`
 2. Read `STATE.md` — this is your orientation
 3. If `active_plan` is set, read the active plan file in `vault-context/plans/`
-4. Read `CLAUDE-LEARNINGS.md` (project root) — skim for entries relevant to the current task. This file is also synced to vault-context for Mayor access.
+4. Read `CLAUDE-LEARNINGS.md` — skim for entries relevant to the current task
 5. If you need vault structure context, read `STRUCTURE.md`
 6. Now you're oriented. Act.
 7. Before ending session: update `STATE.md`, commit vault-context, push
@@ -266,11 +266,43 @@ Use `mayor-signal.sh` to send DMs to Brady through the Mayor bot:
 
 Signal types: `notify` (green), `checkpoint` (orange), `blocked` (red), `stalled` (gold), `complete` (blue), `error` (dark red), `idle` (muted purple).
 
-`checkpoint` and `blocked` signals include actionable reply instructions in the embed footer. Brady can respond directly from Discord via `!resume` or `!answer <text>` — the Foreman bot handles it without requiring a browser.
-
 Use this for meaningful events — work order completion, blockers, errors — not routine progress. Env vars `MAYOR_DISCORD_TOKEN` and `MAYOR_DISCORD_USER_ID` must be set (they're in `~/.zshrc`).
 
 `process-work-orders` fires Discord signals automatically after committing each result: `complete` on success, `blocked` on failure, `error` on unexpected errors.
+
+### Rollback tags
+
+Before starting any plan or work order, create a rollback tag so Brady can undo bad changes with one command:
+
+```bash
+# For plans:
+git tag -f "pre-PLAN-NNN" HEAD
+git push origin "pre-PLAN-NNN" --force
+
+# For work orders:
+git tag -f "pre-WO-NNN" HEAD
+git push origin "pre-WO-NNN" --force
+```
+
+To rollback:
+
+```bash
+# Rollback a bad plan:
+git reset --hard pre-PLAN-003
+git push --force
+
+# Rollback a bad work order:
+git reset --hard pre-WO-015
+git push --force
+```
+
+The `-f` flag overwrites if the tag already exists (safe for retries after a crash).
+
+### Idle nudge
+
+When the system has been idle (no active plan, no pending work orders) for 4+ hours, `mayor-check.sh` sends Brady a Discord DM nudging him to dispatch new work. The nudge repeats every 4 hours if still idle. Quiet hours (midnight–8am Eastern) are suppressed.
+
+The idle clock resets whenever real work is picked up or a nudge is sent. Last activity timestamp: `~/.local/state/mayor-last-activity.txt` (epoch seconds).
 
 ### Worker status
 

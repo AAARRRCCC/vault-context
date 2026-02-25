@@ -34,3 +34,7 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 - `launchctl kickstart -k gui/<uid>/<label>` is the correct restart command on macOS Sonoma+; get uid with `id -u` at call time since the bot may run as different users
 - `appendDecisionLog` regex approach for STATE.md table works, but depends on the exact table header and section separator format — fragile to section restructuring
 - `process.exit(0)` for `!fix bot` is clean and correct — launchd KeepAlive=true respawns immediately; no need for explicit restart command
+
+### 2026-02-25 — PLAN-006: token-optimization
+- sync-context.sh in the worker branch was untracked in git AND missing from the main vault — post-commit hook referenced the main vault path so all main branch commits silently skipped the sync. Added script to both branches.
+- When editing vault-context/CLAUDE.md directly, running the sync afterward will OVERWRITE those changes with the main vault copy — always update the main vault CLAUDE.md as the source of truth, not the mirror.

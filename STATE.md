@@ -1,11 +1,11 @@
 ---
-updated: 2026-02-25T16:00:00Z
+updated: 2026-02-25T05:28:30Z
 active_plan: PLAN-004-discord-bot-upgrade
 phase: 3
-phase_status: in-progress
+phase_status: complete
 worker_status: processing
-last_signal: checkpoint
-last_signal_time: 2026-02-25T15:45:00Z
+last_signal: notify
+last_signal_time: 2026-02-25T05:28:30Z
 ---
 
 # System State
@@ -13,8 +13,8 @@ last_signal_time: 2026-02-25T15:45:00Z
 ## Active Plan
 
 - **Plan:** PLAN-004 — Foreman Discord Bot Upgrade
-- **Current phase:** 3 of 4 — "Interactive Signals (Tier 2)"
-- **Phase progress:** Phase 3 started. Implementing actionable footers in mayor-signal.sh and context-aware resume in bot.js.
+- **Current phase:** 3 of 4 — "Interactive Signals (Tier 2)" — COMPLETE
+- **Phase progress:** mayor-signal.sh updated with actionable footers for checkpoint/blocked. Context file written to ~/.local/state/last-signal-context.json. bot.js updated to read context on !resume/!answer. Bot restarted. Full loop verified.
 - **Started:** 2026-02-25
 - **Blockers:** None
 
@@ -38,6 +38,7 @@ Phase 2 verified by Brady. Advancing to Phase 3: Interactive Signals.
 | 15:45 | Added Partials.Channel + Partials.Message to bot; fetch partials before reading content | DM events require partial handling; guard against null author on partial messages |
 | 15:45 | Replaced GatewayIntentBits.DirectMessageReactions with Guilds | WO-021 guidance; some discord.js versions need Guilds for DM receipt |
 | 15:45 | Used Events.ClientReady (enum) over 'ready' string | Fixes deprecation warning; enum is forward-compatible with v15 |
+| 05:28 | Used ~/.local/state/last-signal-context.json for signal context | mayor-signal.sh writes it; bot reads it — simple file handshake between two processes |
 
 ## Pending Questions
 
@@ -58,5 +59,5 @@ None.
 
 ## Queue
 
-- [ ] PLAN-004 Phase 3: Interactive Signals (Tier 2) — in progress
+- [x] PLAN-004 Phase 3: Interactive Signals (Tier 2) — complete. Footers added, context file handshake, bot updated.
 - [ ] PLAN-004 Phase 4: Foreman Personality + Conversational Relay (Tier 3)

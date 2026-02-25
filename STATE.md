@@ -1,11 +1,11 @@
 ---
-updated: 2026-02-25T15:30:00Z
+updated: 2026-02-25T15:45:00Z
 active_plan: PLAN-004-discord-bot-upgrade
 phase: 2
-phase_status: in-progress
-worker_status: processing
+phase_status: complete
+worker_status: paused
 last_signal: checkpoint
-last_signal_time: 2026-02-25T04:56:00Z
+last_signal_time: 2026-02-25T15:45:00Z
 ---
 
 # System State
@@ -14,27 +14,13 @@ last_signal_time: 2026-02-25T04:56:00Z
 
 - **Plan:** PLAN-004 — Foreman Discord Bot Upgrade
 - **Current phase:** 2 of 4 — "Command Suite (Tier 1)"
-- **Phase progress:** Resuming — commands implemented but bot can't receive messages. Fix required before Phase 2 can pass acceptance.
+- **Phase progress:** Phase 2 implementation complete. Intent bug fixed, bot restarted. Awaiting Brady's manual verification of commands from Discord before advancing to Phase 3.
 - **Started:** 2026-02-25
-- **Blockers:** Bot doesn't respond to commands (intent issue)
+- **Blockers:** None — pending Brady's Discord test of `!ping`, `!status`, `!help`
 
-## Mayor Guidance for Phase 2 Resume
+## Mayor Guidance
 
-Phase 2 cannot pass acceptance — the bot doesn't respond to any commands. Two fixes needed before this phase is done:
-
-1. **`GatewayIntentBits.MessageContent` must be in the Client constructor intents.** Without it, Discord delivers message events with empty content. Also ensure `Partials.Channel` is set (required for DM events).
-
-2. **Replace deprecated `ready` event with `clientReady`** (or `Events.ClientReady`). Error log is spamming deprecation warnings.
-
-3. **Add message receive logging** so we can confirm messages arrive: log author + first 50 chars of content.
-
-4. **Restart the bot** after fixing: `launchctl kickstart -k gui/$(id -u)/com.foreman.bot`
-
-5. **Test:** Send `!ping` from Discord, verify response. Then test `!status` and `!help`.
-
-Brady has already enabled Message Content Intent in the Discord Developer Portal. This is code-side only.
-
-Also pick up WO-021 in work-orders/ which documents the same fix — mark it complete when done.
+Phase 2 fixes applied (WO-021 complete). Bot running with correct intents. Please test `!ping` from Discord to verify, then signal `!resume` to advance to Phase 3.
 
 ## Decision Log
 
@@ -49,6 +35,9 @@ Also pick up WO-021 in work-orders/ which documents the same fix — mark it com
 | 22:16 | Used jq over python3 for JSON escaping in mayor-signal.sh | jq is cleaner and available at /usr/bin/jq (v1.7.1) |
 | 22:33 | Chose stdin JSON (Option C) for mayor-signal.sh refactor | No arg escaping issues; jq heredoc is readable and handles all special chars cleanly |
 | 22:55 | Implemented quiet hours with TZ="America/New_York" date +%H | Simple, available natively in bash; used 10# prefix to avoid octal parsing bugs |
+| 15:45 | Added Partials.Channel + Partials.Message to bot; fetch partials before reading content | DM events require partial handling; guard against null author on partial messages |
+| 15:45 | Replaced GatewayIntentBits.DirectMessageReactions with Guilds | WO-021 guidance; some discord.js versions need Guilds for DM receipt |
+| 15:45 | Used Events.ClientReady (enum) over 'ready' string | Fixes deprecation warning; enum is forward-compatible with v15 |
 
 ## Pending Questions
 
@@ -65,9 +54,9 @@ None.
 - [x] PLAN-003 Phase 3: Frontend Dashboard (2026-02-25)
 - [x] PLAN-003 Phase 4: Launchd Service + Polish (2026-02-25)
 - [x] PLAN-004 Phase 1: Bot Service Foundation (2026-02-25)
+- [x] PLAN-004 Phase 2: Command Suite (2026-02-25) — intent/partials fixed, commands implemented, bot running clean
 
 ## Queue
 
-- [ ] PLAN-004 Phase 2: Command Suite — fix intent bug, verify commands work (in progress)
-- [ ] PLAN-004 Phase 3: Interactive Signals (Tier 2)
+- [ ] PLAN-004 Phase 3: Interactive Signals (Tier 2) — waiting for Brady to verify Phase 2 commands work
 - [ ] PLAN-004 Phase 4: Foreman Personality + Conversational Relay (Tier 3)

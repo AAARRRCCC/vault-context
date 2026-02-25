@@ -2,7 +2,8 @@
 
 **Author:** Claude Web (Mayor)
 **Date:** 2026-02-24
-**Status:** Design — pending Brady review
+**Updated:** 2026-02-25
+**Status:** Operational
 
 ---
 
@@ -37,6 +38,8 @@ The key change: Mayor no longer writes one-shot work orders. Mayor writes **Plan
 ### Purpose
 
 The canonical, machine-readable snapshot of where things stand. Every Claude Code session starts by reading this file. Every session ends by updating it. This is the antidote to fog of war.
+
+**Critical invariant:** The worker orients entirely from STATE.md. It does not scan the `plans/` directory for new or unactivated plans. A plan file that exists in `plans/` but is not referenced by STATE.md's `active_plan` field is invisible to the worker. See Component 6 (Plan Dispatch Protocol) for the correct dispatch procedure.
 
 ### Location
 
@@ -400,6 +403,44 @@ Who knows what, and how they know it:
 
 ---
 
+## Component 6: Plan Dispatch Protocol
+
+### The problem this solves
+
+The worker orients from STATE.md, not by scanning the `plans/` directory. A plan file pushed to `plans/` without a corresponding STATE.md update is invisible to the worker — the heartbeat will check STATE.md, see `active_plan: none`, and go idle.
+
+### Dispatch procedure (Mayor's responsibility)
+
+Dispatching a plan is a **two-step atomic operation.** Both steps must happen in the same Mayor session:
+
+**Step 1: Push the plan file**
+Write the plan to `vault-context/plans/PLAN-NNN-slug.md` with full phase definitions, acceptance criteria, and signal types.
+
+**Step 2: Activate in STATE.md**
+Update `vault-context/STATE.md` with:
+- `active_plan: PLAN-NNN-slug` (matches the filename without `.md`)
+- `phase: 1`
+- `phase_status: pending`
+- `worker_status: active`
+- `updated: <current timestamp>`
+- Active Plan section filled in with plan name, phase 1 info, "Not started"
+- Queue section listing all phases from the plan
+
+### Why two steps instead of one
+
+STATE.md serves multiple purposes — it's the worker's orientation file, the Mayor's status check, and the dashboard's primary data source. Having the Mayor explicitly activate a plan means the Mayor controls timing (e.g., can write the plan now but activate it tomorrow), and STATE.md always reflects intentional state rather than implicit directory scanning.
+
+### What happens on the worker side
+
+The next heartbeat (within 2 minutes) will:
+1. `git pull` vault-context
+2. Read STATE.md
+3. See `active_plan` is set and `worker_status` is `active`
+4. Read the plan file from `plans/`
+5. Enter the autonomous loop at phase 1
+
+---
+
 ## Implementation Plan
 
 This design should be implemented in order. Each piece builds on the last.
@@ -418,7 +459,7 @@ Create initial `STATE.md` in vault-context. Update `CLAUDE.md` to include the "r
 
 ### Step 3: Plan format + first test plan
 
-Create `vault-context/plans/` directory. I (Mayor) write a small test plan — something low-stakes like "audit and tag all files in 00_Inbox." Two phases, one notify signal, one complete signal.
+Create `vault-context/plans/` directory. Mayor writes a small test plan — something low-stakes like "audit and tag all files in 00_Inbox." Two phases, one notify signal, one complete signal. **Mayor must also update STATE.md to activate the plan** (see Component 6) — pushing the plan file alone is not sufficient.
 
 **Why third:** Test the plan format and signal flow end-to-end before building the full loop.
 
@@ -441,6 +482,8 @@ Write `.claude/commands/autonomous-loop.md` — the full loop logic. Update the 
 4. **Autonomy level: Moderate.** Claude Code handles tactical decisions (file naming, merge strategies, small judgment calls) but does not make architectural or design-level choices. All decisions must be documented with reasoning in STATE.md's decision log. If it's not covered by the plan's decision guidance, flag it rather than improvise.
 
 5. **Heartbeat interval: 2 minutes.** The heartbeat (launchd agent) checks vault-context for new or unblocked work every 2 minutes. This is just a git pull + grep — no tokens, no Claude Code session unless there's actual work. Must respect the existing lockfile guard to prevent spawning duplicate sessions.
+
+6. **Plan activation is explicit.** The worker does not scan `plans/` for new files. STATE.md's `active_plan` field is the sole trigger. This means the Mayor must update STATE.md when dispatching a plan (Component 6). This is intentional — it keeps STATE.md as the single source of truth and gives the Mayor control over activation timing.
 
 ### Standing Rule: Docs Update on Same Commit
 

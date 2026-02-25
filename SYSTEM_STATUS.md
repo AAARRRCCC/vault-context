@@ -63,7 +63,7 @@
 | Obsidian CLI version | 1.12.2 (bundled with Obsidian) |
 | basic-memory version | 0.18.4 |
 | Cron jobs | None |
-| launchd agents | None vault-related (only Obsidian app process) |
+| launchd agents | `com.mayor.workorder-check` (heartbeat, 120s), `com.mayor.dashboard` (web UI, port 3847) |
 | GitHub PAT | Present in keychain for `AAARRRCCC` |
 | Vault remote | `github.com/AAARRRCCC/knowledge-base` (private) |
 | Context mirror | `github.com/AAARRRCCC/vault-context` (public) |
@@ -100,8 +100,41 @@
 | Discord signaling | ✅ Working | `mayor-signal.sh` wired into process-work-orders and autonomous-loop |
 | Idle nudge | ✅ Active | `mayor-check.sh` sends Discord DM after 4h idle; quiet hours midnight–8am ET; timestamp at `~/.local/state/mayor-last-activity.txt` |
 | vault-context sync | ✅ Working | `sync-context.sh` post-commit hook; preserves manual sections |
+| Mayor Dashboard | ✅ Running | `com.mayor.dashboard` launchd service; Node.js server at `http://localhost:3847` |
 
 **Work orders completed:** WO-001 through WO-014
-**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit)
+**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit), PLAN-003 (mayor dashboard)
 **System operational since:** 2026-02-24
 **Autonomous loop operational since:** 2026-02-24
+
+---
+
+## Mayor Dashboard
+
+**Added:** 2026-02-25 (PLAN-003)
+
+| Property | Value |
+|----------|-------|
+| URL | `http://localhost:3847` |
+| Health check | `http://localhost:3847/health` |
+| launchd label | `com.mayor.dashboard` |
+| Service file | `~/Library/LaunchAgents/com.mayor.dashboard.plist` |
+| Server code | `~/mayor-dashboard/server.js` |
+| Frontend | `~/mayor-dashboard/public/index.html` |
+| Stdout log | `~/.local/log/mayor-dashboard.log` |
+| Stderr log | `~/.local/log/mayor-dashboard-error.log` |
+| Log rotation | Server-side check at startup and hourly; rotates at 10MB |
+| Port env var | `MAYOR_DASHBOARD_PORT` (default 3847) |
+
+**Panels:** System State · Active Plan (with phase timeline + decision log) · Signals · Live Session · Work Order Queue
+
+**Data sources:** STATE.md, plans/, work-orders/, mayor-signals.jsonl, Claude Code JSONL session logs
+
+**To manage:**
+```bash
+launchctl list com.mayor.dashboard        # check status
+launchctl stop com.mayor.dashboard        # stop
+launchctl start com.mayor.dashboard       # start
+launchctl unload ~/Library/LaunchAgents/com.mayor.dashboard.plist  # disable
+mayor-status.sh                           # includes dashboard status
+```

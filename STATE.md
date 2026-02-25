@@ -1,9 +1,9 @@
 ---
-updated: 2026-02-25T05:35:00Z
-active_plan: none
-phase: 0
-phase_status: idle
-worker_status: idle
+updated: 2026-02-25T05:50:00Z
+active_plan: PLAN-005-foreman-ops-commands
+phase: 1
+phase_status: pending
+worker_status: active
 last_signal: complete
 last_signal_time: 2026-02-25T05:35:00Z
 ---
@@ -12,11 +12,15 @@ last_signal_time: 2026-02-25T05:35:00Z
 
 ## Active Plan
 
-None. System idle.
+- **Plan:** PLAN-005 — Foreman Ops Commands
+- **Current phase:** 1 of 3 — "Diagnostic + Ops Commands"
+- **Phase progress:** Not started
+- **Started:** 2026-02-25
+- **Blockers:** None
 
 ## Mayor Guidance
 
-None.
+Also pick up and complete WO-022 and WO-023 during Phase 2 of this plan — they're Foreman bot changes that belong here.
 
 ## Decision Log
 
@@ -31,10 +35,6 @@ None.
 | 22:16 | Used jq over python3 for JSON escaping in mayor-signal.sh | jq is cleaner and available at /usr/bin/jq (v1.7.1) |
 | 22:33 | Chose stdin JSON (Option C) for mayor-signal.sh refactor | No arg escaping issues; jq heredoc is readable and handles all special chars cleanly |
 | 22:55 | Implemented quiet hours with TZ="America/New_York" date +%H | Simple, available natively in bash; used 10# prefix to avoid octal parsing bugs |
-| 15:45 | Added Partials.Channel + Partials.Message to bot; fetch partials before reading content | DM events require partial handling; guard against null author on partial messages |
-| 15:45 | Replaced GatewayIntentBits.DirectMessageReactions with Guilds | WO-021 guidance; some discord.js versions need Guilds for DM receipt |
-| 15:45 | Used Events.ClientReady (enum) over 'ready' string | Fixes deprecation warning; enum is forward-compatible with v15 |
-| 05:28 | Used ~/.local/state/last-signal-context.json for signal context | mayor-signal.sh writes it; bot reads it — simple file handshake between two processes |
 
 ## Pending Questions
 
@@ -51,9 +51,12 @@ None.
 - [x] PLAN-003 Phase 3: Frontend Dashboard (2026-02-25)
 - [x] PLAN-003 Phase 4: Launchd Service + Polish (2026-02-25)
 - [x] PLAN-004 Phase 1: Bot Service Foundation (2026-02-25)
-- [x] PLAN-004 Phase 2: Command Suite (2026-02-25) — intent/partials fixed, commands implemented, bot running clean
+- [x] PLAN-004 Phase 2: Command Suite (2026-02-25)
+- [x] PLAN-004 Phase 3: Interactive Signals (2026-02-25)
+- [x] PLAN-004 Phase 4: Foreman Personality + Relay (2026-02-25)
 
 ## Queue
 
-- [x] PLAN-004 Phase 3: Interactive Signals (Tier 2) — complete. Footers added, context file handshake, bot updated.
-- [x] PLAN-004 Phase 4: Foreman Personality + Conversational Relay (Tier 3) — complete. foreman-prompt.md, relay via claude CLI, presence updates, docs updated.
+- [ ] PLAN-005 Phase 1: Diagnostic + Ops Commands
+- [ ] PLAN-005 Phase 2: Pending Fixes (WO-022 + WO-023)
+- [ ] PLAN-005 Phase 3: Presence + Polish

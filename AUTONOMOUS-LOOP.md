@@ -399,9 +399,9 @@ Who knows what, and how they know it:
 ```
 1. Pull latest vault-context
 2. Read STATE.md
-3. If you need more context: read the active plan
-4. If you need vault structure context: read STRUCTURE.md
-5. If you need recent change history: read RECENT_CHANGES.md
+3. If active_plan is set: read the active plan
+4. Read CLAUDE-LEARNINGS.md (project root, synced to vault-context) — skim for relevant entries
+5. If you need vault structure context: read STRUCTURE.md
 6. Now you're oriented. Act.
 ```
 

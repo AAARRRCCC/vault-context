@@ -102,9 +102,9 @@
 | vault-context sync | ✅ Working | `sync-context.sh` post-commit hook; preserves manual sections |
 | Mayor Dashboard | ✅ Running | `com.mayor.dashboard` launchd service; Node.js server at `http://localhost:3847` |
 
-**Work orders completed:** WO-001 through WO-014
-**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit), PLAN-003 (mayor dashboard)
-**Plans in progress:** PLAN-004 (Foreman Discord bot)
+**Work orders completed:** WO-001 through WO-023
+**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit), PLAN-003 (mayor dashboard), PLAN-004 (Foreman bot), PLAN-005 (ops commands)
+**Plans in progress:** None
 **System operational since:** 2026-02-24
 **Autonomous loop operational since:** 2026-02-24
 
@@ -157,13 +157,29 @@ mayor-status.sh                           # includes dashboard status
 | Auth | Responds only to `MAYOR_DISCORD_USER_ID` DMs |
 | Reconnect | Auto via launchd KeepAlive |
 
-**Commands:** `!ping`, `!status`, `!resume`, `!pause`, `!cancel`, `!confirm`, `!answer <text>`, `!log`, `!signals`, `!help`
+**Commands:**
 
-**Conversational relay:** Non-command messages route to `claude -p` with a Foreman system prompt, STATE.md context, and `--dangerously-skip-permissions`. Responses sent back through Discord. Max budget $2.00/relay call. Timeout 60s (warns at 30s). Full response attached as .md file if over 1500 chars.
+| Group | Commands |
+|-------|---------|
+| Status | `!status`, `!queue`, `!uptime`, `!log`, `!signals` |
+| Control | `!resume`, `!pause`, `!cancel`, `!confirm`, `!answer <text>` |
+| Diagnostics | `!doctor`, `!fix [lockfile\|heartbeat\|dashboard\|bot\|git]`, `!tail [heartbeat\|dashboard\|bot\|session]` |
+| Other | `!ping`, `!help` |
+
+**Diagnostic commands (added PLAN-005):**
+- `!doctor` — full system health check (launchd agents, lockfile, Claude running, STATE.md, pending WOs, last heartbeat, git status)
+- `!fix <sub>` — remove stale lockfile, restart services, git pull
+- `!tail <target>` — tail last 20 lines of any service log; `session` parses Claude JSONL to readable text
+- `!queue` — pending WOs with ID, title, priority
+- `!uptime` — service uptimes, recent completions from signals log
+
+**Conversational relay:** Non-command messages route to `claude -p` with a Foreman system prompt, STATE.md context, and `--dangerously-skip-permissions`. Responses sent back through Discord. Max budget $2.00/relay call. Timeout 180s (sends "Working on it..." immediately, warns at 15s). Full response attached as .md file if over 1500 chars.
+
+**Audit trail (added PLAN-005):** `!resume`, `!pause`, `!cancel`, `!answer` append a row to STATE.md's Decision Log table with timestamp, action, and "Discord command" reasoning.
 
 **Interactive signals:** `checkpoint` and `blocked` signals include a reply prompt in the embed footer. Context file `~/.local/state/last-signal-context.json` persists signal context for `!resume`/`!answer`.
 
-**Presence:** Bot Discord presence reflects current worker state (idle/processing/paused).
+**Presence:** Updates every 30 seconds. Green/online = processing; yellow/idle = paused; invisible = idle.
 
 **Prompt file:** `~/foreman-bot/foreman-prompt.md`
 

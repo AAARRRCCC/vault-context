@@ -236,6 +236,19 @@ worker: claude-code
 
 For non-trivial tasks, use **Plans** instead of single work orders.
 
+### Plan template library
+
+`vault-context/plans/templates/` contains reusable plan templates. Use them as starting points — fill in the specifics, delete the template notice, then dispatch.
+
+| Template | Use for |
+|----------|---------|
+| `audit-and-fix.md` | Scan files, identify issues, fix them (frontmatter audits, link scans, etc.) |
+| `build-component.md` | Build a new tool, script, service, or feature from scratch |
+| `refactor.md` | Restructure existing code/files without changing functionality |
+| `research-and-report.md` | Investigate a topic and produce a written deliverable |
+
+See `plans/templates/README.md` for the full selection guide.
+
 ### Plan dispatch protocol (CRITICAL — both steps required)
 
 Dispatching a plan is a **two-step atomic operation**. The worker orients entirely from STATE.md — it does not scan the plans/ directory for new files. If you push a plan file without updating STATE.md, the worker will never see it.

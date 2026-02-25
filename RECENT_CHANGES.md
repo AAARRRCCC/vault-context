@@ -761,25 +761,26 @@
 
 
 
+
 ---
 
-a78e8cb PLAN-006: append Phase 6 learnings to CLAUDE-LEARNINGS.md
-5ae06f0 PLAN-006: add sync-context.sh to main branch
-a04761c PLAN-006: clarify CLAUDE-LEARNINGS.md path in orientation protocol
-5e70bf9 PLAN-005: append Phase 5 learnings to CLAUDE-LEARNINGS.md
-f11b88a PLAN-004: append Phase 4 learnings to CLAUDE-LEARNINGS.md
-e30455c vault auto-commit 2026-02-24 23:31:17
-37ff4c9 WO-018: add CLAUDE-LEARNINGS.md and pre-plan rollback tags
-f1dd91e WO-017: add pre-completion doc audit step to autonomous-loop and process-work-orders commands
-cf3be71 WO-014: add idle nudge — track 4h idle, signal Discord, quiet hours
-9cd002b Merge branch 'worker'
-76f1295 chore: auto-commit session end
-0b2e2f5 WO-013: refactor signal templates to embed fields format
-30c4717 context update: 2026-02-24 17:16
-e6015da context update: 2026-02-24 17:16
-1e1d25a context update: 2026-02-24 17:16
-b913f67 context update: 2026-02-24 17:16
-c555893 context update: 2026-02-24 17:16
-5a4c9c8 context update: 2026-02-24 17:16
-b0eb704 context update: 2026-02-24 17:16
-925bbdb context update: 2026-02-24 17:16
+6d6a992329bccd46cdbbd5bbf045d824ecd1981b vault auto-commit 2026-02-25 18:14:17
+7d4b96a5d51f2f72066f6cdfdc22b9bff2ddaadd Merge branch 'worker'
+a78e8cb50cf957e3773f943e8862523321d038da PLAN-006: append Phase 6 learnings to CLAUDE-LEARNINGS.md
+ad3a517c8072fdbc88f7238bace17f0fbf80a7e4 context update: 2026-02-25 17:37
+f5627cdddd90f47f127423e717b1bcc005e51082 context update: 2026-02-25 17:37
+530829aa209ea48d5bee4761ea4f2ce7ba5f1d38 context update: 2026-02-25 17:37
+4eadea2dc0b46089dc3055cc072723d060b2f76a context update: 2026-02-25 17:37
+675aa8e9606783d3fcc8245797bc3460bd580541 context update: 2026-02-25 17:37
+f99a3d63efd619a444fe76b690a9058e7da9a247 context update: 2026-02-25 17:37
+c2fb47dc85595276e16f70b7eac5d7c65404d049 context update: 2026-02-25 17:37
+a6196498b364aede71e5748ac3ad6181363392d2 context update: 2026-02-25 17:37
+ee86caba091e09ec822e4b592dae5726505027f9 context update: 2026-02-25 17:37
+eeda1628e59aecebe391078f86c38b0d29ff558d context update: 2026-02-25 17:37
+5fe424e9f55a84d1cc8d4a131bf67343e72c8cef context update: 2026-02-25 17:37
+d9acda03601e945db80bf189198cdebb29e8122d context update: 2026-02-25 17:37
+cd67b5797df849fa949fe261e7ae0d50da5b8da5 context update: 2026-02-25 17:37
+bcd6dd9b3118eb6a372b1428094238ea3cf911e3 context update: 2026-02-25 17:37
+ddbb5dea97e9feab1b03f271a8fadeba18f53850 context update: 2026-02-25 17:37
+8c3eaedf63e0de569928af523704e990f372f324 context update: 2026-02-25 17:37
+13d9eef6a5225e4f05150ab377c3dc40aa93f129 context update: 2026-02-25 17:37

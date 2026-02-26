@@ -76,4 +76,4 @@ None.
 
 ## Queue
 
-- [ ] WO-026 — Add Max Tokens Flag to Claude Code Relay Call (urgent, ready for pickup)
+- [ ] WO-027 — Fix Broken Conversational Relay (urgent, ready for pickup)

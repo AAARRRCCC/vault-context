@@ -1,0 +1,282 @@
+/* ============================================================
+   Mayor System Diagrams — Shared Styles
+   Color palette, typography, component styles
+   ============================================================ */
+
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #FFFFFF;
+  color: #1A1A2E;
+}
+
+/* ── Color variables ── */
+:root {
+  --white:        #FFFFFF;
+  --text-primary: #1A1A2E;
+  --text-muted:   #6B7280;
+  --border:       #E5E7EB;
+  --bg-callout:   #F9FAFB;
+  --arrow:        #9CA3AF;
+
+  /* Actors */
+  --brady-bg:     #DBEAFE;  --brady-border:   #2563EB;  --brady-text:   #1E40AF;
+  --mayor-bg:     #EDE9FE;  --mayor-border:   #7C3AED;  --mayor-text:   #5B21B6;
+  --worker-bg:    #D1FAE5;  --worker-border:  #059669;  --worker-text:  #065F46;
+  --foreman-bg:   #FEF3C7;  --foreman-border: #D97706;  --foreman-text: #92400E;
+  --github-bg:    #F6F8FA;  --github-border:  #24292F;  --github-text:  #24292F;
+  --obsidian-bg:  #E0E7FF;  --obsidian-border:#4338CA;  --obsidian-text:#312E81;
+  --discord-bg:   #E8EAFD;  --discord-border: #5865F2;  --discord-text: #4338CA;
+  --infra-bg:     #F3F4F6;  --infra-border:   #6B7280;  --infra-text:   #374151;
+
+  /* Signals */
+  --sig-notify:     #059669;
+  --sig-checkpoint: #D97706;
+  --sig-blocked:    #DC2626;
+  --sig-stalled:    #CA8A04;
+  --sig-complete:   #2563EB;
+  --sig-error:      #991B1B;
+  --sig-idle:       #6B7280;
+}
+
+/* ── Typography ── */
+.diagram-title   { font-size: 24px; font-weight: 600; color: var(--text-primary); }
+.diagram-subtitle{ font-size: 14px; color: var(--text-muted); }
+.section-header  { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+.node-label      { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+.node-sublabel   { font-size: 12px; color: var(--text-muted); }
+.annotation-text { font-size: 12px; color: var(--text-primary); line-height: 1.5; }
+.mono            { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; font-size: 11px; }
+.sheet-num       { font-size: 11px; color: var(--text-muted); }
+
+/* ── Node cards ── */
+.node {
+  border-radius: 10px;
+  border: 2px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: var(--white);
+  position: relative;
+}
+
+.node.brady    { background: var(--brady-bg);    border-color: var(--brady-border); }
+.node.mayor    { background: var(--mayor-bg);    border-color: var(--mayor-border); }
+.node.worker   { background: var(--worker-bg);   border-color: var(--worker-border); }
+.node.foreman  { background: var(--foreman-bg);  border-color: var(--foreman-border); }
+.node.github   { background: var(--github-bg);   border-color: var(--github-border); }
+.node.obsidian { background: var(--obsidian-bg); border-color: var(--obsidian-border); }
+.node.discord  { background: var(--discord-bg);  border-color: var(--discord-border); }
+.node.infra    { background: var(--infra-bg);    border-color: var(--infra-border); }
+
+/* ── Lane / swim-lane containers ── */
+.lane {
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--bg-callout);
+  padding: 16px;
+  position: relative;
+}
+
+.lane-header {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+/* ── Annotation callouts ── */
+.callout {
+  background: var(--bg-callout);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  max-width: 220px;
+}
+
+.callout-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.callout-body {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* ── Tech badges ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-callout);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 11px;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* ── Diagram frame ── */
+.diagram-frame {
+  width: 1600px;
+  min-height: 1000px;
+  background: #FFFFFF;
+  padding: 36px 40px 28px;
+  position: relative;
+}
+
+.diagram-frame.detail {
+  width: 1400px;
+  min-height: 900px;
+}
+
+/* ── Header bar ── */
+.diagram-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border);
+}
+
+/* ── Footer bar ── */
+.diagram-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1.5px solid var(--border);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── Legend ── */
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  border: 2px solid;
+  flex-shrink: 0;
+}
+
+/* ── SVG connector styles (used inline in diagrams) ── */
+.connector         { stroke: var(--arrow); stroke-width: 1.5; fill: none; }
+.connector-brady   { stroke: var(--brady-border); }
+.connector-mayor   { stroke: var(--mayor-border); }
+.connector-worker  { stroke: var(--worker-border); }
+.connector-foreman { stroke: var(--foreman-border); }
+.connector-github  { stroke: var(--github-border); }
+.connector-discord { stroke: var(--discord-border); }
+.connector-dashed  { stroke-dasharray: 5 3; }
+
+/* ── Icon wrappers ── */
+.icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.icon.lg {
+  width: 48px;
+  height: 48px;
+}
+
+/* ── Signal badge ── */
+.sig {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 5px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+}
+.sig.notify     { background: var(--sig-notify); }
+.sig.checkpoint { background: var(--sig-checkpoint); }
+.sig.blocked    { background: var(--sig-blocked); }
+.sig.stalled    { background: var(--sig-stalled); }
+.sig.complete   { background: var(--sig-complete); }
+.sig.error      { background: var(--sig-error); }
+.sig.idle       { background: var(--sig-idle); }
+
+/* ── Flow box (flowchart steps) ── */
+.flow-step {
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  padding: 8px 14px;
+  font-size: 12px;
+  background: var(--white);
+  text-align: center;
+  line-height: 1.4;
+}
+
+.flow-decision {
+  transform: rotate(45deg);
+  width: 80px;
+  height: 80px;
+  border-radius: 6px;
+  border: 1.5px solid var(--border);
+  background: #FFF7ED;
+  flex-shrink: 0;
+}
+
+.flow-decision-label {
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ── File tree ── */
+.file-tree {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: #F8FAFC;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.file-tree .dir  { color: #4338CA; font-weight: 600; }
+.file-tree .file { color: #1A1A2E; }
+.file-tree .note { color: var(--text-muted); }
+
+/* ── Two-column layout helpers ── */
+.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+.cols-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }

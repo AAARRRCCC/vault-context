@@ -77,4 +77,4 @@ None.
 
 ## Queue
 
-- [ ] WO-027 — Fix Broken Conversational Relay (urgent, ready for pickup)
+- [ ] PLAN-008 — Foreman v2: Conversation Memory, Scheduling, Alerts, Account Failover (ready for pickup)

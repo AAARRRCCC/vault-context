@@ -1,4 +1,4 @@
-<!-- render-size: 1600x1060 -->
+<!-- render-size: 1800x1170 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +6,17 @@
 <title>Mayor System — System Overview</title>
 <link rel="stylesheet" href="shared-styles.css">
 <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { padding: 0; margin: 0; }
 
 .page {
-  width: 1600px;
+  width: 1800px;
   background: #fff;
-  padding: 32px 40px 24px;
+  padding: 28px 36px 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
+  position: relative;
 }
 
 /* ── Header ── */
@@ -24,46 +26,35 @@ body { padding: 0; margin: 0; }
   align-items: flex-start;
   padding-bottom: 14px;
   border-bottom: 2px solid #E5E7EB;
+  flex-shrink: 0;
 }
 
-/* ── Main canvas ── */
+/* ── Main canvas: hub-and-spoke ── */
 .canvas {
   position: relative;
-  display: flex;
-  gap: 16px;
-  align-items: stretch;
+  height: 840px;
+  flex-shrink: 0;
 }
 
-/* Swim lane */
-.lane {
-  flex: 1;
-  border-radius: 14px;
-  border: 1.5px solid #E5E7EB;
-  background: #F9FAFB;
-  padding: 14px 14px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-height: 500px;
+/* SVG flow layer — sits behind nodes */
+.flow-svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 1728px;
+  height: 840px;
+  z-index: 1;
+  pointer-events: none;
+  overflow: visible;
 }
 
-.lane:nth-child(2) { flex: 1.3; }
-.lane:nth-child(3) { flex: 1.45; }
-
-.lane-title {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #6B7280;
-}
-
-/* Node card */
+/* Node cards — sit above SVG */
 .nc {
-  border-radius: 10px;
+  position: absolute;
+  z-index: 2;
+  border-radius: 12px;
   border: 2px solid #E5E7EB;
   background: #fff;
-  padding: 10px 12px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,11 +65,10 @@ body { padding: 0; margin: 0; }
 .nc.mayor    { background:#EDE9FE; border-color:#7C3AED; }
 .nc.worker   { background:#D1FAE5; border-color:#059669; }
 .nc.foreman  { background:#FEF3C7; border-color:#D97706; }
-.nc.github   { background:#F6F8FA; border-color:#24292F; }
-.nc.obsidian { background:#E0E7FF; border-color:#4338CA; }
 .nc.discord  { background:#E8EAFD; border-color:#5865F2; }
+.nc.obsidian { background:#E0E7FF; border-color:#4338CA; }
 .nc.mac      { background:#F3F4F6; border-color:#9CA3AF; }
-.nc.launchd  { background:#FFF7ED; border-color:#EA580C; }
+.nc.hub      { background:#F6F8FA; border-color:#24292F; box-shadow: 0 0 0 4px rgba(36,41,47,0.06); }
 
 .nn  { font-size: 14px; font-weight: 600; color: #1A1A2E; }
 .ns  { font-size: 11px; color: #6B7280; line-height: 1.35; }
@@ -89,7 +79,7 @@ body { padding: 0; margin: 0; }
   flex-wrap: wrap;
   gap: 4px;
   justify-content: center;
-  margin-top: 4px;
+  margin-top: 5px;
 }
 .chip {
   font-size: 10px;
@@ -101,35 +91,43 @@ body { padding: 0; margin: 0; }
   color: #374151;
 }
 
-.rw {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 7px;
-}
-.rw-box {
-  background: #fff;
-  border: 1px solid #E5E7EB;
-  border-radius: 7px;
-  padding: 7px 8px;
-  font-size: 10px;
-  color: #374151;
-  line-height: 1.5;
-}
-.rw-head { font-weight: 600; margin-bottom: 3px; }
-
-.divider {
-  border: none;
-  border-top: 1px solid #E5E7EB;
-  margin: 2px 0;
-}
-
-/* Connector labels in the lanes */
-.flow-arrow {
-  text-align: center;
-  font-size: 10px;
+/* Hub label */
+.hub-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: #9CA3AF;
-  font-weight: 500;
-  padding: 2px 0;
+  margin-bottom: 2px;
+}
+
+/* Data packet pills — z-index 3 */
+.packet {
+  position: absolute;
+  background: #FFFFFF;
+  border: 1.5px solid;
+  color: #1A1A2E;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  z-index: 3;
+  transform: translate(-50%, -50%);
+}
+
+/* Flow type legend symbols */
+.flow-label {
+  position: absolute;
+  z-index: 4;
+  font-size: 9px;
+  font-weight: 600;
+  color: #6B7280;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 /* ── Annotations ── */
@@ -137,13 +135,13 @@ body { padding: 0; margin: 0; }
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 12px;
+  flex-shrink: 0;
 }
-
 .ann {
   background: #F9FAFB;
   border: 1.5px solid #E5E7EB;
   border-radius: 10px;
-  padding: 11px 13px;
+  padding: 10px 13px;
 }
 .ann.a1 { border-left: 4px solid #7C3AED; }
 .ann.a2 { border-left: 4px solid #059669; }
@@ -152,42 +150,15 @@ body { padding: 0; margin: 0; }
 .ann-t { font-size: 12px; font-weight: 700; color: #1A1A2E; margin-bottom: 4px; }
 .ann-b { font-size: 11px; color: #6B7280; line-height: 1.45; }
 
-/* ── Between-lane connectors ── */
-.lane-connectors {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 6px;
-  padding-top: 80px;
-  flex-shrink: 0;
-  width: 56px;
-}
-
-.conn-line {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  width: 100%;
-}
-
-.conn-lbl {
-  font-size: 9px;
-  color: #9CA3AF;
-  text-align: center;
-  white-space: nowrap;
-  transform: rotate(-90deg);
-  font-style: italic;
-}
-
 /* ── Tech bar ── */
 .tech-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  padding: 12px 0 4px;
+  padding: 10px 0 4px;
   border-top: 1.5px solid #E5E7EB;
   align-items: center;
+  flex-shrink: 0;
 }
 .tech-lbl { font-size: 11px; color: #9CA3AF; font-weight: 600; margin-right: 4px; }
 .badge {
@@ -205,16 +176,15 @@ body { padding: 0; margin: 0; }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 10px;
+  padding-top: 8px;
   border-top: 1.5px solid #E5E7EB;
   flex-wrap: wrap;
   gap: 8px;
+  flex-shrink: 0;
 }
 .legend { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
 .li { display:flex; align-items:center; gap:5px; font-size:11px; color:#6B7280; }
 .ld { width:12px; height:12px; border-radius:3px; border:2px solid; flex-shrink:0; }
-
-/* ── GitHub icon path (reused) ── */
 </style>
 </head>
 <body>
@@ -224,7 +194,7 @@ body { padding: 0; margin: 0; }
   <div class="hdr">
     <div>
       <div class="diagram-title">Mayor — AI-Orchestrated Knowledge System</div>
-      <div class="diagram-subtitle" style="margin-top:4px;">System Overview · Lifecycle of work from idea to execution across Mayor (Claude Web), Worker (Claude Code), and Foreman (Discord Bot)</div>
+      <div class="diagram-subtitle" style="margin-top:4px;">System Overview · vault-context as the shared IPC hub between Mayor (Claude Web) and Worker (Claude Code)</div>
     </div>
     <div style="text-align:right;">
       <div style="font-size:12px;color:#6B7280;font-weight:600;">Sheet 1 of 5</div>
@@ -232,288 +202,428 @@ body { padding: 0; margin: 0; }
     </div>
   </div>
 
-  <!-- SWIM LANES + CONNECTIONS -->
-  <div style="display:flex;gap:0;align-items:flex-start;">
+  <!-- MAIN CANVAS: hub-and-spoke -->
+  <div class="canvas">
 
-    <!-- ①  HUMAN LAYER -->
-    <div class="lane" style="flex:0 0 270px;">
-      <div class="lane-title">① Human Layer</div>
+    <!-- ═══════════════════════════════════════════════════════════
+         SVG FLOW LAYER (z-index 1) — all bezier tracks with gradients
+         ═══════════════════════════════════════════════════════════ -->
+    <svg class="flow-svg" viewBox="0 0 1728 840" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Arrowhead markers per actor color -->
+        <marker id="arr-purple" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6 Z" fill="#7C3AED"/>
+        </marker>
+        <marker id="arr-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6 Z" fill="#059669"/>
+        </marker>
+        <marker id="arr-charcoal" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6 Z" fill="#24292F"/>
+        </marker>
+        <marker id="arr-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6 Z" fill="#2563EB"/>
+        </marker>
+        <marker id="arr-blurple" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6 Z" fill="#5865F2"/>
+        </marker>
+        <marker id="arr-amber" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6 Z" fill="#D97706"/>
+        </marker>
+        <marker id="arr-gray" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6 Z" fill="#9CA3AF"/>
+        </marker>
 
-      <div class="nc brady">
-        <svg width="38" height="38" viewBox="0 0 38 38">
-          <circle cx="19" cy="12" r="7" fill="#2563EB" opacity="0.75"/>
-          <path d="M5 34 Q5 24 19 24 Q33 24 33 34" fill="#2563EB" opacity="0.7" stroke="none"/>
-        </svg>
-        <div class="nn" style="color:#1E40AF;">Brady</div>
-        <div class="ns">Owner &amp; Operator</div>
-        <div class="nd">Phone + Mac + Browser</div>
-      </div>
+        <!-- Gradient fills for flow tracks -->
+        <!-- 1. Brady → Mayor: blue→purple -->
+        <linearGradient id="g-brady-mayor" gradientUnits="userSpaceOnUse" x1="152" y1="187" x2="122" y2="380">
+          <stop offset="0%" stop-color="#2563EB"/>
+          <stop offset="100%" stop-color="#7C3AED"/>
+        </linearGradient>
 
-      <div style="font-size:11px;color:#374151;background:#fff;border:1px solid #E5E7EB;border-radius:8px;padding:10px;line-height:1.7;">
-        <div style="font-weight:600;color:#6B7280;font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;">Inputs</div>
-        <div>💬 Ideas &amp; requests → Mayor</div>
-        <div>📱 Commands → Foreman</div>
-        <div>✅ Review at checkpoints</div>
-      </div>
+        <!-- 2. Mayor → vault-context: purple→charcoal -->
+        <linearGradient id="g-mayor-vc" gradientUnits="userSpaceOnUse" x1="228" y1="460" x2="750" y2="450">
+          <stop offset="0%" stop-color="#7C3AED"/>
+          <stop offset="100%" stop-color="#24292F"/>
+        </linearGradient>
 
-      <div class="nc discord" style="margin-top:auto;">
-        <svg width="32" height="32" viewBox="0 0 32 32">
-          <rect x="3" y="8" width="26" height="16" rx="6" fill="#5865F2" opacity="0.8"/>
-          <circle cx="12" cy="16" r="3" fill="white" opacity="0.9"/>
-          <circle cx="20" cy="16" r="3" fill="white" opacity="0.9"/>
-        </svg>
-        <div class="nn" style="font-size:12px;color:#4338CA;">Discord DMs</div>
-        <div class="ns">Commands to Foreman</div>
-      </div>
-    </div>
+        <!-- 3. vault-context → Worker: charcoal→green -->
+        <linearGradient id="g-vc-worker" gradientUnits="userSpaceOnUse" x1="978" y1="448" x2="1518" y2="460">
+          <stop offset="0%" stop-color="#24292F"/>
+          <stop offset="100%" stop-color="#059669"/>
+        </linearGradient>
 
-    <!-- connector 1→2 -->
-    <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;width:44px;padding-top:110px;gap:10px;flex-shrink:0;">
-      <svg width="44" height="120" viewBox="0 0 44 120">
-        <defs>
-          <marker id="a1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7C3AED"/></marker>
-          <marker id="a2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#5865F2"/></marker>
-        </defs>
-        <!-- Brady → Mayor -->
-        <path d="M 6 20 Q 22 10 38 20" stroke="#2563EB" stroke-width="1.8" fill="none" marker-end="url(#a1)" opacity="0.8"/>
-        <text x="22" y="9" font-size="8" fill="#7C3AED" text-anchor="middle" font-style="italic">claude.ai</text>
-        <!-- Discord → Foreman (dashed, lower) -->
-        <path d="M 6 70 Q 22 80 38 70" stroke="#5865F2" stroke-width="1.5" fill="none" stroke-dasharray="4 2" marker-end="url(#a2)" opacity="0.7"/>
-        <text x="22" y="95" font-size="8" fill="#5865F2" text-anchor="middle" font-style="italic">Discord</text>
+        <!-- 4. Worker → vault-context (return): green→charcoal -->
+        <linearGradient id="g-worker-vc" gradientUnits="userSpaceOnUse" x1="1518" y1="495" x2="978" y2="480">
+          <stop offset="0%" stop-color="#059669"/>
+          <stop offset="100%" stop-color="#24292F"/>
+        </linearGradient>
+
+        <!-- 5. Worker → Discord: green→blurple -->
+        <linearGradient id="g-worker-discord" gradientUnits="userSpaceOnUse" x1="1624" y1="387" x2="1594" y2="220">
+          <stop offset="0%" stop-color="#059669"/>
+          <stop offset="100%" stop-color="#5865F2"/>
+        </linearGradient>
+
+        <!-- 6. Brady → Discord: blue→blurple (top horizontal) -->
+        <linearGradient id="g-brady-discord" gradientUnits="userSpaceOnUse" x1="248" y1="162" x2="1500" y2="148">
+          <stop offset="0%" stop-color="#2563EB"/>
+          <stop offset="100%" stop-color="#5865F2"/>
+        </linearGradient>
+
+        <!-- 7. Discord → Foreman: blurple→amber -->
+        <linearGradient id="g-discord-foreman" gradientUnits="userSpaceOnUse" x1="1525" y1="218" x2="832" y2="692">
+          <stop offset="0%" stop-color="#5865F2"/>
+          <stop offset="100%" stop-color="#D97706"/>
+        </linearGradient>
+
+        <!-- 8. Foreman → vault-context: amber→charcoal -->
+        <linearGradient id="g-foreman-vc" gradientUnits="userSpaceOnUse" x1="782" y1="693" x2="862" y2="600">
+          <stop offset="0%" stop-color="#D97706"/>
+          <stop offset="100%" stop-color="#24292F"/>
+        </linearGradient>
+
+        <!-- 9. Worker → Infrastructure: green→gray -->
+        <linearGradient id="g-worker-infra" gradientUnits="userSpaceOnUse" x1="1624" y1="580" x2="1624" y2="693">
+          <stop offset="0%" stop-color="#059669"/>
+          <stop offset="100%" stop-color="#9CA3AF"/>
+        </linearGradient>
+
+        <!-- 10. Infrastructure → vault-context: gray→charcoal (dotted) -->
+        <linearGradient id="g-infra-vc" gradientUnits="userSpaceOnUse" x1="1498" y1="755" x2="932" y2="600">
+          <stop offset="0%" stop-color="#9CA3AF"/>
+          <stop offset="100%" stop-color="#24292F"/>
+        </linearGradient>
+      </defs>
+
+      <!-- ─────────────────────────────────────────
+           FLOW TRACKS
+           ───────────────────────────────────────── -->
+
+      <!-- 1. Brady → Mayor (solid, blue→purple, ideas via claude.ai) -->
+      <path d="M 152 187 C 145 260 125 330 122 380"
+            stroke="url(#g-brady-mayor)" stroke-width="5" fill="none"
+            marker-end="url(#arr-purple)" stroke-linecap="round"/>
+
+      <!-- 2. Mayor → vault-context (solid, purple→charcoal, git push plans/WOs) -->
+      <path d="M 228 460 C 390 440 570 438 750 445"
+            stroke="url(#g-mayor-vc)" stroke-width="5" fill="none"
+            marker-end="url(#arr-charcoal)" stroke-linecap="round"/>
+
+      <!-- 3. vault-context → Worker (solid, charcoal→green, git pull) -->
+      <path d="M 978 448 C 1140 436 1330 442 1518 455"
+            stroke="url(#g-vc-worker)" stroke-width="5" fill="none"
+            marker-end="url(#arr-green)" stroke-linecap="round"/>
+
+      <!-- 4. Worker → vault-context return (solid, green→charcoal, git push results) -->
+      <path d="M 1518 495 C 1330 520 1140 518 978 500"
+            stroke="url(#g-worker-vc)" stroke-width="5" fill="none"
+            marker-end="url(#arr-charcoal)" stroke-linecap="round"/>
+
+      <!-- 5. Worker → Discord DMs (dashed, green→blurple, signals) -->
+      <path d="M 1624 387 C 1634 320 1618 272 1594 220"
+            stroke="url(#g-worker-discord)" stroke-width="5" fill="none"
+            stroke-dasharray="8,8" marker-end="url(#arr-blurple)" stroke-linecap="round"/>
+
+      <!-- 6. Brady → Discord DMs (dashed, blue→blurple, commands) -->
+      <path d="M 248 162 C 580 138 1180 136 1500 148"
+            stroke="url(#g-brady-discord)" stroke-width="5" fill="none"
+            stroke-dasharray="8,8" marker-end="url(#arr-blurple)" stroke-linecap="round"/>
+
+      <!-- 7. Discord DMs → Foreman (dashed, blurple→amber, commands routed via bot) -->
+      <path d="M 1525 218 C 1390 350 1080 560 832 692"
+            stroke="url(#g-discord-foreman)" stroke-width="5" fill="none"
+            stroke-dasharray="8,8" marker-end="url(#arr-amber)" stroke-linecap="round"/>
+
+      <!-- 8. Foreman → vault-context (dotted, reads STATE.md for escalation) -->
+      <path d="M 782 693 C 800 665 840 640 862 600"
+            stroke="url(#g-foreman-vc)" stroke-width="3.5" fill="none"
+            stroke-dasharray="2,5" marker-end="url(#arr-charcoal)" stroke-linecap="round"/>
+
+      <!-- 9. Worker → Infrastructure (solid, green→gray, vault edits) -->
+      <path d="M 1624 580 C 1624 620 1624 660 1624 693"
+            stroke="url(#g-worker-infra)" stroke-width="5" fill="none"
+            marker-end="url(#arr-gray)" stroke-linecap="round"/>
+
+      <!-- 10. Infrastructure → vault-context (dotted, sync-context.sh mirror) -->
+      <path d="M 1498 755 C 1370 740 1120 700 932 600"
+            stroke="url(#g-infra-vc)" stroke-width="3.5" fill="none"
+            stroke-dasharray="2,5" marker-end="url(#arr-charcoal)" stroke-linecap="round"/>
+
+      <!-- Subtle path direction labels (small rotated text on tracks) -->
+      <!-- Mayor → VC label -->
+      <text x="430" y="430" font-size="9" fill="#7C3AED" text-anchor="middle"
+            font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"
+            font-weight="600" opacity="0.8">git push</text>
+
+      <!-- VC → Worker label -->
+      <text x="1240" y="426" font-size="9" fill="#24292F" text-anchor="middle"
+            font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"
+            font-weight="600" opacity="0.8">git pull</text>
+
+      <!-- Worker → VC label -->
+      <text x="1240" y="535" font-size="9" fill="#059669" text-anchor="middle"
+            font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"
+            font-weight="600" opacity="0.8">git push</text>
+
+      <!-- Brady → Mayor label -->
+      <text x="118" y="296" font-size="9" fill="#7C3AED" text-anchor="end"
+            font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"
+            font-style="italic" opacity="0.8">claude.ai</text>
+
+      <!-- Brady → Discord label -->
+      <text x="870" y="128" font-size="9" fill="#2563EB" text-anchor="middle"
+            font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"
+            font-style="italic" opacity="0.8">discord commands</text>
+
+      <!-- Worker → Discord label -->
+      <text x="1643" y="310" font-size="9" fill="#059669" text-anchor="start"
+            font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"
+            font-style="italic" opacity="0.8">signals</text>
+
+      <!-- Discord → Foreman label -->
+      <text x="1255" y="475" font-size="9" fill="#5865F2" text-anchor="middle"
+            font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"
+            font-style="italic" opacity="0.8" transform="rotate(-32, 1255, 475)">routed via Foreman</text>
+
+      <!-- sync label -->
+      <text x="1270" y="730" font-size="9" fill="#9CA3AF" text-anchor="middle"
+            font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"
+            font-style="italic" opacity="0.8" transform="rotate(-13, 1270, 730)">sync-context.sh</text>
+    </svg>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         NODE CARDS (z-index 2) — absolutely positioned
+         ═══════════════════════════════════════════════════════════ -->
+
+    <!-- Brady — top-left -->
+    <div class="nc brady" style="left:62px; top:102px; width:178px;">
+      <svg width="38" height="38" viewBox="0 0 38 38">
+        <circle cx="19" cy="12" r="7" fill="#2563EB" opacity="0.75"/>
+        <path d="M5 34 Q5 24 19 24 Q33 24 33 34" fill="#2563EB" opacity="0.7" stroke="none"/>
       </svg>
-    </div>
-
-    <!-- ② PLANNING LAYER -->
-    <div class="lane" style="flex:0 0 340px;">
-      <div class="lane-title">② Planning Layer</div>
-
-      <div class="nc mayor">
-        <svg width="42" height="42" viewBox="0 0 42 42">
-          <circle cx="21" cy="21" r="9" fill="#7C3AED" opacity="0.7"/>
-          <line x1="21" y1="4" x2="21" y2="12" stroke="#7C3AED" stroke-width="2.5"/>
-          <line x1="21" y1="30" x2="21" y2="38" stroke="#7C3AED" stroke-width="2.5"/>
-          <line x1="4" y1="21" x2="12" y2="21" stroke="#7C3AED" stroke-width="2.5"/>
-          <line x1="30" y1="21" x2="38" y2="21" stroke="#7C3AED" stroke-width="2.5"/>
-          <line x1="9" y1="9" x2="14.5" y2="14.5" stroke="#7C3AED" stroke-width="1.8"/>
-          <line x1="27.5" y1="27.5" x2="33" y2="33" stroke="#7C3AED" stroke-width="1.8"/>
-          <line x1="33" y1="9" x2="27.5" y2="14.5" stroke="#7C3AED" stroke-width="1.8"/>
-          <line x1="9" y1="33" x2="14.5" y2="27.5" stroke="#7C3AED" stroke-width="1.8"/>
-        </svg>
-        <div class="nn" style="color:#5B21B6;">Mayor</div>
-        <div class="ns">Claude Web · Opus 4.6</div>
-        <div class="nd">claude.ai (browser tab)</div>
-        <div class="chips">
-          <span class="chip">Plans</span>
-          <span class="chip">Work Orders</span>
-          <span class="chip">Architecture</span>
-        </div>
-      </div>
-
-      <div class="flow-arrow">↓ writes via GitHub API · reads results ↑</div>
-
-      <div class="nc github" style="flex:1;">
-        <svg width="38" height="38" viewBox="0 0 38 38">
-          <rect x="4" y="4" width="30" height="30" rx="7" fill="#24292F" opacity="0.85"/>
-          <path d="M19 9 C14.5 9 10 12.5 10 18 C10 22.5 13 26.5 17.5 27.5 C18 27.6 18.2 27.3 18.2 27 L18.2 25.3 C15.5 25.9 15 24.2 15 24.2 C14.6 23.2 14 22.9 14 22.9 C13.2 22.4 14 22.4 14 22.4 C14.8 22.5 15.2 23.2 15.2 23.2 C16.1 24.7 17.5 24.3 18.1 24 C18.2 23.4 18.4 23 18.6 22.8 C16.6 22.5 14.5 21.7 14.5 18.5 C14.5 17.5 14.8 16.7 15.4 16.1 C15.3 15.8 15 15 15.5 13.9 C15.5 13.9 16.2 13.7 18 14.9 C18.7 14.7 19.4 14.6 20.1 14.6 C20.8 14.6 21.5 14.7 22.2 14.9 C24 13.7 24.7 13.9 24.7 13.9 C25.2 15 24.9 15.8 24.8 16.1 C25.4 16.7 25.7 17.5 25.7 18.5 C25.7 21.7 23.6 22.5 21.6 22.8 C21.9 23.1 22.2 23.7 22.2 24.6 L22.2 27 C22.2 27.3 22.4 27.6 22.9 27.5 C27.4 26.5 30.4 22.5 30.4 18 C30.4 12.5 25.9 9 19 9 Z" fill="white"/>
-        </svg>
-        <div class="nn" style="color:#24292F;">vault-context</div>
-        <div class="ns">Public GitHub repo<br>AAARRRCCC/vault-context</div>
-        <div class="nd">🌐 Central communication hub</div>
-        <div class="chips" style="margin-top:8px;">
-          <span class="chip">STATE.md</span>
-          <span class="chip">plans/</span>
-          <span class="chip">work-orders/</span>
-          <span class="chip">results/</span>
-          <span class="chip">CLAUDE.md</span>
-          <span class="chip">LEARNINGS.md</span>
-        </div>
+      <div class="nn" style="color:#1E40AF;">Brady</div>
+      <div class="ns">Owner &amp; Operator</div>
+      <div class="nd">Mac + Phone + Browser</div>
+      <div class="chips">
+        <span class="chip">ideas</span>
+        <span class="chip">review</span>
+        <span class="chip">commands</span>
       </div>
     </div>
 
-    <!-- connector 2→3 -->
-    <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;width:44px;padding-top:90px;gap:10px;flex-shrink:0;">
-      <svg width="44" height="160" viewBox="0 0 44 160">
-        <defs>
-          <marker id="a3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#059669"/></marker>
-          <marker id="a4" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7C3AED"/></marker>
-        </defs>
-        <!-- vault-context → Worker: git pull -->
-        <path d="M 6 50 Q 22 40 38 50" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a3)" opacity="0.8"/>
-        <text x="22" y="37" font-size="8" fill="#059669" text-anchor="middle" font-weight="600">git pull</text>
-        <!-- Worker → vault-context: git push results -->
-        <path d="M 38 90 Q 22 100 6 90" stroke="#7C3AED" stroke-width="2" fill="none" marker-end="url(#a4)" opacity="0.7"/>
-        <text x="22" y="113" font-size="8" fill="#7C3AED" text-anchor="middle" font-weight="600">git push</text>
-        <text x="22" y="122" font-size="8" fill="#7C3AED" text-anchor="middle" font-style="italic">results</text>
-        <!-- Signal line (top) -->
-        <path d="M 38 15 Q 22 5 6 15" stroke="#059669" stroke-width="1.5" fill="none" stroke-dasharray="3 2" marker-end="url(#a3)" opacity="0.5"/>
-        <text x="22" y="4" font-size="7" fill="#059669" text-anchor="middle" font-style="italic">signals</text>
+    <!-- Discord DMs — top-right -->
+    <div class="nc discord" style="right:62px; top:102px; width:176px;">
+      <svg width="36" height="36" viewBox="0 0 36 36">
+        <rect x="3" y="8" width="30" height="20" rx="7" fill="#5865F2" opacity="0.8"/>
+        <circle cx="13" cy="18" r="3.2" fill="white" opacity="0.9"/>
+        <circle cx="23" cy="18" r="3.2" fill="white" opacity="0.9"/>
+        <line x1="10" y1="8" x2="7" y2="3" stroke="#5865F2" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="26" y1="8" x2="29" y2="3" stroke="#5865F2" stroke-width="2.2" stroke-linecap="round"/>
       </svg>
+      <div class="nn" style="color:#4338CA;">Discord DMs</div>
+      <div class="ns">Signal channel</div>
+      <div class="nd">Brady's phone · real-time</div>
+      <div class="chips">
+        <span class="chip">signals in</span>
+        <span class="chip">commands out</span>
+      </div>
     </div>
 
-    <!-- ③ EXECUTION LAYER -->
-    <div class="lane" style="flex:0 0 370px;">
-      <div class="lane-title">③ Execution Layer</div>
-
-      <div class="nc worker">
-        <svg width="42" height="42" viewBox="0 0 42 42">
-          <rect x="4" y="5" width="34" height="24" rx="5" fill="#059669" opacity="0.7"/>
-          <rect x="16" y="31" width="10" height="5" rx="2" fill="#059669" opacity="0.5"/>
-          <rect x="10" y="35" width="22" height="3" rx="1.5" fill="#059669" opacity="0.4"/>
-          <rect x="8" y="10" width="13" height="2" rx="1" fill="white" opacity="0.65"/>
-          <rect x="8" y="15" width="20" height="2" rx="1" fill="white" opacity="0.5"/>
-          <rect x="8" y="20" width="10" height="2" rx="1" fill="white" opacity="0.4"/>
-        </svg>
-        <div class="nn" style="color:#065F46;">Worker</div>
-        <div class="ns">Claude Code · Sonnet 4.6</div>
-        <div class="nd">~/knowledge-base-worker/ (headless)</div>
-        <div class="chips" style="margin-top:6px;">
-          <span class="chip">/autonomous-loop</span>
-          <span class="chip">vault edits</span>
-          <span class="chip">results/</span>
-          <span class="chip">STATE.md updates</span>
-        </div>
+    <!-- Mayor — left middle -->
+    <div class="nc mayor" style="left:14px; top:392px; width:208px;">
+      <svg width="42" height="42" viewBox="0 0 42 42">
+        <circle cx="21" cy="21" r="9" fill="#7C3AED" opacity="0.7"/>
+        <line x1="21" y1="4" x2="21" y2="12" stroke="#7C3AED" stroke-width="2.5"/>
+        <line x1="21" y1="30" x2="21" y2="38" stroke="#7C3AED" stroke-width="2.5"/>
+        <line x1="4" y1="21" x2="12" y2="21" stroke="#7C3AED" stroke-width="2.5"/>
+        <line x1="30" y1="21" x2="38" y2="21" stroke="#7C3AED" stroke-width="2.5"/>
+        <line x1="9" y1="9" x2="14.5" y2="14.5" stroke="#7C3AED" stroke-width="1.8"/>
+        <line x1="27.5" y1="27.5" x2="33" y2="33" stroke="#7C3AED" stroke-width="1.8"/>
+        <line x1="33" y1="9" x2="27.5" y2="14.5" stroke="#7C3AED" stroke-width="1.8"/>
+        <line x1="9" y1="33" x2="14.5" y2="27.5" stroke="#7C3AED" stroke-width="1.8"/>
+      </svg>
+      <div class="nn" style="color:#5B21B6;">Mayor</div>
+      <div class="ns">Claude Web · Opus 4.6</div>
+      <div class="nd">claude.ai browser tab</div>
+      <div class="chips" style="margin-top:6px;">
+        <span class="chip">Plans</span>
+        <span class="chip">Work Orders</span>
+        <span class="chip">Architecture</span>
+        <span class="chip">STATE.md</span>
       </div>
+      <div style="margin-top:8px;background:rgba(255,255,255,0.6);border-radius:6px;padding:5px 8px;width:100%;font-size:10px;color:#6B7280;line-height:1.6;text-align:left;">
+        <div style="font-weight:600;color:#5B21B6;margin-bottom:2px;">Cannot:</div>
+        <div>run code · touch vault · exec shell</div>
+      </div>
+    </div>
 
-      <div class="rw">
-        <div class="rw-box">
-          <div class="rw-head" style="color:#059669;">Reads from</div>
-          <div>STATE.md</div>
-          <div>active plan</div>
-          <div>CLAUDE.md</div>
-          <div>LOOP.md</div>
+    <!-- VAULT-CONTEXT — dead center (the hub) -->
+    <div class="nc hub" style="left:762px; top:348px; width:248px;">
+      <div class="hub-label">IPC Hub</div>
+      <svg width="44" height="44" viewBox="0 0 44 44">
+        <!-- GitHub octocat simplified -->
+        <rect x="4" y="4" width="36" height="36" rx="8" fill="#24292F" opacity="0.9"/>
+        <path d="M22 10 C16 10 11 15 11 21 C11 26 14 30 19 31 C19.5 31.1 19.7 30.8 19.7 30.5 L19.7 28.5 C17 29.1 16.5 27.5 16.5 27.5 C16 26.5 15.2 26.2 15.2 26.2 C14.3 25.6 15.2 25.7 15.2 25.7 C16.2 25.8 16.7 26.8 16.7 26.8 C17.6 28.4 19.2 27.9 19.8 27.6 C19.9 27 20.2 26.6 20.5 26.4 C18.2 26.1 15.8 25.2 15.8 21.5 C15.8 20.4 16.2 19.5 16.8 18.8 C16.7 18.5 16.4 17.5 16.9 16.3 C16.9 16.3 17.7 16.1 19.7 17.3 C20.5 17.1 21.2 17 22 17 C22.8 17 23.5 17.1 24.3 17.3 C26.3 16.1 27.1 16.3 27.1 16.3 C27.6 17.5 27.3 18.5 27.2 18.8 C27.8 19.5 28.2 20.4 28.2 21.5 C28.2 25.2 25.8 26.1 23.5 26.4 C23.9 26.8 24.3 27.5 24.3 28.5 L24.3 30.5 C24.3 30.8 24.5 31.1 25 31 C30 30 33 26 33 21 C33 15 28 10 22 10 Z" fill="white"/>
+      </svg>
+      <div class="nn" style="font-size:15px;color:#24292F;">vault-context</div>
+      <div class="ns">AAARRRCCC/vault-context</div>
+      <div class="nd" style="font-size:10px;">🌐 Public GitHub repo</div>
+      <div class="chips" style="margin-top:8px;">
+        <span class="chip" style="font-weight:600;">STATE.md</span>
+        <span class="chip">plans/</span>
+        <span class="chip">work-orders/</span>
+        <span class="chip">results/</span>
+        <span class="chip">CLAUDE.md</span>
+        <span class="chip">LEARNINGS.md</span>
+        <span class="chip">LOOP.md</span>
+      </div>
+      <div style="margin-top:8px;background:rgba(36,41,47,0.04);border-radius:6px;padding:5px 8px;width:100%;font-size:10px;color:#374151;line-height:1.6;text-align:left;border:1px solid #E5E7EB;">
+        Git push = send · Git pull = receive
+      </div>
+    </div>
+
+    <!-- Worker — right middle -->
+    <div class="nc worker" style="right:14px; top:392px; width:208px;">
+      <svg width="42" height="42" viewBox="0 0 42 42">
+        <rect x="4" y="5" width="34" height="24" rx="5" fill="#059669" opacity="0.7"/>
+        <rect x="16" y="31" width="10" height="5" rx="2" fill="#059669" opacity="0.5"/>
+        <rect x="10" y="35" width="22" height="3" rx="1.5" fill="#059669" opacity="0.4"/>
+        <rect x="8" y="10" width="13" height="2" rx="1" fill="white" opacity="0.65"/>
+        <rect x="8" y="15" width="20" height="2" rx="1" fill="white" opacity="0.5"/>
+        <rect x="8" y="20" width="10" height="2" rx="1" fill="white" opacity="0.4"/>
+      </svg>
+      <div class="nn" style="color:#065F46;">Worker</div>
+      <div class="ns">Claude Code · Sonnet 4.6</div>
+      <div class="nd">~/knowledge-base-worker/</div>
+      <div class="chips" style="margin-top:6px;">
+        <span class="chip">/autonomous-loop</span>
+        <span class="chip">vault edits</span>
+        <span class="chip">results/</span>
+        <span class="chip">STATE.md</span>
+      </div>
+      <div style="margin-top:8px;background:rgba(255,255,255,0.6);border-radius:6px;padding:5px 8px;width:100%;font-size:10px;color:#6B7280;line-height:1.6;text-align:left;">
+        <div style="font-weight:600;color:#065F46;margin-bottom:2px;">Cannot:</div>
+        <div>create plans · override Mayor</div>
+      </div>
+    </div>
+
+    <!-- Foreman — bottom center -->
+    <div class="nc foreman" style="left:678px; top:714px; width:200px;">
+      <svg width="36" height="36" viewBox="0 0 36 36">
+        <rect x="3" y="9" width="30" height="18" rx="7" fill="#D97706" opacity="0.8"/>
+        <circle cx="13" cy="18" r="3" fill="white" opacity="0.9"/>
+        <circle cx="23" cy="18" r="3" fill="white" opacity="0.9"/>
+        <line x1="10" y1="9" x2="7" y2="4" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>
+        <line x1="26" y1="9" x2="29" y2="4" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <div class="nn" style="font-size:13px;color:#92400E;">Foreman</div>
+      <div class="ns">Discord Bot · Node.js</div>
+      <div class="nd">com.foreman.bot · launchd KeepAlive</div>
+      <div class="chips" style="margin-top:5px;">
+        <span class="chip">!status</span>
+        <span class="chip">!resume</span>
+        <span class="chip">!answer</span>
+        <span class="chip">relay → claude -p</span>
+      </div>
+    </div>
+
+    <!-- Infrastructure — bottom right -->
+    <div class="nc mac" style="right:14px; top:714px; width:254px;">
+      <div style="display:flex;gap:10px;align-items:center;justify-content:center;">
+        <!-- Mac Mini icon -->
+        <svg width="34" height="34" viewBox="0 0 34 34">
+          <rect x="3" y="7" width="28" height="18" rx="4" fill="#9CA3AF" opacity="0.6"/>
+          <rect x="10" y="26" width="14" height="4" rx="2" fill="#9CA3AF" opacity="0.4"/>
+          <rect x="7" y="29" width="20" height="3" rx="1.5" fill="#9CA3AF" opacity="0.3"/>
+          <rect x="6" y="10" width="22" height="12" rx="2" fill="white" opacity="0.5"/>
+        </svg>
+        <!-- launchd clock icon -->
+        <svg width="28" height="28" viewBox="0 0 28 28">
+          <circle cx="14" cy="14" r="11" fill="none" stroke="#EA580C" stroke-width="2" opacity="0.7"/>
+          <line x1="14" y1="14" x2="14" y2="7" stroke="#EA580C" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="14" y1="14" x2="19" y2="16" stroke="#EA580C" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="14" cy="14" r="1.8" fill="#EA580C"/>
+        </svg>
+        <!-- Obsidian gem -->
+        <svg width="28" height="28" viewBox="0 0 28 28">
+          <polygon points="14,2 24,10 20,26 8,26 4,10" fill="#4338CA" opacity="0.55"/>
+          <polygon points="14,2 24,10 14,14" fill="#6366F1" opacity="0.5"/>
+          <polygon points="4,10 14,14 8,26" fill="#3730A3" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="nn" style="font-size:13px;color:#374151;margin-top:2px;">Infrastructure</div>
+      <div class="nd">Mac Mini M4 · macOS 15.5 · Apple Silicon</div>
+      <div style="margin-top:8px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5px;">
+        <div style="background:#fff;border:1px solid #E5E7EB;border-radius:6px;padding:5px 7px;font-size:10px;color:#374151;line-height:1.5;">
+          <div style="font-weight:600;color:#EA580C;margin-bottom:1px;">launchd</div>
+          <div>every 120s</div>
+          <div style="color:#9CA3AF;">mayor-check.sh</div>
         </div>
-        <div class="rw-box">
-          <div class="rw-head" style="color:#7C3AED;">Writes to</div>
-          <div>results/</div>
-          <div>STATE.md</div>
+        <div style="background:#E0E7FF;border:1px solid #4338CA;border-radius:6px;padding:5px 7px;font-size:10px;color:#312E81;line-height:1.5;">
+          <div style="font-weight:600;margin-bottom:1px;">Obsidian</div>
           <div>knowledge-base</div>
-          <div>LEARNINGS.md</div>
+          <div style="color:#6B7280;">PARA · v1.12.2</div>
         </div>
-      </div>
-
-      <hr class="divider" style="margin:4px 0;">
-
-      <div class="nc foreman" style="margin-top:4px;">
-        <svg width="36" height="36" viewBox="0 0 36 36">
-          <rect x="3" y="9" width="30" height="18" rx="7" fill="#D97706" opacity="0.8"/>
-          <circle cx="13" cy="18" r="3" fill="white" opacity="0.9"/>
-          <circle cx="23" cy="18" r="3" fill="white" opacity="0.9"/>
-          <line x1="10" y1="9" x2="7" y2="4" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>
-          <line x1="26" y1="9" x2="29" y2="4" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <div class="nn" style="font-size:13px;color:#92400E;">Foreman</div>
-        <div class="ns">Discord Bot · Node.js</div>
-        <div class="nd">com.foreman.bot (launchd KeepAlive)</div>
-        <div class="chips" style="margin-top:5px;">
-          <span class="chip">!status !resume</span>
-          <span class="chip">!doctor</span>
-          <span class="chip">!answer</span>
-          <span class="chip">relay → claude -p</span>
+        <div style="background:#F6F8FA;border:1px solid #24292F;border-radius:6px;padding:5px 7px;font-size:10px;color:#24292F;line-height:1.5;grid-column:1/-1;">
+          <div style="font-weight:600;margin-bottom:1px;">🔒 knowledge-base · 🌐 vault-context</div>
+          <div style="color:#6B7280;">Private vault · Public IPC mirror</div>
         </div>
       </div>
     </div>
 
-    <!-- connector 3→4 -->
-    <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;width:44px;padding-top:130px;gap:10px;flex-shrink:0;">
-      <svg width="44" height="100" viewBox="0 0 44 100">
-        <defs>
-          <marker id="a5" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#6B7280"/></marker>
-          <marker id="a6" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#EA580C"/></marker>
-        </defs>
-        <!-- Worker ↔ knowledge-base -->
-        <path d="M 6 30 Q 22 20 38 30" stroke="#6B7280" stroke-width="1.5" fill="none" marker-end="url(#a5)" opacity="0.7"/>
-        <text x="22" y="17" font-size="8" fill="#6B7280" text-anchor="middle" font-style="italic">reads/writes</text>
-        <!-- launchd → Worker spawn -->
-        <path d="M 38 65 Q 22 75 6 65" stroke="#EA580C" stroke-width="1.5" fill="none" stroke-dasharray="4 2" marker-end="url(#a6)" opacity="0.6"/>
-        <text x="22" y="90" font-size="8" fill="#EA580C" text-anchor="middle" font-style="italic">spawns</text>
-        <text x="22" y="99" font-size="7" fill="#EA580C" text-anchor="middle" font-style="italic">every 120s</text>
-      </svg>
-    </div>
+    <!-- ═══════════════════════════════════════════════════════════
+         DATA PACKET PILLS (z-index 3)
+         ═══════════════════════════════════════════════════════════ -->
 
-    <!-- ④ INFRASTRUCTURE -->
-    <div class="lane" style="flex:0 0 320px;">
-      <div class="lane-title">④ Infrastructure Layer</div>
+    <!-- Path 2: Mayor → vault-context (purple border) -->
+    <div class="packet" style="border-color:#7C3AED; left:346px; top:432px;">PLAN-007.md</div>
+    <div class="packet" style="border-color:#7C3AED; left:492px; top:426px;">WO-025.md</div>
+    <div class="packet" style="border-color:#7C3AED; left:636px; top:428px;">STATE.md ↑</div>
 
-      <div class="nc mac">
-        <svg width="36" height="36" viewBox="0 0 36 36">
-          <rect x="4" y="7" width="28" height="18" rx="4" fill="#9CA3AF" opacity="0.6"/>
-          <rect x="11" y="26" width="14" height="4" rx="2" fill="#9CA3AF" opacity="0.4"/>
-          <rect x="8" y="29" width="20" height="3" rx="1.5" fill="#9CA3AF" opacity="0.3"/>
-          <rect x="7" y="10" width="22" height="12" rx="2" fill="white" opacity="0.5"/>
-        </svg>
-        <div class="nn" style="font-size:13px;color:#374151;">Mac Mini M4</div>
-        <div class="ns">macOS 15.5 · Apple Silicon</div>
-        <div class="nd">Always-on home server</div>
-      </div>
+    <!-- Path 3: vault-context → Worker (green border) -->
+    <div class="packet" style="border-color:#059669; left:1102px; top:430px;">STATE.md</div>
+    <div class="packet" style="border-color:#059669; left:1248px; top:426px;">active plan</div>
+    <div class="packet" style="border-color:#059669; left:1392px; top:432px;">CLAUDE.md</div>
 
-      <div class="nc launchd">
-        <svg width="34" height="34" viewBox="0 0 34 34">
-          <circle cx="17" cy="17" r="12" fill="none" stroke="#EA580C" stroke-width="2" opacity="0.7"/>
-          <line x1="17" y1="17" x2="17" y2="8" stroke="#EA580C" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="17" y1="17" x2="23" y2="19" stroke="#EA580C" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="17" cy="17" r="2" fill="#EA580C"/>
-        </svg>
-        <div class="nn" style="font-size:13px;color:#7C2D12;">Heartbeat</div>
-        <div class="ns">launchd every 120s</div>
-        <div class="nd">com.mayor.workorder-check</div>
-      </div>
+    <!-- Path 4: Worker → vault-context return (green border) -->
+    <div class="packet" style="border-color:#059669; left:1394px; top:520px;">WO-result.md</div>
+    <div class="packet" style="border-color:#059669; left:1252px; top:526px;">LEARNINGS.md</div>
+    <div class="packet" style="border-color:#059669; left:1104px; top:516px;">STATE.md ↑</div>
 
-      <div class="nc obsidian">
-        <svg width="34" height="34" viewBox="0 0 34 34">
-          <polygon points="17,3 29,13 25,31 9,31 5,13" fill="#4338CA" opacity="0.6"/>
-          <polygon points="17,3 29,13 17,17" fill="#6366F1" opacity="0.5"/>
-          <polygon points="5,13 17,17 9,31" fill="#3730A3" opacity="0.6"/>
-          <polygon points="29,13 17,17 25,31" fill="#4F46E5" opacity="0.5"/>
-        </svg>
-        <div class="nn" style="font-size:13px;color:#312E81;">Obsidian Vault</div>
-        <div class="ns">knowledge-base · v1.12.2</div>
-        <div class="nd">PARA method · 6 folders</div>
-      </div>
+    <!-- Path 5: Worker → Discord (green border, signals) -->
+    <div class="packet" style="border-color:#059669; left:1638px; top:350px;">signal: complete</div>
+    <div class="packet" style="border-color:#059669; left:1628px; top:302px;">signal: checkpoint</div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;">
-        <div class="nc github" style="padding:8px;">
-          <svg width="22" height="22" viewBox="0 0 38 38">
-            <rect x="4" y="4" width="30" height="30" rx="7" fill="#24292F" opacity="0.85"/>
-            <path d="M19 9 C14.5 9 10 12.5 10 18 C10 22.5 13 26.5 17.5 27.5 C18 27.6 18.2 27.3 18.2 27 L18.2 25.3 C15.5 25.9 15 24.2 15 24.2 C14.6 23.2 14 22.9 14 22.9 C13.2 22.4 14 22.4 14 22.4 C14.8 22.5 15.2 23.2 15.2 23.2 C16.1 24.7 17.5 24.3 18.1 24 C18.2 23.4 18.4 23 18.6 22.8 C16.6 22.5 14.5 21.7 14.5 18.5 C14.5 17.5 14.8 16.7 15.4 16.1 C15.3 15.8 15 15 15.5 13.9 C15.5 13.9 16.2 13.7 18 14.9 C18.7 14.7 19.4 14.6 20.1 14.6 C20.8 14.6 21.5 14.7 22.2 14.9 C24 13.7 24.7 13.9 24.7 13.9 C25.2 15 24.9 15.8 24.8 16.1 C25.4 16.7 25.7 17.5 25.7 18.5 C25.7 21.7 23.6 22.5 21.6 22.8 C21.9 23.1 22.2 23.7 22.2 24.6 L22.2 27 C22.2 27.3 22.4 27.6 22.9 27.5 C27.4 26.5 30.4 22.5 30.4 18 C30.4 12.5 25.9 9 19 9 Z" fill="white"/>
-          </svg>
-          <div style="font-size:10px;font-weight:600;color:#24292F;margin-top:2px;">knowledge-base</div>
-          <div style="font-size:10px;color:#9CA3AF;">🔒 Private</div>
-        </div>
-        <div class="nc github" style="padding:8px;">
-          <svg width="22" height="22" viewBox="0 0 38 38">
-            <rect x="4" y="4" width="30" height="30" rx="7" fill="#24292F" opacity="0.85"/>
-            <path d="M19 9 C14.5 9 10 12.5 10 18 C10 22.5 13 26.5 17.5 27.5 C18 27.6 18.2 27.3 18.2 27 L18.2 25.3 C15.5 25.9 15 24.2 15 24.2 C14.6 23.2 14 22.9 14 22.9 C13.2 22.4 14 22.4 14 22.4 C14.8 22.5 15.2 23.2 15.2 23.2 C16.1 24.7 17.5 24.3 18.1 24 C18.2 23.4 18.4 23 18.6 22.8 C16.6 22.5 14.5 21.7 14.5 18.5 C14.5 17.5 14.8 16.7 15.4 16.1 C15.3 15.8 15 15 15.5 13.9 C15.5 13.9 16.2 13.7 18 14.9 C18.7 14.7 19.4 14.6 20.1 14.6 C20.8 14.6 21.5 14.7 22.2 14.9 C24 13.7 24.7 13.9 24.7 13.9 C25.2 15 24.9 15.8 24.8 16.1 C25.4 16.7 25.7 17.5 25.7 18.5 C25.7 21.7 23.6 22.5 21.6 22.8 C21.9 23.1 22.2 23.7 22.2 24.6 L22.2 27 C22.2 27.3 22.4 27.6 22.9 27.5 C27.4 26.5 30.4 22.5 30.4 18 C30.4 12.5 25.9 9 19 9 Z" fill="white"/>
-          </svg>
-          <div style="font-size:10px;font-weight:600;color:#24292F;margin-top:2px;">vault-context</div>
-          <div style="font-size:10px;color:#9CA3AF;">🌐 Public</div>
-        </div>
-      </div>
+    <!-- Path 6: Brady → Discord (blue border, commands) -->
+    <div class="packet" style="border-color:#2563EB; left:680px; top:130px;">!status</div>
+    <div class="packet" style="border-color:#2563EB; left:1080px; top:127px;">!resume</div>
 
-      <div style="background:#fff;border:1px solid #E5E7EB;border-radius:7px;padding:8px 10px;font-size:10px;color:#6B7280;line-height:1.6;margin-top:auto;">
-        <div style="font-weight:600;color:#374151;margin-bottom:3px;">sync-context.sh</div>
-        <div>Post-commit hook → mirrors CLAUDE.md,<br>LEARNINGS.md, STRUCTURE.md to vault-context</div>
-      </div>
-    </div>
+    <!-- Path 7: Discord → Foreman (blurple border) -->
+    <div class="packet" style="border-color:#5865F2; left:1326px; top:350px;">!status</div>
+    <div class="packet" style="border-color:#5865F2; left:1072px; top:540px;">!resume</div>
 
-  </div><!-- /swim lanes -->
+    <!-- Path 10: Infrastructure → VC (gray border, sync) -->
+    <div class="packet" style="border-color:#9CA3AF; left:1280px; top:735px;">sync-context.sh</div>
+
+  </div><!-- /canvas -->
 
   <!-- ANNOTATIONS -->
   <div class="anns">
     <div class="ann a1">
       <div class="ann-t">① Git as IPC</div>
-      <div class="ann-b">vault-context is a message bus between Mayor and Worker — two AI systems that can't communicate directly. Git push = send. Git pull = receive.</div>
+      <div class="ann-b">vault-context is a shared message bus between Mayor and Worker — two AI systems that can't talk directly. Git push = send. Git pull = receive. Every file in the repo is a structured message.</div>
     </div>
     <div class="ann a2">
       <div class="ann-t">② Separation of Concerns</div>
-      <div class="ann-b">Planning (Mayor) and execution (Worker) are intentionally isolated. Mayor can't run code. Worker can't create plans. Each does only what it's built for.</div>
+      <div class="ann-b">Planning (Mayor) and execution (Worker) are intentionally isolated. Mayor can't run code or touch the vault. Worker can't create plans or change architecture. Each does only what it's built for.</div>
     </div>
     <div class="ann a3">
       <div class="ann-t">③ Human-in-the-Loop</div>
-      <div class="ann-b">Brady controls via phone (Discord) or browser (claude.ai). Checkpoint signals create natural pause points. !resume, !answer, !cancel from Discord at any time.</div>
+      <div class="ann-b">Brady controls via phone (Discord commands: !resume, !answer) or browser (claude.ai). Checkpoint signals create natural pause points. Brady is never locked out and can intervene at any phase.</div>
     </div>
     <div class="ann a4">
       <div class="ann-t">④ Autonomous but Supervised</div>
-      <div class="ann-b">Worker runs independently through plan phases. STATE.md is always current. 4-hour idle nudge ensures Brady stays in the loop without manual polling.</div>
+      <div class="ann-b">Worker runs independently through plan phases. STATE.md is always current — the heartbeat checks every 120s. A 4-hour idle nudge ensures Brady stays in the loop without manual polling.</div>
     </div>
   </div>
 
@@ -543,15 +653,23 @@ body { padding: 0; margin: 0; }
       <div class="li"><div class="ld" style="background:#EDE9FE;border-color:#7C3AED;"></div>Mayor</div>
       <div class="li"><div class="ld" style="background:#D1FAE5;border-color:#059669;"></div>Worker</div>
       <div class="li"><div class="ld" style="background:#FEF3C7;border-color:#D97706;"></div>Foreman</div>
-      <div class="li"><div class="ld" style="background:#F6F8FA;border-color:#24292F;"></div>GitHub</div>
-      <div class="li"><div class="ld" style="background:#E0E7FF;border-color:#4338CA;"></div>Obsidian</div>
+      <div class="li"><div class="ld" style="background:#F6F8FA;border-color:#24292F;"></div>vault-context (hub)</div>
+      <div class="li"><div class="ld" style="background:#E8EAFD;border-color:#5865F2;"></div>Discord</div>
       <div class="li" style="margin-left:12px;padding-left:12px;border-left:1px solid #E5E7EB;">
-        <svg width="22" height="10"><line x1="0" y1="5" x2="16" y2="5" stroke="#9CA3AF" stroke-width="1.5"/><path d="M14,2 L20,5 L14,8 Z" fill="#9CA3AF"/></svg>
-        Direct flow
+        <svg width="28" height="10"><line x1="0" y1="5" x2="20" y2="5" stroke="#9CA3AF" stroke-width="4" stroke-linecap="round"/><path d="M17,2 L25,5 L17,8 Z" fill="#9CA3AF"/></svg>
+        git (solid)
       </div>
       <div class="li">
-        <svg width="22" height="10"><line x1="0" y1="5" x2="16" y2="5" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="3 2"/><path d="M14,2 L20,5 L14,8 Z" fill="#9CA3AF"/></svg>
-        Async / triggered
+        <svg width="28" height="10"><line x1="0" y1="5" x2="20" y2="5" stroke="#9CA3AF" stroke-width="4" stroke-dasharray="5,4" stroke-linecap="round"/><path d="M17,2 L25,5 L17,8 Z" fill="#9CA3AF"/></svg>
+        Discord (dashed)
+      </div>
+      <div class="li">
+        <svg width="28" height="10"><line x1="0" y1="5" x2="20" y2="5" stroke="#9CA3AF" stroke-width="2.5" stroke-dasharray="2,4" stroke-linecap="round"/><path d="M17,2 L25,5 L17,8 Z" fill="#9CA3AF"/></svg>
+        background (dotted)
+      </div>
+      <div class="li" style="margin-left:4px;">
+        <div style="background:#fff;border:1.5px solid #9CA3AF;border-radius:999px;padding:1px 8px;font-size:10px;font-family:'SF Mono','Fira Code',monospace;color:#1A1A2E;">payload</div>
+        data packets
       </div>
     </div>
     <div style="font-size:11px;color:#9CA3AF;">Mayor System · Sheet 1 of 5 · System Overview</div>

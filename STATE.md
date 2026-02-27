@@ -1,11 +1,11 @@
 ---
-updated: 2026-02-27T15:00:00Z
+updated: 2026-02-27T15:30:00Z
 active_plan: none
 phase: 5
 phase_status: complete
-worker_status: processing
+worker_status: idle
 last_signal: complete
-last_signal_time: 2026-02-27T06:00:00Z
+last_signal_time: 2026-02-27T15:30:00Z
 ---
 
 # System State
@@ -59,6 +59,7 @@ System is free for normal operations.
 | 2026-02-27 05:37 | Brady approved PLAN-008 Phase 4 via Discord !resume | Discord command |
 | 2026-02-27 05:45 | Advancing to Phase 5: Account Failover | Phase 4 approved, signal was checkpoint |
 | 2026-02-27 06:00 | PLAN-008 P5 complete: foreman-accounts.json created, !accounts + !switch wired, mayor-check.sh enhanced | Claude CLI uses OAuth (no auto-switch); simplified to account tracking + manual switch guidance per plan decision guidance |
+| 2026-02-27 15:30 | WO-028 complete: relay-aware scheduling added to bot.js | detectSchedulingIntent requires BOTH keyword AND parseable time; uses relay task type for reminder firing |
 
 ## Pending Questions
 

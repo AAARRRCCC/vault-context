@@ -176,6 +176,46 @@ Additionally, the system hit a rate limit wall on 2026-02-26 that caused the hea
    - Show active alert cooldowns and last alert times
    - `!alerts off` — temporarily disable proactive alerts (re-enable with `!alerts on` or on bot restart)
 
+5. Implement `!investigate <subsystem>` — deep-dive diagnostics for a specific component. Unlike `!doctor` (which gives pass/fail), `!investigate` dumps detailed context so Brady can relay the info to Mayor or debug himself.
+
+   **Subsystems:**
+
+   **`!investigate heartbeat`:**
+   - Last 5 heartbeat runs with timestamps and exit codes
+   - What command was invoked each time (process-work-orders vs autonomous-loop)
+   - What it found (pending WO count, active plan)
+   - Any error output from the last failed run
+
+   **`!investigate worker`:**
+   - Current STATE.md frontmatter (active_plan, phase, phase_status, worker_status)
+   - Worker branch status (`git -C ~/knowledge-base-worker log --oneline -3`)
+   - Whether a Claude Code session is running (PID if so)
+   - Last 5 lines of the most recent session log (parsed, not raw JSONL)
+
+   **`!investigate git`:**
+   - `git status --porcelain` for both vault-context and knowledge-base-worker
+   - `git log --oneline -5` for both repos
+   - Divergence from origin (commits ahead/behind)
+   - Any uncommitted or untracked files
+
+   **`!investigate plan`:**
+   - Active plan name, current phase, phase status
+   - Full text of the current phase's objective and acceptance criteria
+   - Decision log entries from the current plan
+   - Last signal sent and when
+
+   **`!investigate relay`:**
+   - Last 3 relay attempts from bot log (timestamps, message snippet, success/fail, response time)
+   - Current conversation session info (message count, session age)
+   - Foreman prompt file size and last-modified date
+   - Whether claude CLI is in PATH and responding (`claude --version`)
+
+   **`!investigate schedule`** (available after Phase 4):
+   - All scheduled tasks with next run time, last run time, last result
+   - Any tasks that failed or were skipped
+
+   Format: send as a code block or file attachment if over 2000 chars. Goal is maximum information density — Brady will copy-paste this to Mayor for analysis.
+
 **Acceptance criteria:**
 - [ ] Disk space warning fires at 85%+
 - [ ] Stale lockfile detected and alerted

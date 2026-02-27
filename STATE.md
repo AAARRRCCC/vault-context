@@ -1,11 +1,11 @@
 ---
-updated: 2026-02-26T23:35:00Z
+updated: 2026-02-27T02:55:00Z
 active_plan: PLAN-008
 phase: 2
-phase_status: in-progress
-worker_status: processing
-last_signal: notify
-last_signal_time: 2026-02-26T23:35:00Z
+phase_status: complete
+worker_status: paused
+last_signal: checkpoint
+last_signal_time: 2026-02-27T02:55:00Z
 ---
 
 # System State
@@ -14,7 +14,7 @@ last_signal_time: 2026-02-26T23:35:00Z
 
 - **Plan:** PLAN-008 — Foreman v2: Conversation Memory, Scheduling, Alerts, Account Failover
 - **Current phase:** Phase 2 (Multi-Turn Conversation Memory)
-- **Phase progress:** In progress
+- **Phase progress:** Complete — paused for checkpoint review
 - **Blockers:** None
 
 ## Mayor Guidance
@@ -49,6 +49,7 @@ System is free for normal operations.
 | PLAN-007 | Shelved — remaining work handled outside Worker pipeline | Brady + Mayor + Gemini will produce diagrams manually. Worker/Foreman freed for other tasks. |
 | 2026-02-26 22:47 | Brady unpaused worker via Discord !resume | Discord command |
 | 2026-02-26 23:35 | PLAN-008 P1 complete: rate limit detection via output grep + pre-check state file | Stores ISO reset time (best-effort parsed, 24h fallback); !ratelimit + !fix ratelimit added to bot.js |
+| 2026-02-27 02:55 | PLAN-008 P2 complete: conversation-store.js created, history injected into relay system prompt | History injected as Recent conversation block; failed/timed-out relay calls don't save to history |
 
 ## Pending Questions
 
@@ -79,3 +80,4 @@ None.
 ## Queue
 
 - [x] PLAN-008 Phase 1: Rate Limit Detection and Alerting (2026-02-26)
+- [x] PLAN-008 Phase 2: Multi-Turn Conversation Memory (2026-02-27)

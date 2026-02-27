@@ -102,11 +102,12 @@
 | vault-context sync | ✅ Working | `sync-context.sh` post-commit hook; syncs CLAUDE.md, CLAUDE-LEARNINGS.md, STRUCTURE.md, RECENT_CHANGES.md |
 | Mayor Dashboard | ✅ Running | `com.mayor.dashboard` launchd service; Node.js server at `http://localhost:3847` |
 
-**Work orders completed:** WO-001 through WO-023
-**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit), PLAN-003 (mayor dashboard), PLAN-004 (Foreman bot), PLAN-005 (ops commands), PLAN-006 (token optimization)
+**Work orders completed:** WO-001 through WO-027+
+**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit), PLAN-003 (mayor dashboard), PLAN-004 (Foreman bot), PLAN-005 (ops commands), PLAN-006 (token optimization), PLAN-008 (Foreman v2)
 **Plans in progress:** None
 **System operational since:** 2026-02-24
 **Autonomous loop operational since:** 2026-02-24
+**Foreman v2 (PLAN-008) complete:** 2026-02-27 — conversation memory, proactive alerts, task scheduling, account failover
 
 ---
 
@@ -163,17 +164,20 @@ mayor-status.sh                           # includes dashboard status
 |-------|---------|
 | Status | `!status`, `!queue`, `!uptime`, `!log`, `!signals` |
 | Control | `!resume`, `!pause`, `!cancel`, `!confirm`, `!answer <text>` |
-| Diagnostics | `!doctor`, `!fix [lockfile\|heartbeat\|dashboard\|bot\|git]`, `!tail [heartbeat\|dashboard\|bot\|session]` |
+| Diagnostics | `!doctor`, `!ratelimit`, `!accounts`, `!switch <id>`, `!alerts [on\|off]`, `!investigate <subsystem>`, `!fix [lockfile\|heartbeat\|dashboard\|bot\|git\|ratelimit]`, `!tail [heartbeat\|dashboard\|bot\|session]` |
+| Scheduling | `!schedule <time> <task>`, `!schedules`, `!unschedule <id>`, `!snooze <id> <duration>` |
+| Conversation | `!clear`, `!context` |
 | Other | `!ping`, `!help` |
 
-**Diagnostic commands (added PLAN-005):**
-- `!doctor` — full system health check (launchd agents, lockfile, Claude running, STATE.md, pending WOs, last heartbeat, git status)
-- `!fix <sub>` — remove stale lockfile, restart services, git pull
-- `!tail <target>` — tail last 20 lines of any service log; `session` parses Claude JSONL to readable text
-- `!queue` — pending WOs with ID, title, priority
-- `!uptime` — service uptimes, recent completions from signals log
+**Conversational relay (PLAN-008 P2):** Non-command messages route to `claude -p` with a Foreman system prompt, STATE.md context, and per-user conversation history (last 10 exchange pairs, 30-minute session timeout). History stored in `~/.local/state/foreman-conversations.json`. Max budget $2.00/relay call, timeout 180s.
 
-**Conversational relay:** Non-command messages route to `claude -p` with a Foreman system prompt, STATE.md context, and `--dangerously-skip-permissions`. Responses sent back through Discord. Max budget $2.00/relay call. Timeout 180s (sends "Working on it..." immediately, warns at 15s). Full response attached as .md file if over 1500 chars.
+**Proactive system alerts (PLAN-008 P3):** `system-monitor.js` runs every 5 minutes, checking disk space (warn 85%, critical 95%), stale lockfile, dead heartbeat, failed/blocked WOs, git divergence, and long idle. Alerts to Brady's DM as embeds (yellow/red). 1-hour cooldown per alert type. Toggle with `!alerts on/off`.
+
+**Task scheduling (PLAN-008 P4):** `scheduler.js` with `chrono-node` for natural language time parsing. Schedule one-off or recurring tasks from Discord. Storage: `~/.local/state/foreman-schedule.json`. Missed tasks skipped if >15 min late. 3 consecutive failures disables + alerts.
+
+**Rate limit detection (PLAN-008 P1):** `mayor-check.sh` detects rate limit output, writes `~/.local/state/rate-limited.json`, sends one Discord alert (no repeated errors). Heartbeat skips Claude invocation while limited. `!ratelimit` shows status; `!fix ratelimit` clears the flag.
+
+**Account failover (PLAN-008 P5):** `~/.local/state/foreman-accounts.json` tracks configured accounts. `!accounts` shows status. `!switch <id>` updates active account + clears rate limit flag. Actual auth switch requires `claude auth login` in terminal (OAuth-only, no automated switching). Rate limit alerts include next-available-account suggestion.
 
 **Audit trail (added PLAN-005):** `!resume`, `!pause`, `!cancel`, `!answer` append a row to STATE.md's Decision Log table with timestamp, action, and "Discord command" reasoning.
 
@@ -182,6 +186,7 @@ mayor-status.sh                           # includes dashboard status
 **Presence:** Updates every 30 seconds. Green/online = processing; yellow/idle = paused; invisible = idle.
 
 **Prompt file:** `~/foreman-bot/foreman-prompt.md`
+**Bot modules:** `~/foreman-bot/conversation-store.js`, `~/foreman-bot/system-monitor.js`, `~/foreman-bot/scheduler.js`
 
 **To manage:**
 ```bash

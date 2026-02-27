@@ -1,6 +1,6 @@
 ---
 id: WO-033
-status: pending
+status: in-progress
 priority: normal
 created: 2026-02-27
 mayor: claude-web

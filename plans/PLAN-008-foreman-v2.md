@@ -1,10 +1,10 @@
 ---
 id: PLAN-008
-status: pending
+status: active
 created: 2026-02-26
 mayor: claude-web
 phases: 5
-current_phase: 0
+current_phase: 1
 ---
 
 # Foreman v2 — Conversational Intelligence, Scheduling, and System Resilience

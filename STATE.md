@@ -23,6 +23,8 @@ PLAN-007 (System Visual Diagrams) is shelved. Phases 3-5 will be handled manuall
 
 WO-026 (max tokens flag for claude relay) is pending and ready for pickup.
 
+WO-034 (code simplification pass — Foreman bot files) is pending and ready for pickup. Uses the new /simplify bundled command from Claude Code 2.1.63. One file at a time, tag before starting, smoke test after each.
+
 System is free for normal operations.
 
 ## Decision Log

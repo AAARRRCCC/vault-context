@@ -1,11 +1,11 @@
 ---
-updated: 2026-02-28T18:30:00Z
+updated: 2026-02-28T19:15:00Z
 active_plan: PLAN-009
-phase: 1
-phase_status: paused
-worker_status: paused
-last_signal: checkpoint
-last_signal_time: 2026-02-28T18:30:00Z
+phase: 2
+phase_status: in_progress
+worker_status: active
+last_signal: notify
+last_signal_time: 2026-02-28T19:15:00Z
 ---
 
 # System State
@@ -13,9 +13,9 @@ last_signal_time: 2026-02-28T18:30:00Z
 ## Active Plan
 
 - **Plan:** PLAN-009 — Twitter Inbox Pipeline
-- **Current phase:** Phase 1 (Install gallery-dl + Configuration)
-- **Phase progress:** Complete except for cookie verification test
-- **Blockers:** Twitter cookies required — Mac Mini has no Twitter session in any browser
+- **Current phase:** Phase 2 (Capture Script + Inbox Structure)
+- **Phase progress:** In progress
+- **Blockers:** None
 
 ## Mayor Guidance
 
@@ -67,15 +67,11 @@ PLAN-009 dispatched. Twitter inbox pipeline — gallery-dl capture, Foreman inte
 | 2026-02-27 21:00 | WO-032 complete: !fix git rewritten with diagnose-then-act; bare !fix runs all fixers in parallel; lockfile/heartbeat now diagnose before acting | allowAutoCommit: false for worker repo (stash/warn); vault-context auto-commit is safe (mirror) |
 | 2026-02-28 05:20 | WO-034 complete: simplified bot.js, system-monitor.js, scheduler.js, conversation-store.js, meds-reminder.js, mayor-signal.sh | foreman-bot has no git remote; changes live locally; bot restarts confirmed clean |
 | 2026-02-28 18:30 | PLAN-009 P1: Switched config from cookies-from-browser to cookies file path | Mac Mini has no Twitter session in any browser (Firefox/Chrome/Brave/Vivaldi/Edge/Arc/Safari all tried). File-based cookies at ~/.config/gallery-dl/twitter-cookies.txt is the correct path forward. Brady must export from personal machine. |
+| 2026-02-28 19:15 | PLAN-009 P1 complete: Brady logged into Chrome, cookies extracted (29), auth verified with 200 API response | Config updated to cookies-from-browser: chrome. Test against @sama confirmed tweet file enumeration working. Advancing to Phase 2. |
 
 ## Pending Questions
 
-- **PLAN-009 P1:** Which browser does Brady use for Twitter, and can he export Twitter cookies?
-  - The Mac Mini has no active Twitter session in Firefox, Chrome, Brave, Vivaldi, Edge, or Arc (all either not installed or no Twitter cookies).
-  - Safari has old cookie data but not Twitter auth cookies.
-  - Config updated to use `~/.config/gallery-dl/twitter-cookies.txt` (file-based approach).
-  - Brady needs to: on his personal machine, install the "Cookie-Editor" browser extension, navigate to x.com, export cookies as Netscape format, and place the file at `~/.config/gallery-dl/twitter-cookies.txt` on the Mac Mini.
-  - Once cookies are in place, phases 2-4 can proceed. Mayor: set `worker_status: active` and `phase_status: in_progress` to resume.
+None.
 
 ## Completed Phases
 
@@ -106,7 +102,7 @@ PLAN-009 dispatched. Twitter inbox pipeline — gallery-dl capture, Foreman inte
 - [x] PLAN-008 Phase 3: Proactive System Alerts (2026-02-27)
 - [x] PLAN-008 Phase 4: Task Scheduling Engine (2026-02-27)
 - [x] PLAN-008 Phase 5: Account Failover (2026-02-27)
-- [ ] PLAN-009 Phase 1: Install gallery-dl + Configuration
+- [x] PLAN-009 Phase 1: Install gallery-dl + Configuration (2026-02-28)
 - [ ] PLAN-009 Phase 2: Capture Script + Inbox Structure
 - [ ] PLAN-009 Phase 3: Foreman Integration
 - [ ] PLAN-009 Phase 4: Polish + Documentation

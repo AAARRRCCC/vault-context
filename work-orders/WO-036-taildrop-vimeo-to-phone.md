@@ -1,7 +1,7 @@
 ---
 id: WO-036
 title: Taildrop Vimeo Video to Phone
-status: pending
+status: in-progress
 priority: normal
 created: 2026-02-28T20:45:00Z
 mayor: Claude Web (Opus)

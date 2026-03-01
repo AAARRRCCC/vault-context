@@ -30,7 +30,9 @@ PLAN-009 dispatched. Twitter inbox pipeline — gallery-dl capture, Foreman inte
 
 WO-037 (gallery-dl quote tweet fix + article debug guide) is pending. Pick up after PLAN-009 completes. High priority — quote tweets are broken in gallery-dl, need a local patch to the twitter extractor.
 
-WO-038 (suppress false positive system alerts during active work) is pending. system-monitor.js fires stale lockfile, dead heartbeat, and git divergence warnings while the worker is actively running. Fix: read worker_status from STATE.md and suppress/adjust thresholds when active.
+WO-038 (suppress false positive system alerts during active work) is pending.
+
+WO-039 (tweet dedup + URL param stripping) is pending. High priority — sharing a tweet URL triggers multiple captures from Arc/Discord embed behavior, and Twitter ?s=46 tracking params are being parsed as Brady notes. Fix dedup cache in bot.js + strip query params before processing. system-monitor.js fires stale lockfile, dead heartbeat, and git divergence warnings while the worker is actively running. Fix: read worker_status from STATE.md and suppress/adjust thresholds when active.
 
 ## Decision Log
 

@@ -16,6 +16,7 @@
 - ✅ **Obsidian** — v1.12.2 (installer 1.11.7), vault `knowledge-base` confirmed
 - ✅ **Obsidian CLI** — v1.12.2 (ships with Obsidian)
 - ✅ **Node.js / pnpm** — Node v25.6.1, pnpm v9.15.4
+- ✅ **gallery-dl** — Python tool for downloading Twitter content + metadata (installed via brew)
 - ✅ **Git remote** — `https://github.com/AAARRRCCC/knowledge-base.git`
   - Note: checklist said `vault-context` but that is the public mirror — the vault's own remote is correctly `knowledge-base`
 
@@ -102,12 +103,13 @@
 | vault-context sync | ✅ Working | `sync-context.sh` post-commit hook; syncs CLAUDE.md, CLAUDE-LEARNINGS.md, STRUCTURE.md, RECENT_CHANGES.md |
 | Mayor Dashboard | ✅ Running | `com.mayor.dashboard` launchd service; Node.js server at `http://localhost:3847` |
 
-**Work orders completed:** WO-001 through WO-027+
-**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit), PLAN-003 (mayor dashboard), PLAN-004 (Foreman bot), PLAN-005 (ops commands), PLAN-006 (token optimization), PLAN-008 (Foreman v2)
+**Work orders completed:** WO-001 through WO-036+
+**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit), PLAN-003 (mayor dashboard), PLAN-004 (Foreman bot), PLAN-005 (ops commands), PLAN-006 (token optimization), PLAN-008 (Foreman v2), PLAN-009 (Twitter inbox pipeline)
 **Plans in progress:** None
 **System operational since:** 2026-02-24
 **Autonomous loop operational since:** 2026-02-24
 **Foreman v2 (PLAN-008) complete:** 2026-02-27 — conversation memory, proactive alerts, task scheduling, account failover
+**Twitter inbox pipeline (PLAN-009) complete:** 2026-03-01 — gallery-dl capture, vault-context inbox, Foreman integration
 
 ---
 
@@ -196,3 +198,48 @@ launchctl start com.foreman.bot                        # start
 launchctl unload ~/Library/LaunchAgents/com.foreman.bot.plist   # disable
 tail -f ~/.local/log/foreman-bot.log                   # live log
 ```
+
+---
+
+## Tweet Inbox Pipeline
+
+**Added:** 2026-03-01 (PLAN-009)
+
+Brady shares tweet URLs in Foreman DMs; gallery-dl captures full content to vault-context for later Mayor review.
+
+| Component | Path | Role |
+|-----------|------|------|
+| gallery-dl config | `~/.config/gallery-dl/config.json` | Twitter extractor settings (text-tweets, conversations, expand, quoted) |
+| Cookie source | Chrome (via `--cookies-from-browser chrome` CLI flag) | Auth for Twitter API — must be logged in via Chrome on Mac Mini |
+| Staging dir | `~/.local/share/tweet-staging/` | Temp download area, cleaned after each capture |
+| Capture script | `~/.local/bin/tweet-capture.sh` | Orchestrates gallery-dl → post-process → git commit |
+| Post-processor | `~/foreman-bot/tweet-processor.js` | Converts gallery-dl output to clean `content.md` + inbox entry |
+| Inbox | `~/Documents/vault-context/inbox/tweets/` | Active pending entries (`TWEET-{id}/`) |
+| Archive | `~/Documents/vault-context/inbox/tweets/archive/` | Reviewed entries (moved by `!inbox clear`) |
+| Cleanup script | `~/.local/bin/tweet-inbox-cleanup.sh` | Removes images from archive entries >30 days old |
+
+**Foreman commands:**
+
+| Command | Action |
+|---------|--------|
+| `!tweet <url>` | Capture a tweet explicitly |
+| `!tweet <url> <note>` | Capture with Brady's note attached |
+| `!tweet refresh` | Check if Twitter cookies are still valid |
+| `!tweet cleanup` | Remove old images from archive (manual, on demand) |
+| `!inbox` | List pending tweets with author + preview |
+| `!inbox clear` | Archive all pending items |
+| Auto-detect | Any x.com/twitter.com URL in DM triggers capture automatically |
+
+**Inbox entry format:**
+Each `TWEET-{id}/` directory contains:
+- `content.md` — verbatim tweet text, author info (bio, followers, verified), image references
+- `metadata.json` — raw gallery-dl dump
+- Image files (if any)
+
+Threads are stitched into a single `content.md` in chronological order. Brady's optional note appears as a blockquote at the top.
+
+**Cookie refresh:** When cookies expire, `!tweet refresh` will report it. Fix: log into Twitter in Chrome on Mac Mini, cookies refresh automatically.
+
+**Review flow:** During Mayor sessions, Brady says "let's go through the inbox." Mayor reads each `content.md` via GitHub API. Brady decides action. After review, `!inbox clear` moves all to archive.
+
+**Repo size management:** Images are committed to vault-context (active inbox has full media). Run `!tweet cleanup` periodically to strip images from archive entries older than 30 days. Text and metadata are kept permanently.

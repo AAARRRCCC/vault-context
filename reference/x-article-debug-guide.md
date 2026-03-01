@@ -51,7 +51,7 @@ def _extract_article(self, tweet, files):
         })
 ```
 
-The cover media's `media_info` no longer contains `original_img_url`. Twitter's API has changed the field name or structure.
+**Resolved (2026-03-01):** The error was NOT a changed field name. `original_img_url` is still present in `ApiImage` entries. The actual cause: `media_entities` can contain `ApiVideo` items whose `media_info` has `variants` instead of `original_img_url`. The fix checks `__typename` and routes videos to highest-bitrate variant selection. See fix in `_extract_article` in twitter.py.
 
 ---
 

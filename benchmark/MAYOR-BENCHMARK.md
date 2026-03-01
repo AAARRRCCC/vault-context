@@ -6,14 +6,13 @@ Test whether Claude Opus 4.6 on Claude Code (medium and max effort) produces wor
 
 ## Method
 
-1. Feed each of the 3 test prompts to **three** sources:
-   - **(A)** Claude Web Opus 4.6 Extended (Mayor — this chat)
-   - **(B)** Claude Code Opus 4.6 Medium Effort
-   - **(C)** Claude Code Opus 4.6 Max Effort
-2. Each source receives the **identical prompt** (copy-paste the full prompt block including context)
-3. Save all outputs to `vault-context/benchmark/` as `TEST-{N}-{A|B|C}.md`
-4. **Blind scoring:** Brady strips the source labels, renames to randomized IDs, then has both Mayor and Claude Code Opus score all 9 outputs using the rubric below
-5. After scoring, reveal labels and compare
+1. Feed each of the 3 test prompts to **two** sources:
+   - **(A)** Claude Web Opus 4.6 Extended (Mayor)
+   - **(B)** Claude Code Opus 4.6 Max Effort
+2. Automated via `run-benchmark.sh` on the Mac Mini (see Execution Instructions)
+3. Script randomizes outputs into blind labels (ALPHA/BRAVO per test) and pushes to `vault-context/benchmark/`
+4. Both Mayor and Claude Code Opus score the blinded outputs using the rubric below
+5. Reveal labels and compare
 
 ## Scoring Rubric
 
@@ -175,21 +174,47 @@ This is the system becoming self-improving. Get the trust boundaries right.
 
 ## Execution Instructions
 
-### For Brady:
+### Setup
 
-1. Copy the Context Block + each Test Prompt into Claude Code with Opus 4.6 at medium effort. Save output.
-2. Repeat with max effort. Save output.
-3. Send each Test Prompt to Mayor (this chat). Save output.
-4. Create `vault-context/benchmark/` directory
-5. Save all 9 outputs with randomized filenames (e.g., `TEST-1-ALPHA.md`, `TEST-1-BRAVO.md`, `TEST-1-CHARLIE.md` — shuffled so labels don't reveal source)
-6. Keep a private key mapping randomized names to sources
-7. Have Mayor score all 9 outputs using the rubric (share them in a Mayor chat)
-8. Have Claude Code Opus score all 9 outputs using the rubric (paste them into a Code session)
-9. Average the two sets of scores, reveal labels, compare
+Copy `run-benchmark.sh` to the Mac Mini and make it executable:
+```bash
+chmod +x ~/run-benchmark.sh
+```
+
+### Step 1: Generate Claude Code outputs
+```bash
+./run-benchmark.sh generate
+```
+This runs all 3 prompts through `claude` CLI with Opus at max effort. Takes a few minutes per prompt. Outputs saved to `~/benchmark-outputs/raw/`.
+
+### Step 2: Get Mayor outputs
+
+Send each of the 3 test prompts (from the Test sections below) to Mayor in a Claude Web chat. Copy each output to clipboard, then run:
+```bash
+./run-benchmark.sh add-mayor
+```
+This prompts you to paste each Mayor output interactively (Ctrl-D after each).
+
+### Step 3: Randomize and push
+```bash
+./run-benchmark.sh randomize
+```
+Shuffles outputs into blind labels (TEST-1-ALPHA, TEST-1-BRAVO, etc.), saves answer key locally, and pushes blinded files to `vault-context/benchmark/`.
+
+### Step 4: Score
+```bash
+./run-benchmark.sh score
+```
+Runs Claude Code Opus scoring on all blinded outputs automatically. Then share the same blinded outputs with Mayor in a Claude Web chat for a second set of scores.
+
+### Step 5: Reveal
+```bash
+./run-benchmark.sh reveal
+```
+Shows the answer key and all collected scores.
 
 ### What to look for beyond scores:
 
 - Does Claude Code miss system-specific patterns that Mayor catches?
 - Does Claude Code overscope or underscope compared to Mayor?
 - Is the decision guidance generic ("consider edge cases") vs specific ("if gallery-dl returns exit code 2, retry with --verbose")?
-- Does effort level (medium vs max) actually change output quality, or just verbosity?

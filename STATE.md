@@ -1,10 +1,10 @@
 ---
 
-updated: 2026-03-01T06:00:00Z
+updated: 2026-03-01T06:01:00Z
 active_plan: none
 phase: 0
 phase_status: idle
-worker_status: processing
+worker_status: idle
 last_signal: complete
 last_signal_time: 2026-03-01T05:11:00Z
 ---
@@ -88,6 +88,8 @@ WO-040 (debug tweet inbox sync discrepancy) is pending and HIGH PRIORITY — pic
 | 2026-03-01 05:11 | WO-039 complete: bot.js unknown !command guard + !twitter alias | guard placed before tweet-URL detection so bare URLs still auto-capture |
 | 2026-03-01 05:09 | Brady paused worker Phase 0 via Discord !pause | Discord command |
 | 2026-03-01 05:47 | Brady unpaused worker via Discord !resume | Discord command |
+| 2026-03-01 06:01 | WO-040 complete: push retry + failure surfacing in tweet-capture.sh + bot.js | Root cause: concurrent push conflicts between worker and foreman-bot |
+| 2026-03-01 06:01 | WO-039 complete: dedup cache + cleanTweetUrl + note parsing fix in bot.js | isDuplicate() combines dedup check + registration in one call |
 
 ## Pending Questions
 

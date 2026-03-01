@@ -1,7 +1,7 @@
 ---
 id: WO-035
 title: Download Vimeo Video
-status: pending
+status: in-progress
 priority: normal
 created: 2026-02-28T20:30:00Z
 mayor: Claude Web (Opus)

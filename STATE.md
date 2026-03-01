@@ -1,11 +1,11 @@
 ---
-updated: 2026-02-28T18:15:00Z
+updated: 2026-02-28T18:30:00Z
 active_plan: PLAN-009
 phase: 1
-phase_status: in_progress
-worker_status: processing
-last_signal: started
-last_signal_time: 2026-02-28T18:15:00Z
+phase_status: paused
+worker_status: paused
+last_signal: checkpoint
+last_signal_time: 2026-02-28T18:30:00Z
 ---
 
 # System State
@@ -14,8 +14,8 @@ last_signal_time: 2026-02-28T18:15:00Z
 
 - **Plan:** PLAN-009 — Twitter Inbox Pipeline
 - **Current phase:** Phase 1 (Install gallery-dl + Configuration)
-- **Phase progress:** Starting
-- **Blockers:** None
+- **Phase progress:** Complete except for cookie verification test
+- **Blockers:** Twitter cookies required — Mac Mini has no Twitter session in any browser
 
 ## Mayor Guidance
 
@@ -66,10 +66,16 @@ PLAN-009 dispatched. Twitter inbox pipeline — gallery-dl capture, Foreman inte
 | 2026-02-27 19:30 | WO-031 complete: started signal added to mayor-signal.sh, process-work-orders.md, autonomous-loop.md; !status shows active work | Signal log switched to title-first for better !status display |
 | 2026-02-27 21:00 | WO-032 complete: !fix git rewritten with diagnose-then-act; bare !fix runs all fixers in parallel; lockfile/heartbeat now diagnose before acting | allowAutoCommit: false for worker repo (stash/warn); vault-context auto-commit is safe (mirror) |
 | 2026-02-28 05:20 | WO-034 complete: simplified bot.js, system-monitor.js, scheduler.js, conversation-store.js, meds-reminder.js, mayor-signal.sh | foreman-bot has no git remote; changes live locally; bot restarts confirmed clean |
+| 2026-02-28 18:30 | PLAN-009 P1: Switched config from cookies-from-browser to cookies file path | Mac Mini has no Twitter session in any browser (Firefox/Chrome/Brave/Vivaldi/Edge/Arc/Safari all tried). File-based cookies at ~/.config/gallery-dl/twitter-cookies.txt is the correct path forward. Brady must export from personal machine. |
 
 ## Pending Questions
 
-None.
+- **PLAN-009 P1:** Which browser does Brady use for Twitter, and can he export Twitter cookies?
+  - The Mac Mini has no active Twitter session in Firefox, Chrome, Brave, Vivaldi, Edge, or Arc (all either not installed or no Twitter cookies).
+  - Safari has old cookie data but not Twitter auth cookies.
+  - Config updated to use `~/.config/gallery-dl/twitter-cookies.txt` (file-based approach).
+  - Brady needs to: on his personal machine, install the "Cookie-Editor" browser extension, navigate to x.com, export cookies as Netscape format, and place the file at `~/.config/gallery-dl/twitter-cookies.txt` on the Mac Mini.
+  - Once cookies are in place, phases 2-4 can proceed. Mayor: set `worker_status: active` and `phase_status: in_progress` to resume.
 
 ## Completed Phases
 

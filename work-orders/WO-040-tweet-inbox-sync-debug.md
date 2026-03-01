@@ -1,7 +1,7 @@
 ---
 id: WO-040
 title: Debug tweet inbox sync — local vs repo discrepancy
-status: in-progress
+status: complete
 priority: high
 created: 2026-03-01T05:30:00Z
 mayor: true

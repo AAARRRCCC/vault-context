@@ -1,7 +1,7 @@
 ---
 id: WO-035
 title: Download Vimeo Video + Taildrop to Phone
-status: pending
+status: complete
 priority: normal
 created: 2026-02-28T20:30:00Z
 mayor: Claude Web (Opus)

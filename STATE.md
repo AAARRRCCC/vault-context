@@ -1,11 +1,11 @@
 ---
-updated: 2026-02-28T05:00:00Z
+updated: 2026-02-28T05:20:00Z
 active_plan: none
 phase: 5
 phase_status: complete
-worker_status: processing
+worker_status: idle
 last_signal: complete
-last_signal_time: 2026-02-27T22:15:00Z
+last_signal_time: 2026-02-28T05:20:00Z
 ---
 
 # System State
@@ -65,6 +65,7 @@ System is free for normal operations.
 | 2026-02-27 17:15 | WO-029 complete: meds-reminder.js created, presenceUpdate + reaction + keyword ACK wired into bot.js | Brady needs to enable Presence Intent in Discord Developer Portal for trigger to fire |
 | 2026-02-27 19:30 | WO-031 complete: started signal added to mayor-signal.sh, process-work-orders.md, autonomous-loop.md; !status shows active work | Signal log switched to title-first for better !status display |
 | 2026-02-27 21:00 | WO-032 complete: !fix git rewritten with diagnose-then-act; bare !fix runs all fixers in parallel; lockfile/heartbeat now diagnose before acting | allowAutoCommit: false for worker repo (stash/warn); vault-context auto-commit is safe (mirror) |
+| 2026-02-28 05:20 | WO-034 complete: simplified bot.js, system-monitor.js, scheduler.js, conversation-store.js, meds-reminder.js, mayor-signal.sh | foreman-bot has no git remote; changes live locally; bot restarts confirmed clean |
 
 ## Pending Questions
 

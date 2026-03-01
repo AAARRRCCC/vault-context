@@ -1,5 +1,5 @@
 ---
-updated: 2026-03-01T05:11:30Z
+updated: 2026-03-01T05:30:00Z
 active_plan: none
 phase: 0
 phase_status: idle
@@ -32,7 +32,9 @@ WO-037 (gallery-dl quote tweet fix + article debug guide) is pending. Pick up af
 
 WO-038 (suppress false positive system alerts during active work) is pending.
 
-WO-039 (tweet dedup + URL param stripping) is pending. High priority — sharing a tweet URL triggers multiple captures from Arc/Discord embed behavior, and Twitter ?s=46 tracking params are being parsed as Brady notes. Fix dedup cache in bot.js + strip query params before processing. system-monitor.js fires stale lockfile, dead heartbeat, and git divergence warnings while the worker is actively running. Fix: read worker_status from STATE.md and suppress/adjust thresholds when active.
+WO-039 (tweet dedup + URL param stripping) is pending.
+
+WO-040 (debug tweet inbox sync discrepancy) is pending and HIGH PRIORITY — pick up first. Foreman reports ~25 tweets captured locally but only 4 exist in the repo. Investigate local vs repo state, fix the git sync pipeline, and push all existing captures. See WO for full investigation steps. High priority — sharing a tweet URL triggers multiple captures from Arc/Discord embed behavior, and Twitter ?s=46 tracking params are being parsed as Brady notes. Fix dedup cache in bot.js + strip query params before processing. system-monitor.js fires stale lockfile, dead heartbeat, and git divergence warnings while the worker is actively running. Fix: read worker_status from STATE.md and suppress/adjust thresholds when active.
 
 ## Decision Log
 

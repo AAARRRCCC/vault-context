@@ -28,6 +28,8 @@ WO-034 (code simplification pass — Foreman bot files) has been rewritten and r
 
 PLAN-009 dispatched. Twitter inbox pipeline — gallery-dl capture, Foreman integration, Mayor review workflow. Phase 1 is install + config + verify gallery-dl works with Twitter cookies.
 
+WO-037 (gallery-dl quote tweet fix + article debug guide) is pending. Pick up after PLAN-009 completes. High priority — quote tweets are broken in gallery-dl, need a local patch to the twitter extractor.
+
 ## Decision Log
 
 | Time | Decision | Reasoning |

@@ -1,11 +1,11 @@
 ---
-updated: 2026-03-01T04:15:00Z
+updated: 2026-03-01T04:25:00Z
 active_plan: none
 phase: 0
 phase_status: idle
 worker_status: idle
 last_signal: complete
-last_signal_time: 2026-03-01T04:15:00Z
+last_signal_time: 2026-03-01T04:25:00Z
 ---
 
 # System State
@@ -79,6 +79,7 @@ WO-038 (suppress false positive system alerts during active work) is pending. sy
 | 2026-03-01 03:08 | Brady approved PLAN-009 Phase 4 via Discord !resume | Discord command |
 | 2026-03-01 05:00 | PLAN-009 P4 complete: cookie health check, !tweet refresh, cleanup script, SYSTEM_STATUS.md, foreman-prompt.md updated | All acceptance criteria met |
 | 2026-03-01 04:15 | WO-037 complete: gallery-dl TweetWithVisibilityResults unwrap fix, tweet-processor.js quote rendering, article debug guide | editable install impossible over Homebrew; used wrapper script instead |
+| 2026-03-01 04:25 | WO-038 complete: system-monitor.js worker-status-aware alert suppression | checks `worker_status: processing` from STATE.md frontmatter each tick |
 
 ## Pending Questions
 

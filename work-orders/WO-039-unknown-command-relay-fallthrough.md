@@ -1,6 +1,6 @@
 ---
 id: WO-039
-status: in-progress
+status: complete
 priority: low
 created: 2026-03-01
 mayor: foreman

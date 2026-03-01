@@ -23,6 +23,8 @@ PLAN-007 (System Visual Diagrams) is shelved. Phases 3-5 will be handled manuall
 
 WO-026 (max tokens flag for claude relay) is pending and ready for pickup.
 
+WO-035 (download Vimeo video) is pending. Simple task — yt-dlp download to ~/Downloads. Ready for pickup.
+
 WO-034 (code simplification pass — Foreman bot files) has been rewritten and reset to pending. v1 failed because worker cannot invoke /simplify slash commands in autonomous mode. v2 gives direct simplification instructions. Ready for pickup.
 
 PLAN-009 dispatched. Twitter inbox pipeline — gallery-dl capture, Foreman integration, Mayor review workflow. Phase 1 is install + config + verify gallery-dl works with Twitter cookies.

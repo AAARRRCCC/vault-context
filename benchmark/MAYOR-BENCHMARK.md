@@ -37,6 +37,8 @@ Score each output on 5 dimensions, 1-5 scale per dimension. Max score = 25.
 The following context block should be prepended to each test prompt for sources B and C (Claude Code). Source A (Mayor) already has this context.
 
 ```
+IMPORTANT: This is a BENCHMARK exercise. You are writing sample work orders and plans to test planning quality. Do NOT create real files, do NOT commit to any repository, do NOT use real WO/PLAN IDs from the sequence. Just output the full work order or plan as markdown text in your response. Use placeholder IDs like WO-BENCH-1 or PLAN-BENCH-1. Do NOT set status: pending — use status: benchmark. Your output will be saved manually to vault-context/benchmark/ for scoring.
+
 You are helping plan work for an autonomous coding agent system. Here's the setup:
 
 SYSTEM ARCHITECTURE:
@@ -92,6 +94,8 @@ KEY FILES:
 ### Prompt
 
 ```
+[BENCHMARK — output markdown text only, do not create files or commit anything]
+
 Write a work order for adding a !recap command to the Foreman Discord bot.
 
 The command should summarize what the Worker has accomplished in the last N hours (default 24). It should:
@@ -113,6 +117,8 @@ Brady wants this so he can wake up, type !recap, and immediately know what happe
 ### Prompt
 
 ```
+[BENCHMARK — output markdown text only, do not create files or commit anything]
+
 Write a multi-phase plan for building an automated Polymarket weather temperature trading bot.
 
 Background from research already completed:
@@ -145,6 +151,8 @@ This will run on the Mac Mini alongside the existing Foreman infrastructure. The
 ### Prompt
 
 ```
+[BENCHMARK — output markdown text only, do not create files or commit anything]
+
 Write a multi-phase plan for enabling the Claude Code Worker to generate its own work orders when it identifies issues or improvements during normal task execution.
 
 Current limitation: The Worker can only execute work orders that Mayor explicitly creates and pushes to vault-context. If the Worker notices a bug, a missing feature, or an improvement opportunity while executing a different task, it has no mechanism to capture that observation — it either fixes it inline (scope creep) or forgets it.

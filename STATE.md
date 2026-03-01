@@ -1,9 +1,10 @@
 ---
-updated: 2026-03-01T05:30:00Z
+
+updated: 2026-03-01T05:47:45Z
 active_plan: none
 phase: 0
 phase_status: idle
-worker_status: idle
+worker_status: active
 last_signal: complete
 last_signal_time: 2026-03-01T05:11:00Z
 ---
@@ -86,6 +87,7 @@ WO-040 (debug tweet inbox sync discrepancy) is pending and HIGH PRIORITY — pic
 | 2026-03-01 04:25 | WO-038 complete: system-monitor.js worker-status-aware alert suppression | checks `worker_status: processing` from STATE.md frontmatter each tick |
 | 2026-03-01 05:11 | WO-039 complete: bot.js unknown !command guard + !twitter alias | guard placed before tweet-URL detection so bare URLs still auto-capture |
 | 2026-03-01 05:09 | Brady paused worker Phase 0 via Discord !pause | Discord command |
+| 2026-03-01 05:47 | Brady unpaused worker via Discord !resume | Discord command |
 
 ## Pending Questions
 

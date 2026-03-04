@@ -1,21 +1,24 @@
 ---
 
-updated: 2026-03-01T06:01:00Z
-active_plan: none
-phase: 0
-phase_status: idle
-worker_status: idle
-last_signal: complete
-last_signal_time: 2026-03-01T05:11:00Z
+updated: 2026-03-03T20:30:00Z
+active_plan: PLAN-010
+phase: 1
+phase_status: active
+worker_status: active
+last_signal: dispatch
+last_signal_time: 2026-03-03T20:30:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-None. PLAN-009 (Twitter Inbox Pipeline) complete as of 2026-03-01.
+PLAN-010 (Foreman Conversational Reminders) — Phase 1: Core Module + Morning Reminder. Replaces old meds-reminder.js with conversational Haiku 4.5 reminder system. Three reminder types: morning ADHD meds (schedule + presence override + !alarm), afternoon ADHD meds (offset from morning confirmation ±15 min fuzz), melatonin (phase-calculated from circadian reset start date 2026-03-03). Full conversational verification, escalation ladder, Obsidian daily logging.
+
 
 ## Mayor Guidance
+
+PLAN-010 dispatched. Foreman Conversational Reminders — replace meds-reminder.js with Haiku 4.5 conversational verification, Obsidian logging, melatonin phase tracking. Phase 1 is core engine + morning reminder. See plans/PLAN-010-foreman-reminders.md for full spec.
 
 PLAN-007 (System Visual Diagrams) is shelved. Phases 3-5 will be handled manually by Brady + Mayor + Gemini outside the Worker pipeline. No Worker action needed on PLAN-007.
 
@@ -84,7 +87,7 @@ WO-040 (debug tweet inbox sync discrepancy) is pending and HIGH PRIORITY — pic
 | 2026-03-01 03:08 | Brady approved PLAN-009 Phase 4 via Discord !resume | Discord command |
 | 2026-03-01 05:00 | PLAN-009 P4 complete: cookie health check, !tweet refresh, cleanup script, SYSTEM_STATUS.md, foreman-prompt.md updated | All acceptance criteria met |
 | 2026-03-01 04:15 | WO-037 complete: gallery-dl TweetWithVisibilityResults unwrap fix, tweet-processor.js quote rendering, article debug guide | editable install impossible over Homebrew; used wrapper script instead |
-| 2026-03-01 04:25 | WO-038 complete: system-monitor.js worker-status-aware alert suppression | checks `worker_status: processing` from STATE.md frontmatter each tick |
+| 2026-03-01 04:25 | WO-038 complete: system-monitor.js worker-status-aware alert suppression | checks `worker_status: active
 | 2026-03-01 05:11 | WO-039 complete: bot.js unknown !command guard + !twitter alias | guard placed before tweet-URL detection so bare URLs still auto-capture |
 | 2026-03-01 05:09 | Brady paused worker Phase 0 via Discord !pause | Discord command |
 | 2026-03-01 05:47 | Brady unpaused worker via Discord !resume | Discord command |
@@ -128,3 +131,4 @@ None.
 - [x] PLAN-009 Phase 2: Capture Script + Inbox Structure (2026-03-01)
 - [x] PLAN-009 Phase 3: Foreman Integration (2026-03-01)
 - [x] PLAN-009 Phase 4: Polish + Documentation (2026-03-01)
+

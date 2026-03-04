@@ -104,7 +104,7 @@
 | Mayor Dashboard | ✅ Running | `com.mayor.dashboard` launchd service; Node.js server at `http://localhost:3847`; also accessible via Tailscale at `http://100.78.129.90:3847` |
 
 **Work orders completed:** WO-001 through WO-036+
-**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit), PLAN-003 (mayor dashboard), PLAN-004 (Foreman bot), PLAN-005 (ops commands), PLAN-006 (token optimization), PLAN-008 (Foreman v2), PLAN-009 (Twitter inbox pipeline), PLAN-010 (conversational reminder engine), PLAN-011 (dashboard design polish)
+**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit), PLAN-003 (mayor dashboard), PLAN-004 (Foreman bot), PLAN-005 (ops commands), PLAN-006 (token optimization), PLAN-008 (Foreman v2), PLAN-009 (Twitter inbox pipeline), PLAN-010 (conversational reminder engine), PLAN-011 (dashboard design polish), PLAN-012 (dashboard layout overhaul)
 **Plans in progress:** None
 **System operational since:** 2026-02-24
 **Autonomous loop operational since:** 2026-02-24
@@ -130,7 +130,14 @@
 | Log rotation | Server-side check at startup and hourly; rotates at 10MB |
 | Port env var | `MAYOR_DASHBOARD_PORT` (default 3847) |
 
-**Panels:** System State · Active Plan (with phase timeline + decision log) · Signals · Live Session · Work Order Queue
+**Layout modes:**
+- **Active Plan mode** (active_plan ≠ 'none'): Hero pipeline visualization (64-80px animated nodes, SVG glow filter, shimmer connectors) + Live Session (left, 62%) + Signals (right, 38%) + Work Orders footer
+- **Idle mode** (active_plan = 'none'): Last-completed work card + Pending WO list (priority-sorted) + Signals panel + Work Orders footer
+
+**Hero pipeline:** Custom CSS/SVG hybrid — real DOM nodes with inline connectors, `state-done/active/upcoming/paused/error` CSS classes, `filter: url(#node-glow)` SVG blur on active node, `@keyframes pipeline-pulse` (box-shadow ring + scale), shimmer `@keyframes line-shimmer` (background-position) on active connector. Do NOT use DaisyUI steps component — pseudo-element architecture, not scalable.
+
+**Panels (active mode):** Hero Pipeline · Live Session · Signals · Work Orders footer
+**Panels (idle mode):** Last Completed card · Pending Work · Signals · Work Orders footer
 
 **Data sources:** STATE.md, plans/, work-orders/, mayor-signals.jsonl, Claude Code JSONL session logs
 

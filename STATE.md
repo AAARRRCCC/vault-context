@@ -1,12 +1,12 @@
 ---
 
-updated: 2026-03-04T20:20:00Z
+updated: 2026-03-04T20:30:00Z
 active_plan: PLAN-013
-phase: 1
-phase_status: in-progress
+phase: 2
+phase_status: pending
 worker_status: processing
-last_signal: complete
-last_signal_time: 2026-03-04T20:00:00Z
+last_signal: notify
+last_signal_time: 2026-03-04T20:30:00Z
 ---
 
 # System State
@@ -108,6 +108,7 @@ WO-040 (debug tweet inbox sync discrepancy) is pending and HIGH PRIORITY — pic
 | 2026-03-04 19:30 | PLAN-012 P1 complete: hero pipeline component, two-mode layout, SVG glow filter, phase animations | used inline connectors between nodes (not absolute tracks) to avoid positioning complexity; align-self:flex-start + margin-top:38px on connectors to hit circle centers |
 | 2026-03-04 19:45 | PLAN-012 P2 complete: idle mode view — last-completed work card (from signals), pending WO list (priority-sorted), compact signal list, fade transitions | sourced last-completed from most recent complete signal (simplest, no extra server data needed); #main hidden in idle mode to avoid double session log |
 | 2026-03-04 20:00 | PLAN-012 P3 complete: edge cases (1-phase centering, 6+ overflow), completion animation, initial load flash fix, SYSTEM_STATUS.md updated | hero pipeline layout modes fully documented in SYSTEM_STATUS |
+| 2026-03-04 20:30 | PLAN-013 P1 complete: 17 docs inventoried, 7 definitively stale, 6 borderline | staleness threshold = before 2026-02-26 (PLAN-008 start) |
 
 ## Pending Questions
 
@@ -152,4 +153,5 @@ None.
 - [x] PLAN-012 Phase 1: Layout Restructure + Hero Pipeline Component (2026-03-04)
 - [x] PLAN-012 Phase 2: Idle Mode Summary View (2026-03-04)
 - [x] PLAN-012 Phase 3: Polish + Edge Cases + SYSTEM_STATUS (2026-03-04)
+- [x] PLAN-013 Phase 1: Inventory (2026-03-04)
 

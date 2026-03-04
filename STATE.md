@@ -1,10 +1,10 @@
 ---
 
-updated: 2026-03-04T18:22:04Z
-active_plan: none
-phase: 0
-phase_status: idle
-worker_status: idle
+updated: 2026-03-04T18:51:11Z
+active_plan: PLAN-012
+phase: 1
+phase_status: pending
+worker_status: active
 last_signal: complete
 last_signal_time: 2026-03-04T14:05:00Z
 ---
@@ -13,12 +13,12 @@ last_signal_time: 2026-03-04T14:05:00Z
 
 ## Active Plan
 
-PLAN-011 (Dashboard Design Polish) — Phase 1: DaisyUI Integration + Skeleton States + Foundations. Add DaisyUI CDN (CSS-only, no build step), implement skeleton loading placeholders for all panels, verify/fix WebSocket URL for Tailscale remote access (must use window.location.host, not hardcoded localhost), hide scrollbars on scrollable panels, enlarge hit targets on expand/collapse toggles. All work in ~/mayor-dashboard/public/index.html only. Read current color palette from index.html first — do NOT reintroduce the Olive Garden OKLCH palette from WO-015 (it was rolled back). See plans/PLAN-011-dashboard-design-polish.md for full spec.
+PLAN-012 (Dashboard Layout Overhaul) — Phase 1: Layout Restructure + Hero Pipeline Component. Two-mode dashboard: Active Plan mode with large animated pipeline visualization (30% viewport, 64-80px phase nodes, SVG glow filter, pulse animation, shimmer connector), and Idle mode stub. Build custom CSS/SVG hybrid pipeline — do NOT use DaisyUI steps component. Session log + signals below pipeline. Read current palette from index.html — do NOT reintroduce Olive Garden OKLCH. See plans/PLAN-012-dashboard-layout-overhaul.md for full spec.
 
 
 ## Mayor Guidance
 
-PLAN-011 dispatched. Dashboard Design Polish — 3 phases. Phase 1: DaisyUI CDN integration, skeleton loading states, WebSocket URL fix for Tailscale, hidden scrollbars, larger hit targets. Phase 2: micro-animations (phase dot pulse, panel border glow, toast notifications, content fade-in). Phase 3: click-to-copy on IDs, staleness indicator, badge components, kbd hints. All work in index.html only — do not modify server.js. CRITICAL: read the current color palette from index.html before making any changes. The Olive Garden OKLCH palette from WO-015 was rolled back — do not use those values.
+PLAN-012 dispatched. Dashboard Layout Overhaul — 3 phases. Phase 1: build hero pipeline visualization (custom CSS/SVG, NOT DaisyUI steps) + two-mode layout (active plan vs idle). Phase 2: idle mode summary view (last completed work card, pending WO queue, signals). Phase 3: polish, edge cases, responsive testing, SYSTEM_STATUS update. All work in index.html only — do not modify server.js. CRITICAL: read current palette from index.html. Do NOT use Olive Garden OKLCH palette (rolled back). Do NOT use DaisyUI steps component for the pipeline (pseudo-element architecture, no CSS vars, can't scale to hero size).
 
 WO-042 (reminder exit signal + relay double-fire after reminder ends) is pending and HIGH PRIORITY. Reminder conversations end silently — Brady doesn't know when [CONFIRMED] was parsed. Also relay double-fires on the first message after reminder mode exits. Fix both before Phase 2. Pick up when worker resumes.
 

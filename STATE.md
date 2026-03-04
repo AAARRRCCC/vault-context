@@ -20,6 +20,8 @@ PLAN-010 (Foreman Conversational Reminders) — Phase 1: Core Module + Morning R
 
 PLAN-010 dispatched. Foreman Conversational Reminders — replace meds-reminder.js with Haiku 4.5 conversational verification, Obsidian logging, melatonin phase tracking. Phase 1 is core engine + morning reminder. See plans/PLAN-010-foreman-reminders.md for full spec.
 
+WO-041 (fix !help exceeding Discord 2000 char limit) is pending. PLAN-010 added enough commands to push !help over the limit. Paginated help (Option A) preferred. Pick up after PLAN-010 completes.
+
 PLAN-007 (System Visual Diagrams) is shelved. Phases 3-5 will be handled manually by Brady + Mayor + Gemini outside the Worker pipeline. No Worker action needed on PLAN-007.
 
 WO-026 (max tokens flag for claude relay) is pending and ready for pickup.

@@ -99,16 +99,33 @@
   - Has same `.claude/` config and commands as main vault
 
 ### Mayor-Worker Scripts (`~/.local/bin/`)
-- `mayor-check.sh` — hourly poll: check vault-context for pending work orders, run headless `claude -p` in worker worktree
+- `mayor-check.sh` — 2-min heartbeat: check vault-context for pending work orders, run headless `claude -p` in worker worktree
+- `mayor-signal.sh` — send Discord DMs via Mayor bot; reads JSON payload from stdin; `echo '{"title":...}' | mayor-signal.sh <type>`
 - `mayor-status.sh` — print worker state from status JSON; supports `--json` flag
 - `mayor-log.sh` — tail `~/.local/log/mayor-check.log`; supports `-f` and `-n` flags
+- `tweet-capture.sh` — orchestrates gallery-dl → tweet-processor → git commit for Twitter inbox
 
 ### State & Logs
 - `~/.local/state/mayor-worker-status.json` — live worker state (idle / processing / error)
+- `~/.local/state/mayor-last-activity.txt` — epoch seconds of last activity (for idle nudge)
+- `~/.local/state/foreman-conversations.json` — per-user relay conversation history
+- `~/.local/state/foreman-schedule.json` — scheduled tasks
+- `~/.local/state/foreman-meds.json` — meds reminder state
 - `~/.local/log/mayor-check.log` — timestamped worker activity log
 
-### launchd Agent
-- `~/Library/LaunchAgents/com.mayor.workorder-check.plist` — runs `mayor-check.sh` every 3600s at load; label: `com.mayor.workorder-check`
+### launchd Agents
+- `~/Library/LaunchAgents/com.mayor.workorder-check.plist` — runs `mayor-check.sh` every 120s; label: `com.mayor.workorder-check`
+- `~/Library/LaunchAgents/com.mayor.dashboard.plist` — Mayor dashboard web server (port 3847); label: `com.mayor.dashboard`
+- `~/Library/LaunchAgents/com.foreman.bot.plist` — Foreman Discord bot (persistent); label: `com.foreman.bot`
+
+### Foreman Discord Bot (`~/foreman-bot/`)
+- `bot.js` — main bot, command router, relay, tweet auto-capture, meds reminders
+- `conversation-store.js` — per-user relay history (30-min session timeout)
+- `system-monitor.js` — proactive alerts (disk, lockfile, heartbeat, git divergence)
+- `scheduler.js` — natural-language task scheduling via chrono-node
+- `reminder-engine.js` — conversational meds reminder with Haiku model
+- `tweet-processor.js` — gallery-dl output → clean content.md inbox entry
+- `foreman-prompt.md` — Foreman's personality and system prompt
 
 ### vault-context Public Mirror (`~/Documents/vault-context/`)
 - Public repo: `AAARRRCCC/vault-context`

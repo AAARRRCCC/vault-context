@@ -1,10 +1,10 @@
 ---
 
-updated: 2026-03-04T16:35:00Z
-active_plan: none
-phase: none
-phase_status: none
-worker_status: idle
+updated: 2026-03-04T18:10:10Z
+active_plan: PLAN-011
+phase: 1
+phase_status: pending
+worker_status: active
 last_signal: complete
 last_signal_time: 2026-03-04T14:05:00Z
 ---
@@ -13,12 +13,12 @@ last_signal_time: 2026-03-04T14:05:00Z
 
 ## Active Plan
 
-PLAN-010 (Foreman Conversational Reminders) — Phase 1: Core Module + Morning Reminder. Replaces old meds-reminder.js with conversational Haiku 4.5 reminder system. Three reminder types: morning ADHD meds (schedule + presence override + !alarm), afternoon ADHD meds (offset from morning confirmation ±15 min fuzz), melatonin (phase-calculated from circadian reset start date 2026-03-03). Full conversational verification, escalation ladder, Obsidian daily logging.
+PLAN-011 (Dashboard Design Polish) — Phase 1: DaisyUI Integration + Skeleton States + Foundations. Add DaisyUI CDN (CSS-only, no build step), implement skeleton loading placeholders for all panels, verify/fix WebSocket URL for Tailscale remote access (must use window.location.host, not hardcoded localhost), hide scrollbars on scrollable panels, enlarge hit targets on expand/collapse toggles. All work in ~/mayor-dashboard/public/index.html only. Read current color palette from index.html first — do NOT reintroduce the Olive Garden OKLCH palette from WO-015 (it was rolled back). See plans/PLAN-011-dashboard-design-polish.md for full spec.
 
 
 ## Mayor Guidance
 
-PLAN-010 dispatched. Foreman Conversational Reminders — replace meds-reminder.js with Haiku 4.5 conversational verification, Obsidian logging, melatonin phase tracking. Phase 1 is core engine + morning reminder. See plans/PLAN-010-foreman-reminders.md for full spec.
+PLAN-011 dispatched. Dashboard Design Polish — 3 phases. Phase 1: DaisyUI CDN integration, skeleton loading states, WebSocket URL fix for Tailscale, hidden scrollbars, larger hit targets. Phase 2: micro-animations (phase dot pulse, panel border glow, toast notifications, content fade-in). Phase 3: click-to-copy on IDs, staleness indicator, badge components, kbd hints. All work in index.html only — do not modify server.js. CRITICAL: read the current color palette from index.html before making any changes. The Olive Garden OKLCH palette from WO-015 was rolled back — do not use those values.
 
 WO-042 (reminder exit signal + relay double-fire after reminder ends) is pending and HIGH PRIORITY. Reminder conversations end silently — Brady doesn't know when [CONFIRMED] was parsed. Also relay double-fires on the first message after reminder mode exits. Fix both before Phase 2. Pick up when worker resumes.
 

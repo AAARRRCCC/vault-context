@@ -1,7 +1,7 @@
 ---
 id: WO-041
 title: Fix !help exceeding Discord 2000 char limit
-status: in-progress
+status: complete
 priority: medium
 created: 2026-03-04T00:30:00Z
 mayor: true

@@ -1,10 +1,10 @@
 ---
 
-updated: 2026-03-04T14:05:00Z
+updated: 2026-03-04T16:00:00Z
 active_plan: none
 phase: none
 phase_status: none
-worker_status: idle
+worker_status: processing
 last_signal: complete
 last_signal_time: 2026-03-04T14:05:00Z
 ---

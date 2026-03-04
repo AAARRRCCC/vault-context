@@ -1,12 +1,12 @@
 ---
 
-updated: 2026-03-04T19:15:00Z
+updated: 2026-03-04T19:30:00Z
 active_plan: PLAN-012
-phase: 1
-phase_status: in-progress
+phase: 2
+phase_status: pending
 worker_status: processing
-last_signal: complete
-last_signal_time: 2026-03-04T14:05:00Z
+last_signal: notify
+last_signal_time: 2026-03-04T19:30:00Z
 ---
 
 # System State
@@ -101,6 +101,7 @@ WO-040 (debug tweet inbox sync discrepancy) is pending and HIGH PRIORITY — pic
 | 2026-03-04 18:16 | PLAN-011 P1 complete: DaisyUI CDN added, skeleton loading states for all 4 panels, scrollbars hidden, toggle rows enlarged | WebSocket URL already correct (location.host); DaisyUI overrides applied to preserve existing palette |
 | 2026-03-04 18:30 | PLAN-011 P2 complete: dot-pulse animation, panel border glow, toast system (4 triggers), content fade-in on plan/WO updates | Reconnect toast uses hasConnectedOnce guard to avoid firing on initial load |
 | 2026-03-04 18:45 | PLAN-011 P3 complete: click-to-copy (WO IDs, plan ID, session entries), staleness indicator, kbd hint, signal badge components | data-ct attribute for session copy (safer than inline JS strings) |
+| 2026-03-04 19:30 | PLAN-012 P1 complete: hero pipeline component, two-mode layout, SVG glow filter, phase animations | used inline connectors between nodes (not absolute tracks) to avoid positioning complexity; align-self:flex-start + margin-top:38px on connectors to hit circle centers |
 
 ## Pending Questions
 
@@ -142,4 +143,5 @@ None.
 - [x] PLAN-011 Phase 1: DaisyUI Integration + Skeleton States + Foundations (2026-03-04)
 - [x] PLAN-011 Phase 2: Micro-Animations + Visual Feedback (2026-03-04)
 - [x] PLAN-011 Phase 3: Interactive Polish + Final Touches (2026-03-04)
+- [x] PLAN-012 Phase 1: Layout Restructure + Hero Pipeline Component (2026-03-04)
 

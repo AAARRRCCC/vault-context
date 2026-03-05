@@ -1,19 +1,19 @@
 ---
 
 updated: 2026-03-04T20:50:00Z
-active_plan: PLAN-013
-phase: 3
+active_plan: PLAN-010
+phase: 2
 phase_status: pending
 worker_status: paused
-last_signal: checkpoint
-last_signal_time: 2026-03-04T20:50:00Z
+last_signal: resume
+last_signal_time: 2026-03-05T04:00:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-PLAN-013 (Docs Audit) — Phase 1: Inventory. Enumerate all system docs, record last-modified dates, flag staleness candidates. See plans/PLAN-013-docs-audit.md for full spec.
+PLAN-010 (Foreman Conversational Reminders) — Phase 2: Afternoon + Melatonin Reminders. Add afternoon ADHD meds reminder (3.5h offset from morning confirmation, 1 PM fallback), melatonin reminder (phase-calculated from 2026-03-03 start date), reminder queueing, full Obsidian logging for all three types, next-reminder in !status. See plans/PLAN-010-foreman-reminders.md for full spec.
 
 ---
 
@@ -22,7 +22,7 @@ PLAN-012 (Dashboard Layout Overhaul, complete) — Phase 1: Layout Restructure +
 
 ## Mayor Guidance
 
-PLAN-012 dispatched. Dashboard Layout Overhaul — 3 phases. Phase 1: build hero pipeline visualization (custom CSS/SVG, NOT DaisyUI steps) + two-mode layout (active plan vs idle). Phase 2: idle mode summary view (last completed work card, pending WO queue, signals). Phase 3: polish, edge cases, responsive testing, SYSTEM_STATUS update. All work in index.html only — do not modify server.js. CRITICAL: read current palette from index.html. Do NOT use Olive Garden OKLCH palette (rolled back). Do NOT use DaisyUI steps component for the pipeline (pseudo-element architecture, no CSS vars, can't scale to hero size).
+PLAN-010 Phase 2 dispatched. HIGH PRIORITY — this is health-related and overdue. Phase 1 (morning meds) is working. Phase 2 adds afternoon ADHD meds + melatonin reminders. Today is Day 2 of circadian reset (start date 2026-03-03), so melatonin phase = Days 1-5 → 8:00 PM ET. Brady reports morning alarm fired correctly today but no afternoon or melatonin reminders (expected — they aren't built yet). Brady manually took melatonin at ~9:00 PM ET on 2026-03-04; backfill today's log entry with melatonin status=late, time=21:00, phase=1 (Day 2). Morning meds log for today should already exist from Phase 1. Afternoon status for today = missed (no reminder existed). After implementing Phase 2, verify all three reminder schedules compute correctly for tomorrow (2026-03-05, Day 3)
 
 WO-042 (reminder exit signal + relay double-fire after reminder ends) is pending and HIGH PRIORITY. Reminder conversations end silently — Brady doesn't know when [CONFIRMED] was parsed. Also relay double-fires on the first message after reminder mode exits. Fix both before Phase 2. Pick up when worker resumes.
 

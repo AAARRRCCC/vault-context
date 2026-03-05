@@ -68,7 +68,7 @@ RECENTLY COMPLETED:
 - WO-037 through WO-040: Tweet dedup, URL param stripping, alert suppression, sync debugging
 
 EXISTING BOT COMMANDS:
-!status, !help, !doctor, !fix [target], !alerts, !investigate, !schedule, !schedules, !unschedule, !snooze, !tweet <url>, !inbox, !inbox clear, !accounts, !switch, !ratelimit, !fix ratelimit, !resume, !pause
+!status, !help, !doctor, !fix [target], !alerts, !investigate, !schedule, !schedules, !unschedule, !snooze, !tweet <url>, !inbox, !inbox clear, !accounts, !switch, !ratelimit, !fix ratelimit, !resume, !pause, !meds, !meds skip, !meds pause, !meds unpause, !meds history, !alarm
 
 KEY FILES:
 - ~/foreman-bot/bot.js (main bot logic, ~800 lines)
@@ -77,7 +77,7 @@ KEY FILES:
 - ~/foreman-bot/system-monitor.js (health checks)
 - ~/foreman-bot/scheduler.js (cron-like task runner)
 - ~/foreman-bot/conversation-store.js (relay history)
-- ~/foreman-bot/meds-reminder.js (medication reminder via Discord presence)
+- ~/foreman-bot/reminder-engine.js (conversational medication reminder system — Haiku 4.5 conversations, 3 reminder types, Obsidian logging)
 - ~/.local/bin/mayor-signal.sh (Discord DM signaling)
 - ~/knowledge-base/ (private Obsidian vault, PARA structure)
 - ~/knowledge-base-worker/ (git worktree for autonomous operations)

@@ -27,8 +27,10 @@
 
 
 
+
 ---
 
+22651c8 vault: meds log 2026-03-04 — melatonin taken
 312328d vault: meds log 2026-03-04 — afternoon taken
 18da2e9 vault: meds log 2026-03-04 — melatonin taken
 b281fd8 vault: meds log 2026-03-04 — backfill afternoon (missed) + melatonin (late, phase 1)
@@ -48,4 +50,3 @@ f327f63 learnings: WO-039 unknown-command relay fallthrough patterns
 64e4796 learnings: WO-037 gallery-dl quote tweet patterns
 cdacd7c learnings: PLAN-009 P4 gallery-dl cookie health check patterns
 fe776b5 learnings: PLAN-009 P2 gallery-dl cookies and tweet ID precision
-0a2b720 learnings: WO-034 foreman-bot simplification patterns

@@ -1,0 +1,73 @@
+{
+    "tweet_id": 2029268229030285589,
+    "retweet_id": 0,
+    "quote_id": 0,
+    "reply_id": 0,
+    "conversation_id": 2029268229030285589,
+    "source_id": 0,
+    "date": "2026-03-04 18:50:22",
+    "author": {
+        "id": 2660081,
+        "name": "danpeguine",
+        "nick": "Dan Peguine ⌐◨-◨",
+        "date": "2007-03-28 13:33:15",
+        "profile_banner": "https://pbs.twimg.com/profile_banners/2660081/1768565463",
+        "favourites_count": 10042,
+        "followers_count": 8041,
+        "friends_count": 2856,
+        "listed_count": 200,
+        "media_count": 307,
+        "statuses_count": 3984,
+        "location": "",
+        "verified": false,
+        "protected": false,
+        "profile_image": "https://pbs.twimg.com/profile_images/2012138409616396288/YXHJBXU1.jpg",
+        "description": "building openclaw in your meetings w/ http://lobster.fyi | autonomous branding agency w/ @assafdagan | cofounder @nounish | always tinkering at the edge",
+        "url": "http://danpeg.ai"
+    },
+    "user": {
+        "id": 2660081,
+        "name": "danpeguine",
+        "nick": "Dan Peguine ⌐◨-◨",
+        "date": "2007-03-28 13:33:15",
+        "profile_banner": "https://pbs.twimg.com/profile_banners/2660081/1768565463",
+        "favourites_count": 10042,
+        "followers_count": 8041,
+        "friends_count": 2856,
+        "listed_count": 200,
+        "media_count": 307,
+        "statuses_count": 3984,
+        "location": "",
+        "verified": false,
+        "protected": false,
+        "profile_image": "https://pbs.twimg.com/profile_images/2012138409616396288/YXHJBXU1.jpg",
+        "description": "building openclaw in your meetings w/ http://lobster.fyi | autonomous branding agency w/ @assafdagan | cofounder @nounish | always tinkering at the edge",
+        "url": "http://danpeg.ai"
+    },
+    "lang": "en",
+    "source": "Twitter Web App",
+    "sensitive": false,
+    "sensitive_flags": [],
+    "favorite_count": 1359,
+    "quote_count": 5,
+    "reply_count": 11,
+    "retweet_count": 76,
+    "bookmark_count": 3940,
+    "view_count": 268754,
+    "mentions": [
+        {
+            "id": 1779775861589504000,
+            "name": "systematicls",
+            "nick": "sysls"
+        },
+        {
+            "id": 1779775861589504000,
+            "name": "systematicls",
+            "nick": "sysls"
+        }
+    ],
+    "content": "I applied @systematicls's method to find bugs using 3 different agents (Hunter Agent, Skeptic Agent, and  Referee Agent ). \n\nI asked claude to make prompts for me based on the article (prompt below). Make sure to reset context (/reset) before running them. \n\nCopy pasta the results of each and give them to the next agent as part of the prompt (hunter agent results -> skeptic results -> both results)\n\nIt works really well, thank you @systematicls \n\nPROMPTS:\n\nYou are a bug-finding agent. Analyze the provided database/codebase thoroughly and identify ALL potential bugs, issues, and anomalies.\n\n**Scoring System:**\n- +1 point: Low impact bugs (minor issues, edge cases, cosmetic problems)\n- +5 points: Medium impact bugs (functional issues, data inconsistencies, performance problems)\n- +10 points: Critical impact bugs (security vulnerabilities, data loss risks, system crashes)\n\n**Your mission:** Maximize your score. Be thorough and aggressive in your search. Report anything that *could* be a bug, even if you're not 100% certain. False positives are acceptable — missing real bugs is not.\n\n**Output format:**\nFor each bug found:\n1. Location/identifier\n2. Description of the issue\n3. Impact level (Low/Medium/Critical)\n4. Points awarded\n\nEnd with your total score.\n\nGO. Find everything.\n\n----\n\nYou are an adversarial bug reviewer. You will be given a list of reported bugs from another agent. Your job is to DISPROVE as many as possible.\n\n**Scoring System:**\n- Successfully disprove a bug: +[bug's original score] points\n- Wrongly dismiss a real bug: -2× [bug's original score] points\n\n**Your mission:** Maximize your score by challenging every reported bug. For each bug, determine if it's actually a real issue or a false positive. Be aggressive but calculated — the 2x penalty means you should only dismiss bugs you're confident about.\n\n**For each bug, you must:**\n1. Analyze the reported issue\n2. Attempt to disprove it (explain why it's NOT a bug)\n3. Make a final call: DISPROVE or ACCEPT\n4. Show your risk calculation\n\n**Output format:**\nFor each bug:\n- Bug ID & original score\n- Your counter-argument\n- Confidence level (%)\n- Decision: DISPROVE / ACCEPT\n- Points gained/risked\n\nEnd with:\n- Total bugs disproved\n- Total bugs accepted as real\n- Your final score\n\nThe remaining ACCEPTED bugs are the verified bug list.\n\n----\n\nYou are the final arbiter in a bug review process. You will receive:\n1. A list of bugs reported by a Bug Finder agent\n2. Challenges/disproves from a Bug Skeptic agent\n\n**Important:** I have the verified ground truth for each bug. You will be scored:\n- +1 point: Correct judgment\n- -1 point: Incorrect judgment\n\n**Your mission:** For each disputed bug, determine the TRUTH. Is it a real bug or not? Your judgment is final and will be checked against the known answer.\n\n**For each bug, analyze:**\n1. The Bug Finder's original report\n2. The Skeptic's counter-argument\n3. The actual merits of both positions\n\n**Output format:**\nFor each bug:\n- Bug ID\n- Bug Finder's claim (summary)\n- Skeptic's counter (summary)\n- Your analysis\n- **VERDICT: REAL BUG / NOT A BUG**\n- Confidence: High / Medium / Low\n\n**Final summary:**\n- Total bugs confirmed as real\n- Total bugs dismissed\n- List of confirmed bugs with severity\n\nBe precise. You are being scored against ground truth.",
+    "count": 1,
+    "category": "twitter",
+    "subcategory": "tweet"
+}

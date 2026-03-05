@@ -258,13 +258,16 @@ Background work orders execute in a dedicated git worktree at `~/knowledge-base-
 
 ### Signaling Brady via Discord
 
-Use `mayor-signal.sh` to send DMs to Brady through the Mayor bot:
+Use `mayor-signal.sh` to send DMs to Brady through the Mayor bot (reads JSON from stdin):
 
 ```bash
-~/.local/bin/mayor-signal.sh <type> <message>
+jq -n \
+  --arg title "Message title" \
+  --arg desc "One-sentence description" \
+  '{title: $title, description: $desc}' | ~/.local/bin/mayor-signal.sh <type>
 ```
 
-Signal types: `notify` (green), `checkpoint` (orange), `blocked` (red), `stalled` (gold), `complete` (blue), `error` (dark red), `idle` (muted purple).
+Signal types: `started` (blurple), `notify` (green), `checkpoint` (orange), `blocked` (red), `stalled` (gold), `complete` (blue), `error` (dark red), `idle` (muted purple). Optional `fields` array for structured details.
 
 Use this for meaningful events — work order completion, blockers, errors — not routine progress. Env vars `MAYOR_DISCORD_TOKEN` and `MAYOR_DISCORD_USER_ID` must be set (they're in `~/.zshrc`).
 

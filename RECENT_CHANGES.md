@@ -24,5 +24,26 @@
 | 2026-03-01 | WO-041 | Fix !help exceeding Discord 2000 char limit | pending |
 | 2026-03-04 | WO-042 | Reminder exit signal + relay double-fire fix | pending |
 
+
 ---
 
+b281fd8 vault: meds log 2026-03-04 — backfill afternoon (missed) + melatonin (late, phase 1)
+a213ed3 Merge branch 'worker'
+08168a0 config: fix mayor-signal.sh interface docs — JSON stdin, add started signal type
+2469b81 config: fix mayor-signal.sh interface docs — JSON stdin not positional args
+058a695 learnings: PLAN-012 dashboard layout overhaul patterns
+6d14fea learnings: PLAN-011 dashboard design polish patterns
+925d96f chore: auto-commit session end
+f64b6f1 vault: meds log 2026-03-04 — morning taken
+7f55103 Merge branch 'worker'
+328aea8 learnings: PLAN-010 P1 conversational reminder engine patterns
+36883bb vault: create 05_Logs/meds/ for conversational reminder logs
+e6c5a12 learnings: WO-039v2 tweet dedup and URL cleaning patterns
+f327f63 learnings: WO-039 unknown-command relay fallthrough patterns
+4d7379e learnings: WO-038 alert-suppression patterns
+64e4796 learnings: WO-037 gallery-dl quote tweet patterns
+cdacd7c learnings: PLAN-009 P4 gallery-dl cookie health check patterns
+fe776b5 learnings: PLAN-009 P2 gallery-dl cookies and tweet ID precision
+0a2b720 learnings: WO-034 foreman-bot simplification patterns
+55ce700 chore: auto-commit session end
+9c6a150 learnings: WO-033 worker branch git hygiene patterns

@@ -25,8 +25,10 @@
 | 2026-03-04 | WO-042 | Reminder exit signal + relay double-fire fix | pending |
 
 
+
 ---
 
+18da2e9 vault: meds log 2026-03-04 — melatonin taken
 b281fd8 vault: meds log 2026-03-04 — backfill afternoon (missed) + melatonin (late, phase 1)
 a213ed3 Merge branch 'worker'
 08168a0 config: fix mayor-signal.sh interface docs — JSON stdin, add started signal type
@@ -46,4 +48,3 @@ cdacd7c learnings: PLAN-009 P4 gallery-dl cookie health check patterns
 fe776b5 learnings: PLAN-009 P2 gallery-dl cookies and tweet ID precision
 0a2b720 learnings: WO-034 foreman-bot simplification patterns
 55ce700 chore: auto-commit session end
-9c6a150 learnings: WO-033 worker branch git hygiene patterns

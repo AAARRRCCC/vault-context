@@ -1,11 +1,11 @@
 ---
-updated: 2026-03-06T18:30:00Z
+updated: 2026-03-06T19:15:00Z
 active_plan: none
 phase: none
 phase_status: none
 worker_status: idle
 last_signal: complete
-last_signal_time: 2026-03-06T18:30:00Z
+last_signal_time: 2026-03-06T19:15:00Z
 ---
 
 # System State
@@ -21,11 +21,11 @@ PLAN-012 (Dashboard Layout Overhaul, complete) — Phase 1: Layout Restructure +
 
 ## Mayor Guidance
 
-**NTS Plan B is active. Pick up WO-049 next.**
+**NTS Plan B — WO-049 complete. Pick up WO-050 next.**
 
-WO-049 (NTS Plan B — implement connection inference engine) is pending and ready for pickup. Create `connection_inference.py` in the NTS repo at `~/projects/network-topology-scanner`. Branch: `plan-b/connection-inference`. Read WO-048 (spec) first for full design context.
+WO-049 complete: `connection_inference.py` created on branch `plan-b/connection-inference`, pushed to `borumea/Network-Topology-Scanner` (commit a8bc121).
 
-WO-050 (NTS Plan B — wire inference into scan coordinator) is pending. Depends on WO-049.
+WO-050 (NTS Plan B — wire inference into scan coordinator) is pending. Depends on WO-049 (now done).
 
 Lower priority / deferred: WO-041, WO-026, WO-036, WO-034.
 

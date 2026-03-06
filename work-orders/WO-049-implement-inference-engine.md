@@ -1,7 +1,7 @@
 ---
 id: WO-049
 title: "NTS Plan B — Implement Connection Inference Engine"
-status: pending
+status: complete
 priority: high
 plan: NTS-Plan-B
 project: nts

@@ -1,7 +1,7 @@
 ---
 id: WO-050
 title: "NTS Plan B — Wire Connection Inference into Scan Coordinator"
-status: in-progress
+status: complete
 priority: high
 plan: NTS-Plan-B
 project: nts

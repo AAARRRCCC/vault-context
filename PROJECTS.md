@@ -14,6 +14,15 @@
   - `~/knowledge-base-worker/` — git worktree on `worker` branch for isolated background execution
 - **Public repo:** `AAARRRCCC/vault-context` — `work-orders/` and `results/`
 
+## Network Topology Scanner (NTS)
+
+- **Status:** Active — Plan A not yet started
+- **Description:** Web-based network topology mapper for cybersecurity VIP. Scans networks, discovers devices, visualizes topology, detects SPOFs, simulates failures, generates AI resilience reports. Full codebase exists from one-shot generation (Feb 2026) but never tested against real networks. Multi-plan development effort (Plans A-E) to get it to production-ready.
+- **Repo:** `borumea/Network-Topology-Scanner` (public, Brady's GitHub)
+- **Worker clone path:** `~/projects/network-topology-scanner`
+- **Roadmap:** `projects/nts/ROADMAP.md` — cold start doc for each planning chat
+- **Branching:** One branch per plan, PR to main after verification
+
 # Archived
 
 _None yet._

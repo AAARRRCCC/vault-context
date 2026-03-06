@@ -1,5 +1,5 @@
 ---
-updated: 2026-03-05T05:05:00Z
+updated: 2026-03-06T21:00:00Z
 active_plan: none
 phase: complete
 phase_status: complete
@@ -20,6 +20,8 @@ PLAN-012 (Dashboard Layout Overhaul, complete) — Phase 1: Layout Restructure +
 
 
 ## Mayor Guidance
+
+NTS (Network Topology Scanner) is a new multi-plan project for Brady's cybersecurity VIP. Roadmap at `projects/nts/ROADMAP.md`. Plans A-E mapped out, Plan A (Foundation Fixes) is next. Each plan gets its own fresh Mayor chat for context budget. Worker needs to clone repo to `~/projects/network-topology-scanner` before Plan A WOs can execute. Branch per plan, PR to main.
 
 PLAN-010 Phase 2 dispatched. HIGH PRIORITY — this is health-related and overdue. Phase 1 (morning meds) is working. Phase 2 adds afternoon ADHD meds + melatonin reminders. Today is Day 2 of circadian reset (start date 2026-03-03), so melatonin phase = Days 1-5 → 8:00 PM ET. Brady reports morning alarm fired correctly today but no afternoon or melatonin reminders (expected — they aren't built yet). Brady manually took melatonin at ~9:00 PM ET on 2026-03-04; backfill today's log entry with melatonin status=late, time=21:00, phase=1 (Day 2). Morning meds log for today should already exist from Phase 1. Afternoon status for today = missed (no reminder existed). After implementing Phase 2, verify all three reminder schedules compute correctly for tomorrow (2026-03-05, Day 3)
 

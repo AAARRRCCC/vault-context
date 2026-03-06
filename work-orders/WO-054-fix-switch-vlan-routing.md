@@ -1,7 +1,7 @@
 ---
 id: WO-054
 title: "NTS Plan B — Fix switch-aware VLAN routing bug"
-status: pending
+status: in-progress
 priority: high
 plan: NTS-Plan-B
 project: nts

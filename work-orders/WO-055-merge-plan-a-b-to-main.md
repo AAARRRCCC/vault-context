@@ -1,7 +1,7 @@
 ---
 id: WO-055
 title: "NTS: Merge Plan A + Plan B branches to main"
-status: in-progress
+status: complete
 priority: high
 plan: NTS (housekeeping)
 project: nts

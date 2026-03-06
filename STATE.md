@@ -162,3 +162,5 @@ None.
 - [x] NTS Plan B — WO-048: Connection Inference Spec (2026-03-06, Mayor-authored)
 - [x] NTS Plan B — WO-049: Connection Inference Engine (2026-03-06)
 - [x] NTS Plan B — WO-050: Wire Inference into Coordinator (2026-03-06)
+- [x] NTS Plan B — WO-052: Connection Inference Unit Tests (2026-03-06)
+- [x] NTS Plan B — WO-054: Fix Switch-Aware VLAN Routing (2026-03-06)

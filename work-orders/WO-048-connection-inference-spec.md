@@ -1,3 +1,13 @@
+---
+id: WO-048
+title: "NTS Plan B — Connection Inference Engine Design Spec"
+status: complete
+priority: high
+plan: NTS-Plan-B
+project: nts
+mayor: true
+---
+
 # WO-048 — Connection Inference Engine: Design Spec
 
 > **Plan B, WO 1 of ~6** — Mayor-authored spec. Worker consumes this to implement WO-049+.

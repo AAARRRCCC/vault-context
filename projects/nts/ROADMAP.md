@@ -118,13 +118,18 @@ The entire codebase was generated in a one-shot in mid-February 2026. 6 commits,
 | 2026-03-06 | Branch per plan, PR to main | First time running multi-WO plans on external repo, need safety net |
 | 2026-03-06 | One fresh chat per plan | Context rot degrades Mayor planning quality on long sessions |
 | 2026-03-06 | Mac Mini has Docker 29.2.1 | Confirmed available for compose stack |
+| 2026-03-06 | Bridge networking (named `nts-net`) over `network_mode: host` | host mode only works on Linux; bridge is Mac-compatible and all connection strings use container names |
+| 2026-03-06 | Docker networking decision goes in WO-044 (first WO), not WO-047 | .env defaults, backend connection strings, and nginx proxy all cascade from this choice — must be decided before anything else |
+| 2026-03-06 | Frontend build verification added to WO-046 | One-shot codebase never tested; broken build would block the checkpoint regardless of backend fixes |
+| 2026-03-06 | Removed sqlalchemy, aiosqlite, python-nmap, pyshark, httpx from requirements.txt | Zero imports found for any of them; sqlite_db uses raw sqlite3, nmap is subprocess |
+| 2026-03-06 | Scan ID generated in router, passed into coordinator | Frontend needs scan_id in the POST response to poll progress; coordinator already threaded so ID must be created before thread starts |
 
 ## Status Tracker
 
 | Plan | Status | Branch | WOs Created | WOs Complete | Notes |
 |------|--------|--------|-------------|--------------|-------|
-| A | **IN PROGRESS** | plan-a/foundation-fixes | 4 | 0 | WO-044 through WO-047 dispatched |
-| B | NOT STARTED | — | 0 | 0 | Blocked on Plan A |
+| A | **COMPLETE** | plan-a/foundation-fixes | 4 | 4 | Mayor-audited 2026-03-06. PR ready for merge. |
+| B | NOT STARTED | — | 0 | 0 | Ready — Plan A complete |
 | C | NOT STARTED | — | 0 | 0 | Blocked on Plan B |
 | D | NOT STARTED | — | 0 | 0 | Blocked on Plans B+C |
 | E | NOT STARTED | — | 0 | 0 | Blocked on all prior |
@@ -154,3 +159,4 @@ These are tracked but won't be in Plans A-E unless time allows:
 - **Full TODO list:** Generated 2026-03-06 in Claude chat. 34 items across Critical, Backend, Frontend, Infrastructure, Testing, and Nice-to-have categories. Stored locally by Brady; the plan structure above maps every non-deferred item to a plan.
 - **Original implementation plan:** `network-topology-mapper-plan (1).md` in repo root — the spec used for the initial one-shot code gen.
 - **Architecture docs:** `network-topology-mapper/docs/ARCHITECTURE.md`
+

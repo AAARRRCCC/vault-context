@@ -135,3 +135,11 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 - In bot.js command router, the unknown `!command` guard must come BEFORE the tweet URL detection block — not after. If it were after, `!deleet https://x.com/...` would silently auto-capture the tweet before erroring.
 - The `!help` reply exceeds Discord's 2000-character limit as of PLAN-009 P4 — the help text has grown too large. Pre-existing issue; needs split-message or embed fix if Brady wants it.
 - Adding a command alias is one line in the COMMANDS map: `'!twitter': cmdTweet`. No other changes needed.
+
+### 2026-03-06 — NTS Plan A (WO-044 through WO-047)
+
+- Mac Mini system Python is 3.9.6 — does not support `dict | None` union syntax (requires 3.10+). NTS backend uses 3.10+ syntax throughout. Use `/opt/homebrew/bin/python3.14` and rebuild venv with that interpreter for import checks.
+- NTS project structure: repo root is `~/projects/network-topology-scanner/`, actual app code is in `network-topology-scanner/network-topology-mapper/` subdirectory. All file paths are relative to that subdirectory.
+- `grep -l "status: pending"` will match body text in work orders (e.g., WO-001 body documents the `status: pending` format). Always verify frontmatter directly before acting on grep results. Confirmed again in this session.
+- When vault-context and worker have diverged due to concurrent writes (Mayor pushes while worker is running), `git pull --rebase` is correct. Resolve STATE.md conflict by keeping whichever version reflects the most current actual system state — in this case the worker's completion state overrides the Mayor's dispatch state.
+- Backend health endpoint for Docker healthcheck: use `wget -qO-` (available in Alpine/Debian base images) rather than `curl` (may not be installed). The NTS backend has `/api/health` at `app/main.py` line 119.

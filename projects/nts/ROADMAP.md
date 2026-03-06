@@ -123,7 +123,7 @@ The entire codebase was generated in a one-shot in mid-February 2026. 6 commits,
 
 | Plan | Status | Branch | WOs Created | WOs Complete | Notes |
 |------|--------|--------|-------------|--------------|-------|
-| A | **NOT STARTED** | — | 0 | 0 | — |
+| A | **IN PROGRESS** | plan-a/foundation-fixes | 4 | 0 | WO-044 through WO-047 dispatched |
 | B | NOT STARTED | — | 0 | 0 | Blocked on Plan A |
 | C | NOT STARTED | — | 0 | 0 | Blocked on Plan B |
 | D | NOT STARTED | — | 0 | 0 | Blocked on Plans B+C |

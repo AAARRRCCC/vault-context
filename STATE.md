@@ -1,18 +1,18 @@
 ---
-updated: 2026-03-07T12:00:00Z
+updated: 2026-03-06T15:39:00Z
 active_plan: none
-phase: pending
-phase_status: pending
+phase: none
+phase_status: none
 worker_status: idle
-last_signal: wo-dispatched
-last_signal_time: 2026-03-07T12:00:00Z
+last_signal: complete
+last_signal_time: 2026-03-06T15:39:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-None. Pending WO-055 (merge Plan A + B to main). Both plan branches complete and audited.
+None. WO-055 complete — plan-a/foundation-fixes and plan-b/connection-inference merged to NTS main. 20/20 tests pass. Remote branches deleted. Ready for Plan C.
 
 ---
 

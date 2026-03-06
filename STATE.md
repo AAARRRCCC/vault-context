@@ -21,15 +21,13 @@ PLAN-012 (Dashboard Layout Overhaul, complete) — Phase 1: Layout Restructure +
 
 ## Mayor Guidance
 
-NTS Plan A complete. Branch ready for Brady's checkpoint. Next: WO-041, WO-026, WO-036, WO-034.
+**NTS Plan B is active. Pick up WO-049 next.**
 
-WO-041 (fix !help exceeding Discord 2000 char limit) is pending. Pick up next.
+WO-049 (NTS Plan B — implement connection inference engine) is pending and ready for pickup. Create `connection_inference.py` in the NTS repo at `~/projects/network-topology-scanner`. Branch: `plan-b/connection-inference`. Read WO-048 (spec) first for full design context.
 
-WO-026 (max tokens flag for claude relay) is pending and ready for pickup.
+WO-050 (NTS Plan B — wire inference into scan coordinator) is pending. Depends on WO-049.
 
-WO-036 (Taildrop Vimeo video to phone) is pending. Ready for pickup.
-
-WO-034 (code simplification pass — Foreman bot files) has been rewritten and reset to pending. Ready for pickup.
+Lower priority / deferred: WO-041, WO-026, WO-036, WO-034.
 
 PLAN-007 (System Visual Diagrams) is shelved.
 

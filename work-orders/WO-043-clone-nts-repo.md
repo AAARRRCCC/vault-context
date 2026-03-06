@@ -1,7 +1,7 @@
 ---
 id: WO-043
 title: Clone NTS repo to worker
-status: in-progress
+status: complete
 priority: high
 plan: NTS Plan A (prereq)
 created: 2026-03-06

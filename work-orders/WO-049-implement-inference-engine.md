@@ -1,3 +1,15 @@
+---
+id: WO-049
+title: "NTS Plan B — Implement Connection Inference Engine"
+status: pending
+priority: high
+plan: NTS-Plan-B
+project: nts
+repo: borumea/Network-Topology-Scanner
+work_dir: ~/projects/network-topology-scanner
+depends_on: WO-048
+---
+
 # WO-049 — Implement Connection Inference Engine
 
 > **Plan B, WO 2 of ~6** — Worker execution task.

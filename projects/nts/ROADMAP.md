@@ -121,6 +121,9 @@ The entire codebase was generated in a one-shot in mid-February 2026. 6 commits,
 | 2026-03-06 | Bridge networking (named `nts-net`) over `network_mode: host` | host mode only works on Linux; bridge is Mac-compatible and all connection strings use container names |
 | 2026-03-06 | Docker networking decision goes in WO-044 (first WO), not WO-047 | .env defaults, backend connection strings, and nginx proxy all cascade from this choice — must be decided before anything else |
 | 2026-03-06 | Frontend build verification added to WO-046 | One-shot codebase never tested; broken build would block the checkpoint regardless of backend fixes |
+| 2026-03-06 | Plan B uses gateway + switch-aware inference, defers LLDP | Home network has no LLDP; gateway star topology is correct model for flat /24 |
+| 2026-03-06 | connection_inference.py has zero app-internal imports | Keeps it testable in isolation; avoids import chain issues with neo4j/redis deps |
+| 2026-03-06 | Phase 5 runs unconditionally (all scan types) | Even partial scans benefit from edge inference; coordinator has devices in cache regardless of which phases ran |
 | 2026-03-06 | Removed sqlalchemy, aiosqlite, python-nmap, pyshark, httpx from requirements.txt | Zero imports found for any of them; sqlite_db uses raw sqlite3, nmap is subprocess |
 | 2026-03-06 | Scan ID generated in router, passed into coordinator | Frontend needs scan_id in the POST response to poll progress; coordinator already threaded so ID must be created before thread starts |
 
@@ -129,7 +132,7 @@ The entire codebase was generated in a one-shot in mid-February 2026. 6 commits,
 | Plan | Status | Branch | WOs Created | WOs Complete | Notes |
 |------|--------|--------|-------------|--------------|-------|
 | A | **COMPLETE** | plan-a/foundation-fixes | 4 | 4 | Mayor-audited 2026-03-06. PR ready for merge. |
-| B | **IN PROGRESS** | plan-b/connection-inference | 3 | 0 | WO-048 (spec), WO-049 (engine), WO-050 (wiring) written. WO-051-052 remaining. |
+| B | **AUDIT PASS** | plan-b/connection-inference | 3 | 3 | WO-048 (spec), WO-049 (engine), WO-050 (wiring) complete. Mayor-audited. Awaiting Brady checkpoint. WO-051 (LLDP) deferred, WO-052 (tests) pre-merge. |
 | C | NOT STARTED | — | 0 | 0 | Blocked on Plan B |
 | D | NOT STARTED | — | 0 | 0 | Blocked on Plans B+C |
 | E | NOT STARTED | — | 0 | 0 | Blocked on all prior |

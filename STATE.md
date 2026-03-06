@@ -1,8 +1,8 @@
 ---
-updated: 2026-03-06T07:05:00Z
-active_plan: none
-phase: none
-phase_status: none
+updated: 2026-03-06T17:00:00Z
+active_plan: NTS-Plan-A
+phase: WO-044
+phase_status: pending
 worker_status: idle
 last_signal: complete
 last_signal_time: 2026-03-06T07:05:00Z
@@ -12,7 +12,22 @@ last_signal_time: 2026-03-06T07:05:00Z
 
 ## Active Plan
 
-None. WO-043 (Clone NTS repo) complete — NTS Plan A prereq satisfied. Awaiting NTS Plan A dispatch.
+**NTS Plan A — Foundation Fixes.** Making the NTS codebase runnable. No new features — fix what's broken so subsequent plans have a working base.
+
+Roadmap: `projects/nts/ROADMAP.md`
+Repo: `borumea/Network-Topology-Scanner`
+Worker directory: `~/projects/network-topology-scanner`
+Branch: `plan-a/foundation-fixes` (created in WO-044)
+
+**WO execution order:**
+1. **WO-044** (pending) — Branch + Docker networking model + .env + deps cleanup. START HERE.
+2. **WO-045** (pending, depends on WO-044) — Backend scan fixes: scan_id response, Redis progress, remove broken Cypher query
+3. **WO-046** (pending, depends on WO-044) — Frontend WebSocket fix + build verification
+4. **WO-047** (pending, depends on WO-044/045/046) — Docker Compose overhaul: bridge networking, health check, nginx proxy
+
+**Checkpoint after WO-047:** Brady runs `docker-compose up` on Mac, backend serves mock data, frontend connects and renders graph.
+
+**Critical constraint for ALL Plan A WOs:** Do NOT touch `_patched_get_full_topology()` in `main.py`. That mock data fallback is what makes the checkpoint achievable.
 
 ---
 
@@ -21,33 +36,23 @@ PLAN-012 (Dashboard Layout Overhaul, complete) — Phase 1: Layout Restructure +
 
 ## Mayor Guidance
 
-NTS (Network Topology Scanner) is a new multi-plan project for Brady's cybersecurity VIP. Roadmap at `projects/nts/ROADMAP.md`. Plans A-E mapped out, Plan A (Foundation Fixes) is next. Each plan gets its own fresh Mayor chat for context budget. WO-043 (clone NTS repo) is pending and must complete before Plan A WOs can be dispatched. Branch per plan, PR to main.
+NTS Plan A is now active. Four WOs dispatched (WO-044 through WO-047). Worker picks up WO-044 first — it establishes the branch and makes networking decisions that cascade into everything else. WO-045 and WO-046 can run in either order after WO-044. WO-047 goes last as the integration WO.
 
-PLAN-010 Phase 2 dispatched. HIGH PRIORITY — this is health-related and overdue. Phase 1 (morning meds) is working. Phase 2 adds afternoon ADHD meds + melatonin reminders. Today is Day 2 of circadian reset (start date 2026-03-03), so melatonin phase = Days 1-5 → 8:00 PM ET. Brady reports morning alarm fired correctly today but no afternoon or melatonin reminders (expected — they aren't built yet). Brady manually took melatonin at ~9:00 PM ET on 2026-03-04; backfill today's log entry with melatonin status=late, time=21:00, phase=1 (Day 2). Morning meds log for today should already exist from Phase 1. Afternoon status for today = missed (no reminder existed). After implementing Phase 2, verify all three reminder schedules compute correctly for tomorrow (2026-03-05, Day 3)
+**Key context for worker:** This is `borumea/Network-Topology-Scanner`, not the vault. Worker dir is `~/projects/network-topology-scanner`. Signal completion via vault-context as normal, but all code changes happen in the NTS repo. Branch per plan, PR to main — worker does NOT merge.
 
-WO-042 (reminder exit signal + relay double-fire after reminder ends) is pending and HIGH PRIORITY. Reminder conversations end silently — Brady doesn't know when [CONFIRMED] was parsed. Also relay double-fires on the first message after reminder mode exits. Fix both before Phase 2. Pick up when worker resumes.
-
-WO-041 (fix !help exceeding Discord 2000 char limit) is pending. PLAN-010 added enough commands to push !help over the limit. Paginated help (Option A) preferred. Pick up after PLAN-010 completes.
-
-PLAN-007 (System Visual Diagrams) is shelved. Phases 3-5 will be handled manually by Brady + Mayor + Gemini outside the Worker pipeline. No Worker action needed on PLAN-007.
+WO-041 (fix !help exceeding Discord 2000 char limit) is pending. Pick up after NTS Plan A completes.
 
 WO-026 (max tokens flag for claude relay) is pending and ready for pickup.
 
-WO-035 (download Vimeo video) is complete.
+WO-036 (Taildrop Vimeo video to phone) is pending. Ready for pickup.
 
-WO-036 (Taildrop Vimeo video to phone) is pending. Video already downloaded from WO-035 — just needs tailscale file cp to Brady phone. Ready for pickup. Simple task — yt-dlp download to ~/Downloads. Ready for pickup.
+WO-034 (code simplification pass — Foreman bot files) has been rewritten and reset to pending. Ready for pickup.
 
-WO-034 (code simplification pass — Foreman bot files) has been rewritten and reset to pending. v1 failed because worker cannot invoke /simplify slash commands in autonomous mode. v2 gives direct simplification instructions. Ready for pickup.
+PLAN-007 (System Visual Diagrams) is shelved.
 
-PLAN-009 dispatched. Twitter inbox pipeline — gallery-dl capture, Foreman integration, Mayor review workflow. Phase 1 is install + config + verify gallery-dl works with Twitter cookies.
+PLAN-009 Twitter inbox pipeline complete. Related WOs (037-040) complete.
 
-WO-037 (gallery-dl quote tweet fix + article debug guide) is pending. Pick up after PLAN-009 completes. High priority — quote tweets are broken in gallery-dl, need a local patch to the twitter extractor.
-
-WO-038 (suppress false positive system alerts during active work) is pending.
-
-WO-039 (tweet dedup + URL param stripping) is pending.
-
-WO-040 (debug tweet inbox sync discrepancy) is pending and HIGH PRIORITY — pick up first. Foreman reports ~25 tweets captured locally but only 4 exist in the repo. Investigate local vs repo state, fix the git sync pipeline, and push all existing captures. See WO for full investigation steps. High priority — sharing a tweet URL triggers multiple captures from Arc/Discord embed behavior, and Twitter ?s=46 tracking params are being parsed as Brady notes. Fix dedup cache in bot.js + strip query params before processing. system-monitor.js fires stale lockfile, dead heartbeat, and git divergence warnings while the worker is actively running. Fix: read worker_status from STATE.md and suppress/adjust thresholds when active.
+PLAN-010 (Meds Reminders) complete through Phase 4.
 
 ## Decision Log
 
@@ -96,7 +101,7 @@ WO-040 (debug tweet inbox sync discrepancy) is pending and HIGH PRIORITY — pic
 | 2026-03-01 03:08 | Brady approved PLAN-009 Phase 4 via Discord !resume | Discord command |
 | 2026-03-01 05:00 | PLAN-009 P4 complete: cookie health check, !tweet refresh, cleanup script, SYSTEM_STATUS.md, foreman-prompt.md updated | All acceptance criteria met |
 | 2026-03-01 04:15 | WO-037 complete: gallery-dl TweetWithVisibilityResults unwrap fix, tweet-processor.js quote rendering, article debug guide | editable install impossible over Homebrew; used wrapper script instead |
-| 2026-03-01 04:25 | WO-038 complete: system-monitor.js worker-status-aware alert suppression | checks `worker_status: active
+| 2026-03-01 04:25 | WO-038 complete: system-monitor.js worker-status-aware alert suppression | checks `worker_status: active |
 | 2026-03-01 05:11 | WO-039 complete: bot.js unknown !command guard + !twitter alias | guard placed before tweet-URL detection so bare URLs still auto-capture |
 | 2026-03-01 05:09 | Brady paused worker Phase 0 via Discord !pause | Discord command |
 | 2026-03-01 05:47 | Brady unpaused worker via Discord !resume | Discord command |
@@ -117,6 +122,7 @@ WO-040 (debug tweet inbox sync discrepancy) is pending and HIGH PRIORITY — pic
 | 2026-03-05 04:46 | PLAN-010 P3 complete: weekly summary, getMedsHistory, getDailyStreak, day-boundary fix | All Phase 3 acceptance criteria met; bot restarted clean |
 | 2026-03-05 04:54 | Brady approved PLAN-010 Phase 4 via Discord !resume | Discord command |
 | 2026-03-05 05:05 | PLAN-010 P4 complete: SYSTEM_STATUS, foreman-prompt, !help (!meds history added), benchmark files updated | All Phase 4 acceptance criteria met; bot restarted clean |
+| 2026-03-06 17:00 | NTS Plan A dispatched: WO-044 through WO-047 | Foundation fixes to make NTS codebase runnable on Mac. Bridge networking model chosen over host. WOs ordered by dependency: branch/env first, backend+frontend parallel, Docker integration last. |
 
 ## Pending Questions
 
@@ -166,4 +172,7 @@ None.
 - [x] PLAN-010 Phase 2: Afternoon + Melatonin Reminders (2026-03-05)
 - [x] PLAN-010 Phase 3: Weekly Summary + Polish (2026-03-05)
 - [x] PLAN-010 Phase 4: Documentation + Cleanup (2026-03-05)
-
+- [ ] NTS Plan A — WO-044: Branch + Networking Model + Env + Deps
+- [ ] NTS Plan A — WO-045: Backend Scan Fixes
+- [ ] NTS Plan A — WO-046: Frontend WebSocket Fix + Build Verification
+- [ ] NTS Plan A — WO-047: Docker Compose Overhaul

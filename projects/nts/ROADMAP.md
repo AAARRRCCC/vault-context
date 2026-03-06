@@ -129,7 +129,7 @@ The entire codebase was generated in a one-shot in mid-February 2026. 6 commits,
 | Plan | Status | Branch | WOs Created | WOs Complete | Notes |
 |------|--------|--------|-------------|--------------|-------|
 | A | **COMPLETE** | plan-a/foundation-fixes | 4 | 4 | Mayor-audited 2026-03-06. PR ready for merge. |
-| B | NOT STARTED | — | 0 | 0 | Ready — Plan A complete |
+| B | **IN PROGRESS** | plan-b/connection-inference | 1 | 0 | WO-048 (spec) written by Mayor. WO-049-052 scoped. |
 | C | NOT STARTED | — | 0 | 0 | Blocked on Plan B |
 | D | NOT STARTED | — | 0 | 0 | Blocked on Plans B+C |
 | E | NOT STARTED | — | 0 | 0 | Blocked on all prior |

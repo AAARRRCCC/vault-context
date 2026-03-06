@@ -1,7 +1,7 @@
 ---
 id: WO-047
 title: "NTS Plan A — Docker Compose Overhaul"
-status: pending
+status: complete
 priority: high
 plan: NTS-Plan-A
 project: nts

@@ -1,7 +1,7 @@
 ---
 id: WO-046
 title: "NTS Plan A — Frontend WebSocket Fix + Build Verification"
-status: pending
+status: complete
 priority: high
 plan: NTS-Plan-A
 project: nts

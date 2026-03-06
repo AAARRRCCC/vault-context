@@ -1,33 +1,18 @@
 ---
-updated: 2026-03-06T17:00:00Z
-active_plan: NTS-Plan-A
-phase: WO-044
-phase_status: pending
+updated: 2026-03-06T18:30:00Z
+active_plan: none
+phase: none
+phase_status: none
 worker_status: idle
 last_signal: complete
-last_signal_time: 2026-03-06T07:05:00Z
+last_signal_time: 2026-03-06T18:30:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-**NTS Plan A — Foundation Fixes.** Making the NTS codebase runnable. No new features — fix what's broken so subsequent plans have a working base.
-
-Roadmap: `projects/nts/ROADMAP.md`
-Repo: `borumea/Network-Topology-Scanner`
-Worker directory: `~/projects/network-topology-scanner`
-Branch: `plan-a/foundation-fixes` (created in WO-044)
-
-**WO execution order:**
-1. **WO-044** (pending) — Branch + Docker networking model + .env + deps cleanup. START HERE.
-2. **WO-045** (pending, depends on WO-044) — Backend scan fixes: scan_id response, Redis progress, remove broken Cypher query
-3. **WO-046** (pending, depends on WO-044) — Frontend WebSocket fix + build verification
-4. **WO-047** (pending, depends on WO-044/045/046) — Docker Compose overhaul: bridge networking, health check, nginx proxy
-
-**Checkpoint after WO-047:** Brady runs `docker-compose up` on Mac, backend serves mock data, frontend connects and renders graph.
-
-**Critical constraint for ALL Plan A WOs:** Do NOT touch `_patched_get_full_topology()` in `main.py`. That mock data fallback is what makes the checkpoint achievable.
+None. NTS Plan A (WO-044 through WO-047) complete. Branch `plan-a/foundation-fixes` pushed to `borumea/Network-Topology-Scanner`. Awaiting Brady's checkpoint test (`docker-compose up` on Mac) and PR review/merge.
 
 ---
 
@@ -36,11 +21,9 @@ PLAN-012 (Dashboard Layout Overhaul, complete) — Phase 1: Layout Restructure +
 
 ## Mayor Guidance
 
-NTS Plan A is now active. Four WOs dispatched (WO-044 through WO-047). Worker picks up WO-044 first — it establishes the branch and makes networking decisions that cascade into everything else. WO-045 and WO-046 can run in either order after WO-044. WO-047 goes last as the integration WO.
+NTS Plan A complete. Branch ready for Brady's checkpoint. Next: WO-041, WO-026, WO-036, WO-034.
 
-**Key context for worker:** This is `borumea/Network-Topology-Scanner`, not the vault. Worker dir is `~/projects/network-topology-scanner`. Signal completion via vault-context as normal, but all code changes happen in the NTS repo. Branch per plan, PR to main — worker does NOT merge.
-
-WO-041 (fix !help exceeding Discord 2000 char limit) is pending. Pick up after NTS Plan A completes.
+WO-041 (fix !help exceeding Discord 2000 char limit) is pending. Pick up next.
 
 WO-026 (max tokens flag for claude relay) is pending and ready for pickup.
 
@@ -123,6 +106,7 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 | 2026-03-05 04:54 | Brady approved PLAN-010 Phase 4 via Discord !resume | Discord command |
 | 2026-03-05 05:05 | PLAN-010 P4 complete: SYSTEM_STATUS, foreman-prompt, !help (!meds history added), benchmark files updated | All Phase 4 acceptance criteria met; bot restarted clean |
 | 2026-03-06 17:00 | NTS Plan A dispatched: WO-044 through WO-047 | Foundation fixes to make NTS codebase runnable on Mac. Bridge networking model chosen over host. WOs ordered by dependency: branch/env first, backend+frontend parallel, Docker integration last. |
+| 2026-03-06 18:30 | NTS Plan A complete: WO-044–047 all done in single session | branch plan-a/foundation-fixes pushed; NTS system Python 3.9 incompatible — used Homebrew Python 3.14 for import checks |
 
 ## Pending Questions
 
@@ -172,7 +156,7 @@ None.
 - [x] PLAN-010 Phase 2: Afternoon + Melatonin Reminders (2026-03-05)
 - [x] PLAN-010 Phase 3: Weekly Summary + Polish (2026-03-05)
 - [x] PLAN-010 Phase 4: Documentation + Cleanup (2026-03-05)
-- [ ] NTS Plan A — WO-044: Branch + Networking Model + Env + Deps
-- [ ] NTS Plan A — WO-045: Backend Scan Fixes
-- [ ] NTS Plan A — WO-046: Frontend WebSocket Fix + Build Verification
-- [ ] NTS Plan A — WO-047: Docker Compose Overhaul
+- [x] NTS Plan A — WO-044: Branch + Networking Model + Env + Deps (2026-03-06)
+- [x] NTS Plan A — WO-045: Backend Scan Fixes (2026-03-06)
+- [x] NTS Plan A — WO-046: Frontend WebSocket Fix + Build Verification (2026-03-06)
+- [x] NTS Plan A — WO-047: Docker Compose Overhaul (2026-03-06)

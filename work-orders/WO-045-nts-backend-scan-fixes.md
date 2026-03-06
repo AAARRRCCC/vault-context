@@ -1,7 +1,7 @@
 ---
 id: WO-045
 title: "NTS Plan A — Backend Scan Fixes"
-status: pending
+status: complete
 priority: high
 plan: NTS-Plan-A
 project: nts

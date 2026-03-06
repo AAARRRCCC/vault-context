@@ -1,7 +1,7 @@
 ---
 id: WO-044
 title: "NTS Plan A — Branch + Networking Model + Env + Deps"
-status: pending
+status: complete
 priority: high
 plan: NTS-Plan-A
 project: nts

@@ -68,17 +68,18 @@ The entire codebase was generated in a one-shot in mid-February 2026. 6 commits,
 **Checkpoint:** Run a scan against Brady's home network, verify devices discovered AND edges created between them.
 
 ### Plan C — Data Pipeline & Monitoring
-**Goal:** Build the feedback loop: scan → snapshot → analyze → alert. Make the system self-monitoring.
+**Goal:** Build the feedback loop: scan → snapshot → analyze → alert. Make the system self-monitoring. First priority: Docker demo network for integration testing and demo.
 **Branch:** `plan-c/data-pipeline`
-**Estimated WOs:** 4-6
+**Estimated WOs:** 5-7
 **Items from TODO:**
+- **NEW (blocker resolution):** Docker demo network — add `docker-compose.demo.yml` overlay with 4-5 lightweight containers exposing different port profiles (server, printer, workstation, SNMP) on `nts-net`. Backend scans the Docker bridge subnet. Proves full pipeline (nmap → parse → infer → Neo4j → frontend) in a reproducible environment. Doubles as permanent demo/testing setup.
 - #5: Topology snapshots (periodic capture to SQLite)
 - #6: Celery decision — add worker/beat to compose OR rip out Celery and use threading
 - #7: Anomaly detector training pipeline
 - #9: Wire scan optimizer to settings/dashboard
 - #12: Verify/fix analysis_tasks.py scheduled tasks
 **Depends on:** Plan B (snapshots are meaningless without edges)
-**Checkpoint:** Snapshots accumulate over time, anomaly detector trains, Timeline view shows data.
+**Checkpoint:** Docker demo scan produces devices + edges in graph. Snapshots accumulate over time. Timeline view shows data.
 
 ### Plan D — Frontend Verification & Fixes
 **Goal:** Systematically verify every UI component works with real data. Fix what's broken.
@@ -118,6 +119,8 @@ The entire codebase was generated in a one-shot in mid-February 2026. 6 commits,
 | 2026-03-06 | Branch per plan, PR to main | First time running multi-WO plans on external repo, need safety net |
 | 2026-03-06 | One fresh chat per plan | Context rot degrades Mayor planning quality on long sessions |
 | 2026-03-06 | Mac Mini has Docker 29.2.1 | Confirmed available for compose stack |
+| 2026-03-07 | Merge Plans A+B now despite no live network test | 20/20 unit tests + code review sufficient for inference engine. Full pipeline test deferred to Plan C Docker demo network. Blocking merge stalls all downstream plans for a test that can't run on Brady's apartment network anyway. |
+| 2026-03-07 | Docker demo network is first Plan C item | Solves integration testing + demo environment + apartment isolation problem in one shot. Lightweight containers with varied port profiles on nts-net bridge. |
 | 2026-03-06 | Bridge networking (named `nts-net`) over `network_mode: host` | host mode only works on Linux; bridge is Mac-compatible and all connection strings use container names |
 | 2026-03-06 | Docker networking decision goes in WO-044 (first WO), not WO-047 | .env defaults, backend connection strings, and nginx proxy all cascade from this choice — must be decided before anything else |
 | 2026-03-06 | Frontend build verification added to WO-046 | One-shot codebase never tested; broken build would block the checkpoint regardless of backend fixes |
@@ -131,9 +134,9 @@ The entire codebase was generated in a one-shot in mid-February 2026. 6 commits,
 
 | Plan | Status | Branch | WOs Created | WOs Complete | Notes |
 |------|--------|--------|-------------|--------------|-------|
-| A | **COMPLETE** | plan-a/foundation-fixes | 4 | 4 | Mayor-audited 2026-03-06. PR ready for merge. |
-| B | **COMPLETE** | plan-b/connection-inference | 5 | 5 | WO-048 (spec), WO-049 (engine), WO-050 (wiring), WO-052 (tests), WO-054 (VLAN fix). 20/20 tests pass. WO-051 (LLDP) deferred. PR ready for merge after Brady checkpoint. |
-| C | NOT STARTED | — | 0 | 0 | Blocked on Plan B |
+| A | **COMPLETE** | plan-a/foundation-fixes | 4 | 4 | Merging to main via WO-055. |
+| B | **COMPLETE** | plan-b/connection-inference | 5 | 5 | WO-048-050, WO-052, WO-054. 20/20 tests pass. Merging to main via WO-055. |
+| C | NOT STARTED | — | 0 | 0 | First item: Docker demo network (blocker resolution) |
 | D | NOT STARTED | — | 0 | 0 | Blocked on Plans B+C |
 | E | NOT STARTED | — | 0 | 0 | Blocked on all prior |
 

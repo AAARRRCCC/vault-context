@@ -1,18 +1,18 @@
 ---
-updated: 2026-03-06T14:40:11Z
+updated: 2026-03-07T12:00:00Z
 active_plan: none
-phase: none
-phase_status: none
+phase: pending
+phase_status: pending
 worker_status: idle
-last_signal: complete
-last_signal_time: 2026-03-06T14:40:11Z
+last_signal: wo-dispatched
+last_signal_time: 2026-03-07T12:00:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-None. NTS Plan A (WO-044 through WO-047) complete. Branch `plan-a/foundation-fixes` pushed to `borumea/Network-Topology-Scanner`. Awaiting Brady's checkpoint test (`docker-compose up` on Mac) and PR review/merge.
+None. Pending WO-055 (merge Plan A + B to main). Both plan branches complete and audited.
 
 ---
 
@@ -21,11 +21,9 @@ PLAN-012 (Dashboard Layout Overhaul, complete) — Phase 1: Layout Restructure +
 
 ## Mayor Guidance
 
-**NTS Plan B — WO-050 complete.**
+**NTS blocker resolved.** Checkpoint blocker (apartment network isolation) addressed: merge Plans A+B now, build Docker demo network as first item in Plan C. WO-055 (merge both branches to main) is pending and high priority — unblocks all future NTS work. After merge, Plan C chat should open with the demo network as its first deliverable.
 
-WO-049 complete: `connection_inference.py` created on branch `plan-b/connection-inference`, pushed to `borumea/Network-Topology-Scanner` (commit a8bc121).
-
-WO-050 complete: `scan_coordinator.py` wired with Phase 5 connection inference, pushed to `borumea/Network-Topology-Scanner` (commit 19d9c7e). Worker idle, awaiting next dispatch.
+WO-055 details: two `--no-ff` merges in order (plan-a then plan-b), run unit tests on main, delete remote branches. Plan A is ancestor of Plan B so merge is clean.
 
 Lower priority / deferred: WO-041, WO-026, WO-036, WO-034.
 

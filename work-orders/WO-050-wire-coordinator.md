@@ -1,3 +1,15 @@
+---
+id: WO-050
+title: "NTS Plan B — Wire Connection Inference into Scan Coordinator"
+status: pending
+priority: high
+plan: NTS-Plan-B
+project: nts
+repo: borumea/Network-Topology-Scanner
+work_dir: ~/projects/network-topology-scanner
+depends_on: WO-049
+---
+
 # WO-050 — Wire Connection Inference into Scan Coordinator
 
 > **Plan B, WO 3 of ~6** — Worker execution task.

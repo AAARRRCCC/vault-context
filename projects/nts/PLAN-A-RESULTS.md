@@ -1,72 +1,42 @@
 # NTS Plan A — Foundation Fixes: Results
 
-**Status:** Complete (Mayor-audited 2026-03-06)
-**Branch:** `plan-a/foundation-fixes` (4 commits ahead, 0 behind main)
-**Rollback tags:** pre-WO-044, pre-WO-045, pre-WO-046, pre-WO-047
+**Status:** Complete
+**Branch:** `plan-a/foundation-fixes` on `borumea/Network-Topology-Scanner`
+**Date:** 2026-03-06
+**WOs:** WO-044, WO-045, WO-046, WO-047 (all complete)
+**Checkpoint:** Passed — `docker-compose up` runs on Mac, backend serves mock data, frontend connects and renders graph.
 
 ---
 
-## Summary
-
-Plan A made the NTS codebase runnable on Mac by fixing Docker networking, broken backend endpoints, dead dependencies, and hardcoded frontend URLs. No new features — strictly fixing what was broken so subsequent plans have a working base.
-
-## WO Results
+## What Changed (10 files across 4 commits)
 
 ### WO-044: Branch + Networking Model + Env + Deps
-- Created `plan-a/foundation-fixes` branch, confirmed push access to `borumea/Network-Topology-Scanner`
-- Chose bridge networking with named Docker network `nts-net` — documented at top of `docker-compose.yml`
-- `.env` generated from `.env.example` (gitignored correctly via `.gitignore` update)
-- Cleaned `requirements.txt`: removed `sqlalchemy`, `aiosqlite`, `python-nmap`, `pyshark`, `httpx` (all confirmed zero imports in codebase)
+- Created `plan-a/foundation-fixes` branch
+- Switched from `network_mode: host` (Linux-only) to bridge networking with named `nts-net` Docker network. Documented at top of `docker-compose.yml`.
+- `.env` created with container-name defaults (`bolt://neo4j:7687`, `redis://redis:6379/0`) for Docker mode, commented localhost alternatives for bare-metal dev.
+- Cleaned `requirements.txt`: removed `sqlalchemy`, `aiosqlite`, `python-nmap`, `pyshark`, `httpx` — all confirmed zero imports. SQLite uses raw `sqlite3`, nmap is subprocess, no async DB layer.
+- `.gitignore` updated to exclude `.env` files.
 
 ### WO-045: Backend Scan Fixes
-- Fixed scan endpoint (`scans.py`): `scan_id` now generated via `uuid.uuid4()` in the router and returned in POST response. Passed into `scan_coordinator.start_scan()` via new `scan_id` kwarg.
-- Wired Redis scan progress persistence: `event_bus.publish_scan_progress()` now calls `redis_client.set_scan_progress(scan_id, progress_data)` with 1-hour TTL. Graceful no-op when Redis unavailable.
-- Removed broken Neo4j Cypher `find_articulation_points()` method from `neo4j_client.py` (18 lines). NetworkX-based SPOF detection unchanged.
+- **Scan API response (#2):** `POST /scans` now generates a `scan_id` (UUID) in the router and returns it in the response body. Previously started scans with no way to track them.
+- **Redis scan progress (#4):** `event_bus.publish_scan_progress()` now persists progress to Redis via `redis_client.set_scan_progress(scan_id, data)` with 1-hour TTL. Graceful no-op if Redis unavailable.
+- **Broken Cypher query (#10):** Removed `find_articulation_points()` from `neo4j_client.py` — an 18-line Cypher query that didn't correctly compute articulation points. NetworkX-based SPOF detection (the actual working implementation) left untouched.
 
 ### WO-046: Frontend WebSocket Fix + Build Verification
-- `useWebSocket.ts`: replaced hardcoded `ws://localhost:8000/ws/topology` with dynamic `${protocol}//${window.location.host}/ws/topology`, handling ws/wss based on page protocol.
-- Frontend build verified: `npm install && npm run build` succeeds. `package-lock.json` peer dep flags cleaned up.
+- **WebSocket URL (#14):** `useWebSocket.ts` now derives protocol (`ws:`/`wss:`) and host from `window.location` instead of hardcoded `ws://localhost:8000`. Works in both dev and Docker contexts.
+- **Build verification:** `npm run build` confirmed clean. Fixed peer dependency flags in `package-lock.json` that were blocking resolution.
 
 ### WO-047: Docker Compose Overhaul
-- Removed `network_mode: host` from backend and frontend services
-- Created `nts-net` bridge network, all services attached
-- Port exposure: nginx on 3000, backend on 8000 (dev), Neo4j browser on 7474 (debug). Redis internal only.
-- Added backend health check: hits `/api/health` (new endpoint returning Neo4j/Redis/WS client status)
-- Frontend `depends_on` backend with `condition: service_healthy`
-- nginx `proxy_pass` updated from `localhost:8000` to `backend:8000` for both API and WebSocket locations
-- WebSocket upgrade headers confirmed correct (`proxy_http_version 1.1`, `Upgrade`, `Connection "upgrade"`)
+- **Bridge networking (#22):** Removed `network_mode: host` from all services. Created `nts-net` bridge network. Services reference each other by container name.
+- **Port exposure:** Frontend/nginx on 3000, backend on 8000 (dev access), Neo4j browser on 7474 (debug). Redis stays internal.
+- **Backend health check (#24):** Added `/api/health` endpoint returning Neo4j/Redis/WebSocket status. Docker healthcheck hits it every 15s with 30s start period. Frontend `depends_on` backend with `condition: service_healthy`.
+- **Nginx proxy (#25):** Updated `proxy_pass` from `localhost:8000` to `backend:8000`. WebSocket upgrade headers were already correct.
 
-## Files Changed (10 total)
+## What Was Preserved
+- `_patched_get_full_topology()` in `main.py` — the mock data fallback that makes the system demo-able without a real network scan. Untouched across all 4 WOs.
 
-| File | Change |
-|------|--------|
-| `.gitignore` | Added `.env`, `*.env`, `!.env.example` |
-| `backend/app/db/neo4j_client.py` | Removed broken `find_articulation_points()` |
-| `backend/app/routers/scans.py` | scan_id generation + return |
-| `backend/app/services/realtime/event_bus.py` | Redis progress persistence |
-| `backend/app/services/scanner/scan_coordinator.py` | Accept external scan_id |
-| `backend/requirements.txt` | Removed 5 unused deps |
-| `docker-compose.yml` | Bridge networking, health checks, port config |
-| `frontend/nginx.conf` | Proxy targets → container names |
-| `frontend/package-lock.json` | Peer dep cleanup |
-| `frontend/src/hooks/useWebSocket.ts` | Dynamic WS URL |
+## Rollback Tags
+- `pre-WO-044`, `pre-WO-045`, `pre-WO-046`, `pre-WO-047` — all present on the branch.
 
-## Mock Data Fallback
-
-`_patched_get_full_topology()` in `main.py` is **untouched** — confirmed by diff. This is what makes the checkpoint achievable without a real network.
-
-## Pre-Checkpoint Note
-
-The `.env` file on the Mac Mini must use Docker container names for hosts (e.g., `NEO4J_URI=bolt://neo4j:7687`, `REDIS_URL=redis://redis:6379/0`), not localhost. The `.env.example` still shows localhost as the template default. Verify before running `docker-compose up`.
-
-## Checkpoint Test
-
-Brady runs on Mac Mini:
-```
-cd ~/projects/network-topology-scanner/network-topology-mapper
-docker-compose up
-```
-
-Expected: all services start, backend healthy, frontend at `http://localhost:3000` renders the mock topology graph, WebSocket connects, no crashes.
-
-After checkpoint passes → merge `plan-a/foundation-fixes` to `main` via PR → begin Plan B (Connection Inference Engine) in a fresh chat.
+## What's Next
+Plan B (Connection Inference Engine) is unblocked. This is the critical missing piece — scanners find devices but never create edges between them.

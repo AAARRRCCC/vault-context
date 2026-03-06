@@ -132,7 +132,7 @@ The entire codebase was generated in a one-shot in mid-February 2026. 6 commits,
 | Plan | Status | Branch | WOs Created | WOs Complete | Notes |
 |------|--------|--------|-------------|--------------|-------|
 | A | **COMPLETE** | plan-a/foundation-fixes | 4 | 4 | Mayor-audited 2026-03-06. PR ready for merge. |
-| B | **AUDIT PASS** | plan-b/connection-inference | 3 | 3 | WO-048 (spec), WO-049 (engine), WO-050 (wiring) complete. Mayor-audited. Awaiting Brady checkpoint. WO-051 (LLDP) deferred, WO-052 (tests) pre-merge. |
+| B | **COMPLETE** | plan-b/connection-inference | 5 | 5 | WO-048 (spec), WO-049 (engine), WO-050 (wiring), WO-052 (tests), WO-054 (VLAN fix). 20/20 tests pass. WO-051 (LLDP) deferred. PR ready for merge after Brady checkpoint. |
 | C | NOT STARTED | — | 0 | 0 | Blocked on Plan B |
 | D | NOT STARTED | — | 0 | 0 | Blocked on Plans B+C |
 | E | NOT STARTED | — | 0 | 0 | Blocked on all prior |

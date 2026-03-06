@@ -1,7 +1,7 @@
 ---
 id: WO-052
 title: "NTS Plan B — Connection Inference Unit Tests"
-status: pending
+status: in-progress
 priority: high
 plan: NTS-Plan-B
 project: nts

@@ -159,3 +159,6 @@ None.
 - [x] NTS Plan A — WO-045: Backend Scan Fixes (2026-03-06)
 - [x] NTS Plan A — WO-046: Frontend WebSocket Fix + Build Verification (2026-03-06)
 - [x] NTS Plan A — WO-047: Docker Compose Overhaul (2026-03-06)
+- [x] NTS Plan B — WO-048: Connection Inference Spec (2026-03-06, Mayor-authored)
+- [x] NTS Plan B — WO-049: Connection Inference Engine (2026-03-06)
+- [x] NTS Plan B — WO-050: Wire Inference into Coordinator (2026-03-06)

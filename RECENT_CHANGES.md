@@ -2941,8 +2941,10 @@
 
 
 
+
 ---
 
+c42ebd0 vault: meds log 2026-03-07 — melatonin missed
 902b594 vault: meds log 2026-03-07 — afternoon missed
 9f11d15 vault: meds log 2026-03-07 — morning missed
 16a4940 vault auto-commit 2026-03-07 09:52:49
@@ -2962,4 +2964,3 @@ d738f6f vault auto-commit 2026-03-05 00:39:59
 af2749e context update: 2026-03-05 00:07
 83fcf4b context update: 2026-03-05 00:07
 7968fd1 context update: 2026-03-05 00:07
-4aa5523 context update: 2026-03-05 00:07

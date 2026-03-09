@@ -2946,8 +2946,10 @@
 
 
 
+
 ---
 
+4b1ea57 vault: meds weekly summary 2026-W10
 b356f3d vault: meds log 2026-03-08 — melatonin taken
 f5e1fda vault: meds log 2026-03-08 — afternoon missed
 7313fb4 vault auto-commit 2026-03-08 10:00:14
@@ -2967,4 +2969,3 @@ e65f233 vault: meds log 2026-03-05 — afternoon taken
 0d07be6 vault auto-commit 2026-03-05 09:10:21
 104d499 vault: meds log 2026-03-05 — morning taken
 d738f6f vault auto-commit 2026-03-05 00:39:59
-945d7d0 Merge branch 'worker'

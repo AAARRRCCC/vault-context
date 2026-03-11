@@ -27,6 +27,8 @@ WO-055 details: two `--no-ff` merges in order (plan-a then plan-b), run unit tes
 
 Lower priority / deferred: WO-041, WO-026, WO-036, WO-034.
 
+**Pending:** WO-043 (tweet URL query param fix) — medium priority, ready for worker.
+
 PLAN-007 (System Visual Diagrams) is shelved.
 
 PLAN-009 Twitter inbox pipeline complete. Related WOs (037-040) complete.

@@ -1,28 +1,36 @@
 ---
 id: WO-043
 status: complete
-completed: 2026-03-06
+completed: 2026-03-11
 worker: claude-code
 ---
 
-# WO-043 Result: Clone NTS Repo to Worker
+# WO-043 Result: Tweet URL Query Parameter Fix
 
-## What Was Done
+## What was done
 
-1. Created `~/projects/` directory
-2. Cloned `borumea/Network-Topology-Scanner` to `~/projects/network-topology-scanner`
+Updated `TWEET_URL_PATTERN` in `/Users/rbradmac/foreman-bot/bot.js` to consume optional query parameters as part of the match:
 
-## Verification
+**Before:**
+```js
+const TWEET_URL_PATTERN = /https?:\/\/(twitter\.com|x\.com)\/\w[\w.-]*\/status\/\d+/gi;
+```
 
-- `git status`: clean working tree on `main`
-- Latest commit: `90e7107 Merge pull request #1 from borumea/prototype`
-- `network-topology-mapper/backend/app/main.py`: present
+**After:**
+```js
+const TWEET_URL_PATTERN = /https?:\/\/(twitter\.com|x\.com)\/\w[\w.-]*\/status\/\d+(?:\?[^\s]*)*/gi;
+```
 
-## Acceptance Criteria
+`cleanTweetUrl()` already stripped query params before passing to `tweet-capture.sh`, so the only fix needed was consuming the query string in the detection pattern so `textWithoutUrls` is empty after stripping.
 
-- [x] `~/projects/network-topology-scanner` exists and contains the full repo
-- [x] `git status` shows clean working tree on `main`
+## Acceptance criteria
 
-## Notes
+- [x] `?s=46` and other query params no longer fall through to relay
+- [x] Tweet capture still works (URL cleaned by `cleanTweetUrl` before capture)
+- [x] Stored tweet URL in content.md is clean (handled by existing `cleanTweetUrl`)
 
-No issues. Public repo cloned without auth.
+## Commit
+
+`45e8f8e` — fix: consume query params in TWEET_URL_PATTERN (WO-043)
+
+Bot restarted clean (PID 17263).

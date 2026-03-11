@@ -1,7 +1,7 @@
 ---
 id: WO-043
 title: Fix tweet URL query parameter leaking to relay
-status: pending
+status: complete
 priority: medium
 created: 2026-03-11T17:00:00Z
 mayor: true

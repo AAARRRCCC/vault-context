@@ -5,7 +5,7 @@ author_name: "Om Patel"
 date: "2026-03-01"
 url: "https://x.com/om_patel5/status/2027897523537428720"
 captured: "2026-03-01T05:19:52.940Z"
-status: pending
+status: researched
 has_images: true
 has_thread: true
 has_quote_tweet: false

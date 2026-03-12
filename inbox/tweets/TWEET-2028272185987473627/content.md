@@ -5,7 +5,7 @@ author_name: "Erick"
 date: "2026-03-02"
 url: "https://x.com/ErickSky/status/2028272185987473627"
 captured: "2026-03-02T04:48:10.548Z"
-status: pending
+status: researched
 has_images: false
 has_thread: true
 has_quote_tweet: false

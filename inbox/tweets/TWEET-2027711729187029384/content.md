@@ -5,7 +5,7 @@ author_name: "ToolFolio"
 date: "2026-02-28"
 url: "https://x.com/toolfolio/status/2027711729187029384"
 captured: "2026-03-01T05:26:09.217Z"
-status: pending
+status: researched
 has_images: false
 has_thread: true
 has_quote_tweet: false

@@ -5,7 +5,7 @@ author_name: "0xSero"
 date: "2026-02-27"
 url: "https://x.com/0xSero/status/2027377489903755502"
 captured: "2026-03-01T05:29:30.940Z"
-status: pending
+status: researched
 has_images: false
 has_thread: true
 has_quote_tweet: false

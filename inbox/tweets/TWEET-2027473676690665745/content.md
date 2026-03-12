@@ -5,7 +5,7 @@ author_name: "alex fazio"
 date: "2026-02-27"
 url: "https://x.com/alxfazio/status/2027473676690665745"
 captured: "2026-03-01T05:27:15.567Z"
-status: pending
+status: researched
 has_images: true
 has_thread: false
 has_quote_tweet: false

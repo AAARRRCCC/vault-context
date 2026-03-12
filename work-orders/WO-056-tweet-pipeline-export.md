@@ -1,7 +1,7 @@
 ---
 id: WO-056
 title: Export tweet pipeline source for Mayor review
-status: pending
+status: complete
 priority: high
 created: 2026-03-11T23:30:00Z
 mayor: true

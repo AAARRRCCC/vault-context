@@ -5,7 +5,7 @@ author_name: "Santiago"
 date: "2026-02-27"
 url: "https://x.com/svpino/status/2027416057934450816"
 captured: "2026-03-01T05:32:34.847Z"
-status: pending
+status: researched
 has_images: false
 has_thread: false
 has_quote_tweet: false

@@ -5,7 +5,7 @@ author_name: "snwy"
 date: "2026-03-10"
 url: "https://x.com/snwy_me/status/2031347002773221673"
 captured: "2026-03-11T22:55:20.411Z"
-status: pending
+status: research-failed
 has_images: true
 has_thread: false
 has_quote_tweet: true

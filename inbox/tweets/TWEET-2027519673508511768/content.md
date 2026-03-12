@@ -5,7 +5,7 @@ author_name: "POM"
 date: "2026-02-27"
 url: "https://x.com/peteromallet/status/2027519673508511768"
 captured: "2026-03-01T05:01:11.593Z"
-status: pending
+status: researched
 has_images: true
 has_thread: true
 has_quote_tweet: false

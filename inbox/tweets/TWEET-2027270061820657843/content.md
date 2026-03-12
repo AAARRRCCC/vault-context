@@ -5,7 +5,7 @@ author_name: "Yash Bhardwaj"
 date: "2026-02-27"
 url: "https://x.com/ybhrdwj/status/2027270061820657843"
 captured: "2026-03-01T05:28:25.709Z"
-status: pending
+status: researched
 has_images: false
 has_thread: true
 has_quote_tweet: false

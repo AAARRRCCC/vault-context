@@ -5,7 +5,7 @@ author_name: "luka"
 date: "2026-03-05"
 url: "https://x.com/lukalotl/status/2029390577645785498"
 captured: "2026-03-06T00:55:28.711Z"
-status: pending
+status: researched
 has_images: true
 has_thread: true
 has_quote_tweet: false

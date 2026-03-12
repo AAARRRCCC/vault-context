@@ -1,0 +1,36 @@
+{
+  "extractor": {
+    "twitter": {
+      "cookies-from-browser": "chrome",
+      "text-tweets": true,
+      "conversations": true,
+      "expand": true,
+      "quoted": true,
+      "retweets": false,
+      "replies": "self",
+      "videos": true,
+      "pinned": false,
+      "logout": true,
+      "filename": "{tweet_id}_{num}.{extension}",
+      "directory": ["twitter", "{user[name]}", "{tweet_id}"],
+      "postprocessors": [
+        {
+          "name": "metadata",
+          "event": "post",
+          "filename": "{tweet_id}_metadata.json"
+        }
+      ]
+    }
+  },
+  "output": {
+    "mode": "terminal",
+    "log": {
+      "level": "warning",
+      "format": "{name}: {message}"
+    }
+  },
+  "downloader": {
+    "rate": "2M",
+    "timeout": 30
+  }
+}

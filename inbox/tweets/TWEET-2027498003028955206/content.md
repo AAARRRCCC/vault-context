@@ -5,7 +5,7 @@ author_name: "self.dll"
 date: "2026-02-27"
 url: "https://x.com/seelffff/status/2027498003028955206"
 captured: "2026-03-01T05:31:02.075Z"
-status: pending
+status: researched
 has_images: false
 has_thread: false
 has_quote_tweet: true

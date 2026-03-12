@@ -5,7 +5,7 @@ author_name: "Artem Zhutov"
 date: "2026-03-02"
 url: "https://x.com/ArtemXTech/status/2028330693659332615"
 captured: "2026-03-03T04:22:28.168Z"
-status: pending
+status: researched
 has_images: true
 has_thread: false
 has_quote_tweet: false

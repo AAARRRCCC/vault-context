@@ -5,7 +5,7 @@ author_name: "Dan Peguine ⌐◨-◨"
 date: "2026-03-04"
 url: "https://x.com/danpeguine/status/2029268229030285589"
 captured: "2026-03-05T18:11:42.573Z"
-status: pending
+status: researched
 has_images: true
 has_thread: false
 has_quote_tweet: true

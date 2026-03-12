@@ -5,7 +5,7 @@ author_name: "Jayden ⛩️"
 date: "2026-03-06"
 url: "https://x.com/thejayden/status/2029899328400109732"
 captured: "2026-03-07T00:31:54.999Z"
-status: pending
+status: researched
 has_images: false
 has_thread: false
 has_quote_tweet: true

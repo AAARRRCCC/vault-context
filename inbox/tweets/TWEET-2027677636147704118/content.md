@@ -5,7 +5,7 @@ author_name: "Hananyss"
 date: "2026-02-28"
 url: "https://x.com/hananyss/status/2027677636147704118"
 captured: "2026-03-01T05:15:59.293Z"
-status: pending
+status: researched
 has_images: false
 has_thread: false
 has_quote_tweet: true

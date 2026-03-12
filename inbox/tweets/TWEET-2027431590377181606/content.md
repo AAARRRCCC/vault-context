@@ -5,7 +5,7 @@ author_name: "Noa 🦀"
 date: "2026-02-27"
 url: "https://x.com/_Akanoa_/status/2027431590377181606"
 captured: "2026-03-01T05:28:40.932Z"
-status: pending
+status: researched
 has_images: true
 has_thread: true
 has_quote_tweet: false

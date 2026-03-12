@@ -250,3 +250,50 @@ Threads are stitched into a single `content.md` in chronological order. Brady's 
 **Review flow:** During Mayor sessions, Brady says "let's go through the inbox." Mayor reads each `content.md` via GitHub API. Brady decides action. After review, `!inbox clear` moves all to archive.
 
 **Repo size management:** Images are committed to vault-context (active inbox has full media). Run `!tweet cleanup` periodically to strip images from archive entries older than 30 days. Text and metadata are kept permanently.
+
+---
+
+## Tweet Research Agent
+
+**Added:** 2026-03-12 (PLAN-014)
+
+Background agent that transforms raw tweet captures into structured research briefs. Runs every 5 minutes as a launchd service, processes one tweet per pass by default.
+
+| Component | Path | Role |
+|-----------|------|------|
+| Research agent | `~/foreman-bot/tweet-researcher.js` | Main entry point — scans inbox, calls claude -p, writes research.md |
+| URL resolver | `~/foreman-bot/url-resolver.js` | Fetches and extracts text from linked GitHub READMEs, blog posts, articles |
+| launchd plist | `~/Library/LaunchAgents/com.foreman.tweet-researcher.plist` | Runs agent every 300 seconds |
+| Log | `~/.local/log/tweet-researcher.log` | Rotates automatically at 10 MB |
+
+**Pipeline:**
+```
+content.md (status: pending)
+  → url-resolver.js (fetches GitHub READMEs, blog posts, articles)
+  → claude -p sonnet (generates structured research brief)
+  → research.md (written to TWEET-{id}/ directory)
+  → content.md status: researched
+  → git commit + push
+```
+
+**Foreman commands:**
+
+| Command | Action |
+|---------|--------|
+| `!research` | Show queue status (pending / researched / failed counts) |
+| `!research run` | Trigger an immediate research pass |
+| `!research <tweet-id>` | Force re-research a specific tweet |
+
+**research.md format:** frontmatter with `researched`, `category`, `signal` (high/medium/low), `actionable`; sections for Substance, Linked Content, Relevance, Verdict.
+
+**Image descriptions:** Supported via `--with-images` flag (opt-in). Spawns a separate `claude -p --dangerously-skip-permissions` call per image; claude reads the image file and returns a description. Not run by default due to added latency. Mayor can always view images directly via the tweet URL.
+
+**To manage:**
+```bash
+launchctl list com.foreman.tweet-researcher    # check status
+launchctl stop com.foreman.tweet-researcher    # stop
+launchctl start com.foreman.tweet-researcher   # start
+tail -f ~/.local/log/tweet-researcher.log      # live log
+node ~/foreman-bot/tweet-researcher.js --batch 5   # manual backlog clear
+node ~/foreman-bot/tweet-researcher.js --with-images  # with image descriptions
+```

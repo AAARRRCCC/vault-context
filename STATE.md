@@ -1,18 +1,18 @@
 ---
-updated: 2026-03-12T05:25:00Z
+updated: 2026-03-12T05:50:00Z
 active_plan: PLAN-014
-phase: 3
+phase: 4
 phase_status: complete
 worker_status: idle
-last_signal: notify
-last_signal_time: 2026-03-12T05:25:00Z
+last_signal: complete
+last_signal_time: 2026-03-12T05:50:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-PLAN-014 — Tweet Research Agent. Phase 1: URL Resolver Module. Build content fetching layer that resolves GitHub READMEs, blog posts, and articles from tweet URLs into clean text. See plans/PLAN-014-tweet-research-agent.md for full spec.
+PLAN-014 — Tweet Research Agent. All 4 phases complete. Background launchd service (com.foreman.tweet-researcher) runs every 5 minutes, generates research.md for each tweet. Image descriptions available via --with-images flag. See plans/PLAN-014-tweet-research-agent.md for full spec.
 
 ---
 
@@ -110,6 +110,7 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 | 2026-03-12 05:05 | PLAN-014 P1 complete: url-resolver.js built and tested | GitHub READMEs (API), gists, blog posts work well. JS-heavy SPAs produce thin text (known limitation). Simple regex HTML stripping sufficient — no readability dependency needed. |
 | 2026-03-12 05:08 | PLAN-014 P2 complete: tweet-researcher.js built and tested | claude -p sonnet works with CLAUDECODE unset in child env. 3/3 test tweets processed. Output quality high. Worker-active guard prevents git conflicts with concurrent runs. |
 | 2026-03-12 05:25 | PLAN-014 P3 complete: launchd plist, !research command, !inbox research indicators, !status queue counts | readFileSync/writeFileSync/existsSync added to ESM imports in bot.js. Researcher service loaded; first kickstart correctly skipped (worker active). Bot restarted clean. |
+| 2026-03-12 05:50 | PLAN-014 P4 complete: image description (--with-images flag, separate claude -p per image), log rotation (10 MB threshold), SYSTEM_STATUS.md, foreman-prompt.md, RECENT_CHANGES.md, CLAUDE-LEARNINGS.md updated | Image description is opt-in via --with-images; uses claude --dangerously-skip-permissions to read image files via Read tool. PLAN-014 complete. |
 
 ## Pending Questions
 
@@ -172,3 +173,4 @@ None.
 - [x] PLAN-014 Phase 1: URL Resolver Module (2026-03-12)
 - [x] PLAN-014 Phase 2: Research Brief Generator (2026-03-12)
 - [x] PLAN-014 Phase 3: Integration + Queue Management (2026-03-12)
+- [x] PLAN-014 Phase 4: Image Descriptions + Polish (2026-03-12)

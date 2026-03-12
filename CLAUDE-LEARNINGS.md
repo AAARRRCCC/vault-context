@@ -136,9 +136,9 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 - The `!help` reply exceeds Discord's 2000-character limit as of PLAN-009 P4 — the help text has grown too large. Pre-existing issue; needs split-message or embed fix if Brady wants it.
 - Adding a command alias is one line in the COMMANDS map: `'!twitter': cmdTweet`. No other changes needed.
 
-### 2026-03-12 — PLAN-014 P3: tweet-researcher integration
+### 2026-03-12 — PLAN-014: tweet-research-agent
 
-- bot.js uses ESM (`import` syntax). When adding sync fs helpers to a new function, add them to the existing `import { readdirSync, statSync, unlinkSync } from 'fs'` line — `require('fs')` will throw in an ESM context.
-- The tweet-researcher launchd plist label is `com.foreman.tweet-researcher`; the bot's label is `com.foreman.bot`. Use `launchctl list | grep foreman` to verify before kickstarting.
-- Worker-active guard in tweet-researcher.js reads `~/.local/state/mayor-worker-status.json` for `worker_status: processing` — if the worker is active it skips the research cycle entirely to avoid git push conflicts. This means first pass after deploying won't run until the worker session ends (correct behavior).
-- `RunAtLoad: false` on the plist prevents an immediate run on `launchctl load` — use `launchctl kickstart` explicitly if you want to trigger a pass right after loading.
+- `claude -p --dangerously-skip-permissions` can read image files from disk using its Read tool — no base64 encoding needed. Pass the image path in the prompt text and claude will use its tool to read and describe it. Tested with PNG files from tweet inbox.
+- Log rotation for launchd-managed log files (via StandardOutPath): the Node.js process does NOT hold the log file open between periodic runs, so safe to `renameSync(logFile, logFile + '.old')` at startup. New run creates a fresh file.
+- `claude -p --model sonnet` with large stdin payloads (URL-resolved content) works reliably — no need for temp file workaround. Tested up to ~15KB prompts without issues.
+- Simple regex HTML stripping (remove script/style/nav/header/footer tags, strip remaining tags, collapse whitespace) produces readable output for most blog posts and docs. `@mozilla/readability` not needed for this use case.

@@ -5,7 +5,7 @@ author_name: "tldraw"
 date: "2026-03-01"
 url: "https://x.com/tldraw/status/2028076974233534795"
 captured: "2026-03-02T13:27:13.837Z"
-status: pending
+status: researched
 has_images: false
 has_thread: true
 has_quote_tweet: false

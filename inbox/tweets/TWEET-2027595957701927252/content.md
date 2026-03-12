@@ -5,7 +5,7 @@ author_name: "Tom Dörr"
 date: "2026-02-28"
 url: "https://x.com/tom_doerr/status/2027595957701927252"
 captured: "2026-03-01T05:26:15.581Z"
-status: pending
+status: researched
 has_images: true
 has_thread: false
 has_quote_tweet: false

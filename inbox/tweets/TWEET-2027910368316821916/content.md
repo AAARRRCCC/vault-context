@@ -5,7 +5,7 @@ author_name: "Shrivu Shankar"
 date: "2026-03-01"
 url: "https://x.com/ShrivuShankar/status/2027910368316821916"
 captured: "2026-03-01T15:12:27.371Z"
-status: pending
+status: researched
 has_images: true
 has_thread: false
 has_quote_tweet: false

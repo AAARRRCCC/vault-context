@@ -5,7 +5,7 @@ author_name: "Sukh Sroay"
 date: "2026-03-02"
 url: "https://x.com/sukh_saroy/status/2028315710917869927"
 captured: "2026-03-02T13:28:03.657Z"
-status: pending
+status: researched
 has_images: true
 has_thread: true
 has_quote_tweet: false

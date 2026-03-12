@@ -5,7 +5,7 @@ author_name: "Boris Cherny"
 date: "2026-03-07"
 url: "https://x.com/bcherny/status/2030193932404150413"
 captured: "2026-03-07T17:27:41.610Z"
-status: pending
+status: researched
 has_images: false
 has_thread: false
 has_quote_tweet: false

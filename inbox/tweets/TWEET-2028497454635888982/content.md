@@ -5,7 +5,7 @@ author_name: "Ole Lehmann"
 date: "2026-03-02"
 url: "https://x.com/itsolelehmann/status/2028497454635888982"
 captured: "2026-03-03T01:03:28.952Z"
-status: pending
+status: researched
 has_images: true
 has_thread: true
 has_quote_tweet: false

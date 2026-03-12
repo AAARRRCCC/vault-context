@@ -5,7 +5,7 @@ author_name: "Trevin Peterson"
 date: "2026-03-10"
 url: "https://x.com/TrevinPeterson/status/2031478430752190612"
 captured: "2026-03-11T05:42:54.982Z"
-status: pending
+status: researched
 has_images: true
 has_thread: true
 has_quote_tweet: false

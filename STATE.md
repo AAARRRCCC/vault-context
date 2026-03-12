@@ -1,8 +1,8 @@
 ---
 updated: 2026-03-11T23:00:00Z
-active_plan: none
-phase: none
-phase_status: none
+active_plan: PLAN-014
+phase: 1
+phase_status: pending
 worker_status: idle
 last_signal: complete
 last_signal_time: 2026-03-11T23:00:00Z
@@ -12,7 +12,7 @@ last_signal_time: 2026-03-11T23:00:00Z
 
 ## Active Plan
 
-None. WO-043 complete — tweet URL query param regex fix deployed, bot restarted. Ready for next task.
+PLAN-014 — Tweet Research Agent. Phase 1: URL Resolver Module. Build content fetching layer that resolves GitHub READMEs, blog posts, and articles from tweet URLs into clean text. See plans/PLAN-014-tweet-research-agent.md for full spec.
 
 ---
 

@@ -5,7 +5,7 @@ author_name: "Simplifying AI"
 date: "2026-02-27"
 url: "https://x.com/simplifyinAI/status/2027439397449437288"
 captured: "2026-03-01T06:03:38.686Z"
-status: pending
+status: researched
 has_images: true
 has_thread: true
 has_quote_tweet: false

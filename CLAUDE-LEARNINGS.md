@@ -135,3 +135,10 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 - In bot.js command router, the unknown `!command` guard must come BEFORE the tweet URL detection block — not after. If it were after, `!deleet https://x.com/...` would silently auto-capture the tweet before erroring.
 - The `!help` reply exceeds Discord's 2000-character limit as of PLAN-009 P4 — the help text has grown too large. Pre-existing issue; needs split-message or embed fix if Brady wants it.
 - Adding a command alias is one line in the COMMANDS map: `'!twitter': cmdTweet`. No other changes needed.
+
+### 2026-03-12 — PLAN-014 P3: tweet-researcher integration
+
+- bot.js uses ESM (`import` syntax). When adding sync fs helpers to a new function, add them to the existing `import { readdirSync, statSync, unlinkSync } from 'fs'` line — `require('fs')` will throw in an ESM context.
+- The tweet-researcher launchd plist label is `com.foreman.tweet-researcher`; the bot's label is `com.foreman.bot`. Use `launchctl list | grep foreman` to verify before kickstarting.
+- Worker-active guard in tweet-researcher.js reads `~/.local/state/mayor-worker-status.json` for `worker_status: processing` — if the worker is active it skips the research cycle entirely to avoid git push conflicts. This means first pass after deploying won't run until the worker session ends (correct behavior).
+- `RunAtLoad: false` on the plist prevents an immediate run on `launchctl load` — use `launchctl kickstart` explicitly if you want to trigger a pass right after loading.

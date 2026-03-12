@@ -5,7 +5,7 @@ author_name: "Rohan Paul"
 date: "2026-03-01"
 url: "https://x.com/rohanpaul_ai/status/2028184543040270769"
 captured: "2026-03-02T04:57:09.610Z"
-status: pending
+status: researched
 has_images: true
 has_thread: false
 has_quote_tweet: false

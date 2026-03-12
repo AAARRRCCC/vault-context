@@ -5,7 +5,7 @@ author_name: "Arlan"
 date: "2026-02-27"
 url: "https://x.com/arlanr/status/2027451712131440653"
 captured: "2026-03-01T05:27:52.303Z"
-status: pending
+status: researched
 has_images: false
 has_thread: true
 has_quote_tweet: false

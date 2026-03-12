@@ -5,7 +5,7 @@ author_name: "Numman Ali"
 date: "2026-03-03"
 url: "https://x.com/nummanali/status/2028921749878817170"
 captured: "2026-03-04T04:11:45.620Z"
-status: pending
+status: researched
 has_images: false
 has_thread: false
 has_quote_tweet: true

@@ -5,7 +5,7 @@ author_name: "may.crypto {🦅}"
 date: "2026-03-01"
 url: "https://x.com/xmayeth/status/2028131339405254984"
 captured: "2026-03-02T13:27:48.773Z"
-status: pending
+status: researched
 has_images: false
 has_thread: true
 has_quote_tweet: false

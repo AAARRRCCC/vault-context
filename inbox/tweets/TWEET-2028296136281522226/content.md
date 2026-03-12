@@ -5,7 +5,7 @@ author_name: "andrew gao"
 date: "2026-03-02"
 url: "https://x.com/itsandrewgao/status/2028296136281522226"
 captured: "2026-03-02T05:36:01.298Z"
-status: pending
+status: researched
 has_images: false
 has_thread: false
 has_quote_tweet: false

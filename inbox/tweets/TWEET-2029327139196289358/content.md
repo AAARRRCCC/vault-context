@@ -5,7 +5,7 @@ author_name: "Dima Mikielewicz"
 date: "2026-03-04"
 url: "https://x.com/dimamikielewicz/status/2029327139196289358"
 captured: "2026-03-06T00:56:05.947Z"
-status: pending
+status: researched
 has_images: false
 has_thread: false
 has_quote_tweet: false

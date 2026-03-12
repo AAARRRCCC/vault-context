@@ -1,7 +1,7 @@
 ---
 id: WO-057
 title: Add git pull to mayor-check.sh before reading STATE.md
-status: pending
+status: complete
 priority: high
 created: 2026-03-12T04:50:00Z
 mayor: true

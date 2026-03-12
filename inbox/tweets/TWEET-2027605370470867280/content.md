@@ -5,7 +5,7 @@ author_name: "Matt Shumer"
 date: "2026-02-28"
 url: "https://x.com/mattshumer_/status/2027605370470867280"
 captured: "2026-03-01T05:26:52.623Z"
-status: pending
+status: researched
 has_images: false
 has_thread: false
 has_quote_tweet: true

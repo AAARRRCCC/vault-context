@@ -5,7 +5,7 @@ author_name: "rari"
 date: "2026-02-28"
 url: "https://x.com/0xwhrrari/status/2027813144652087773"
 captured: "2026-03-01T06:04:59.048Z"
-status: pending
+status: researched
 has_images: false
 has_thread: true
 has_quote_tweet: false

@@ -5,7 +5,7 @@ author_name: "scoopy trooples"
 date: "2026-03-10"
 url: "https://x.com/scupytrooples/status/2031284966961852569"
 captured: "2026-03-11T05:35:33.406Z"
-status: pending
+status: researched
 has_images: true
 has_thread: false
 has_quote_tweet: true

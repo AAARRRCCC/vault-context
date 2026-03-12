@@ -5,7 +5,7 @@ author_name: "zostaff"
 date: "2026-02-28"
 url: "https://x.com/zostaff/status/2027747659302269051"
 captured: "2026-03-01T05:18:28.411Z"
-status: pending
+status: researched
 has_images: false
 has_thread: true
 has_quote_tweet: false

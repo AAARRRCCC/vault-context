@@ -1,11 +1,11 @@
 ---
-updated: 2026-03-11T23:00:00Z
+updated: 2026-03-12T05:08:00Z
 active_plan: PLAN-014
-phase: 1
-phase_status: pending
+phase: 2
+phase_status: complete
 worker_status: idle
-last_signal: complete
-last_signal_time: 2026-03-11T23:00:00Z
+last_signal: checkpoint
+last_signal_time: 2026-03-12T05:08:00Z
 ---
 
 # System State
@@ -106,6 +106,9 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 | 2026-03-06 17:00 | NTS Plan A dispatched: WO-044 through WO-047 | Foundation fixes to make NTS codebase runnable on Mac. Bridge networking model chosen over host. WOs ordered by dependency: branch/env first, backend+frontend parallel, Docker integration last. |
 | 2026-03-06 18:30 | NTS Plan A complete: WO-044–047 all done in single session | branch plan-a/foundation-fixes pushed; NTS system Python 3.9 incompatible — used Homebrew Python 3.14 for import checks |
 | 2026-03-06 21:30 | WO-050 complete: Phase 5 connection inference wired into scan_coordinator.py | commit 19d9c7e on plan-b/connection-inference; syntax OK, all 7 checklist items verified |
+| 2026-03-12 05:00 | WO-057 complete: vault-context pull in mayor-check.sh made non-fatal | Used --rebase; pull failure now logs WARNING and continues rather than exit 1 |
+| 2026-03-12 05:05 | PLAN-014 P1 complete: url-resolver.js built and tested | GitHub READMEs (API), gists, blog posts work well. JS-heavy SPAs produce thin text (known limitation). Simple regex HTML stripping sufficient — no readability dependency needed. |
+| 2026-03-12 05:08 | PLAN-014 P2 complete: tweet-researcher.js built and tested | claude -p sonnet works with CLAUDECODE unset in child env. 3/3 test tweets processed. Output quality high. Worker-active guard prevents git conflicts with concurrent runs. |
 
 ## Pending Questions
 
@@ -164,3 +167,6 @@ None.
 - [x] NTS Plan B — WO-050: Wire Inference into Coordinator (2026-03-06)
 - [x] NTS Plan B — WO-052: Connection Inference Unit Tests (2026-03-06)
 - [x] NTS Plan B — WO-054: Fix Switch-Aware VLAN Routing (2026-03-06)
+- [x] WO-057: mayor-check.sh vault-context pull resilience (2026-03-12)
+- [x] PLAN-014 Phase 1: URL Resolver Module (2026-03-12)
+- [x] PLAN-014 Phase 2: Research Brief Generator (2026-03-12)

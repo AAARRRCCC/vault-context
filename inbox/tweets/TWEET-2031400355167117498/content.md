@@ -5,7 +5,7 @@ author_name: "Phosphen"
 date: "2026-03-10"
 url: "https://x.com/phosphenq/status/2031400355167117498"
 captured: "2026-03-11T05:12:01.148Z"
-status: pending
+status: researched
 has_images: true
 has_thread: true
 has_quote_tweet: false

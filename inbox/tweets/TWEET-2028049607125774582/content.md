@@ -5,7 +5,7 @@ author_name: "Aakash Gupta"
 date: "2026-03-01"
 url: "https://x.com/aakashgupta/status/2028049607125774582"
 captured: "2026-03-01T15:45:38.339Z"
-status: pending
+status: researched
 has_images: false
 has_thread: false
 has_quote_tweet: true

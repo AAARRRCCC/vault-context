@@ -5,7 +5,7 @@ author_name: "sysls"
 date: "2026-03-05"
 url: "https://x.com/systematicls/status/2029524665832747075"
 captured: "2026-03-05T18:11:12.981Z"
-status: pending
+status: researched
 has_images: false
 has_thread: false
 has_quote_tweet: true

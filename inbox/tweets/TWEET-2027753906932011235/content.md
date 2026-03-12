@@ -5,7 +5,7 @@ author_name: "Mr. Buzzoni"
 date: "2026-02-28"
 url: "https://x.com/polydao/status/2027753906932011235"
 captured: "2026-03-01T05:18:55.159Z"
-status: pending
+status: researched
 has_images: true
 has_thread: false
 has_quote_tweet: true

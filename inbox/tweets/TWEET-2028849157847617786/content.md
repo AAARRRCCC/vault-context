@@ -5,7 +5,7 @@ author_name: "kepano"
 date: "2026-03-03"
 url: "https://x.com/kepano/status/2028849157847617786"
 captured: "2026-03-04T04:11:19.662Z"
-status: pending
+status: researched
 has_images: false
 has_thread: false
 has_quote_tweet: true

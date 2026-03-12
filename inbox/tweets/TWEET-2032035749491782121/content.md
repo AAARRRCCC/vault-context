@@ -5,7 +5,7 @@ author_name: "Yishan"
 date: "2026-03-12"
 url: "https://x.com/yishan/status/2032035749491782121"
 captured: "2026-03-12T16:49:28.681Z"
-status: pending
+status: researched
 has_images: false
 has_thread: false
 has_quote_tweet: true

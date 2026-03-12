@@ -5,7 +5,7 @@ author_name: "Gorynich☄️"
 date: "2026-02-28"
 url: "https://x.com/Kropanchik/status/2027652011437474053"
 captured: "2026-03-01T06:04:43.828Z"
-status: pending
+status: researched
 has_images: true
 has_thread: false
 has_quote_tweet: true

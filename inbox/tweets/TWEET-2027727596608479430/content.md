@@ -5,7 +5,7 @@ author_name: "cogsec"
 date: "2026-02-28"
 url: "https://x.com/affaanmustafa/status/2027727596608479430"
 captured: "2026-03-01T03:07:54.703Z"
-status: pending
+status: researched
 has_images: true
 has_thread: false
 note: "?s=46"

@@ -5,7 +5,7 @@ author_name: "Lorden"
 date: "2026-02-28"
 url: "https://x.com/lorden_eth/status/2027740192619016573"
 captured: "2026-03-01T05:33:33.185Z"
-status: pending
+status: researched
 has_images: false
 has_thread: true
 has_quote_tweet: false

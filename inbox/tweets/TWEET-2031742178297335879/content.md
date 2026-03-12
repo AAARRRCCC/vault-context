@@ -5,7 +5,7 @@ author_name: "Emil Kowalski"
 date: "2026-03-11"
 url: "https://x.com/emilkowalski/status/2031742178297335879"
 captured: "2026-03-11T22:52:08.613Z"
-status: pending
+status: researched
 has_images: true
 has_thread: false
 has_quote_tweet: false

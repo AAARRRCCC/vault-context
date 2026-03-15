@@ -177,3 +177,4 @@ None.
 - [x] PLAN-014 Phase 2: Research Brief Generator (2026-03-12)
 - [x] PLAN-014 Phase 3: Integration + Queue Management (2026-03-12)
 - [x] PLAN-014 Phase 4: Image Descriptions + Polish (2026-03-12)
+- [ ] WO-059: Deploy Matrix Homeserver (Tuwunel + Element Web + Cloudflare Tunnel) (pending)

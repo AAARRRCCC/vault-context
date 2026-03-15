@@ -1,7 +1,7 @@
 ---
 id: WO-058
 title: Tweet library organization + research completion notifications
-status: pending
+status: in-progress
 priority: medium
 created: 2026-03-12T17:00:00Z
 mayor: true

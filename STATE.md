@@ -1,11 +1,11 @@
 ---
-updated: 2026-03-15T00:57:00Z
+updated: 2026-03-15T03:20:00Z
 active_plan: none
 phase: ~
 phase_status: idle
 worker_status: idle
 last_signal: complete
-last_signal_time: 2026-03-15T00:57:00Z
+last_signal_time: 2026-03-15T03:20:00Z
 ---
 
 # System State
@@ -113,6 +113,7 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 | 2026-03-12 05:05 | PLAN-014 P1 complete: url-resolver.js built and tested | GitHub READMEs (API), gists, blog posts work well. JS-heavy SPAs produce thin text (known limitation). Simple regex HTML stripping sufficient — no readability dependency needed. |
 | 2026-03-12 05:08 | PLAN-014 P2 complete: tweet-researcher.js built and tested | claude -p sonnet works with CLAUDECODE unset in child env. 3/3 test tweets processed. Output quality high. Worker-active guard prevents git conflicts with concurrent runs. |
 | 2026-03-12 05:25 | PLAN-014 P3 complete: launchd plist, !research command, !inbox research indicators, !status queue counts | readFileSync/writeFileSync/existsSync added to ESM imports in bot.js. Researcher service loaded; first kickstart correctly skipped (worker active). Bot restarted clean. |
+| 2026-03-15 03:20 | WO-059 complete: Matrix homeserver deployed (Tuwunel + Element Web + cloudflared). All endpoints verified. @arc:plvr.net registered. 2 registration tokens generated. Federation tester passed. |
 | 2026-03-12 05:50 | PLAN-014 P4 complete: image description (--with-images flag, separate claude -p per image), log rotation (10 MB threshold), SYSTEM_STATUS.md, foreman-prompt.md, RECENT_CHANGES.md, CLAUDE-LEARNINGS.md updated | Image description is opt-in via --with-images; uses claude --dangerously-skip-permissions to read image files via Read tool. PLAN-014 complete. |
 
 ## Pending Questions
@@ -177,4 +178,4 @@ None.
 - [x] PLAN-014 Phase 2: Research Brief Generator (2026-03-12)
 - [x] PLAN-014 Phase 3: Integration + Queue Management (2026-03-12)
 - [x] PLAN-014 Phase 4: Image Descriptions + Polish (2026-03-12)
-- [ ] WO-059: Deploy Matrix Homeserver (Tuwunel + Element Web + Cloudflare Tunnel) (pending)
+- [x] WO-059: Deploy Matrix Homeserver (Tuwunel + Element Web + Cloudflare Tunnel) (2026-03-15)

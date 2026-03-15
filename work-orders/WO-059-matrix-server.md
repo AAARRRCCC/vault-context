@@ -1,7 +1,7 @@
 ---
 id: WO-059
 title: Deploy Matrix Homeserver (Tuwunel + Element Web + Cloudflare Tunnel)
-status: in-progress
+status: complete
 priority: high
 created: 2026-03-14
 ---

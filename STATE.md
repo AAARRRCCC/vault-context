@@ -1,11 +1,11 @@
 ---
-updated: 2026-03-12T16:00:00Z
+updated: 2026-03-15T00:57:00Z
 active_plan: none
 phase: ~
 phase_status: idle
 worker_status: idle
-last_signal: idle
-last_signal_time: 2026-03-12T16:00:00Z
+last_signal: complete
+last_signal_time: 2026-03-15T00:57:00Z
 ---
 
 # System State
@@ -27,9 +27,10 @@ WO-055 details: two `--no-ff` merges in order (plan-a then plan-b), run unit tes
 
 Lower priority / deferred: WO-041, WO-026, WO-036, WO-034.
 
-**Pending:** WO-058 (tweet library organization + research completion notifications) — medium priority, ready for worker.
+**WO-058 complete (2026-03-15):** Tweet library organization done. 63 tweets migrated to `library/tweets/YYYY-MM-DD-slug/`. Inbox now shows only pending (unresearched) tweets. `!library` command added to bot. Discord notifications fire on research completion.
 
 WO-043 complete (tweet URL query param fix — 2026-03-11).
+WO-058 complete (tweet library org + research notifications — 2026-03-15).
 
 PLAN-007 (System Visual Diagrams) is shelved.
 

@@ -5,7 +5,7 @@ author_name: "Nico Bailon"
 date: "2026-02-16"
 url: "https://x.com/nicopreme/status/2023495040258261460"
 captured: "2026-03-15T00:08:00.523Z"
-status: pending
+status: researched
 has_images: false
 has_thread: false
 has_quote_tweet: false

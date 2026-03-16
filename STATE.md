@@ -1,18 +1,18 @@
 ---
-updated: 2026-03-15T17:10:00Z
+updated: 2026-03-15T17:45:00Z
 active_plan: PLAN-015-docs-audit-repair
-phase: 1
-phase_status: in-progress
+phase: 2
+phase_status: pending
 worker_status: processing
-last_signal: started
-last_signal_time: 2026-03-15T17:10:00Z
+last_signal: notify
+last_signal_time: 2026-03-15T17:45:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-PLAN-015 — Documentation Audit & Repair. Phase 1: Ground Truth Collection + Quick Fixes. Not started. See plans/PLAN-015-docs-audit-repair.md for full spec.
+PLAN-015 — Documentation Audit & Repair. Phase 1 complete. Phase 2: Major Doc Rewrites (SYSTEM_STATUS.md, STRUCTURE.md, MAYOR_ONBOARDING.md, foreman-prompt.md). Signal: checkpoint after Phase 2. See plans/PLAN-015-docs-audit-repair.md for full spec.
 
 Mayor reviewed all vault-context docs on 2026-03-15 and found significant staleness across PROJECTS.md, SYSTEM_STATUS.md, STRUCTURE.md, RECENT_CHANGES.md, and MAYOR_ONBOARDING.md. This plan collects ground truth from the Mac, fixes quick wins in Phase 1, rewrites major docs in Phase 2 (checkpoint for Mayor review), and does cross-doc consistency in Phase 3.
 
@@ -121,7 +121,7 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 
 ## Pending Questions
 
-None.
+- WO-043 ID collision: two files both use WO-043 (`WO-043-clone-nts-repo.md` and `WO-043-tweet-url-query-fix.md`). Plan only asked to fix WO-039 collision. Mayor to decide whether to renumber one — suggest renaming `clone-nts-repo` to WO-062 since `tweet-url-query-fix` was the Mayor-dispatched fix WO.
 
 ## Completed Phases
 
@@ -147,7 +147,7 @@ None.
 
 ## Queue
 
-- [ ] PLAN-015 Phase 1: Ground Truth Collection + Quick Fixes
+- [x] PLAN-015 Phase 1: Ground Truth Collection + Quick Fixes (2026-03-15)
 - [ ] PLAN-015 Phase 2: Major Doc Rewrites (checkpoint)
 - [ ] PLAN-015 Phase 3: Cross-Doc Consistency + CLAUDE-LEARNINGS
 

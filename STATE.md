@@ -1,8 +1,8 @@
 ---
-updated: 2026-03-15T18:20:00Z
+updated: 2026-03-15T21:00:00Z
 active_plan: PLAN-015-docs-audit-repair
-phase: 2
-phase_status: complete
+phase: 3
+phase_status: pending
 worker_status: processing
 last_signal: checkpoint
 last_signal_time: 2026-03-15T18:20:00Z
@@ -12,7 +12,7 @@ last_signal_time: 2026-03-15T18:20:00Z
 
 ## Active Plan
 
-PLAN-015 — Documentation Audit & Repair. Phase 2 complete — awaiting checkpoint review before Phase 3. Phase 3: Cross-doc consistency + CLAUDE-LEARNINGS.md update + final cleanup. See plans/PLAN-015-docs-audit-repair.md for full spec.
+PLAN-015 — Documentation Audit & Repair. Phase 3 active — cross-doc consistency + fix Phase 2 misses. Mayor reviewed Phase 2 and approved with corrections. Phase 3: Cross-doc consistency + CLAUDE-LEARNINGS.md update + final cleanup. See plans/PLAN-015-docs-audit-repair.md for full spec.
 
 Mayor reviewed all vault-context docs on 2026-03-15 and found significant staleness across PROJECTS.md, SYSTEM_STATUS.md, STRUCTURE.md, RECENT_CHANGES.md, and MAYOR_ONBOARDING.md. This plan collects ground truth from the Mac, fixes quick wins in Phase 1, rewrites major docs in Phase 2 (checkpoint for Mayor review), and does cross-doc consistency in Phase 3.
 
@@ -22,6 +22,17 @@ PLAN-012 (Dashboard Layout Overhaul, complete) — Phase 1: Layout Restructure +
 
 
 ## Mayor Guidance
+
+
+**PLAN-015 Phase 3 — Mayor checkpoint review findings (fix these FIRST before cross-doc check):**
+
+1. **RECENT_CHANGES.md (edit in private vault, let sync propagate):** Still has 9904 blank lines — the Phase 2 "rewrite" didn't strip them. Rewrite this file from scratch: keep only the table header and data rows, strip ALL blank lines except one between sections. Also: change WO-026 status to cancelled, WO-036 status to cancelled, PLAN-014 to "4 phases complete", add WO-058 (tweet library org, complete, 2026-03-15), add WO-059 (Matrix homeserver deploy, complete, 2026-03-15), add WO-060 (harden mayor-check pull, complete, 2026-03-15), add WO-061 (unknown command relay fallthrough, complete — renamed from WO-039 duplicate).
+
+2. **STRUCTURE.md (edit in private vault, let sync propagate):** Missing the entire `library/tweets/` directory tree. Also missing WO-058-result.md, WO-059-result.md, WO-060-result.md, WO-061 work order and result. Regenerate properly — run find in the vault-context directory (`~/Documents/vault-context/`), not the private vault, since STRUCTURE.md describes vault-context contents.
+
+3. **PROJECTS.md (edit in vault-context directly):** Component description still says "hourly poll" — change to "2-minute poll: lockfile guard, pending scan, headless `claude -p` in worker worktree".
+
+After fixing these three, proceed with the normal Phase 3 cross-doc consistency check and CLAUDE-LEARNINGS update.
 
 **NTS blocker resolved.** Checkpoint blocker (apartment network isolation) addressed: merge Plans A+B now, build Docker demo network as first item in Plan C. WO-055 (merge both branches to main) is pending and high priority — unblocks all future NTS work. After merge, Plan C chat should open with the demo network as its first deliverable.
 
@@ -186,4 +197,5 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 - [x] PLAN-014 Phase 3: Integration + Queue Management (2026-03-12)
 - [x] PLAN-014 Phase 4: Image Descriptions + Polish (2026-03-12)
 - [x] WO-059: Deploy Matrix Homeserver (Tuwunel + Element Web + Cloudflare Tunnel) (2026-03-15)
+
 

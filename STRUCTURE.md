@@ -30,7 +30,6 @@
 ./benchmark
 ./benchmark/MAYOR-BENCHMARK.md
 ./benchmark/run-benchmark.sh
-./conflict-files-obsidian-git.md
 ./diagrams
 ./diagrams/01-system-overview.html
 ./diagrams/exports
@@ -248,7 +247,6 @@
 ./work-orders/WO-037-gallery-dl-quote-fix.md
 ./work-orders/WO-038-alert-suppression.md
 ./work-orders/WO-039-tweet-dedup-fix.md
-./work-orders/WO-039-unknown-command-relay-fallthrough.md
 ./work-orders/WO-040-tweet-inbox-sync-debug.md
 ./work-orders/WO-041-fix-help-char-limit.md
 ./work-orders/WO-042-reminder-exit-signal.md
@@ -266,6 +264,7 @@
 ./work-orders/WO-055-merge-plan-a-b-to-main.md
 ./work-orders/WO-056-tweet-pipeline-export.md
 ./work-orders/WO-057-mayor-check-pull.md
+./work-orders/WO-061-unknown-command-relay-fallthrough.md
 ---
 
 ## External Infrastructure

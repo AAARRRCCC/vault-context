@@ -1,5 +1,7 @@
 # Tweet Pipeline Source Export
 
+> **Snapshot notice:** These files were exported 2026-03-11 (WO-056). Live versions on the Mac Mini have diverged — PLAN-014 (tweet research agent, 2026-03-12) added `tweet-researcher.js` and `url-resolver.js` to `~/foreman-bot/`, and `bot.js` gained `!research` and `!library` commands. The captured snapshots here reflect the PLAN-009 state and serve as a historical reference only.
+
 Exported: 2026-03-11
 
 ## Files

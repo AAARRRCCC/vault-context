@@ -12,7 +12,7 @@
 
 ## Core Software Stack
 
-- ✅ **Claude Code** — v2.1.47
+- ✅ **Claude Code** — v2.1.70
 - ✅ **Obsidian** — v1.12.2 (installer 1.11.7), vault `knowledge-base` confirmed
 - ✅ **Obsidian CLI** — v1.12.2 (ships with Obsidian)
 - ✅ **Node.js / pnpm** — Node v25.6.1, pnpm v9.15.4
@@ -59,12 +59,12 @@
 |------|-------|
 | macOS version | 15.5 |
 | Apple Silicon chip | M4 |
-| Claude Code version | 2.1.47 |
+| Claude Code version | 2.1.70 |
 | Obsidian version | 1.12.2 |
 | Obsidian CLI version | 1.12.2 (bundled with Obsidian) |
 | basic-memory version | 0.18.4 |
 | Cron jobs | None |
-| launchd agents | `com.mayor.workorder-check` (heartbeat, 120s), `com.mayor.dashboard` (web UI, port 3847), `com.foreman.bot` (Discord bot, persistent) |
+| launchd agents | `com.mayor.workorder-check` (heartbeat, 120s), `com.mayor.dashboard` (web UI, port 3847), `com.foreman.bot` (Discord bot, persistent), `com.foreman.tweet-researcher` (tweet research agent, 300s) |
 | GitHub PAT | Present in keychain for `AAARRRCCC` |
 | Vault remote | `github.com/AAARRRCCC/knowledge-base` (private) |
 | Context mirror | `github.com/AAARRRCCC/vault-context` (public) |
@@ -103,9 +103,9 @@
 | vault-context sync | ✅ Working | `sync-context.sh` post-commit hook; syncs CLAUDE.md, CLAUDE-LEARNINGS.md, STRUCTURE.md, RECENT_CHANGES.md |
 | Mayor Dashboard | ✅ Running | `com.mayor.dashboard` launchd service; Node.js server at `http://localhost:3847`; also accessible via Tailscale at `http://100.78.129.90:3847` |
 
-**Work orders completed:** WO-001 through WO-036+
-**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit), PLAN-003 (mayor dashboard), PLAN-004 (Foreman bot), PLAN-005 (ops commands), PLAN-006 (token optimization), PLAN-008 (Foreman v2), PLAN-009 (Twitter inbox pipeline), PLAN-010 (conversational reminder engine), PLAN-011 (dashboard design polish), PLAN-012 (dashboard layout overhaul)
-**Plans in progress:** None
+**Work orders completed:** WO-001 through WO-060 (see RECENT_CHANGES.md for full list; WO-026, WO-036, WO-042 cancelled; WO-041, WO-055 pending)
+**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit), PLAN-003 (mayor dashboard), PLAN-004 (Foreman bot), PLAN-005 (ops commands), PLAN-006 (token optimization), PLAN-008 (Foreman v2), PLAN-009 (Twitter inbox pipeline), PLAN-010 (conversational reminder engine), PLAN-011 (dashboard design polish), PLAN-012 (dashboard layout overhaul), PLAN-013 (vault-context docs audit), PLAN-014 (tweet research agent)
+**Plans in progress:** PLAN-015 (documentation audit & repair, 3 phases)
 **System operational since:** 2026-02-24
 **Autonomous loop operational since:** 2026-02-24
 **Foreman v2 (PLAN-008) complete:** 2026-02-27 — conversation memory, proactive alerts, task scheduling, account failover
@@ -176,7 +176,11 @@ mayor-status.sh                           # includes dashboard status
 | Diagnostics | `!doctor`, `!ratelimit`, `!accounts`, `!switch <id>`, `!alerts [on\|off]`, `!investigate <subsystem>`, `!fix [lockfile\|heartbeat\|dashboard\|bot\|git\|ratelimit]`, `!tail [heartbeat\|dashboard\|bot\|session]` |
 | Scheduling | `!schedule <time> <task>`, `!schedules`, `!unschedule <id>`, `!snooze <id> <duration>` |
 | Conversation | `!clear`, `!context` |
-| Other | `!ping`, `!help` |
+| Tweet inbox | `!tweet <url>`, `!tweet <url> <note>`, `!tweet refresh`, `!tweet cleanup`, `!inbox`, `!inbox clear` |
+| Tweet research | `!research`, `!research run`, `!research <tweet-id>` |
+| Tweet library | `!library [<page>]` |
+| Meds | `!meds`, `!meds history`, `!meds skip <type>`, `!meds pause <duration>`, `!meds on\|off`, `!alarm [<time>]` |
+| Other | `!ping`, `!help`, `!twitter` (alias for `!tweet`) |
 
 **Conversational relay (PLAN-008 P2):** Non-command messages route to `claude -p` with a Foreman system prompt, STATE.md context, and per-user conversation history (last 10 exchange pairs, 30-minute session timeout). History stored in `~/.local/state/foreman-conversations.json`. Max budget $2.00/relay call, timeout 180s.
 
@@ -296,4 +300,57 @@ launchctl start com.foreman.tweet-researcher   # start
 tail -f ~/.local/log/tweet-researcher.log      # live log
 node ~/foreman-bot/tweet-researcher.js --batch 5   # manual backlog clear
 node ~/foreman-bot/tweet-researcher.js --with-images  # with image descriptions
+```
+
+---
+
+## Tweet Library
+
+**Added:** 2026-03-15 (WO-058)
+
+Researched tweets are organized into a permanent library at `vault-context/library/tweets/`. After Mayor reviews and decides to keep a tweet, it moves from inbox to library.
+
+| Path | Contents |
+|------|----------|
+| `vault-context/library/tweets/` | Permanent library root — `YYYY-MM-DD-slug/` directories |
+| `vault-context/inbox/tweets/` | Active pending entries awaiting review |
+
+Each library entry: `YYYY-MM-DD-slug/` with `content.md`, `research.md`, and any images.
+
+**Foreman command:** `!library [<page>]` — browse library entries paginated (10 per page).
+
+---
+
+## Matrix Homeserver
+
+**Added:** 2026-03-15 (WO-059)
+
+Self-hosted Matrix homeserver running on Mac Mini via Docker Compose.
+
+| Property | Value |
+|----------|-------|
+| Matrix URL | `https://plvr.net` |
+| Element Web | `https://chat.plvr.net` |
+| Stack location | `~/matrix-server/` |
+| Data | `~/matrix-server/data/tuwunel/` (RocksDB — back this up) |
+| Admin user | `@arc:plvr.net` |
+| Signing key | `~/matrix-server/data/tuwunel/` (generated on first run) |
+
+**Services (Docker Compose):**
+
+| Container | Image | Port |
+|-----------|-------|------|
+| `matrix-server-tuwunel-1` | `jevolk/tuwunel:latest` | `127.0.0.1:8008` |
+| `matrix-server-element-web-1` | `vectorim/element-web:latest` | `127.0.0.1:80` |
+| `matrix-server-cloudflared-1` | `cloudflare/cloudflared:latest` | (tunnel, no local port) |
+
+**Architecture:** cloudflared uses host network mode to reach Tuwunel at localhost. Tuwunel and Element Web are exposed only on 127.0.0.1 (not reachable externally without tunnel).
+
+**To manage:**
+```bash
+cd ~/matrix-server
+docker compose up -d          # start
+docker compose down           # stop
+docker compose ps             # check status
+docker compose logs -f        # live logs
 ```

@@ -1,6 +1,6 @@
 # Mayor Onboarding Guide — Brady's Claude Web ↔ Claude Code System
 
-**Last updated:** 2026-02-25
+**Last updated:** 2026-03-15
 **Purpose:** Get a fresh Claude Web account fully operational as a Mayor instance capable of dispatching work to Brady's Mac Mini Claude Code worker and reading back results.
 
 ---
@@ -11,6 +11,8 @@ Brady runs a two-node AI workflow:
 
 - **Mayor (you):** Claude Web (Opus), running in claude.ai or the Claude app. Your job is planning, architecture, research, orchestration, and dispatching work orders. You never execute code on the Mac directly — you publish structured work orders to a GitHub repo, and Claude Code picks them up.
 - **Worker:** Claude Code (Sonnet 4.6), running on Brady's Mac Mini (Apple M4, macOS 15.5). It operates inside an Obsidian vault called `knowledge-base`, manages files, runs scripts, and commits results. It reports back by committing to the repo.
+
+The Mac Mini also runs several persistent services: a Discord bot (Foreman) for real-time control, a tweet capture pipeline (gallery-dl → vault inbox), a tweet research agent (background Claude briefs), a Matrix homeserver (plvr.net, personal messaging), and a web dashboard for visual system state.
 
 Inspired by Steve Yegge's GasTown Mayor pattern — a single orchestrator handles all user communication and task decomposition while workers handle execution. Mayor dispatches, Worker executes, results flow back through git.
 
@@ -259,7 +261,7 @@ Dispatching a plan is a **two-step atomic operation**. The worker orients entire
 - Set `active_plan` to the plan filename (e.g., `PLAN-003-mayor-dashboard`)
 - Set `phase` to `1`
 - Set `phase_status` to `pending`
-- Set `worker_status` to `active`
+- Set `worker_status` to `processing`
 - Update the `Active Plan` section with plan name, current phase, and starting info
 - Update the `Queue` section with all phases from the new plan
 
@@ -294,7 +296,7 @@ Tags follow the format `pre-PLAN-NNN` and `pre-WO-NNN`. They're pushed to the re
 
 Option A (via Discord): Brady can send `!resume` or `!answer <text>` to Foreman directly from his phone. Foreman updates STATE.md and commits.
 
-Option B (via GitHub): Resolve pending questions in STATE.md, set `worker_status: active`, commit and push. The next heartbeat (2 minutes) will resume the loop.
+Option B (via GitHub): Resolve pending questions in STATE.md, set `worker_status: processing`, commit and push. The next heartbeat (2 minutes) will resume the loop.
 
 See `vault-context/LOOP.md` for the full autonomous loop reference.
 
@@ -378,6 +380,8 @@ When you first come online as a Mayor instance:
 │   Claude Code (Sonnet 4.6)          │
 │   Obsidian vault: knowledge-base    │
 │   basic-memory MCP                  │
+│   Foreman bot, tweet pipeline,      │
+│   Matrix homeserver (plvr.net)      │
 │                                     │
 │   AAARRRCCC/knowledge-base (private)│
 │                                     │

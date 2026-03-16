@@ -1,18 +1,18 @@
 ---
-updated: 2026-03-15T17:45:00Z
+updated: 2026-03-15T18:20:00Z
 active_plan: PLAN-015-docs-audit-repair
 phase: 2
-phase_status: pending
+phase_status: complete
 worker_status: processing
-last_signal: notify
-last_signal_time: 2026-03-15T17:45:00Z
+last_signal: checkpoint
+last_signal_time: 2026-03-15T18:20:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-PLAN-015 — Documentation Audit & Repair. Phase 1 complete. Phase 2: Major Doc Rewrites (SYSTEM_STATUS.md, STRUCTURE.md, MAYOR_ONBOARDING.md, foreman-prompt.md). Signal: checkpoint after Phase 2. See plans/PLAN-015-docs-audit-repair.md for full spec.
+PLAN-015 — Documentation Audit & Repair. Phase 2 complete — awaiting checkpoint review before Phase 3. Phase 3: Cross-doc consistency + CLAUDE-LEARNINGS.md update + final cleanup. See plans/PLAN-015-docs-audit-repair.md for full spec.
 
 Mayor reviewed all vault-context docs on 2026-03-15 and found significant staleness across PROJECTS.md, SYSTEM_STATUS.md, STRUCTURE.md, RECENT_CHANGES.md, and MAYOR_ONBOARDING.md. This plan collects ground truth from the Mac, fixes quick wins in Phase 1, rewrites major docs in Phase 2 (checkpoint for Mayor review), and does cross-doc consistency in Phase 3.
 
@@ -148,7 +148,7 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 ## Queue
 
 - [x] PLAN-015 Phase 1: Ground Truth Collection + Quick Fixes (2026-03-15)
-- [ ] PLAN-015 Phase 2: Major Doc Rewrites (checkpoint)
+- [x] PLAN-015 Phase 2: Major Doc Rewrites (2026-03-15)
 - [ ] PLAN-015 Phase 3: Cross-Doc Consistency + CLAUDE-LEARNINGS
 
 - [x] PLAN-008 Phase 1: Rate Limit Detection and Alerting (2026-02-26)

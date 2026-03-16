@@ -179,6 +179,7 @@ mayor-status.sh                           # includes dashboard status
 | Tweet inbox | `!tweet <url>`, `!tweet <url> <note>`, `!tweet refresh`, `!tweet cleanup`, `!inbox`, `!inbox clear` |
 | Tweet research | `!research`, `!research run`, `!research <tweet-id>` |
 | Tweet library | `!library [<page>]` |
+| Tweet synthesis | `!synthesize`, `!synthesize full`, `!synthesize last` |
 | Meds | `!meds`, `!meds history`, `!meds skip <type>`, `!meds pause <duration>`, `!meds on\|off`, `!alarm [<time>]` |
 | Other | `!ping`, `!help`, `!twitter` (alias for `!tweet`) |
 
@@ -318,6 +319,54 @@ Researched tweets are organized into a permanent library at `vault-context/libra
 Each library entry: `YYYY-MM-DD-slug/` with `content.md`, `research.md`, and any images.
 
 **Foreman command:** `!library [<page>]` — browse library entries paginated (10 per page).
+
+---
+
+## Tweet Synthesis Engine
+
+**Added:** 2026-03-16 (PLAN-016)
+
+On-demand synthesis that reads across the tweet library, clusters themes, cross-references against active projects and system state, and produces actionable WO sketch proposals. Triggered via `!synthesize` in Discord.
+
+| Component | Path | Role |
+|-----------|------|------|
+| Synthesizer script | `~/foreman-bot/tweet-synthesizer.js` | Reads library, builds context, calls Opus, writes output |
+| State file | `~/.local/state/synthesis-last-run.json` | Tracks last run date and processed tweet slugs for incremental mode |
+| Output directory | `~/Documents/vault-context/library/synthesis/` | Dated synthesis files (`YYYY-MM-DD.md`) |
+
+**Foreman commands:**
+
+| Command | Action |
+|---------|--------|
+| `!synthesize` | Run incremental synthesis (new tweets since last run only) |
+| `!synthesize full` | Run full library synthesis (all 60+ tweets) |
+| `!synthesize last` | Show most recent synthesis summary without re-running |
+
+**Pipeline:**
+```
+library/tweets/*/research.md
+  → tweet-synthesizer.js reads frontmatter + substance summaries
+  → loads PROJECTS.md + STATE.md + RECENT_CHANGES.md + CLAUDE-LEARNINGS.md
+  → claude -p opus (clusters themes, cross-refs projects, proposes WO sketches)
+  → library/synthesis/YYYY-MM-DD.md (written + committed to vault-context)
+  → Discord summary embed (theme clusters + top proposals)
+```
+
+**Output format:** Themed clusters with tweet counts, project cross-references, and WO sketch proposals each rated by impact (high/medium/low) and effort (small/medium/large).
+
+**Model:** Opus (`claude -p opus`). High-value, low-frequency — cost is acceptable. Falls back to Sonnet if Opus is rate-limited (noted in output).
+
+**Incremental mode:** Default. Reads only tweets researched after the last synthesis run. First run is always full. Use `--full` flag to re-read everything.
+
+**Guard:** Synthesis is blocked while worker is active (`worker_status: processing` in STATE.md) to prevent git conflicts.
+
+**To manage:**
+```bash
+node ~/foreman-bot/tweet-synthesizer.js            # incremental run
+node ~/foreman-bot/tweet-synthesizer.js --full     # full run
+cat ~/.local/state/synthesis-last-run.json         # check last run state
+ls ~/Documents/vault-context/library/synthesis/    # list output files
+```
 
 ---
 

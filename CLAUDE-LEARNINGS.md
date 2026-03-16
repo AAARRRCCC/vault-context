@@ -149,3 +149,16 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 - Incremental tracking via `~/.local/state/synthesis-last-run.json` — stores `lastRun` ISO timestamp and `tweetsProcessed` slug array. Both checks combined (date filter + slug list) to handle tweets researched on the same day as last run.
 - Two malformed research.md files found in library (missing frontmatter): `nia-by-nozomio` and `4-layer-memory-stack`. Both were skipped cleanly. Note for future: these could be re-researched manually.
 - jq `--argjson` with inline JSON containing `!` in values causes a compile error — use `--arg` for all string values and build arrays in the jq expression body instead.
+
+### 2026-03-16 — PLAN-016 P2: synthesize-foreman-integration
+
+- `parseSynthesisSummary` reads the synthesis markdown file to extract cluster names/counts and WO proposal titles via regex — simpler than full markdown parsing and robust to Opus output variation.
+- Discord synthesis embed truncation: embed fields have a 1024-char limit; check `.length` before adding and fall back to a shortened version. Synthesis output can be verbose — always build the compact version first.
+- `!synthesize last` reads the most recent file from `library/synthesis/` sorted by mtime — same pattern as `!library` page listing.
+- Synthesis can produce a "no new tweets" file (0 tweets_analyzed) on incremental runs — `!synthesize last` should handle this gracefully and report "No new tweets since last run" rather than showing an empty embed.
+
+### 2026-03-16 — PLAN-016 P3: synthesis-docs-polish
+
+- Incremental edge case tested: 0 new tweets → writes `YYYY-MM-DD-no-new-tweets.md` with `tweets_analyzed: 0` and a clear message. Clean exit, no error.
+- The two malformed library entries (`nia-by-nozomio`, `4-layer-memory-stack`) are consistently skipped; they appear on every run's warning output. Low priority fix — manually re-research or delete to clean up.
+- SYSTEM_STATUS.md Tweet Synthesis section added after Tweet Library section. foreman-prompt.md updated with `!synthesize` commands and a Tweet Synthesis context block.

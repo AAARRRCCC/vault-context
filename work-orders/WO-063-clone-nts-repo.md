@@ -1,5 +1,5 @@
 ---
-id: WO-043
+id: WO-063
 title: Clone NTS repo to worker
 status: complete
 priority: high
@@ -7,7 +7,7 @@ plan: NTS Plan A (prereq)
 created: 2026-03-06
 ---
 
-# WO-043: Clone NTS Repo to Worker
+# WO-063: Clone NTS Repo to Worker
 
 ## Context
 

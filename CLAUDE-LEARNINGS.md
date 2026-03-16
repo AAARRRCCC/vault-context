@@ -139,5 +139,13 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 ### 2026-03-15 — PLAN-015: docs-audit-repair
 
 - STRUCTURE.md's External Infrastructure section is manually maintained and preserved by sync-context.sh (the `---` separator divides the auto-generated file tree from the manual section). Edit the manual section in vault-context directly — changes survive future syncs.
-- `!answer` exists as `cmdAnswer` in bot.js but is not registered in the COMMANDS map — lost during a simplification pass. Typing `!answer <text>` gives "Unknown command". Confirmed broken as of 2026-03-15. Bug was not in scope for PLAN-015 (docs audit only); needs a fix WO.
+- `!answer` was missing from COMMANDS as of 2026-03-15 but was re-added between PLAN-015 and PLAN-016 — confirmed present in COMMANDS map as of 2026-03-16.
 - When auditing bot commands, grep for `COMMANDS = {` and verify each entry. Don't trust the help text or function existence — both can outlive removal from the COMMANDS map and create false documentation.
+
+### 2026-03-16 — PLAN-016 P1: tweet-synthesizer
+
+- `tweet-synthesizer.js` uses the same `spawn('claude', ['-p', '--model', 'opus', ...])` pattern as tweet-researcher. Same env trick: `delete e.CLAUDECODE` in child process env.
+- Opus synthesis on 61 tweets (~83k char prompt) completes in ~87s. Well within the 300s timeout.
+- Incremental tracking via `~/.local/state/synthesis-last-run.json` — stores `lastRun` ISO timestamp and `tweetsProcessed` slug array. Both checks combined (date filter + slug list) to handle tweets researched on the same day as last run.
+- Two malformed research.md files found in library (missing frontmatter): `nia-by-nozomio` and `4-layer-memory-stack`. Both were skipped cleanly. Note for future: these could be re-researched manually.
+- jq `--argjson` with inline JSON containing `!` in values causes a compile error — use `--arg` for all string values and build arrays in the jq expression body instead.

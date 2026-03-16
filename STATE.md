@@ -3,7 +3,7 @@ updated: 2026-03-15T17:00:00Z
 active_plan: PLAN-015-docs-audit-repair
 phase: 1
 phase_status: pending
-worker_status: active
+worker_status: processing
 last_signal: complete
 last_signal_time: 2026-03-15T03:20:00Z
 ---
@@ -87,7 +87,7 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 | 2026-03-01 03:08 | Brady approved PLAN-009 Phase 4 via Discord !resume | Discord command |
 | 2026-03-01 05:00 | PLAN-009 P4 complete: cookie health check, !tweet refresh, cleanup script, SYSTEM_STATUS.md, foreman-prompt.md updated | All acceptance criteria met |
 | 2026-03-01 04:15 | WO-037 complete: gallery-dl TweetWithVisibilityResults unwrap fix, tweet-processor.js quote rendering, article debug guide | editable install impossible over Homebrew; used wrapper script instead |
-| 2026-03-01 04:25 | WO-038 complete: system-monitor.js worker-status-aware alert suppression | checks `worker_status: active |
+| 2026-03-01 04:25 | WO-038 complete: system-monitor.js worker-status-aware alert suppression | checks `worker_status: processing |
 | 2026-03-01 05:11 | WO-039 complete: bot.js unknown !command guard + !twitter alias | guard placed before tweet-URL detection so bare URLs still auto-capture |
 | 2026-03-01 05:09 | Brady paused worker Phase 0 via Discord !pause | Discord command |
 | 2026-03-01 05:47 | Brady unpaused worker via Discord !resume | Discord command |
@@ -186,3 +186,4 @@ None.
 - [x] PLAN-014 Phase 3: Integration + Queue Management (2026-03-12)
 - [x] PLAN-014 Phase 4: Image Descriptions + Polish (2026-03-12)
 - [x] WO-059: Deploy Matrix Homeserver (Tuwunel + Element Web + Cloudflare Tunnel) (2026-03-15)
+

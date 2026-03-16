@@ -1,9 +1,9 @@
 ---
-updated: 2026-03-15T23:15:00Z
-active_plan: none
-phase: none
-phase_status: idle
-worker_status: idle
+updated: 2026-03-16T00:30:00Z
+active_plan: PLAN-016-tweet-synthesis
+phase: 1
+phase_status: pending
+worker_status: processing
 last_signal: complete
 last_signal_time: 2026-03-15T23:15:00Z
 ---
@@ -12,9 +12,9 @@ last_signal_time: 2026-03-15T23:15:00Z
 
 ## Active Plan
 
-None. WO-062 (PLAN-015 cleanup) complete — STRUCTURE.md regenerated from vault-context find (includes library/tweets), WO-043 collision resolved (clone task renamed WO-063), RECENT_CHANGES.md updated, !answer registered in bot.js COMMANDS map. System fully idle.
+PLAN-016 — Tweet Library Intelligence Synthesis. Phase 1: Synthesis Script Core. Not started. See plans/PLAN-016-tweet-synthesis.md for full spec.
 
-Mayor reviewed all vault-context docs on 2026-03-15 and found significant staleness across PROJECTS.md, SYSTEM_STATUS.md, STRUCTURE.md, RECENT_CHANGES.md, and MAYOR_ONBOARDING.md. This plan collects ground truth from the Mac, fixes quick wins in Phase 1, rewrites major docs in Phase 2 (checkpoint for Mayor review), and does cross-doc consistency in Phase 3.
+On-demand synthesis engine that reads the tweet library, clusters themes, cross-references against active projects/system state, and produces actionable WO sketch proposals. Triggered via !synthesize. Uses Opus for synthesis quality. Incremental by default, full via --full flag. Output to both vault-context file and Discord summary.
 
 ---
 
@@ -129,6 +129,7 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 | 2026-03-15 03:20 | WO-059 complete: Matrix homeserver deployed (Tuwunel + Element Web + cloudflared). All endpoints verified. @arc:plvr.net registered. 2 registration tokens generated. Federation tester passed. |
 | 2026-03-12 05:50 | PLAN-014 P4 complete: image description (--with-images flag, separate claude -p per image), log rotation (10 MB threshold), SYSTEM_STATUS.md, foreman-prompt.md, RECENT_CHANGES.md, CLAUDE-LEARNINGS.md updated | Image description is opt-in via --with-images; uses claude --dangerously-skip-permissions to read image files via Read tool. PLAN-014 complete. |
 | 2026-03-15 17:00 | Mayor dispatched PLAN-015 — Documentation Audit & Repair | Full vault-context docs audit. 3 phases: ground truth + quick fixes, major rewrites (checkpoint), cross-doc consistency. |
+| 2026-03-16 00:30 | Mayor dispatched PLAN-016 — Tweet Library Intelligence Synthesis | On-demand synthesis of tweet library against active projects. Opus model, incremental default, WO sketch proposals. |
 
 ## Pending Questions
 
@@ -162,6 +163,10 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 - [x] PLAN-015 Phase 1: Ground Truth Collection + Quick Fixes (2026-03-15)
 - [x] PLAN-015 Phase 2: Major Doc Rewrites (2026-03-15)
 - [x] PLAN-015 Phase 3: Cross-Doc Consistency + CLAUDE-LEARNINGS (2026-03-15)
+
+- [ ] PLAN-016 Phase 1: Synthesis Script Core
+- [ ] PLAN-016 Phase 2: Foreman Integration (checkpoint)
+- [ ] PLAN-016 Phase 3: Documentation + Polish
 
 - [x] PLAN-008 Phase 1: Rate Limit Detection and Alerting (2026-02-26)
 - [x] PLAN-008 Phase 2: Multi-Turn Conversation Memory (2026-02-27)
@@ -198,5 +203,6 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 - [x] PLAN-014 Phase 3: Integration + Queue Management (2026-03-12)
 - [x] PLAN-014 Phase 4: Image Descriptions + Polish (2026-03-12)
 - [x] WO-059: Deploy Matrix Homeserver (Tuwunel + Element Web + Cloudflare Tunnel) (2026-03-15)
+
 
 

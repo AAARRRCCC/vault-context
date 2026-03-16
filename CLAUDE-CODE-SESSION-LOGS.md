@@ -5,11 +5,6 @@ Context: Brady asked Claude Code to locate where session transcripts are persist
 
 ---
 
-> **Retention note:** Determine whether this file should be kept or deleted.
-> Keep it if the Mayor needs to reference session logs programmatically (e.g., for auditing worker sessions or debugging work orders). Delete it once the information has been absorbed elsewhere (STRUCTURE.md, LOOP.md, or a dedicated operations note in the vault).
-
----
-
 ## Primary: Full Session Transcripts
 
 **Location:** `~/.claude/projects/<encoded-project-path>/<session-uuid>.jsonl`
@@ -55,3 +50,7 @@ Each record includes: `type`, `sessionId`, `uuid`, `timestamp`, `cwd`, `version`
 - `~/Library/Caches/` — no Claude Code entries
 - `~/Library/Application Support/` — only Claude Desktop config
 - `/tmp/` — nothing claude-related
+
+---
+
+> **Retention note (2026-03-15):** Kept as reference for debugging worker sessions. Occasionally useful when diagnosing session continuity issues or auditing worker execution history.

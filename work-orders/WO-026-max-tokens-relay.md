@@ -1,6 +1,6 @@
 ---
 id: WO-026
-status: complete
+status: cancelled
 priority: urgent
 created: 2026-02-26
 mayor: claude-web

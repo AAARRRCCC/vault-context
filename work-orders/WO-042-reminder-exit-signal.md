@@ -1,7 +1,7 @@
 ---
 id: WO-042
 title: Reminder exit signal + relay double-fire + tone adjustment
-status: complete
+status: cancelled
 priority: high
 created: 2026-03-04T08:45:00Z
 mayor: true

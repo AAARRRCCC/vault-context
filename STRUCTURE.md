@@ -13,6 +13,7 @@
 ./05_Logs/meds/2026-03-12.md
 ./05_Logs/meds/2026-03-13.md
 ./05_Logs/meds/2026-03-14.md
+./05_Logs/meds/2026-03-15.md
 ./05_Logs/meds/weekly
 ./AUTONOMOUS-LOOP.md
 ./CLAUDE-CODE-SESSION-LOGS.md

@@ -1,18 +1,18 @@
 ---
-updated: 2026-03-15T21:00:00Z
-active_plan: PLAN-015-docs-audit-repair
+updated: 2026-03-15T21:15:00Z
+active_plan: none
 phase: 3
-phase_status: pending
-worker_status: processing
-last_signal: checkpoint
-last_signal_time: 2026-03-15T18:20:00Z
+phase_status: complete
+worker_status: idle
+last_signal: complete
+last_signal_time: 2026-03-15T21:15:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-PLAN-015 — Documentation Audit & Repair. Phase 3 active — cross-doc consistency + fix Phase 2 misses. Mayor reviewed Phase 2 and approved with corrections. Phase 3: Cross-doc consistency + CLAUDE-LEARNINGS.md update + final cleanup. See plans/PLAN-015-docs-audit-repair.md for full spec.
+None. PLAN-015 (Documentation Audit & Repair) complete — all 3 phases done including Mayor's Phase 3 corrections. RECENT_CHANGES.md cleaned, STRUCTURE.md regenerated from vault-context find, PROJECTS.md heartbeat interval fixed, CLAUDE-LEARNINGS.md updated. See plans/PLAN-015-docs-audit-repair.md for full history.
 
 Mayor reviewed all vault-context docs on 2026-03-15 and found significant staleness across PROJECTS.md, SYSTEM_STATUS.md, STRUCTURE.md, RECENT_CHANGES.md, and MAYOR_ONBOARDING.md. This plan collects ground truth from the Mac, fixes quick wins in Phase 1, rewrites major docs in Phase 2 (checkpoint for Mayor review), and does cross-doc consistency in Phase 3.
 
@@ -133,6 +133,7 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 ## Pending Questions
 
 - WO-043 ID collision: two files both use WO-043 (`WO-043-clone-nts-repo.md` and `WO-043-tweet-url-query-fix.md`). Plan only asked to fix WO-039 collision. Mayor to decide whether to renumber one — suggest renaming `clone-nts-repo` to WO-062 since `tweet-url-query-fix` was the Mayor-dispatched fix WO.
+- **!answer bug (discovered PLAN-015 P3):** `cmdAnswer` function exists in bot.js but is not registered in the COMMANDS map — lost during a simplification pass. `!answer <text>` returns "Unknown command". Needs a fix WO.
 
 ## Completed Phases
 
@@ -160,7 +161,7 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 
 - [x] PLAN-015 Phase 1: Ground Truth Collection + Quick Fixes (2026-03-15)
 - [x] PLAN-015 Phase 2: Major Doc Rewrites (2026-03-15)
-- [ ] PLAN-015 Phase 3: Cross-Doc Consistency + CLAUDE-LEARNINGS
+- [x] PLAN-015 Phase 3: Cross-Doc Consistency + CLAUDE-LEARNINGS (2026-03-15)
 
 - [x] PLAN-008 Phase 1: Rate Limit Detection and Alerting (2026-02-26)
 - [x] PLAN-008 Phase 2: Multi-Turn Conversation Memory (2026-02-27)

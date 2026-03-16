@@ -1,20 +1,5 @@
 .
 ./.git
-./.obsidian
-./.scripts
-./.scripts/sync-context.sh
-./05_Logs
-./05_Logs/meds
-./05_Logs/meds/2026-03-05.md
-./05_Logs/meds/2026-03-06.md
-./05_Logs/meds/2026-03-07.md
-./05_Logs/meds/2026-03-08.md
-./05_Logs/meds/2026-03-11.md
-./05_Logs/meds/2026-03-12.md
-./05_Logs/meds/2026-03-13.md
-./05_Logs/meds/2026-03-14.md
-./05_Logs/meds/2026-03-15.md
-./05_Logs/meds/weekly
 ./AUTONOMOUS-LOOP.md
 ./CLAUDE-CODE-SESSION-LOGS.md
 ./CLAUDE-LEARNINGS.md
@@ -43,66 +28,72 @@
 ./inbox
 ./inbox/tweets
 ./inbox/tweets/README.md
-./inbox/tweets/TWEET-2027270061820657843
-./inbox/tweets/TWEET-2027377489903755502
-./inbox/tweets/TWEET-2027416057934450816
-./inbox/tweets/TWEET-2027431590377181606
-./inbox/tweets/TWEET-2027439397449437288
-./inbox/tweets/TWEET-2027451712131440653
-./inbox/tweets/TWEET-2027463795355095314
-./inbox/tweets/TWEET-2027473676690665745
-./inbox/tweets/TWEET-2027498003028955206
-./inbox/tweets/TWEET-2027519673508511768
-./inbox/tweets/TWEET-2027532563544228013
-./inbox/tweets/TWEET-2027579200635605058
-./inbox/tweets/TWEET-2027595957701927252
-./inbox/tweets/TWEET-2027605370470867280
-./inbox/tweets/TWEET-2027623837840331087
-./inbox/tweets/TWEET-2027652011437474053
-./inbox/tweets/TWEET-2027668677248668048
-./inbox/tweets/TWEET-2027677636147704118
-./inbox/tweets/TWEET-2027680408616493124
-./inbox/tweets/TWEET-2027711729187029384
-./inbox/tweets/TWEET-2027727596608479430
-./inbox/tweets/TWEET-2027740192619016573
-./inbox/tweets/TWEET-2027746562722705745
-./inbox/tweets/TWEET-2027747659302269051
-./inbox/tweets/TWEET-2027753906932011235
-./inbox/tweets/TWEET-2027813144652087773
-./inbox/tweets/TWEET-2027897523537428720
-./inbox/tweets/TWEET-2027905785322475750
-./inbox/tweets/TWEET-2027906735248494804
-./inbox/tweets/TWEET-2027910368316821916
-./inbox/tweets/TWEET-2027995727386054807
-./inbox/tweets/TWEET-2028049607125774582
-./inbox/tweets/TWEET-2028076974233534795
-./inbox/tweets/TWEET-2028131339405254984
-./inbox/tweets/TWEET-2028184543040270769
-./inbox/tweets/TWEET-2028272185987473627
-./inbox/tweets/TWEET-2028296136281522226
-./inbox/tweets/TWEET-2028315710917869927
-./inbox/tweets/TWEET-2028330693659332615
-./inbox/tweets/TWEET-2028497454635888982
-./inbox/tweets/TWEET-2028512452988612965
-./inbox/tweets/TWEET-2028620230302618021
-./inbox/tweets/TWEET-2028734644867547263
-./inbox/tweets/TWEET-2028849157847617786
-./inbox/tweets/TWEET-2028921749878817170
-./inbox/tweets/TWEET-2029268229030285589
-./inbox/tweets/TWEET-2029327139196289358
-./inbox/tweets/TWEET-2029390577645785498
-./inbox/tweets/TWEET-2029524665832747075
-./inbox/tweets/TWEET-2029899328400109732
-./inbox/tweets/TWEET-2030193932404150413
-./inbox/tweets/TWEET-2030465763883339905
-./inbox/tweets/TWEET-2031284966961852569
-./inbox/tweets/TWEET-2031329821372883171
-./inbox/tweets/TWEET-2031347002773221673
-./inbox/tweets/TWEET-2031400355167117498
-./inbox/tweets/TWEET-2031478430752190612
-./inbox/tweets/TWEET-2031521327807357370
-./inbox/tweets/TWEET-2031742178297335879
-./inbox/tweets/TWEET-2031799819665359091
+./inbox/tweets/archive
+./library
+./library/tweets
+./library/tweets/2026-02-16-visual-explainer-a-claude-code-plugin-that-renders-agent-out
+./library/tweets/2026-02-27-a-not-yet-released-autonomous-claude-code-loop-ralph-by-alxf
+./library/tweets/2026-02-27-claude-codes-programmatic-formerly-headless-cli-mode-the-cla
+./library/tweets/2026-02-27-design-rationale-from-an-anthropic-claude-code-engineer-on-a
+./library/tweets/2026-02-27-desloppify-a-pip-installable-agent-harness-that-runs-a-persi
+./library/tweets/2026-02-27-nia-by-nozomio-an-mcp-based-context-augmentation-layer-with-
+./library/tweets/2026-02-27-opinionated-web-ui-quality-heuristics-a-practitioners-checkl
+./library/tweets/2026-02-27-peter-steinbergers-just-talk-to-it-a-practical-agentic-workf
+./library/tweets/2026-02-27-rtk-rust-token-killer-a-transparent-cli-proxy-that-compresse
+./library/tweets/2026-02-27-scrapling-adaptive-python-web-scraping-library-with-cloudfla
+./library/tweets/2026-02-27-viral-engagement-bait-claiming-a-polymarket-latency-arbitrag
+./library/tweets/2026-02-27-youtube-teaser-for-giving-claude-code-a-web-fetching-tool-no
+./library/tweets/2026-02-28-background-agentscom-a-visually-polished-marketingthought-le
+./library/tweets/2026-02-28-callme-claude-code-mcp-plugin-that-phones-you-when-a-task-fi
+./library/tweets/2026-02-28-componentgallery-a-curated-reference-of-ui-component-names-a
+./library/tweets/2026-02-28-context-an-mcp-server-that-gives-ai-agents-semantic-rag-back
+./library/tweets/2026-02-28-moneyprinterv2-python-app-that-automates-twitter-bots-youtub
+./library/tweets/2026-02-28-openclaw-a-self-hosted-multi-channel-ai-assistant-platform-w
+./library/tweets/2026-02-28-paid-promotional-breakdown-of-two-polymarket-weather-market-
+./library/tweets/2026-02-28-polymarket-btc-latency-arbitrage-bot-in-rust-a-real-but-now-
+./library/tweets/2026-02-28-pqo-icons-pqoqubbw-open-source-animated-icon-library-built-o
+./library/tweets/2026-02-28-promotional-tweet-for-a-community-maintained-claude-agent-pr
+./library/tweets/2026-02-28-referral-link-marketing-post-dressed-as-a-mac-mini-multi-age
+./library/tweets/2026-02-28-referral-linked-promotional-thread-pitching-polymarket-copy-
+./library/tweets/2026-02-28-relaycast-a-hosted-headless-slack-messaging-layer-built-for-
+./library/tweets/2026-02-28-unverifiable-claim-of-cross-platform-polymarketkalshi-arbitr
+./library/tweets/2026-02-28-wshobsonagents-a-claude-code-plugin-marketplace-with-112-spe
+./library/tweets/2026-03-01-academic-paper-proposing-a-unix-style-everything-is-a-file-a
+./library/tweets/2026-03-01-career-advice-thread-for-pms-building-github-portfolios-paid
+./library/tweets/2026-03-01-chrome-devtools-claude-opus-as-a-reverse-engineering-pipelin
+./library/tweets/2026-03-01-claude-code-plugin-that-renders-agent-output-as-styled-inter
+./library/tweets/2026-03-01-kuva-rust-scientific-plotting-library-with-29-plot-types-svg
+./library/tweets/2026-03-01-pinchtab-go-binary-that-gives-ai-agents-a-plain-http-api-for
+./library/tweets/2026-03-01-polymarket-clob-market-making-bot-place-limit-orders-on-both
+./library/tweets/2026-03-01-teen-saas-founder-shares-a-vibe-coding-prompt-meme-image-wit
+./library/tweets/2026-03-01-tldraw-desktop-app-ships-a-local-canvas-api-that-lets-claude
+./library/tweets/2026-03-02-a-4-layer-memory-stack-for-making-every-claude-code-session-
+./library/tweets/2026-03-02-animejs-v4-a-lightweight-javascript-animation-library-for-cs
+./library/tweets/2026-03-02-creative-obsidian-vault-visualization-notes-rendered-as-a-bo
+./library/tweets/2026-03-02-moneyprinterv2-open-source-python-automation-toolkit-for-twi
+./library/tweets/2026-03-02-practical-tips-for-getting-non-generic-ui-output-from-ai-cod
+./library/tweets/2026-03-02-vercel-labs-agent-browser-a-rustplaywright-cli-for-browser-e
+./library/tweets/2026-03-02-voice-dna-a-single-file-prompt-template-for-making-claude-ma
+./library/tweets/2026-03-03-deerflow-bytedances-open-source-hierarchical-multi-agent-har
+./library/tweets/2026-03-03-defuddle-a-typescript-web-content-extraction-library-with-a-
+./library/tweets/2026-03-03-updated-skill-creator-plugin-for-claude-code-adds-self-conta
+./library/tweets/2026-03-04-openai-symphony-language-agnostic-spec-elixir-reference-impl
+./library/tweets/2026-03-04-three-agent-adversarial-bug-finding-pattern-hunter-skeptic-r
+./library/tweets/2026-03-05-live-agent-hierarchy-map-ui-inside-soft-machine-a-cloud-ai-c
+./library/tweets/2026-03-05-three-agent-adversarial-pipeline-for-llm-assisted-bug-findin
+./library/tweets/2026-03-06-jim-prossers-chief-of-staff-a-six-agent-parallel-orchestrati
+./library/tweets/2026-03-07-claude-code-loop-a-new-built-in-slash-command-for-scheduling
+./library/tweets/2026-03-08-nerv-ui-a-claude-code-skill-css-library-for-eva-aesthetic-te
+./library/tweets/2026-03-10-a-github-repo-collecting-10-claude-agent-style-prompts-for-f
+./library/tweets/2026-03-10-nerv-ui-evangelion-themed-claude-code-skill-cssthreejs-compo
+./library/tweets/2026-03-10-research-failed
+./library/tweets/2026-03-10-sponsored-polymarket-long-form-article-by-prediction-markets
+./library/tweets/2026-03-10-tiny-lab-apple-silicon-control-plane-for-local-lm-experiment
+./library/tweets/2026-03-11-a-61-agent-library-of-claude-code-subagent-personalities-dro
+./library/tweets/2026-03-11-a-skill-file-of-web-animation-guidelines-formatted-to-feed-i
+./library/tweets/2026-03-11-cog-a-markdown-native-second-brain-framework-wiring-ai-agent
+./library/tweets/2026-03-11-freelance-ui-designer-self-promotion-post-with-a-booking-cta
+./library/tweets/2026-03-12-pidev-a-minimal-extensible-terminal-coding-agent-harness-as-
 ./plans
 ./plans/PLAN-001-inbox-audit.md
 ./plans/PLAN-002-frontmatter-audit.md
@@ -118,6 +109,7 @@
 ./plans/PLAN-012-dashboard-layout-overhaul.md
 ./plans/PLAN-013-docs-audit.md
 ./plans/PLAN-014-tweet-research-agent.md
+./plans/PLAN-015-docs-audit-repair.md
 ./plans/README.md
 ./plans/templates
 ./plans/templates/README.md
@@ -206,6 +198,8 @@
 ./results/WO-055-result.md
 ./results/WO-056-result.md
 ./results/WO-057-result.md
+./results/WO-058-result.md
+./results/WO-059-result.md
 ./work-orders
 ./work-orders/README.md
 ./work-orders/WO-001-setup-mayor-worker-system.md
@@ -264,6 +258,9 @@
 ./work-orders/WO-055-merge-plan-a-b-to-main.md
 ./work-orders/WO-056-tweet-pipeline-export.md
 ./work-orders/WO-057-mayor-check-pull.md
+./work-orders/WO-058-tweet-library-org.md
+./work-orders/WO-059-matrix-server.md
+./work-orders/WO-060-harden-mayor-check-pull.md
 ./work-orders/WO-061-unknown-command-relay-fallthrough.md
 ---
 
@@ -280,6 +277,7 @@
 - `mayor-status.sh` — print worker state from status JSON; supports `--json` flag
 - `mayor-log.sh` — tail `~/.local/log/mayor-check.log`; supports `-f` and `-n` flags
 - `tweet-capture.sh` — orchestrates gallery-dl → tweet-processor → git commit for Twitter inbox
+- `tweet-inbox-cleanup.sh` — removes images from archive entries >30 days old
 
 ### State & Logs
 - `~/.local/state/mayor-worker-status.json` — live worker state (idle / processing / error)
@@ -293,6 +291,7 @@
 - `~/Library/LaunchAgents/com.mayor.workorder-check.plist` — runs `mayor-check.sh` every 120s; label: `com.mayor.workorder-check`
 - `~/Library/LaunchAgents/com.mayor.dashboard.plist` — Mayor dashboard web server (port 3847); label: `com.mayor.dashboard`
 - `~/Library/LaunchAgents/com.foreman.bot.plist` — Foreman Discord bot (persistent); label: `com.foreman.bot`
+- `~/Library/LaunchAgents/com.foreman.tweet-researcher.plist` — tweet research agent (every 300s); label: `com.foreman.tweet-researcher`
 
 ### Foreman Discord Bot (`~/foreman-bot/`)
 - `bot.js` — main bot, command router, relay, tweet auto-capture, meds reminders
@@ -301,7 +300,16 @@
 - `scheduler.js` — natural-language task scheduling via chrono-node
 - `reminder-engine.js` — conversational meds reminder with Haiku model
 - `tweet-processor.js` — gallery-dl output → clean content.md inbox entry
+- `tweet-researcher.js` — background tweet research agent; scans inbox, calls claude -p, writes research.md
+- `url-resolver.js` — fetches and extracts text from linked GitHub READMEs, blog posts, articles
 - `foreman-prompt.md` — Foreman's personality and system prompt
+
+### Matrix Homeserver (`~/matrix-server/`)
+- Self-hosted Matrix server via Docker Compose; added 2026-03-15 (WO-059)
+- Stack: Tuwunel (homeserver, `127.0.0.1:8008`) + Element Web (client, `127.0.0.1:80`) + cloudflared (tunnel)
+- Public URL: `https://plvr.net` (Matrix), `https://chat.plvr.net` (Element Web)
+- Admin user: `@arc:plvr.net`; data at `~/matrix-server/data/tuwunel/` (RocksDB — back up this directory)
+- Managed via `docker compose up -d / down / ps / logs -f` from `~/matrix-server/`
 
 ### vault-context Public Mirror (`~/Documents/vault-context/`)
 - Public repo: `AAARRRCCC/vault-context`

@@ -135,3 +135,9 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 - In bot.js command router, the unknown `!command` guard must come BEFORE the tweet URL detection block — not after. If it were after, `!deleet https://x.com/...` would silently auto-capture the tweet before erroring.
 - The `!help` reply exceeds Discord's 2000-character limit as of PLAN-009 P4 — the help text has grown too large. Pre-existing issue; needs split-message or embed fix if Brady wants it.
 - Adding a command alias is one line in the COMMANDS map: `'!twitter': cmdTweet`. No other changes needed.
+
+### 2026-03-15 — PLAN-015: docs-audit-repair
+
+- STRUCTURE.md's External Infrastructure section is manually maintained and preserved by sync-context.sh (the `---` separator divides the auto-generated file tree from the manual section). Edit the manual section in vault-context directly — changes survive future syncs.
+- `!answer` exists as `cmdAnswer` in bot.js but is not registered in the COMMANDS map — lost during a simplification pass. Typing `!answer <text>` gives "Unknown command". Confirmed broken as of 2026-03-15. Bug was not in scope for PLAN-015 (docs audit only); needs a fix WO.
+- When auditing bot commands, grep for `COMMANDS = {` and verify each entry. Don't trust the help text or function existence — both can outlive removal from the COMMANDS map and create false documentation.

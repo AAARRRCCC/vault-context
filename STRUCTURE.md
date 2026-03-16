@@ -10,6 +10,9 @@
 ./05_Logs/meds/2026-03-07.md
 ./05_Logs/meds/2026-03-08.md
 ./05_Logs/meds/2026-03-11.md
+./05_Logs/meds/2026-03-12.md
+./05_Logs/meds/2026-03-13.md
+./05_Logs/meds/2026-03-14.md
 ./05_Logs/meds/weekly
 ./AUTONOMOUS-LOOP.md
 ./CLAUDE-CODE-SESSION-LOGS.md
@@ -26,6 +29,7 @@
 ./benchmark
 ./benchmark/MAYOR-BENCHMARK.md
 ./benchmark/run-benchmark.sh
+./conflict-files-obsidian-git.md
 ./diagrams
 ./diagrams/01-system-overview.html
 ./diagrams/exports

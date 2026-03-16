@@ -1,9 +1,9 @@
 ---
-updated: 2026-03-15T03:20:00Z
-active_plan: none
-phase: ~
-phase_status: idle
-worker_status: idle
+updated: 2026-03-15T17:00:00Z
+active_plan: PLAN-015-docs-audit-repair
+phase: 1
+phase_status: pending
+worker_status: active
 last_signal: complete
 last_signal_time: 2026-03-15T03:20:00Z
 ---
@@ -12,11 +12,13 @@ last_signal_time: 2026-03-15T03:20:00Z
 
 ## Active Plan
 
-PLAN-014 — Tweet Research Agent. All 4 phases complete. Background launchd service (com.foreman.tweet-researcher) runs every 5 minutes, generates research.md for each tweet. Image descriptions available via --with-images flag. See plans/PLAN-014-tweet-research-agent.md for full spec.
+PLAN-015 — Documentation Audit & Repair. Phase 1: Ground Truth Collection + Quick Fixes. Not started. See plans/PLAN-015-docs-audit-repair.md for full spec.
+
+Mayor reviewed all vault-context docs on 2026-03-15 and found significant staleness across PROJECTS.md, SYSTEM_STATUS.md, STRUCTURE.md, RECENT_CHANGES.md, and MAYOR_ONBOARDING.md. This plan collects ground truth from the Mac, fixes quick wins in Phase 1, rewrites major docs in Phase 2 (checkpoint for Mayor review), and does cross-doc consistency in Phase 3.
 
 ---
 
-PLAN-012 (Dashboard Layout Overhaul, complete) — Phase 1: Layout Restructure + Hero Pipeline Component. Two-mode dashboard: Active Plan mode with large animated pipeline visualization (30% viewport, 64-80px phase nodes, SVG glow filter, pulse animation, shimmer connector), and Idle mode stub. Build custom CSS/SVG hybrid pipeline — do NOT use DaisyUI steps component. Session log + signals below pipeline. Read current palette from index.html — do NOT reintroduce Olive Garden OKLCH. See plans/PLAN-012-dashboard-layout-overhaul.md for full spec.
+PLAN-012 (Dashboard Layout Overhaul, complete) — Phase 1: Layout Restructure + Hero Pipeline Component. Two-mode dashboard: Active Plan mode with large animated pipeline visualization (30% viewport, 64-80px phase nodes, SVG glow filter, pulse animation, shimmer connector), and Idle mode stub. Build custom CSS/SVG hybrid pipeline — do NOT use DaisyUI steps component. Read current palette from index.html — do NOT reintroduce Olive Garden OKLCH. See plans/PLAN-012-dashboard-layout-overhaul.md for full spec.
 
 
 ## Mayor Guidance
@@ -25,7 +27,7 @@ PLAN-012 (Dashboard Layout Overhaul, complete) — Phase 1: Layout Restructure +
 
 WO-055 details: two `--no-ff` merges in order (plan-a then plan-b), run unit tests on main, delete remote branches. Plan A is ancestor of Plan B so merge is clean.
 
-Lower priority / deferred: WO-041, WO-026, WO-036, WO-034.
+Lower priority / deferred: WO-041.
 
 **WO-058 complete (2026-03-15):** Tweet library organization done. 63 tweets migrated to `library/tweets/YYYY-MM-DD-slug/`. Inbox now shows only pending (unresearched) tweets. `!library` command added to bot. Discord notifications fire on research completion.
 
@@ -115,6 +117,7 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 | 2026-03-12 05:25 | PLAN-014 P3 complete: launchd plist, !research command, !inbox research indicators, !status queue counts | readFileSync/writeFileSync/existsSync added to ESM imports in bot.js. Researcher service loaded; first kickstart correctly skipped (worker active). Bot restarted clean. |
 | 2026-03-15 03:20 | WO-059 complete: Matrix homeserver deployed (Tuwunel + Element Web + cloudflared). All endpoints verified. @arc:plvr.net registered. 2 registration tokens generated. Federation tester passed. |
 | 2026-03-12 05:50 | PLAN-014 P4 complete: image description (--with-images flag, separate claude -p per image), log rotation (10 MB threshold), SYSTEM_STATUS.md, foreman-prompt.md, RECENT_CHANGES.md, CLAUDE-LEARNINGS.md updated | Image description is opt-in via --with-images; uses claude --dangerously-skip-permissions to read image files via Read tool. PLAN-014 complete. |
+| 2026-03-15 17:00 | Mayor dispatched PLAN-015 — Documentation Audit & Repair | Full vault-context docs audit. 3 phases: ground truth + quick fixes, major rewrites (checkpoint), cross-doc consistency. |
 
 ## Pending Questions
 
@@ -143,6 +146,10 @@ None.
 - [x] PLAN-007 Phase 2: Rendering Pipeline Setup (2026-02-26)
 
 ## Queue
+
+- [ ] PLAN-015 Phase 1: Ground Truth Collection + Quick Fixes
+- [ ] PLAN-015 Phase 2: Major Doc Rewrites (checkpoint)
+- [ ] PLAN-015 Phase 3: Cross-Doc Consistency + CLAUDE-LEARNINGS
 
 - [x] PLAN-008 Phase 1: Rate Limit Detection and Alerting (2026-02-26)
 - [x] PLAN-008 Phase 2: Multi-Turn Conversation Memory (2026-02-27)

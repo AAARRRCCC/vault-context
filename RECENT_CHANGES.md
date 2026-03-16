@@ -37,8 +37,10 @@
 
 
 
+
 ---
 
+4de7b614 chore: WO-064 — remove STRUCTURE.md from sync-context.sh, redirect private vault copy
 cb4a064a vault: meds weekly summary 2026-W11
 9e4a88fe vault: WO-062 — STRUCTURE.md regen, RECENT_CHANGES fixes
 215ff1fa vault auto-commit 2026-03-15 21:20:38
@@ -58,4 +60,3 @@ c11a409d context update: 2026-03-12 01:12
 9f0587a8 context update: 2026-03-12 01:12
 8d5d9d99 context update: 2026-03-12 01:12
 9ca64dca context update: 2026-03-12 01:12
-3a3d1c98 context update: 2026-03-12 01:12

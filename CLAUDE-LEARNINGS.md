@@ -141,9 +141,3 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 - STRUCTURE.md's External Infrastructure section is manually maintained and preserved by sync-context.sh (the `---` separator divides the auto-generated file tree from the manual section). Edit the manual section in vault-context directly — changes survive future syncs.
 - `!answer` exists as `cmdAnswer` in bot.js but is not registered in the COMMANDS map — lost during a simplification pass. Typing `!answer <text>` gives "Unknown command". Confirmed broken as of 2026-03-15. Bug was not in scope for PLAN-015 (docs audit only); needs a fix WO.
 - When auditing bot commands, grep for `COMMANDS = {` and verify each entry. Don't trust the help text or function existence — both can outlive removal from the COMMANDS map and create false documentation.
-
-### 2026-03-15 — WO-064: STRUCTURE.md sync fix
-
-- STRUCTURE.md describes vault-context contents, not the private vault. It was removed from sync-context.sh and now lives exclusively in vault-context. Edit it there directly. Do not add it back to the sync list.
-- sync-context.sh previously ran `find` on the private vault and wrote the result to vault-context/STRUCTURE.md — this was wrong. The fix: remove that block entirely from sync-context.sh (both main and worker branch copies). Regenerate STRUCTURE.md by running find on ~/Documents/vault-context/ instead.
-- For high-churn directories like library/tweets/ and inbox/tweets/, summarize with a count comment instead of listing all entries — keeps STRUCTURE.md stable and readable.

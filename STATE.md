@@ -1,11 +1,11 @@
 ---
-updated: 2026-03-16T13:35:00Z
+updated: 2026-03-17T23:20:00Z
 active_plan: none
-phase: complete
-phase_status: complete
+phase: none
+phase_status: none
 worker_status: idle
-last_signal: complete
-last_signal_time: 2026-03-16T13:35:00Z
+last_signal: blocked
+last_signal_time: 2026-03-17T23:20:00Z
 ---
 
 # System State
@@ -160,7 +160,7 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 
 ## Queue
 
-- [ ] WO-065: Matrix Server Health Check & Auto-Recovery (pending, high priority)
+- [ ] WO-065: Matrix Server Health Check & Auto-Recovery — BLOCKED (Cloudflare tunnel token "Invalid tunnel secret" — Brady must regenerate in CF dashboard)
 
 - [x] PLAN-015 Phase 1: Ground Truth Collection + Quick Fixes (2026-03-15)
 - [x] PLAN-015 Phase 2: Major Doc Rewrites (2026-03-15)

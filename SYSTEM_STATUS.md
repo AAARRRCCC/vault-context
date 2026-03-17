@@ -391,15 +391,26 @@ Self-hosted Matrix homeserver running on Mac Mini via Docker Compose.
 |-----------|-------|------|
 | `matrix-server-tuwunel-1` | `jevolk/tuwunel:latest` | `127.0.0.1:8008` |
 | `matrix-server-element-web-1` | `vectorim/element-web:latest` | `127.0.0.1:80` |
-| `matrix-server-cloudflared-1` | `cloudflare/cloudflared:latest` | (tunnel, no local port) |
 
-**Architecture:** cloudflared uses host network mode to reach Tuwunel at localhost. Tuwunel and Element Web are exposed only on 127.0.0.1 (not reachable externally without tunnel).
+**Architecture:** Tuwunel and Element Web run in Docker (Colima) with `restart: unless-stopped`. cloudflared runs natively on Mac as a launchd agent (`~/Library/LaunchAgents/net.cloudflare.cloudflared.plist`) to avoid QUIC/UDP issues inside Colima VM.
 
-**To manage:**
+**Docker runtime:** Colima (`colima start/stop`). If Colima fails to start with "disk in use" error, remove stale lock: `rm ~/.colima/_lima/_disks/colima/in_use_by`. Note: use `docker-compose` (not `docker compose`) — the Compose plugin is not wired into Colima's Docker.
+
+**cloudflared launchd service:**
+```bash
+launchctl load ~/Library/LaunchAgents/net.cloudflare.cloudflared.plist   # start
+launchctl unload ~/Library/LaunchAgents/net.cloudflare.cloudflared.plist # stop
+cat /tmp/cloudflared.stderr.log   # logs
+```
+Token lives in `~/matrix-server/.env` as `CLOUDFLARED_TOKEN`. If tunnel fails with "Invalid tunnel secret", regenerate the token in Cloudflare Zero Trust dashboard (Zero Trust → Networks → Tunnels → plvr.net) and update `.env` + the plist.
+
+**To manage Docker stack:**
 ```bash
 cd ~/matrix-server
-docker compose up -d          # start
-docker compose down           # stop
-docker compose ps             # check status
-docker compose logs -f        # live logs
+docker-compose up -d          # start
+docker-compose down           # stop
+docker-compose ps             # check status
+docker-compose logs -f        # live logs
 ```
+
+**Current status (2026-03-17, WO-065):** Docker stack (tuwunel + element-web) running and healthy. Tuwunel API verified at localhost:8008. cloudflared tunnel BLOCKED — token returns "Invalid tunnel secret". Brady must regenerate token in Cloudflare dashboard.

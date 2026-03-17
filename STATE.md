@@ -3,8 +3,8 @@ updated: 2026-03-17T23:34:06Z
 active_plan: none
 phase: none
 phase_status: none
-worker_status: active
-last_signal: blocked
+worker_status: idle
+last_signal: complete
 last_signal_time: 2026-03-17T23:20:00Z
 ---
 

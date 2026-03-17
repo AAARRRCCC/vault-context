@@ -1,9 +1,9 @@
 ---
-updated: 2026-03-17T23:20:00Z
+updated: 2026-03-17T23:23:36Z
 active_plan: none
 phase: none
 phase_status: none
-worker_status: idle
+worker_status: active
 last_signal: blocked
 last_signal_time: 2026-03-17T23:20:00Z
 ---
@@ -48,6 +48,7 @@ PLAN-007 (System Visual Diagrams) is shelved.
 PLAN-009 Twitter inbox pipeline complete. Related WOs (037-040) complete.
 
 PLAN-010 (Meds Reminders) complete through Phase 4.
+- [2026-03-17 23:23] this is what i got for docker from cloudflare, it has the token docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token eyJhIjoiM2EzYTU1ZGM2ZDg5MDM0N2Q1NDczYjcwZWM3ZjU2NDQiLCJ0IjoiMDEyOWQxMWUtZWE2Yi00MmFkLTkwYTQtZTdiOTI5MzVhZjM5IiwicyI6Ik9EYzBaR1poWWpJdE1HVTVNeTAwTkRCakxUbGhZemd0WlRCaE1EQmhZbUkxTW1WaiJ9
 
 ## Decision Log
 
@@ -130,11 +131,11 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 | 2026-03-16 00:30 | Mayor dispatched PLAN-016 — Tweet Library Intelligence Synthesis | On-demand synthesis of tweet library against active projects. Opus model, incremental default, WO sketch proposals. |
 | 2026-03-16 13:19 | PLAN-016 P1 complete: tweet-synthesizer.js built, full run: 61 tweets → 6 WO proposals, committed to vault-context | Opus called via spawn, same pattern as tweet-researcher; incremental mode via state file; Sonnet fallback on rate limit |
 | 2026-03-16 13:27 | PLAN-016 P2 complete: !synthesize / !synthesize full / !synthesize last wired into bot.js; Discord summary with theme clusters + top WO proposals; !status shows last synthesis date; !help updated | parseSynthesisSummary reads frontmatter + regex clusters/proposals; buildSynthesisEmbed formats compact Discord output; worker-active guard prevents git conflicts |
+| 2026-03-17 23:23 | Brady answered pending question via Discord: this is what i got for docker from cloudflare, it has the token docker run cloud | Discord command |
 
 ## Pending Questions
 
-- WO-043 ID collision: two files both use WO-043 (`WO-043-clone-nts-repo.md` and `WO-043-tweet-url-query-fix.md`). Plan only asked to fix WO-039 collision. Mayor to decide whether to renumber one — suggest renaming `clone-nts-repo` to WO-062 since `tweet-url-query-fix` was the Mayor-dispatched fix WO.
-- **!answer bug (discovered PLAN-015 P3):** `cmdAnswer` function exists in bot.js but is not registered in the COMMANDS map — lost during a simplification pass. `!answer <text>` returns "Unknown command". Needs a fix WO.
+None.
 
 ## Completed Phases
 

@@ -402,7 +402,7 @@ launchctl load ~/Library/LaunchAgents/net.cloudflare.cloudflared.plist   # start
 launchctl unload ~/Library/LaunchAgents/net.cloudflare.cloudflared.plist # stop
 cat /tmp/cloudflared.stderr.log   # logs
 ```
-Token lives in `~/matrix-server/.env` as `CLOUDFLARED_TOKEN`. If tunnel fails with "Invalid tunnel secret", regenerate the token in Cloudflare Zero Trust dashboard (Zero Trust → Networks → Tunnels → plvr.net) and update `.env` + the plist.
+Token lives directly in the plist `ProgramArguments` `--token` arg. If tunnel fails with "Invalid tunnel secret", regenerate the token in Cloudflare Zero Trust dashboard (Zero Trust → Networks → Tunnels → plvr.net), then update the plist and unload/reload: `launchctl unload` + update plist + `launchctl load`.
 
 **To manage Docker stack:**
 ```bash
@@ -413,4 +413,4 @@ docker-compose ps             # check status
 docker-compose logs -f        # live logs
 ```
 
-**Current status (2026-03-17, WO-065):** Docker stack (tuwunel + element-web) running and healthy. Tuwunel API verified at localhost:8008. cloudflared tunnel BLOCKED — token returns "Invalid tunnel secret". Brady must regenerate token in Cloudflare dashboard.
+**Current status (2026-03-17, WO-065 complete):** All services running and healthy. Tunnel reconnected with refreshed token. All 4 cloudflared connections registered (atl11/atl12/atl14). `plvr.net/_matrix/client/versions` → 200, `chat.plvr.net` → 200, federation `/version` verified. Auto-recovery: Docker services have `restart: unless-stopped`; cloudflared has `KeepAlive: true` in launchd plist.

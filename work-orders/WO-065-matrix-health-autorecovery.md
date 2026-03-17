@@ -1,7 +1,7 @@
 ---
 id: WO-065
 title: Matrix Server Health Check & Auto-Recovery
-status: in-progress
+status: complete
 priority: high
 created: 2026-03-17
 mayor: true

@@ -1,5 +1,5 @@
 ---
-updated: 2026-03-17T23:34:06Z
+updated: 2026-03-17T23:50:00Z
 active_plan: none
 phase: none
 phase_status: none
@@ -133,6 +133,7 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 | 2026-03-16 13:27 | PLAN-016 P2 complete: !synthesize / !synthesize full / !synthesize last wired into bot.js; Discord summary with theme clusters + top WO proposals; !status shows last synthesis date; !help updated | parseSynthesisSummary reads frontmatter + regex clusters/proposals; buildSynthesisEmbed formats compact Discord output; worker-active guard prevents git conflicts |
 | 2026-03-17 23:23 | Brady answered pending question via Discord: this is what i got for docker from cloudflare, it has the token docker run cloud | Discord command |
 | 2026-03-17 23:34 | Brady unpaused worker via Discord !resume | Discord command |
+| 2026-03-17 23:50 | WO-065 complete: Matrix tunnel restored with new Cloudflare token | Token was in cloudflare-token.txt; applied to launchd plist; all 4 QUIC connections registered |
 
 ## Pending Questions
 
@@ -162,7 +163,7 @@ None.
 
 ## Queue
 
-- [ ] WO-065: Matrix Server Health Check & Auto-Recovery — BLOCKED (Cloudflare tunnel token "Invalid tunnel secret" — Brady must regenerate in CF dashboard)
+- [x] WO-065: Matrix Server Health Check & Auto-Recovery — complete (2026-03-17). New token applied, all 4 tunnel connections live, plvr.net + chat.plvr.net both 200.
 
 - [x] PLAN-015 Phase 1: Ground Truth Collection + Quick Fixes (2026-03-15)
 - [x] PLAN-015 Phase 2: Major Doc Rewrites (2026-03-15)

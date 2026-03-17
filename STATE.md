@@ -160,6 +160,8 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 
 ## Queue
 
+- [ ] WO-065: Matrix Server Health Check & Auto-Recovery (pending, high priority)
+
 - [x] PLAN-015 Phase 1: Ground Truth Collection + Quick Fixes (2026-03-15)
 - [x] PLAN-015 Phase 2: Major Doc Rewrites (2026-03-15)
 - [x] PLAN-015 Phase 3: Cross-Doc Consistency + CLAUDE-LEARNINGS (2026-03-15)

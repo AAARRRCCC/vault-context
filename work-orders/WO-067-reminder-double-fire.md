@@ -1,7 +1,7 @@
 ---
 id: WO-067
 title: Fix Reminder Double-Fire on Enable + Grace Window
-status: pending
+status: complete
 priority: critical
 created: 2026-03-18T22:15:00Z
 mayor: true

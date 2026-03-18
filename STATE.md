@@ -1,11 +1,11 @@
 ---
-updated: 2026-03-18T22:00:00Z
+updated: 2026-03-18T07:35:00Z
 active_plan: none
 phase: none
 phase_status: none
 worker_status: idle
 last_signal: complete
-last_signal_time: 2026-03-17T23:20:00Z
+last_signal_time: 2026-03-18T07:35:00Z
 ---
 
 # System State
@@ -21,7 +21,7 @@ PLAN-012 (Dashboard Layout Overhaul, complete) — Phase 1: Layout Restructure +
 
 ## Mayor Guidance
 
-WO-066 dispatched (high priority): Reminder engine overhaul. Replace Haiku conversational reminders with Discord button interactions (Took it / Skip / Snooze 15min). Simplify ADHD meds to once-daily morning only + 12:30 PM follow-up if missed. Melatonin fixed at 7:30 PM nightly (remove all phase logic). Fix restart-fires-everything bug (30-min grace window). See work-orders/WO-066-reminder-overhaul.md for full spec.
+WO-066 complete (2026-03-18): Reminder engine overhauled. Discord buttons live. Afternoon dose removed. Melatonin fixed at 19:30. 30-min restart grace window. Meds were paused at deploy — Brady can `!meds on` to resume.
 
 
 **PLAN-015 Phase 3 — Mayor checkpoint review findings (fix these FIRST before cross-doc check):**
@@ -136,6 +136,7 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 | 2026-03-17 23:23 | Brady answered pending question via Discord: this is what i got for docker from cloudflare, it has the token docker run cloud | Discord command |
 | 2026-03-17 23:34 | Brady unpaused worker via Discord !resume | Discord command |
 | 2026-03-17 23:50 | WO-065 complete: Matrix tunnel restored with new Cloudflare token | Token was in cloudflare-token.txt; applied to launchd plist; all 4 QUIC connections registered |
+| 2026-03-18 07:35 | WO-066 complete: Reminder engine rewritten — Discord buttons, once-daily ADHD, fixed melatonin, restart fix | Meds were paused at deploy; Brady uses !meds on to resume |
 
 ## Pending Questions
 
@@ -165,7 +166,7 @@ None.
 
 ## Queue
 
-- [ ] WO-066: Reminder Engine Overhaul — Buttons, Single ADHD Dose, Restart Fix (pending, high priority)
+- [x] WO-066: Reminder Engine Overhaul — Buttons, Single ADHD Dose, Restart Fix (complete, 2026-03-18)
 
 - [x] WO-065: Matrix Server Health Check & Auto-Recovery — complete (2026-03-17). New token applied, all 4 tunnel connections live, plvr.net + chat.plvr.net both 200.
 

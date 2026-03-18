@@ -1,7 +1,7 @@
 ---
 id: WO-066
 title: Reminder Engine Overhaul — Buttons, Single ADHD Dose, Restart Fix
-status: pending
+status: complete
 priority: high
 created: 2026-03-18T22:00:00Z
 mayor: true

@@ -1,5 +1,5 @@
 ---
-updated: 2026-03-18T07:35:00Z
+updated: 2026-03-18T22:15:00Z
 active_plan: none
 phase: none
 phase_status: none
@@ -20,6 +20,8 @@ PLAN-012 (Dashboard Layout Overhaul, complete) — Phase 1: Layout Restructure +
 
 
 ## Mayor Guidance
+
+WO-067 dispatched (CRITICAL): Fix reminder double-fire on !meds on + grace window not applying. !meds on must NOT immediately fire reminders — let scheduler tick handle it. Add 5-min dedup guard. See work-orders/WO-067-reminder-double-fire.md.
 
 WO-066 complete (2026-03-18): Reminder engine overhauled. Discord buttons live. Afternoon dose removed. Melatonin fixed at 19:30. 30-min restart grace window. Meds were paused at deploy — Brady can `!meds on` to resume.
 

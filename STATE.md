@@ -1,5 +1,5 @@
 ---
-updated: 2026-03-17T23:50:00Z
+updated: 2026-03-18T22:00:00Z
 active_plan: none
 phase: none
 phase_status: none
@@ -20,6 +20,8 @@ PLAN-012 (Dashboard Layout Overhaul, complete) — Phase 1: Layout Restructure +
 
 
 ## Mayor Guidance
+
+WO-066 dispatched (high priority): Reminder engine overhaul. Replace Haiku conversational reminders with Discord button interactions (Took it / Skip / Snooze 15min). Simplify ADHD meds to once-daily morning only + 12:30 PM follow-up if missed. Melatonin fixed at 7:30 PM nightly (remove all phase logic). Fix restart-fires-everything bug (30-min grace window). See work-orders/WO-066-reminder-overhaul.md for full spec.
 
 
 **PLAN-015 Phase 3 — Mayor checkpoint review findings (fix these FIRST before cross-doc check):**
@@ -162,6 +164,8 @@ None.
 - [x] PLAN-007 Phase 2: Rendering Pipeline Setup (2026-02-26)
 
 ## Queue
+
+- [ ] WO-066: Reminder Engine Overhaul — Buttons, Single ADHD Dose, Restart Fix (pending, high priority)
 
 - [x] WO-065: Matrix Server Health Check & Auto-Recovery — complete (2026-03-17). New token applied, all 4 tunnel connections live, plvr.net + chat.plvr.net both 200.
 

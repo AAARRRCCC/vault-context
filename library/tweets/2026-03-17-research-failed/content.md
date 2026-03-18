@@ -5,7 +5,7 @@ author_name: "Thariq"
 date: "2026-03-17"
 url: "https://x.com/trq212/status/2033949937936085378"
 captured: "2026-03-17T23:52:37.604Z"
-status: pending
+status: research-failed
 has_images: true
 has_thread: false
 has_quote_tweet: false

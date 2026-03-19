@@ -1,9 +1,9 @@
 ---
-updated: 2026-03-19T23:42:00Z
+updated: 2026-03-20T00:15:00Z
 active_plan: PLAN-017
-phase: 1
-phase_status: checkpoint
-worker_status: idle
+phase: 2
+phase_status: active
+worker_status: processing
 last_signal: checkpoint
 last_signal_time: 2026-03-19T23:42:00Z
 ---
@@ -12,21 +12,16 @@ last_signal_time: 2026-03-19T23:42:00Z
 
 ## Active Plan
 
-PLAN-017 (NTS Plan C — Docker Demo Network + Data Pipeline) Phase 1: COMPLETE — awaiting Mayor checkpoint review before Phase 2.
+PLAN-017 (NTS Plan C — Docker Demo Network + Data Pipeline) Phase 2: Topology Snapshots + Celery Decision.
 
-Phase 1 result: `vault-context/results/PLAN-017-phase1-result.md`
-Branch: `plan-c/data-pipeline` — commit `720be82`
+Phase 1 complete — Mayor reviewed checkpoint, pipeline verified. Advancing to Phase 2.
 
-Pipeline verified: nmap (10 devices) → connection_inference (9 edges, gateway star) → Neo4j (39 devices, 39 connections) → frontend HTTP 200 at localhost:3000.
-
-Fix applied: backend healthcheck used `wget` (not in python:3.11-slim) — switched to `python3 urllib.request` in `docker-compose.yml`.
-
-Note for Phase 2: Celery is scaffolded but not running. No worker/beat in docker-compose. Plan decision guidance recommends ripping it out in favor of APScheduler or threading if not deeply wired.
+Worker: Continue on branch `plan-c/data-pipeline`. Evaluate Celery (scaffolded but not running — `tasks/celery_app.py`, `tasks/scan_tasks.py` exist, no worker/beat in compose). Lean toward ripping it out in favor of APScheduler or `asyncio.create_task` threading — Celery is overkill for this use case and adds operational complexity. Implement topology snapshots (SQLite table, `/api/snapshots` endpoint), wire scheduled scans, verify snapshots accumulate. See `plans/PLAN-017-nts-plan-c.md` Phase 2 for full spec.
 
 Working directory: `~/projects/network-topology-scanner`
 Repo: `borumea/Network-Topology-Scanner`
 
-Phase 1 signal: `checkpoint` — Mayor reviews pipeline results before Phase 2.
+Phase 2 signal: `notify` — auto-advance to Phase 3.
 
 ---
 
@@ -179,7 +174,7 @@ None.
 ## Queue
 
 - [x] PLAN-017 Phase 1: Docker Demo Network + Pipeline Proof (complete, 2026-03-19)
-- [ ] PLAN-017 Phase 2: Topology Snapshots + Celery Decision (pending Mayor checkpoint)
+- [ ] PLAN-017 Phase 2: Topology Snapshots + Celery Decision (active)
 
 - [x] WO-055: Merge NTS Plan A + Plan B branches to main (complete, 2026-03-06)
 

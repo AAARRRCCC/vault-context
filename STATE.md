@@ -1,9 +1,9 @@
 ---
-updated: 2026-03-18T23:30:00Z
-active_plan: none
-phase: none
-phase_status: none
-worker_status: idle
+updated: 2026-03-19T16:00:00Z
+active_plan: PLAN-017
+phase: 1
+phase_status: active
+worker_status: processing
 last_signal: complete
 last_signal_time: 2026-03-18T07:35:00Z
 ---
@@ -12,14 +12,18 @@ last_signal_time: 2026-03-18T07:35:00Z
 
 ## Active Plan
 
-None. PLAN-016 (Tweet Library Intelligence Synthesis) completed 2026-03-16 — all 3 phases done. `!synthesize` / `!synthesize full` / `!synthesize last` wired into Foreman. Synthesis output at `library/synthesis/`. SYSTEM_STATUS.md, foreman-prompt.md, CLAUDE-LEARNINGS.md, RECENT_CHANGES.md all updated.
+PLAN-017 (NTS Plan C — Docker Demo Network + Data Pipeline) Phase 1: Docker Demo Network + Pipeline Proof.
+
+Worker: create branch `plan-c/data-pipeline` from main on `borumea/Network-Topology-Scanner`. Build `docker-compose.demo.yml` overlay with 5 demo containers (web-server, db-server, file-server, printer, snmp-device) on `nts-net`. Create `.env.demo` and `demo.sh` convenience script. Boot the full stack, trigger a scan, and prove the entire pipeline works end-to-end: nmap → scan_coordinator → connection_inference → Neo4j → WebSocket → frontend graph with edges. Fix any pipeline breaks found. See `plans/PLAN-017-nts-plan-c.md` for full spec.
+
+Working directory: `~/projects/network-topology-scanner`
+Repo: `borumea/Network-Topology-Scanner`
+
+Phase 1 signal: `checkpoint` — Mayor reviews pipeline results before Phase 2.
 
 ---
 
-PLAN-012 (Dashboard Layout Overhaul, complete) — Phase 1: Layout Restructure + Hero Pipeline Component. Two-mode dashboard: Active Plan mode with large animated pipeline visualization (30% viewport, 64-80px phase nodes, SVG glow filter, pulse animation, shimmer connector), and Idle mode stub. Build custom CSS/SVG hybrid pipeline — do NOT use DaisyUI steps component. Read current palette from index.html — do NOT reintroduce Olive Garden OKLCH. See plans/PLAN-012-dashboard-layout-overhaul.md for full spec.
-
-
-## Mayor Guidance
+WO-055 complete (2026-03-06): Both NTS branches merged to main. `plan-a/foundation-fixes` and `plan-b/connection-inference` merged with `--no-ff`, remote branches deleted. Commits `e6ab4a8` and `be063ac` on main.
 
 WO-067 dispatched (CRITICAL): Fix reminder double-fire on !meds on + grace window not applying. !meds on must NOT immediately fire reminders — let scheduler tick handle it. Add 5-min dedup guard. See work-orders/WO-067-reminder-double-fire.md.
 
@@ -36,9 +40,7 @@ WO-066 complete (2026-03-18): Reminder engine overhauled. Discord buttons live. 
 
 After fixing these three, proceed with the normal Phase 3 cross-doc consistency check and CLAUDE-LEARNINGS update.
 
-**NTS blocker resolved.** Checkpoint blocker (apartment network isolation) addressed: merge Plans A+B now, build Docker demo network as first item in Plan C. WO-055 (merge both branches to main) is pending and high priority — unblocks all future NTS work. After merge, Plan C chat should open with the demo network as its first deliverable.
-
-WO-055 details: two `--no-ff` merges in order (plan-a then plan-b), run unit tests on main, delete remote branches. Plan A is ancestor of Plan B so merge is clean.
+**NTS status:** Plans A+B merged to main (WO-055 complete). PLAN-017 Phase 1 active — Docker demo network build + full pipeline proof.
 
 Lower priority / deferred: WO-041.
 
@@ -58,6 +60,7 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 
 | Time | Decision | Reasoning |
 |------|----------|-----------|
+| 2026-03-19 | Dispatched PLAN-017 — NTS Plan C: Docker Demo Network + Data Pipeline | Plans A+B merged to main. Demo network is critical path to full pipeline proof and teammate onboarding. 3 phases: demo network + pipeline proof (checkpoint), snapshots + Celery decision, monitoring + docs. |
 | 20:53 | Executed PLAN-001 as part of WO-010 | WO-010 required manual execution of test plan |
 | 20:57 | Moved Welcome.md → 04_Archive | File itself instructed archiving once comfortable |
 | 20:57 | Tagged README.md #needs-processing | Ambiguous destination — inbox's own documentation |
@@ -168,6 +171,12 @@ None.
 
 ## Queue
 
+- [ ] PLAN-017 Phase 1: Docker Demo Network + Pipeline Proof (active)
+
+- [x] WO-055: Merge NTS Plan A + Plan B branches to main (complete, 2026-03-06)
+
+- [x] WO-067: Fix reminder double-fire (dispatched)
+
 - [x] WO-066: Reminder Engine Overhaul — Buttons, Single ADHD Dose, Restart Fix (complete, 2026-03-18)
 
 - [x] WO-065: Matrix Server Health Check & Auto-Recovery — complete (2026-03-17). New token applied, all 4 tunnel connections live, plvr.net + chat.plvr.net both 200.
@@ -215,6 +224,3 @@ None.
 - [x] PLAN-014 Phase 3: Integration + Queue Management (2026-03-12)
 - [x] PLAN-014 Phase 4: Image Descriptions + Polish (2026-03-12)
 - [x] WO-059: Deploy Matrix Homeserver (Tuwunel + Element Web + Cloudflare Tunnel) (2026-03-15)
-
-
-

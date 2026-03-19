@@ -1,20 +1,27 @@
 ---
-updated: 2026-03-19T16:00:00Z
+updated: 2026-03-19T23:42:00Z
 active_plan: PLAN-017
 phase: 1
-phase_status: active
-worker_status: processing
-last_signal: complete
-last_signal_time: 2026-03-18T07:35:00Z
+phase_status: checkpoint
+worker_status: idle
+last_signal: checkpoint
+last_signal_time: 2026-03-19T23:42:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-PLAN-017 (NTS Plan C — Docker Demo Network + Data Pipeline) Phase 1: Docker Demo Network + Pipeline Proof.
+PLAN-017 (NTS Plan C — Docker Demo Network + Data Pipeline) Phase 1: COMPLETE — awaiting Mayor checkpoint review before Phase 2.
 
-Worker: create branch `plan-c/data-pipeline` from main on `borumea/Network-Topology-Scanner`. Build `docker-compose.demo.yml` overlay with 5 demo containers (web-server, db-server, file-server, printer, snmp-device) on `nts-net`. Create `.env.demo` and `demo.sh` convenience script. Boot the full stack, trigger a scan, and prove the entire pipeline works end-to-end: nmap → scan_coordinator → connection_inference → Neo4j → WebSocket → frontend graph with edges. Fix any pipeline breaks found. See `plans/PLAN-017-nts-plan-c.md` for full spec.
+Phase 1 result: `vault-context/results/PLAN-017-phase1-result.md`
+Branch: `plan-c/data-pipeline` — commit `720be82`
+
+Pipeline verified: nmap (10 devices) → connection_inference (9 edges, gateway star) → Neo4j (39 devices, 39 connections) → frontend HTTP 200 at localhost:3000.
+
+Fix applied: backend healthcheck used `wget` (not in python:3.11-slim) — switched to `python3 urllib.request` in `docker-compose.yml`.
+
+Note for Phase 2: Celery is scaffolded but not running. No worker/beat in docker-compose. Plan decision guidance recommends ripping it out in favor of APScheduler or threading if not deeply wired.
 
 Working directory: `~/projects/network-topology-scanner`
 Repo: `borumea/Network-Topology-Scanner`
@@ -171,7 +178,8 @@ None.
 
 ## Queue
 
-- [ ] PLAN-017 Phase 1: Docker Demo Network + Pipeline Proof (active)
+- [x] PLAN-017 Phase 1: Docker Demo Network + Pipeline Proof (complete, 2026-03-19)
+- [ ] PLAN-017 Phase 2: Topology Snapshots + Celery Decision (pending Mayor checkpoint)
 
 - [x] WO-055: Merge NTS Plan A + Plan B branches to main (complete, 2026-03-06)
 

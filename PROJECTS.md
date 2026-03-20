@@ -16,7 +16,7 @@
 
 ## Network Topology Scanner (NTS)
 
-- **Status:** Active — Plans A and B complete, Plan C not started. WO-055 (merge plan-a + plan-b to main) pending.
+- **Status:** Active — Plans A, B, and C complete. Branch `plan-c/data-pipeline` ready for PR to main. Plan D (frontend verification) is next.
 - **Description:** Web-based network topology mapper for cybersecurity VIP. Scans networks, discovers devices, visualizes topology, detects SPOFs, simulates failures, generates AI resilience reports. Full codebase exists from one-shot generation (Feb 2026) but never tested against real networks. Multi-plan development effort (Plans A-E) to get it to production-ready.
 - **Repo:** `borumea/Network-Topology-Scanner` (public, Brady's GitHub)
 - **Worker clone path:** `~/projects/network-topology-scanner`

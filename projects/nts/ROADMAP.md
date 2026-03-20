@@ -14,7 +14,7 @@ Network Topology Scanner (NTS) is a web-based network topology mapper for Brady'
 
 ## Tech Stack
 
-- **Backend:** FastAPI (Python 3.11+), Neo4j graph DB, Redis (cache + pub/sub), SQLite (metadata), Celery (background tasks), NetworkX (graph analysis)
+- **Backend:** FastAPI (Python 3.11+), Neo4j graph DB, Redis (cache + pub/sub), SQLite (scan history, alerts, topology snapshots, settings), asyncio scheduler (periodic scans + post-scan analysis), NetworkX (graph analysis)
 - **Frontend:** React 18 + TypeScript + Vite, Cytoscape.js (graph viz), Zustand (state), Tailwind CSS, Recharts
 - **Scanning:** nmap (subprocess, not python-nmap), Scapy (passive), pysnmp (SNMP), Netmiko (SSH/LLDP)
 - **AI:** Claude API (resilience reports with fallback), scikit-learn IsolationForest (anomaly detection), heuristic failure predictor
@@ -129,14 +129,17 @@ The entire codebase was generated in a one-shot in mid-February 2026. 6 commits,
 | 2026-03-06 | Phase 5 runs unconditionally (all scan types) | Even partial scans benefit from edge inference; coordinator has devices in cache regardless of which phases ran |
 | 2026-03-06 | Removed sqlalchemy, aiosqlite, python-nmap, pyshark, httpx from requirements.txt | Zero imports found for any of them; sqlite_db uses raw sqlite3, nmap is subprocess |
 | 2026-03-06 | Scan ID generated in router, passed into coordinator | Frontend needs scan_id in the POST response to poll progress; coordinator already threaded so ID must be created before thread starts |
+| 2026-03-19 | Replaced Celery with asyncio task scheduler (Plan C Phase 2) | Celery required Redis as a broker and a separate worker container — unnecessary complexity for simple periodic scanning. asyncio `create_task` handles the use case cleanly. |
+| 2026-03-20 | Anomaly detector uses min-data guard (< 5 snapshots = skip ML, run rule-based only) | IsolationForest needs enough history to establish a baseline. Rule-based detection (flapping links, unknown devices) still runs with zero history. |
+| 2026-03-20 | Settings persisted to SQLite `settings` table, not .env override | Avoids filesystem mutation at runtime; values read on each request via merged config response. Scan interval change requires restart (asyncio loop already started). |
 
 ## Status Tracker
 
 | Plan | Status | Branch | WOs Created | WOs Complete | Notes |
 |------|--------|--------|-------------|--------------|-------|
-| A | **COMPLETE** | plan-a/foundation-fixes | 4 | 4 | Merging to main via WO-055. |
-| B | **COMPLETE** | plan-b/connection-inference | 5 | 5 | WO-048-050, WO-052, WO-054. 20/20 tests pass. Merging to main via WO-055. |
-| C | NOT STARTED | — | 0 | 0 | First item: Docker demo network (blocker resolution) |
+| A | **COMPLETE** | plan-a/foundation-fixes | 4 | 4 | Merged to main (WO-055). |
+| B | **COMPLETE** | plan-b/connection-inference | 5 | 5 | WO-048-050, WO-052, WO-054. 20/20 tests pass. Merged to main (WO-055). |
+| C | **COMPLETE** | plan-c/data-pipeline | — | — | Docker demo network, asyncio scheduler, topology snapshots, anomaly detection pipeline, scan optimizer API, settings API. Docs updated. |
 | D | NOT STARTED | — | 0 | 0 | Blocked on Plans B+C |
 | E | NOT STARTED | — | 0 | 0 | Blocked on all prior |
 

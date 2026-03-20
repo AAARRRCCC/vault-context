@@ -1,22 +1,22 @@
 ---
-updated: 2026-03-20T05:00:00Z
-active_plan: PLAN-017
-phase: 3
-phase_status: active
-worker_status: processing
-last_signal: notify
-last_signal_time: 2026-03-20T04:30:00Z
+updated: 2026-03-20T00:20:00Z
+active_plan: null
+phase: null
+phase_status: complete
+worker_status: idle
+last_signal: complete
+last_signal_time: 2026-03-20T00:20:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-PLAN-017 (NTS Plan C — Docker Demo Network + Data Pipeline) Phase 3: Monitoring Pipeline + Documentation.
+None. PLAN-017 complete.
 
-Phase 2 complete — Celery removed, asyncio scheduler wired, snapshots accumulating. Advancing to Phase 3.
+PLAN-017 Phase 3 complete (2026-03-20): analysis_tasks.py wired with IsolationForest training (min-data guard), scan_coordinator calls run_analysis() post-scan, settings API (GET/PUT /api/settings + /api/scan-optimizer/recommendations), sqlite_db settings CRUD. Docs updated: vault-context ROADMAP.md (Plan C complete), SYSTEM_STATUS.md, PROJECTS.md, NTS repo README/QUICK_START/INSTALL. Full demo verified: 10 devices, 9 edges, 2 snapshots, 7 alerts, settings persisting. Commit 497f3e6 on plan-c/data-pipeline.
 
-Worker: Continue on branch `plan-c/data-pipeline`. Verify/fix `analysis_tasks.py` against real demo data. Wire scan_optimizer settings to the API. Test IsolationForest anomaly detector with demo snapshot data (add minimum-data guard if insufficient — don't force it). Update all docs: vault-context ROADMAP.md (mark Plan C complete, update status tracker), SYSTEM_STATUS.md, repo README/QUICK_START/INSTALL guides. Run full demo workflow end-to-end and document known limitations. See `plans/PLAN-017-nts-plan-c.md` Phase 3 for full spec.
+PLAN-017 complete. Branch ready for PR: `borumea/Network-Topology-Scanner` `plan-c/data-pipeline` → `main`.
 
 Working directory: `~/projects/network-topology-scanner`
 Repo: `borumea/Network-Topology-Scanner`

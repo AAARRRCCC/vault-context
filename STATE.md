@@ -27,6 +27,8 @@ Phase 3 signal: `complete` — PLAN-017 done.
 
 ---
 
+WO-068 dispatched (CRITICAL): Fix sync-context.sh post-commit hook reentrancy loop. 3,233 runaway commits on 2026-03-19 — worker self-healed but root cause (unguarded hook recursion) remains. Add reentrancy guard to post-commit hook + use `--no-verify` on sync-context.sh commits. See work-orders/WO-068-sync-context-reentrancy.md.
+
 WO-055 complete (2026-03-06): Both NTS branches merged to main. `plan-a/foundation-fixes` and `plan-b/connection-inference` merged with `--no-ff`, remote branches deleted. Commits `e6ab4a8` and `be063ac` on main.
 
 WO-067 dispatched (CRITICAL): Fix reminder double-fire on !meds on + grace window not applying. !meds on must NOT immediately fire reminders — let scheduler tick handle it. Add 5-min dedup guard. See work-orders/WO-067-reminder-double-fire.md.

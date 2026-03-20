@@ -66,6 +66,7 @@ PLAN-010 (Meds Reminders) complete through Phase 4.
 
 | Time | Decision | Reasoning |
 |------|----------|-----------|
+| 2026-03-20 | Dispatched PLAN-018 — NTS Repo Cleanup + Multi-Agent Onboarding | Teammates will use Claude agents. Need CLAUDE.md as agent constitution, cruft removal, doc rewrite. Merge plan-c to main first. |
 | 2026-03-19 | Dispatched PLAN-017 — NTS Plan C: Docker Demo Network + Data Pipeline | Plans A+B merged to main. Demo network is critical path to full pipeline proof and teammate onboarding. 3 phases: demo network + pipeline proof (checkpoint), snapshots + Celery decision, monitoring + docs. |
 | 20:53 | Executed PLAN-001 as part of WO-010 | WO-010 required manual execution of test plan |
 | 20:57 | Moved Welcome.md → 04_Archive | File itself instructed archiving once comfortable |
@@ -176,6 +177,9 @@ None.
 - [x] PLAN-007 Phase 2: Rendering Pipeline Setup (2026-02-26)
 
 ## Queue
+
+- [ ] PLAN-018 Phase 1: Merge Plan C + Repo Cleanup (active)
+- [ ] PLAN-018 Phase 2: CLAUDE.md + Documentation Rewrite (pending)
 
 - [x] PLAN-017 Phase 1: Docker Demo Network + Pipeline Proof (complete, 2026-03-19)
 - [x] PLAN-017 Phase 2: Topology Snapshots + Celery Decision (complete, 2026-03-20)

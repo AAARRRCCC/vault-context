@@ -1,18 +1,20 @@
 ---
-updated: 2026-03-20T17:30:00Z
+updated: 2026-03-20T19:00:00Z
 active_plan: null
 phase: null
 phase_status: complete
 worker_status: idle
-last_signal: idle
-last_signal_time: 2026-03-20T12:00:00Z
+last_signal: complete
+last_signal_time: 2026-03-20T19:00:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-None. PLAN-017 complete.
+None. PLAN-018 complete (2026-03-20).
+
+PLAN-018 complete (2026-03-20): NTS Repo Cleanup + Multi-Agent Onboarding. Phase 1: 11 cruft files deleted, docs/SETUP.md + TROUBLESHOOTING.md updated, .gitignore improved, plan-c/data-pipeline merged to main with --no-ff (commit 5a2aa63), remote branch deleted, demo.sh up verified. Phase 2: CLAUDE.md written (agent constitution with full directory tree, sacred rules, conventions, tech stack, architecture decisions, dev workflow, API reference), ARCHITECTURE.md rewritten (5-phase scan, connection inference, demo network, asyncio scheduling), CONTRIBUTING.md rewritten (small-team, stripped boilerplate), API.md updated (snapshots + settings + scan-optimizer endpoints), README.md rewritten, INSTALL_GUIDE.md + QUICK_START_GUIDE.md rewritten (Mac/Linux only, no Windows refs). Main at commit c2cef6a. Repo ready for teammate agents.
 
 **RESOLVED (2026-03-19):** Worker branch divergence fixed — force-pushed local/worker to origin/worker, discarding 3,233 runaway "context update" commits. Branch now clean and up to date.
 
@@ -178,8 +180,8 @@ None.
 
 ## Queue
 
-- [ ] PLAN-018 Phase 1: Merge Plan C + Repo Cleanup (active)
-- [ ] PLAN-018 Phase 2: CLAUDE.md + Documentation Rewrite (pending)
+- [x] PLAN-018 Phase 1: Merge Plan C + Repo Cleanup (complete, 2026-03-20)
+- [x] PLAN-018 Phase 2: CLAUDE.md + Documentation Rewrite (complete, 2026-03-20)
 
 - [x] PLAN-017 Phase 1: Docker Demo Network + Pipeline Proof (complete, 2026-03-19)
 - [x] PLAN-017 Phase 2: Topology Snapshots + Celery Decision (complete, 2026-03-20)

@@ -51,8 +51,10 @@
 
 
 
+
 ---
 
+c0061444 vault: meds log 2026-03-20 — morning late
 51bbb7df vault: meds log 2026-03-20 — morning late
 5be98e80 vault: meds log 2026-03-19 — melatonin late
 bda85371 vault: meds log 2026-03-19 — melatonin late
@@ -72,4 +74,3 @@ cb4a064a vault: meds weekly summary 2026-W11
 3a971abb vault: meds log 2026-03-15 — melatonin taken
 1fa3ad03 vault: meds log 2026-03-15 — morning taken
 3c5d92ff vault: PLAN-015 P2 — STRUCTURE.md regenerated, WO-039 renamed to WO-061
-4f50b50e vault: PLAN-015 P1 — RECENT_CHANGES.md rewrite + resolve pending merge conflicts

@@ -1,11 +1,11 @@
 ---
-updated: 2026-03-20T01:49:00Z
+updated: 2026-03-19T16:30:00Z
 active_plan: null
 phase: null
 phase_status: complete
-worker_status: blocked
-last_signal: blocked
-last_signal_time: 2026-03-20T01:49:00Z
+worker_status: idle
+last_signal: idle
+last_signal_time: 2026-03-19T16:30:00Z
 ---
 
 # System State
@@ -14,7 +14,7 @@ last_signal_time: 2026-03-20T01:49:00Z
 
 None. PLAN-017 complete.
 
-**BLOCKED (2026-03-20):** Worker branch diverged from origin/worker — 3,233 runaway "context update" commits on origin/worker created 2026-03-19 21:21:50, all at the same second. Worker cannot `git pull`. Brady notified via Discord. Fix: force-reset origin/worker to pre-runaway commit (863ba130 or earlier).
+**RESOLVED (2026-03-19):** Worker branch divergence fixed — force-pushed local/worker to origin/worker, discarding 3,233 runaway "context update" commits. Branch now clean and up to date.
 
 PLAN-017 Phase 3 complete (2026-03-20): analysis_tasks.py wired with IsolationForest training (min-data guard), scan_coordinator calls run_analysis() post-scan, settings API (GET/PUT /api/settings + /api/scan-optimizer/recommendations), sqlite_db settings CRUD. Docs updated: vault-context ROADMAP.md (Plan C complete), SYSTEM_STATUS.md, PROJECTS.md, NTS repo README/QUICK_START/INSTALL. Full demo verified: 10 devices, 9 edges, 2 snapshots, 7 alerts, settings persisting. Commit 497f3e6 on plan-c/data-pipeline.
 

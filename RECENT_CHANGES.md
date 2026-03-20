@@ -55,8 +55,10 @@
 
 
 
+
 ---
 
+faa990cc vault: meds log 2026-03-20 — melatonin skipped
 c0061444 vault: meds log 2026-03-20 — morning late
 51bbb7df vault: meds log 2026-03-20 — morning late
 5be98e80 vault: meds log 2026-03-19 — melatonin late
@@ -76,4 +78,3 @@ cb4a064a vault: meds weekly summary 2026-W11
 4c8206f4 vault: PLAN-015 P3 — CLAUDE-LEARNINGS.md updated with audit findings
 3a971abb vault: meds log 2026-03-15 — melatonin taken
 1fa3ad03 vault: meds log 2026-03-15 — morning taken
-3c5d92ff vault: PLAN-015 P2 — STRUCTURE.md regenerated, WO-039 renamed to WO-061

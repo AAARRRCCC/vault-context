@@ -1,9 +1,9 @@
 ---
-updated: 2026-03-20T04:30:00Z
+updated: 2026-03-20T05:00:00Z
 active_plan: PLAN-017
 phase: 3
-phase_status: pending
-worker_status: idle
+phase_status: active
+worker_status: processing
 last_signal: notify
 last_signal_time: 2026-03-20T04:30:00Z
 ---
@@ -12,16 +12,16 @@ last_signal_time: 2026-03-20T04:30:00Z
 
 ## Active Plan
 
-PLAN-017 (NTS Plan C — Docker Demo Network + Data Pipeline) Phase 2 complete. Phase 3 pending Mayor dispatch.
+PLAN-017 (NTS Plan C — Docker Demo Network + Data Pipeline) Phase 3: Monitoring Pipeline + Documentation.
 
-Phase 2 complete — Celery removed, asyncio scheduler added, topology snapshots wired. Signal: notify.
+Phase 2 complete — Celery removed, asyncio scheduler wired, snapshots accumulating. Advancing to Phase 3.
 
-Phase 3: Monitoring Pipeline + Documentation. Worker waits for Mayor to confirm advance.
+Worker: Continue on branch `plan-c/data-pipeline`. Verify/fix `analysis_tasks.py` against real demo data. Wire scan_optimizer settings to the API. Test IsolationForest anomaly detector with demo snapshot data (add minimum-data guard if insufficient — don't force it). Update all docs: vault-context ROADMAP.md (mark Plan C complete, update status tracker), SYSTEM_STATUS.md, repo README/QUICK_START/INSTALL guides. Run full demo workflow end-to-end and document known limitations. See `plans/PLAN-017-nts-plan-c.md` Phase 3 for full spec.
 
 Working directory: `~/projects/network-topology-scanner`
 Repo: `borumea/Network-Topology-Scanner`
 
-Phase 2 signal: `notify` — auto-advance to Phase 3.
+Phase 3 signal: `complete` — PLAN-017 done.
 
 ---
 
@@ -174,7 +174,8 @@ None.
 ## Queue
 
 - [x] PLAN-017 Phase 1: Docker Demo Network + Pipeline Proof (complete, 2026-03-19)
-- [ ] PLAN-017 Phase 2: Topology Snapshots + Celery Decision (active)
+- [x] PLAN-017 Phase 2: Topology Snapshots + Celery Decision (complete, 2026-03-20)
+- [ ] PLAN-017 Phase 3: Monitoring Pipeline + Documentation (active)
 
 - [x] WO-055: Merge NTS Plan A + Plan B branches to main (complete, 2026-03-06)
 

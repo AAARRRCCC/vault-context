@@ -1,22 +1,22 @@
 ---
-updated: 2026-03-20T00:15:00Z
+updated: 2026-03-20T04:30:00Z
 active_plan: PLAN-017
-phase: 2
-phase_status: active
-worker_status: processing
-last_signal: checkpoint
-last_signal_time: 2026-03-19T23:42:00Z
+phase: 3
+phase_status: pending
+worker_status: idle
+last_signal: notify
+last_signal_time: 2026-03-20T04:30:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-PLAN-017 (NTS Plan C — Docker Demo Network + Data Pipeline) Phase 2: Topology Snapshots + Celery Decision.
+PLAN-017 (NTS Plan C — Docker Demo Network + Data Pipeline) Phase 2 complete. Phase 3 pending Mayor dispatch.
 
-Phase 1 complete — Mayor reviewed checkpoint, pipeline verified. Advancing to Phase 2.
+Phase 2 complete — Celery removed, asyncio scheduler added, topology snapshots wired. Signal: notify.
 
-Worker: Continue on branch `plan-c/data-pipeline`. Evaluate Celery (scaffolded but not running — `tasks/celery_app.py`, `tasks/scan_tasks.py` exist, no worker/beat in compose). Lean toward ripping it out in favor of APScheduler or `asyncio.create_task` threading — Celery is overkill for this use case and adds operational complexity. Implement topology snapshots (SQLite table, `/api/snapshots` endpoint), wire scheduled scans, verify snapshots accumulate. See `plans/PLAN-017-nts-plan-c.md` Phase 2 for full spec.
+Phase 3: Monitoring Pipeline + Documentation. Worker waits for Mayor to confirm advance.
 
 Working directory: `~/projects/network-topology-scanner`
 Repo: `borumea/Network-Topology-Scanner`

@@ -1,7 +1,7 @@
 ---
 id: WO-068
 title: "Fix sync-context.sh post-commit hook reentrancy loop"
-status: in-progress
+status: complete
 priority: critical
 created: 2026-03-20
 mayor: claude-web

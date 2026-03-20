@@ -1,11 +1,11 @@
 ---
-updated: 2026-03-19T16:30:00Z
+updated: 2026-03-19T22:10:00Z
 active_plan: null
 phase: null
 phase_status: complete
 worker_status: idle
-last_signal: idle
-last_signal_time: 2026-03-19T16:30:00Z
+last_signal: complete
+last_signal_time: 2026-03-19T22:10:00Z
 ---
 
 # System State
@@ -27,7 +27,7 @@ Phase 3 signal: `complete` — PLAN-017 done.
 
 ---
 
-WO-068 dispatched (CRITICAL): Fix sync-context.sh post-commit hook reentrancy loop. 3,233 runaway commits on 2026-03-19 — worker self-healed but root cause (unguarded hook recursion) remains. Add reentrancy guard to post-commit hook + use `--no-verify` on sync-context.sh commits. See work-orders/WO-068-sync-context-reentrancy.md.
+WO-068 complete (2026-03-19): sync-context.sh reentrancy loop fixed. Root cause: git sets GIT_DIR/GIT_WORK_TREE env vars in hooks; sync-context.sh was committing to the wrong repo (worker branch instead of vault-context). Fixed by unsetting those env vars before all vault-context git operations. Added env var reentrancy guard to post-commit hook as belt-and-suspenders. Verified: "context update" commits now land in vault-context/main, not the worker branch.
 
 WO-055 complete (2026-03-06): Both NTS branches merged to main. `plan-a/foundation-fixes` and `plan-b/connection-inference` merged with `--no-ff`, remote branches deleted. Commits `e6ab4a8` and `be063ac` on main.
 

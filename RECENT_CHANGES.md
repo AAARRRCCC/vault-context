@@ -286,8 +286,10 @@
 
 
 
+
 ---
 
+0426aeaf vault: meds log 2026-03-21 — melatonin skipped
 4681a4db vault: meds log 2026-03-21 — morning missed
 70d66ca4 vault: meds log 2026-03-21 — morning late
 d3100a8d vault: meds log 2026-03-21 — morning missed
@@ -307,4 +309,3 @@ d11d960f vault: meds log 2026-03-18 — melatonin late
 e964b216 vault: meds log 2026-03-18 — morning missed
 40454f74 vault auto-commit 2026-03-15 22:36:07
 4de7b614 chore: WO-064 — remove STRUCTURE.md from sync-context.sh, redirect private vault copy
-cb4a064a vault: meds weekly summary 2026-W11

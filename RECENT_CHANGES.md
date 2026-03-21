@@ -61,8 +61,10 @@
 
 
 
+
 ---
 
+d3100a8d vault: meds log 2026-03-21 — morning missed
 41be0a6e vault: meds log 2026-03-21 — morning missed
 6d06b633 vault: meds log 2026-03-20 — melatonin skipped
 faa990cc vault: meds log 2026-03-20 — melatonin skipped
@@ -82,4 +84,3 @@ e964b216 vault: meds log 2026-03-18 — morning missed
 cb4a064a vault: meds weekly summary 2026-W11
 9e4a88fe vault: WO-062 — STRUCTURE.md regen, RECENT_CHANGES fixes
 215ff1fa vault auto-commit 2026-03-15 21:20:38
-4c8206f4 vault: PLAN-015 P3 — CLAUDE-LEARNINGS.md updated with audit findings

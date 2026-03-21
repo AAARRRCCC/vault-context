@@ -1,6 +1,6 @@
 ---
 id: PLAN-013
-status: pending
+status: complete
 created: 2026-03-04
 mayor: brady-direct
 phases: 4

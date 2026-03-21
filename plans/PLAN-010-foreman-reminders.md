@@ -1,7 +1,7 @@
 ---
 id: PLAN-010
 title: Foreman Conversational Reminders
-status: in-progress
+status: complete
 priority: high
 created: 2026-03-03T20:00:00Z
 mayor: true

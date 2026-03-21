@@ -1,6 +1,6 @@
 ---
 id: PLAN-007
-status: pending
+status: shelved
 priority: normal
 created: 2026-02-26
 mayor: claude-web

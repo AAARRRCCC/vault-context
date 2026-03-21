@@ -74,8 +74,10 @@
 
 
 
+
 ---
 
+4681a4db vault: meds log 2026-03-21 — morning missed
 70d66ca4 vault: meds log 2026-03-21 — morning late
 d3100a8d vault: meds log 2026-03-21 — morning missed
 41be0a6e vault: meds log 2026-03-21 — morning missed
@@ -95,4 +97,3 @@ e964b216 vault: meds log 2026-03-18 — morning missed
 40454f74 vault auto-commit 2026-03-15 22:36:07
 4de7b614 chore: WO-064 — remove STRUCTURE.md from sync-context.sh, redirect private vault copy
 cb4a064a vault: meds weekly summary 2026-W11
-9e4a88fe vault: WO-062 — STRUCTURE.md regen, RECENT_CHANGES fixes

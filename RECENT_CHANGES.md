@@ -681,8 +681,10 @@
 
 
 
+
 ---
 
+d6edce1d vault: meds log 2026-03-22 — morning missed
 c8061eb8 vault: meds log 2026-03-21 — melatonin skipped
 0426aeaf vault: meds log 2026-03-21 — melatonin skipped
 4681a4db vault: meds log 2026-03-21 — morning missed
@@ -702,4 +704,3 @@ d11d960f vault: meds log 2026-03-18 — melatonin late
 22aa5f82 vault: meds log 2026-03-18 — morning taken
 4f0c9078 vault: meds log 2026-03-18 — morning late
 e964b216 vault: meds log 2026-03-18 — morning missed
-40454f74 vault auto-commit 2026-03-15 22:36:07

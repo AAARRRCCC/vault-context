@@ -300,6 +300,32 @@ Option B (via GitHub): Resolve pending questions in STATE.md, set `worker_status
 
 See `vault-context/LOOP.md` for the full autonomous loop reference.
 
+## Swarm System
+
+The Worker layer now supports **swarm mode**: for plans with parallelizable subtasks, Foreman spawns a team of specialized agents. This is invisible to you — your dispatch flow (write plan + update STATE.md) is unchanged.
+
+### What's happening at the Worker layer
+
+When Foreman judges a plan phase complex enough for parallel execution, it:
+1. Enters **delegate mode** — coordinates only, does not implement
+2. Spawns a team: Scout (context brief), Workers (implementation), Auditors (review), Integrator (merge), Retro (retrospective)
+3. Agents communicate peer-to-peer via the Claude Code mailbox — Workers negotiate interfaces directly, Auditors calibrate independently
+4. Every inter-agent message is logged to `vault-context/transcripts/PLAN-NNN-transcript.md`
+5. Retro writes `vault-context/retros/PLAN-NNN-retro.md` with communication analysis and improvement suggestions
+6. Foreman commits the changes and signals you as normal
+
+### What you need to know
+
+**Transcripts and retros are readable artifacts.** After any swarm run, you can read `transcripts/PLAN-NNN-transcript.md` to see exactly what the agents said to each other — interface negotiations, audit verdicts, discoveries. `retros/PLAN-NNN-retro.md` has the post-run analysis. Both are useful for evaluating quality and calibrating future plans.
+
+**Your plans run as swarms automatically.** No special syntax needed. Foreman decides swarm size based on plan complexity. If a phase has independent concerns, they'll run in parallel. If not, sequential.
+
+**Fallback is transparent.** If agent teams are unavailable or a spawn fails, Foreman executes sequentially. You'll never notice a difference in output quality — only in speed.
+
+**Swarm-aware plan writing (optional).** If you explicitly want to guide swarm composition, you can add a note in the phase spec like "this phase can run in parallel across 3 Workers: one per module." Foreman will use this as a hint. But the system works fine without it.
+
+---
+
 ## Polling and Heartbeat
 
 The system is fully operational:

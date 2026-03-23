@@ -234,7 +234,7 @@
 - `~/Library/LaunchAgents/com.foreman.tweet-researcher.plist` — tweet research agent (every 300s); label: `com.foreman.tweet-researcher`
 
 ### Foreman Discord Bot (`~/foreman-bot/`)
-- `bot.js` — main bot, command router, relay, tweet auto-capture, meds reminders
+- `bot.js` — main bot, command router, relay, tweet auto-capture, meds reminders, transcript commands
 - `conversation-store.js` — per-user relay history (30-min session timeout)
 - `system-monitor.js` — proactive alerts (disk, lockfile, heartbeat, git divergence)
 - `scheduler.js` — natural-language task scheduling via chrono-node
@@ -242,7 +242,12 @@
 - `tweet-processor.js` — gallery-dl output → clean content.md inbox entry
 - `tweet-researcher.js` — background tweet research agent; scans inbox, calls claude -p, writes research.md
 - `url-resolver.js` — fetches and extracts text from linked GitHub READMEs, blog posts, articles
+- `metrics.js` — swarm run metrics computation from transcript files
+- `transcript-parser.js` — parses swarm transcript files into structured message arrays
 - `foreman-prompt.md` — Foreman's personality and system prompt
+- `swarm/` — swarm system components
+  - `roles/` — role prompt files (scout.md, worker.md, auditor.md, integrator.md, retro.md)
+  - `team-config.md` — scaling table, decision rules, file scope assignment, token budget guide
 
 ### Matrix Homeserver (`~/matrix-server/`)
 - Self-hosted Matrix server via Docker Compose; added 2026-03-15 (WO-059)
@@ -255,4 +260,6 @@
 - Public repo: `AAARRRCCC/vault-context`
 - `work-orders/` — Mayor dispatches task files here (frontmatter: id, status, priority, created, mayor)
 - `results/` — Worker writes `WO-NNN-result.md` completion reports here
+- `transcripts/` — Swarm run transcripts; one file per plan (`PLAN-NNN-transcript.md`); chronological inter-agent dialogue; written collaboratively by all agents during the run; primary artifact for understanding how a swarm plan played out
+- `retros/` — Post-run retrospectives written by the Retro agent (`PLAN-NNN-retro.md`); covers what worked, what didn't, communication analysis, suggestions, metrics
 - Synced automatically via `.scripts/sync-context.sh` post-commit hook on every vault commit

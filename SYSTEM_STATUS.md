@@ -102,11 +102,11 @@
 | Idle nudge | ✅ Active | `mayor-check.sh` sends Discord DM after 4h idle; quiet hours midnight–8am ET; timestamp at `~/.local/state/mayor-last-activity.txt` |
 | vault-context sync | ✅ Working | `sync-context.sh` post-commit hook; syncs CLAUDE.md, CLAUDE-LEARNINGS.md, STRUCTURE.md, RECENT_CHANGES.md |
 | Mayor Dashboard | ✅ Running | `com.mayor.dashboard` launchd service; Node.js server at `http://localhost:3847`; also accessible via Tailscale at `http://100.78.129.90:3847` |
+| **Swarm System** | ✅ Operational | Native agent teams (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`); roles at `~/foreman-bot/swarm/roles/`; hooks in `.claude/settings.json` (`TeammateIdle`, `TaskCompleted`); transcripts at `vault-context/transcripts/`; retros at `vault-context/retros/`; full spec at `vault-context/plans/PLAN-019-swarm-worker-system.md` |
 
-**Work orders completed:** WO-001 through WO-060 (see RECENT_CHANGES.md for full list; WO-026, WO-036, WO-042 cancelled; WO-041, WO-055 pending)
 **Work orders completed:** WO-001 through WO-067 (see RECENT_CHANGES.md for full list)
-**Plans completed:** PLAN-001 (inbox triage), PLAN-002 (frontmatter audit), PLAN-003 (mayor dashboard), PLAN-004 (Foreman bot), PLAN-005 (ops commands), PLAN-006 (token optimization), PLAN-008 (Foreman v2), PLAN-009 (Twitter inbox pipeline), PLAN-010 (conversational reminder engine), PLAN-011 (dashboard design polish), PLAN-012 (dashboard layout overhaul), PLAN-013 (vault-context docs audit), PLAN-014 (tweet research agent), PLAN-015 (docs audit & repair), PLAN-016 (tweet library synthesis), PLAN-017 (NTS Plan C — Docker demo network + data pipeline)
-**Plans in progress:** None
+**Plans completed:** PLAN-001 through PLAN-018, PLAN-020 (swarm POC test run — transcript tools for Foreman bot)
+**Plans in progress:** PLAN-019 Phase 5 (swarm system polish + docs + dashboard)
 **System operational since:** 2026-02-24
 **Autonomous loop operational since:** 2026-02-24
 **Foreman v2 (PLAN-008) complete:** 2026-02-27 — conversation memory, proactive alerts, task scheduling, account failover

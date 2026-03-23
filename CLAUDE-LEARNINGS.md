@@ -141,3 +141,22 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 - STRUCTURE.md's External Infrastructure section is manually maintained and preserved by sync-context.sh (the `---` separator divides the auto-generated file tree from the manual section). Edit the manual section in vault-context directly — changes survive future syncs.
 - `!answer` exists as `cmdAnswer` in bot.js but is not registered in the COMMANDS map — lost during a simplification pass. Typing `!answer <text>` gives "Unknown command". Confirmed broken as of 2026-03-15. Bug was not in scope for PLAN-015 (docs audit only); needs a fix WO.
 - When auditing bot commands, grep for `COMMANDS = {` and verify each entry. Don't trust the help text or function existence — both can outlive removal from the COMMANDS map and create false documentation.
+
+### 2026-03-23 — PLAN-019: Swarm Worker System
+
+- `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` must be set in `~/.claude/settings.json` under `env` AND in `~/.zshrc` for both interactive and headless sessions. Settings.json env vars apply when Claude Code launches; .zshrc covers background launchd spawns.
+- Agent teams run in-process (not tmux). `TeamCreate` / `SendMessage` / `TaskOutput` etc. are native SDK tools, not shell commands. The team lead spawns teammates as subprocesses of its own session.
+- Teammates do NOT inherit the lead's conversation history. Every context must be embedded explicitly in spawn prompts or task descriptions. A teammate starting blind is the single most common source of protocol failures.
+- Parallel teammate spawn is fast (~1 min for 3 Workers). Sequential headless spawning via `-p` is slow (35+ min). Use `Agent(run_in_background: true)` for all non-dependent spawns in a single message.
+- Worker-C ran ahead of INTERFACE FINAL in PLAN-020 POC — the protocol gap: Workers treat their own COUNTER acceptance as sufficient to proceed, not waiting for INTERFACE FINAL from the proposer. The standing rule is "a Worker may not submit STATUS COMPLETE until every peer has sent INTERFACE FINAL." This must be explicit in Worker role prompts.
+- Timestamps in swarm transcripts can get mixed (UTC vs local) when agents write without normalizing. The header `Started:` field should be UTC ISO; all transcript entry timestamps should be local `HH:MM:SS` in the same canonical timezone. Add this to the transcript format spec and role prompts.
+- TeammateIdle and TaskCompleted hooks are set in `.claude/settings.json` under `hooks`. They fire during the session and require `allowedTools` and `permissions.allow` to be set appropriately for the hook commands.
+- Integrator should be spawned via Agent tool (not as a task on the shared task list) — it's a coordination-layer role, not an implementation task.
+
+### 2026-03-23 — PLAN-020: Swarm POC Run (transcript tools)
+
+- Worker-B → Worker-C direct negotiation at `[03:07:30]` (entirely self-initiated, no Foreman involvement) resolved a genuine ambiguity in the task spec. This is the most important behavioral signal from the POC: Workers will identify dependency gaps they weren't told about and resolve them directly.
+- Auditor-1 → Auditor-2 calibration at `[03:15:47]` produced a real quality check (null-vs-throw question on `getLatestTranscript()`). The cross-Auditor channel is not ceremonial — it surfaces edge cases that independent reviews would miss.
+- Scout's context brief should be comprehensive enough that no Worker needs to query Scout during implementation. If Workers ARE querying Scout, the brief was thin. No Worker queried Scout in PLAN-020 after receiving the brief — brief quality was the reason, not lack of initiative.
+- Three Workers (parser, bot commands, metrics) completed audit PASS on first attempt, 14.5 min wall-clock. Sequential execution would have been ~40 min. The parallelism benefit is real and measurable for plans with independent file scopes.
+- Worker-B's `!transcript stats` and `!transcript recent` bot commands are live in bot.js as of PLAN-020 completion. `metrics.js` and `transcript-parser.js` are in `~/foreman-bot/swarm/`.

@@ -21,12 +21,27 @@ START (launchd heartbeat or manual /autonomous-loop invocation)
 ┌─────────────────────────────────────┐
 │  EXECUTE CURRENT PHASE              │
 │                                     │
-│  For each step in the phase:        │
+│  Swarm or sequential?               │
+│   - Simple/single concern → seq.    │
+│   - 2+ parallel concerns → swarm    │
+│   (see team-config.md)              │
+│                                     │
+│  Sequential mode:                   │
 │   1. Do the work                    │
 │   2. Validate output                │
 │   3. Update STATE.md (progress)     │
 │   4. Check 15-min timestamp rule    │
 │   5. Check signal conditions        │
+│                                     │
+│  Swarm mode:                        │
+│   1. Decompose → task list          │
+│   2. Spawn team (Scout → Workers    │
+│      → Auditors → Integrator        │
+│      → Retro)                       │
+│   3. Monitor + coordinate           │
+│   4. Commit after Integrator pass   │
+│   5. Update STATE.md                │
+│   6. Check signal conditions        │
 └──────────────────┬──────────────────┘
                    │
                    ▼

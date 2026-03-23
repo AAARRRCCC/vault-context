@@ -289,6 +289,53 @@ The lockfile guard in `mayor-check.sh` prevents the heartbeat from spawning a se
 
 ---
 
+## Component 3b: Swarm Mode
+
+For plans with parallelizable subtasks, the Foreman can run in **swarm mode**: instead of executing phases sequentially, it spawns a team of specialized Claude Code agents (Workers, Auditors, Scout, Integrator, Retro) that operate concurrently and communicate peer-to-peer.
+
+Swarm mode is an internal Worker-layer detail. Mayor's interface (STATE.md, plan dispatch, git-based coordination) stays identical.
+
+### When to use swarm mode
+
+The decision is made at phase execution time based on plan complexity:
+
+| Complexity | Indicator | Mode |
+|------------|-----------|------|
+| Simple | Single file, one concern, under 1h sequential | Sequential (no team) |
+| Medium | 2-10 files, 2-3 independent concerns | Swarm: 1-2 Workers + 1 Auditor |
+| Complex | 10+ files, 3+ parallel concerns | Swarm: Scout + 2-3 Workers + 2-3 Auditors + Integrator + Retro |
+
+See `~/foreman-bot/swarm/team-config.md` for the full scaling table and decision rules.
+
+### Swarm lifecycle
+
+1. **Foreman enters delegate mode** — coordination only, no implementation
+2. **Scout spawned** (if complex) — reads codebase, produces context brief, stays available for questions
+3. **Workers spawned in parallel** — each gets explicit file scope and task description; Workers negotiate interfaces directly with each other (not through Foreman)
+4. **Auditors spawned** after Workers complete — each reviews a specific Worker's output; Auditors cross-calibrate with each other before issuing verdicts
+5. **Integrator spawned** after all Audits pass — merges parallel outputs, runs integration tests
+6. **Retro spawned** last — reads the swarm transcript, writes `retros/PLAN-NNN-retro.md`, updates `CLAUDE-LEARNINGS.md`
+
+### Communication expectations
+
+Agents communicate via the native Claude Code mailbox system. Key patterns:
+- Workers negotiate interfaces peer-to-peer (`[INTERFACE PROPOSAL]` → `[INTERFACE COUNTER]` → `[INTERFACE FINAL]`)
+- Workers ask Scout codebase questions directly (`[QUESTION]` / `[ANSWER]`)
+- Auditors calibrate with each other before sending verdicts to Foreman
+- Discoveries are shared proactively (a Worker finding something that affects a sibling messages them immediately)
+
+Every outbound inter-agent message is logged to `vault-context/transcripts/PLAN-NNN-transcript.md`. Foreman initializes the transcript header and appends the footer.
+
+### Fallback to sequential
+
+If agent teams are unavailable or a spawn fails, Foreman falls back to sequential execution — same output, no parallelism. Mayor sees no difference. If 2+ teammates crash in a single plan, Foreman signals `blocked` rather than continuing to respawn.
+
+### Hard cap
+
+5 concurrent teammates (plus Foreman = 6 total sessions). Retro and Integrator spawn after Workers/Auditors finish, so they don't count against the cap. Configurable in `~/foreman-bot/swarm/team-config.md`.
+
+---
+
 ## Component 4: Discord Integration
 
 ### Approach: Discord Bot (DM-based)

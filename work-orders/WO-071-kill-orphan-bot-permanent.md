@@ -1,6 +1,6 @@
 ---
 id: WO-071
-status: in-progress
+status: complete
 priority: critical
 created: 2026-03-24
 mayor: claude-web

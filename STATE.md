@@ -1,11 +1,11 @@
 ---
-updated: 2026-03-23T14:09:00Z
+updated: 2026-03-23T14:25:00Z
 active_plan: none
 phase: 5
 phase_status: complete
 worker_status: idle
 last_signal: complete
-last_signal_time: 2026-03-23T13:00:00Z
+last_signal_time: 2026-03-23T14:25:00Z
 ---
 
 # System State
@@ -37,6 +37,7 @@ Repo: `AAARRRCCC/vault-context`
 
 | Time | Decision | Reasoning |
 |------|----------|-----------|
+| 2026-03-23 14:25 | WO-071 complete — killed bot.js orphan, applied permanent fix | Two bot.js processes (PIDs 62593 + 96532). Root cause: WO-070 ran `node bot.js` directly alongside launchd-managed instance. pkill -f bot.js → launchd respawned single instance. CLAUDE-LEARNINGS updated: never use `node bot.js` directly. |
 | 2026-03-24 05:50 | Mayor dispatched PLAN-020 — Swarm Transcript Tools (POC Test Plan) | Purpose-built test plan for PLAN-019 Phase 4. 3 Workers with interface dependencies (parser, Discord command, metrics). Deliberately underspecified interface to force Worker↔Worker negotiation. Deliverables are useful (transcript analysis tools) not throwaway. |
 | 2026-03-23 13:00 | PLAN-019 Phase 5 complete — plan done | All 6 acceptance criteria met: docs updated (AUTONOMOUS-LOOP.md, CLAUDE.md, SYSTEM_STATUS.md, STRUCTURE.md, MAYOR_ONBOARDING.md, LOOP.md), dashboard swarm panel added (server.js + index.html), graceful degradation + guardrails in team-config.md, CLAUDE-LEARNINGS updated. |
 | 2026-03-23 07:22 | PLAN-020 complete — PLAN-019 Phase 4 checkpoint | Swarm POC ran successfully. 3 Workers, 2 Auditors (all PASS first attempt), Integrator (clean merge), Scout, Retro. Workers negotiated interface peer-to-peer. POC substantially passed. 1 protocol gap: Worker-C ran ahead of INTERFACE FINAL. Awaiting Mayor review for Phase 5. |

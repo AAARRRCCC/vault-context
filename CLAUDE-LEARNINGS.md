@@ -141,3 +141,10 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 - STRUCTURE.md's External Infrastructure section is manually maintained and preserved by sync-context.sh (the `---` separator divides the auto-generated file tree from the manual section). Edit the manual section in vault-context directly — changes survive future syncs.
 - `!answer` exists as `cmdAnswer` in bot.js but is not registered in the COMMANDS map — lost during a simplification pass. Typing `!answer <text>` gives "Unknown command". Confirmed broken as of 2026-03-15. Bug was not in scope for PLAN-015 (docs audit only); needs a fix WO.
 - When auditing bot commands, grep for `COMMANDS = {` and verify each entry. Don't trust the help text or function existence — both can outlive removal from the COMMANDS map and create false documentation.
+
+### 2026-03-23 — WO-071: kill-orphan-bot-permanent
+
+- **Never run `node bot.js` directly** to start or restart the bot. The launchd plist has `KeepAlive: true` — it manages exactly one instance. Running `node bot.js` manually creates a second unmanaged process that launchd doesn't know about; both processes connect to Discord and the double-message bug results.
+- Correct way to restart: `!fix bot` (sends `process.exit(0)` → launchd respawns) or `launchctl kickstart -k gui/$(id -u)/com.foreman.bot`. Never `node bot.js` from a shell or work order.
+- To kill orphans: `pkill -f bot.js` kills everything; launchd respawns exactly one copy within `ThrottleInterval` (10s). Verify with `ps aux | grep bot.js | grep -v grep` — expect exactly one line.
+- Root cause of WO-071: WO-070 found the bot "not running" and ran `node bot.js` directly. The launchd instance (PID 62593, running since earlier that day) was still alive, creating two processes. WO-070 should have checked `ps aux | grep bot.js` before starting anything.

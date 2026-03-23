@@ -248,34 +248,6 @@ Signal types: `notify` → continue to next phase; `checkpoint`/`blocked`/`error
 
 The `mayor-check.sh` heartbeat checks STATE.md for active plans first, falls back to one-off work orders if none. See `vault-context/LOOP.md` for the full reference protocol.
 
-### Swarm execution
-
-For plans with parallelizable subtasks, Foreman can spawn a **swarm** — a team of specialized Claude Code agents working concurrently. This is a Worker-layer enhancement; Mayor's interface (STATE.md, plan dispatch, git) is unchanged.
-
-**Roles:**
-- **Scout** — pre-reads codebase, produces context brief, answers questions during execution
-- **Worker** — executes a scoped implementation task within assigned file boundaries
-- **Auditor** — independently reviews Worker output; Auditors cross-calibrate with each other
-- **Integrator** — merges parallel Worker outputs after all audits pass
-- **Retro** — reads the swarm transcript, writes `retros/PLAN-NNN-retro.md`, updates `CLAUDE-LEARNINGS.md`
-
-**Communication protocol:**
-- Workers negotiate interfaces peer-to-peer — `[INTERFACE PROPOSAL]` / `[INTERFACE COUNTER]` / `[INTERFACE FINAL]`
-- A Worker may not submit STATUS COMPLETE until every peer has sent `[INTERFACE FINAL]`
-- Workers ask Scout codebase questions directly; discoveries are shared proactively to affected peers
-- All inter-agent messages are logged to `vault-context/transcripts/PLAN-NNN-transcript.md`
-
-**File ownership:**
-- Foreman assigns explicit file lists to each Worker before spawning — no overlapping scopes
-- Shared files (package.json, type defs) are serialized via task dependencies, not concurrent writes
-- Git operations are Foreman/Integrator only — Workers write files, do not commit
-
-**Coworker principle:** Agents should communicate as coworkers, not status reporters. Interface negotiations happen directly. Discoveries flow immediately to affected peers. Auditors form a review panel, not isolated reviewers. If everything routes through Foreman, something is wrong with the prompts.
-
-**Fallback:** If agent teams unavailable, Foreman runs sequentially. If 2+ teammates crash, Foreman signals `blocked`. Hard cap: 5 concurrent teammates.
-
-Full spec: `vault-context/plans/PLAN-019-swarm-worker-system.md`. Scaling guide: `~/foreman-bot/swarm/team-config.md`.
-
 ### Worker worktree
 
 Background work orders execute in a dedicated git worktree at `~/knowledge-base-worker/` (on the `worker` branch). This allows headless Claude Code sessions to run concurrently with interactive sessions without filesystem conflict.

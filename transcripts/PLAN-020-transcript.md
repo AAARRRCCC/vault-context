@@ -57,3 +57,16 @@ Asking about your computeMetrics interface — what shape does it return, is it 
 [03:16:41] **Auditor-2 → Foreman**
 [PASS] Task `transcript-commands` (Worker-B). ESM imports correct with .js extensions on both swarm modules. Handler follows established bot.js patterns: args normalized via `(args || '').trim()`, try/catch wrapping, plain text replies throughout. AttachmentBuilder used correctly for long output. COMMANDS map entry at correct location. All three sub-commands (stats, specific PLAN-NNN lookup, bare !transcript) handle the no-transcripts and empty-args cases gracefully. Consumption of ParsedTranscript matches the INTERFACE FINAL: header.planId, messages[i] fields, footer.totalMessages, footer.breakdown (verbatim keys) all accessed correctly.
 [PASS] Task `metrics` (Worker-C). Correct ESM exports, all three required functions present (computeMetrics, formatMetricsForDiscord, formatMetricsForRetro). Null/missing field handling is robust. Discord reply correctly observes the 1800-char threshold, returning `{ content, files }` shape as agreed in INTERFACE PROPOSAL with Worker-B. computeMetrics(parsedTranscript) is synchronous and takes Worker-A's ParsedTranscript object as confirmed in the interface exchange. Calibration with Auditor-1 raised no cross-cutting issues. Both workers are clear to integrate.
+
+[03:18:41] **Integrator → Foreman**
+[INTEGRATION PASS] Clean merge. All three modules verified. Syntax checks: node --check passed on all three files (transcript-parser.js, metrics.js, bot.js). Interface boundary check: imports at bot.js lines 10-11 use correct relative paths (./swarm/transcript-parser.js, ./swarm/metrics.js). Worker-A exports (parseTranscript, parseTranscriptString, getLatestTranscript) match imports exactly. Worker-C exports (computeMetrics, formatMetricsForDiscord, formatMetricsForRetro) match imports exactly. cmdTranscript calls getLatestTranscript() with no args, parseTranscript(filePath) with path, computeMetrics(parsed), formatMetricsForDiscord(metrics), and message.reply(reply) with the discord options object. AttachmentBuilder is correctly imported in metrics.js. Committed as e526827.
+
+[03:21:34] **Retro → Foreman**
+[RETRO COMPLETE] Written to retros/PLAN-020-retro.md.
+Highlights: (1) POC success criteria substantially met — all six Worker↔Worker interface negotiation messages happened peer-to-peer with no Foreman routing; Auditor calibration exchange produced a real quality check (null-vs-throw clarification), not just a formality. (2) Worker-C ran ahead of INTERFACE FINAL — completed at 03:09:49 before Worker-A's confirmation arrived at 03:11:33; the protocol gap is real even though the implementation was correct. (3) Two transcript timestamps are inconsistent with the 03:xx sequence (07:02:16 header start, 07:14:17 Worker-B STATUS) — likely UTC vs. local time mix; transcript hygiene needs a canonical timezone rule.
+CLAUDE-LEARNINGS: Updated — 3 bullets under 2026-03-23 PLAN-020.
+
+---
+**Completed:** 2026-03-23T07:21:34Z
+**Total messages:** 19
+**Breakdown:** Foreman-teammates: 1, Scout-Foreman: 1, Worker-Worker: 8, Worker-Foreman: 3, Auditor-Auditor: 2, Auditor-Foreman: 2, Integrator-Foreman: 1, Retro-Foreman: 1

@@ -1,7 +1,7 @@
 ---
 id: WO-076
 title: "Diagnostic: Verify --chrome Tools in Heartbeat Session"
-status: pending
+status: complete
 priority: high
 created: 2026-03-25T14:00:00Z
 mayor: Claude Web (Opus)

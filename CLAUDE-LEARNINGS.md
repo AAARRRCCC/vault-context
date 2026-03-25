@@ -142,6 +142,15 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 - MCP servers load at session start. A server added mid-session appears in `claude mcp list` (health check passes) but its tools are NOT available as deferred tools in the current session. Smoke tests must wait for a new session.
 - `claude mcp list` is the health check — shows Connected/Error/Needs authentication per server. Run this after any MCP config change to confirm it works before declaring done.
 
+### 2026-03-25 — PLAN-021 Phase 3-4: Playwright web reading tests
+
+- Playwright `browser_snapshot` returns the full rendered accessibility tree — includes JS-hydrated content (React SPAs, Next.js docs sites). Raw snapshot on large pages (GitHub: 78KB, YouTube: 66KB) exceeds the inline response limit and gets saved to disk. Use `browser_evaluate` with targeted selectors for large pages.
+- YouTube requires a 3-4s `browser_wait_for` after `browser_navigate` for hydration. Even then, only title + channel are reliably in the DOM without scrolling. Description and comments are below-fold and absent from initial snapshot.
+- GitHub `.markdown-body` selector reliably extracts README content. The `#readme article` selector fails on newer GitHub page structure — use `.markdown-body` instead.
+- Playwright accessibility snapshots are text-only — images are represented as alt text only. No way to download binary media files via Playwright (gallery-dl remains necessary for media capture).
+- Metered paywalls (NYT) show first 4 paragraphs + login modal. The login modal appears in the accessibility tree alongside article content — article text is still readable from the snapshot. Hard paywalls (FT) would block all content.
+- Phase 3 reliability summary: blogs/GitHub/Substack/docs = excellent; paywalled news = partial (headline + ledes); YouTube = partial (title + channel only).
+
 ### 2026-03-15 — PLAN-015: docs-audit-repair
 
 - STRUCTURE.md's External Infrastructure section is manually maintained and preserved by sync-context.sh (the `---` separator divides the auto-generated file tree from the manual section). Edit the manual section in vault-context directly — changes survive future syncs.

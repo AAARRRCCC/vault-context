@@ -57,6 +57,8 @@ None.
 ## Recent Work
 
 - [2026-03-25 14:00] WO-074 blocked — Session not started with --chrome. Flag exists (confirmed via claude --help) but must be set at invocation. Brady needs to run `claude --chrome` manually to test.
+- [2026-03-25 13:30] WO-075 dispatched — Enable --chrome in mayor-check.sh + rerun browser spike. Two-part WO.
+- [2026-03-25 13:00] WO-074 blocked — --chrome flag exists but session not started with it. Needs config change.
 - [2026-03-25 13:00] WO-074 dispatched — Browser use spike round 2. Use /chrome integration, not web search.
 - [2026-03-25 12:00] WO-073 complete — Browser use spike failed (no browser tools available without /chrome). Documented findings.
 - [2026-03-25 12:00] WO-073 dispatched — Browser use spike test. Worker to test Claude in Chrome extension for navigating and reading web pages.

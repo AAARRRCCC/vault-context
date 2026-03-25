@@ -1,7 +1,7 @@
 # PLAN-021 Phase 1 Results — Install + Verify Playwright MCP
 
 **Date:** 2026-03-25
-**Status:** Config complete — smoke test needs new session
+**Status:** COMPLETE
 
 ---
 
@@ -56,14 +56,20 @@ This is expected behavior — not a bug.
 
 - [x] Playwright MCP appears in `claude mcp list` as connected
 - [x] At least `browser_navigate` and `browser_snapshot` tools available (confirmed from tool list — loadable in next session)
-- [ ] Successfully navigated to example.com and read its content — **needs new session**
+- [x] Successfully navigated to example.com and read its content — PASS (new session 2026-03-25)
 - [x] Tool list documented in this file
 
 ---
 
-## Next Session Action
+## Smoke Test Result (new session, 2026-03-25)
 
-Start a new Claude Code session in this directory and run `/autonomous-loop`. Phase 1 will:
-1. Verify Playwright tools appear as deferred tools
-2. Run smoke test: navigate to example.com, take snapshot, confirm content is readable
-3. Then proceed to Phase 2 (Twitter/X deep test)
+Tools confirmed available as deferred tools: 22 total (see Phase 2 file for full list).
+
+`browser_navigate` to `https://example.com` returned:
+```
+- heading "Example Domain" [level=1]
+- paragraph: This domain is for use in documentation examples...
+- link "Learn more" → https://iana.org/domains/example
+```
+
+Full page structure readable. Phase 1 complete. Advanced to Phase 2.

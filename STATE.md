@@ -1,11 +1,11 @@
 ---
-updated: 2026-03-25T18:00:00Z
+updated: 2026-03-25T17:10:00Z
 active_plan: PLAN-021-playwright-browser-automation
-phase: 1
-phase_status: in-progress
+phase: 2
+phase_status: complete
 worker_status: idle
 last_signal: checkpoint
-last_signal_time: 2026-03-25T18:00:00Z
+last_signal_time: 2026-03-25T17:10:00Z
 ---
 
 # System State
@@ -13,7 +13,7 @@ last_signal_time: 2026-03-25T18:00:00Z
 ## Active Plan
 
 - **Plan:** PLAN-021 — Playwright MCP Browser Automation for Tweet Pipeline
-- **Current phase:** 1 of 5 — "Install + Verify"
+- **Current phase:** 2 of 5 — complete, awaiting checkpoint review
 - **Started:** 2026-03-25
 - **Blockers:** None
 
@@ -55,6 +55,7 @@ Repo: `AAARRRCCC/vault-context`
 | 2026-03-23 19:36 | Brady answered pending question via Discord: WO-072 has been updated, re-read it and proceed | Discord command |
 | 2026-03-23 19:37 | Brady unpaused worker via Discord !resume | Discord command |
 | 2026-03-25 16:39 | Brady unpaused worker via Discord !resume | Discord command |
+| 2026-03-25 17:10 | PLAN-021 Phase 1 + 2 complete — checkpoint | Phase 1: smoke test passed (example.com readable, 22 tools). Phase 2: X/Twitter profile pages fully readable without login. Tweet text, link cards, image alt text all captured. Replies blocked by login wall. Recommendation forming: keep gallery-dl for tweet capture, use Playwright for linked article reading. |
 
 ## Pending Questions
 
@@ -62,6 +63,7 @@ None.
 
 ## Recent Work
 
+- [2026-03-25 17:10] PLAN-021 Phase 1 + 2 complete — checkpoint signaled. Phase 1: 22 Playwright tools confirmed, example.com smoke test PASS. Phase 2: X/Twitter profile + tweet pages readable without login (tweet text, timestamps, link cards, image alt text). Replies require login. Preliminary recommendation: keep gallery-dl for tweet capture, use Playwright for linked article reading. Results in research/PLAN-021-phase1-results.md and research/PLAN-021-phase2-twitter-results.md.
 - [2026-03-25 18:00] PLAN-021 Phase 1 config complete — Playwright MCP added to user config (`~/.claude.json` via `claude mcp add -s user`). Health check passed (`claude mcp list` shows Connected). Smoke test needs new session (MCP tools load at session start). Start new session + /autonomous-loop to complete Phase 1 verification and proceed to Phase 2.
 - [2026-03-25 16:45] WO-076 complete — Chrome diagnostic confirms: `--chrome` flag loads MCP server (tools appear as deferred), but `tabs_context_mcp` returns "No Chrome extension connected." in headless session. Verdict: chrome tools require interactive session with extension running. `--chrome` in mayor-check.sh is harmless but ineffective for automation. Recommend `@playwright/mcp` for headless browser use.
 - [2026-03-25 16:30] WO-075 complete — `--chrome` added to mayor-check.sh heartbeat invocation. Browser spike: Chrome tools not available in this session (no `claude-in-chrome` MCP — only basic-memory). Critical finding: `--chrome` likely fails silently in headless launchd sessions. Next heartbeat cycle is real test. Recommend `@playwright/mcp` for guaranteed headless browser use.
@@ -90,8 +92,8 @@ None.
 
 ## Queue
 
-- [ ] PLAN-021 Phase 1: Install + Verify Playwright MCP
-- [ ] PLAN-021 Phase 2: Twitter/X Deep Test (checkpoint)
+- [x] PLAN-021 Phase 1: Install + Verify Playwright MCP — COMPLETE 2026-03-25
+- [x] PLAN-021 Phase 2: Twitter/X Deep Test — COMPLETE 2026-03-25, awaiting checkpoint
 - [ ] PLAN-021 Phase 3: General Web Reading Tests
 - [ ] PLAN-021 Phase 4: Pipeline Architecture Design (checkpoint)
 - [ ] PLAN-021 Phase 5: Documentation + Cleanup

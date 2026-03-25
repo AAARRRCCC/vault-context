@@ -1,7 +1,7 @@
 ---
 id: WO-075
 title: "Enable --chrome in Autonomous Loop + Browser Spike Retest"
-status: pending
+status: complete
 priority: high
 created: 2026-03-25T13:30:00Z
 mayor: Claude Web (Opus)

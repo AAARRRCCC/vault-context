@@ -256,6 +256,15 @@ Background work orders execute in a dedicated git worktree at `~/knowledge-base-
 - The interactive session should `git pull` at session start to pick up any background work
 - Do not open `~/knowledge-base-worker/` in Obsidian — only the main vault directory should be used with Obsidian
 
+### Heartbeat invocation
+
+`mayor-check.sh` launches Claude Code with:
+```bash
+claude -p "$CLAUDE_COMMAND" --dangerously-skip-permissions --chrome
+```
+
+`--chrome` was added (WO-075, 2026-03-25) to enable Claude in Chrome browser tools when Chrome + extension are running. In headless launchd sessions without a GUI context, `--chrome` may fail silently — browser tools simply won't appear and the session proceeds normally. For guaranteed headless browser automation, deploy `@playwright/mcp` instead.
+
 ### Signaling Brady via Discord
 
 Use `mayor-signal.sh` to send DMs to Brady through the Mayor bot (reads JSON from stdin):

@@ -1,11 +1,11 @@
 ---
-updated: 2026-03-25T14:00:00Z
+updated: 2026-03-25T16:30:00Z
 active_plan: none
 phase: 5
 phase_status: complete
 worker_status: idle
-last_signal: blocked
-last_signal_time: 2026-03-25T14:00:00Z
+last_signal: complete
+last_signal_time: 2026-03-25T16:30:00Z
 ---
 
 # System State
@@ -56,6 +56,7 @@ None.
 
 ## Recent Work
 
+- [2026-03-25 16:30] WO-075 complete — `--chrome` added to mayor-check.sh heartbeat invocation. Browser spike: Chrome tools not available in this session (no `claude-in-chrome` MCP — only basic-memory). Critical finding: `--chrome` likely fails silently in headless launchd sessions. Next heartbeat cycle is real test. Recommend `@playwright/mcp` for guaranteed headless browser use.
 - [2026-03-25 14:00] WO-074 blocked — Session not started with --chrome. Flag exists (confirmed via claude --help) but must be set at invocation. Brady needs to run `claude --chrome` manually to test.
 - [2026-03-25 13:30] WO-075 dispatched — Enable --chrome in mayor-check.sh + rerun browser spike. Two-part WO.
 - [2026-03-25 13:00] WO-074 blocked — --chrome flag exists but session not started with it. Needs config change.

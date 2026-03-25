@@ -38,6 +38,7 @@
 
 - ✅ **basic-memory** — v0.18.4, project `main` pointing to vault, 41 entities indexed
 - ✅ **Gemini Vision MCP server** — present in `.claude/mcp-servers/`
+- ✅ **Playwright MCP** — `@playwright/mcp` v0.0.68, installed at user scope (`~/.claude.json`) via `claude mcp add -s user playwright -- npx @playwright/mcp@latest`. 22 browser automation tools available in all Claude Code sessions. Used by tweet pipeline for reading linked JS-rendered pages. (Added PLAN-021, 2026-03-25)
 - ⚠️ **basic-memory note modification** — `format_on_save: false` ✅, but `disable_permalinks: false` means it injected `permalink:` frontmatter into existing notes during initial `reset --reindex`. Now accepted behavior. To prevent entirely: set `disable_permalinks: true` in `~/.basic-memory/config.json`.
 
 ## Scripts
@@ -105,8 +106,8 @@
 | **Swarm System** | ✅ Operational | Native agent teams (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`); roles at `~/foreman-bot/swarm/roles/`; hooks in `.claude/settings.json` (`TeammateIdle`, `TaskCompleted`); transcripts at `vault-context/transcripts/`; retros at `vault-context/retros/`; full spec at `vault-context/plans/PLAN-019-swarm-worker-system.md` |
 
 **Work orders completed:** WO-001 through WO-067 (see RECENT_CHANGES.md for full list)
-**Plans completed:** PLAN-001 through PLAN-018, PLAN-020 (swarm POC test run — transcript tools for Foreman bot)
-**Plans in progress:** PLAN-019 Phase 5 (swarm system polish + docs + dashboard)
+**Plans completed:** PLAN-001 through PLAN-020, PLAN-021 (Playwright MCP browser automation investigation + architecture design)
+**Plans in progress:** None
 **System operational since:** 2026-02-24
 **Autonomous loop operational since:** 2026-02-24
 **Foreman v2 (PLAN-008) complete:** 2026-02-27 — conversation memory, proactive alerts, task scheduling, account failover
@@ -269,7 +270,7 @@ Background agent that transforms raw tweet captures into structured research bri
 | Component | Path | Role |
 |-----------|------|------|
 | Research agent | `~/foreman-bot/tweet-researcher.js` | Main entry point — scans inbox, calls claude -p, writes research.md |
-| URL resolver | `~/foreman-bot/url-resolver.js` | Fetches and extracts text from linked GitHub READMEs, blog posts, articles |
+| URL resolver | `~/foreman-bot/url-resolver.js` | Fetches and extracts text from linked GitHub READMEs, blog posts, articles. Currently uses plain Node.js fetch (fails on JS-rendered SPAs). Playwright upgrade designed in PLAN-021 (next WO). |
 | launchd plist | `~/Library/LaunchAgents/com.foreman.tweet-researcher.plist` | Runs agent every 300 seconds |
 | Log | `~/.local/log/tweet-researcher.log` | Rotates automatically at 10 MB |
 

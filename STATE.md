@@ -1,21 +1,22 @@
 ---
-updated: 2026-03-25T23:00:00Z
-active_plan: PLAN-021-playwright-browser-automation
-phase: 4
+updated: 2026-03-25T23:30:00Z
+active_plan: none
+phase: 5
 phase_status: complete
 worker_status: idle
-last_signal: checkpoint
-last_signal_time: 2026-03-25T23:00:00Z
+last_signal: complete
+last_signal_time: 2026-03-25T23:30:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-- **Plan:** PLAN-021 — Playwright MCP Browser Automation for Tweet Pipeline
-- **Current phase:** 4 of 5 — complete, awaiting checkpoint review
-- **Started:** 2026-03-25
-- **Blockers:** None
+None.
+
+**PLAN-021 — Playwright MCP Browser Automation — COMPLETE (2026-03-25)**
+- All 5 phases done. Playwright MCP installed and verified. Twitter/X, static blogs, SPAs, Substack, paywalled news all tested. Architecture designed. Recommendation: Option B1 — replace `fetchWebPage()` in `url-resolver.js` with Playwright chromium. ~50 line change, 3-4h effort.
+- Final report: `research/PLAN-021-final-report.md`
 
 **Previous:** PLAN-019 — Swarm Worker System (Native Agent Teams) — **COMPLETE**
 - **All 5 phases done as of 2026-03-23**
@@ -55,6 +56,7 @@ Repo: `AAARRRCCC/vault-context`
 | 2026-03-23 19:36 | Brady answered pending question via Discord: WO-072 has been updated, re-read it and proceed | Discord command |
 | 2026-03-23 19:37 | Brady unpaused worker via Discord !resume | Discord command |
 | 2026-03-25 16:39 | Brady unpaused worker via Discord !resume | Discord command |
+| 2026-03-25 23:30 | PLAN-021 complete — Playwright MCP investigation done | All 5 phases complete. Verdict: Option B1 — replace url-resolver.js fetchWebPage() with Playwright chromium. ~50 lines, 3-4h effort. gallery-dl stays. --chrome removed from mayor-check.sh (ineffective headless). Final report in research/PLAN-021-final-report.md. |
 | 2026-03-25 17:10 | PLAN-021 Phase 1 + 2 complete — checkpoint | Phase 1: smoke test passed (example.com readable, 22 tools). Phase 2: X/Twitter profile pages fully readable without login. Tweet text, link cards, image alt text all captured. Replies blocked by login wall. Recommendation forming: keep gallery-dl for tweet capture, use Playwright for linked article reading. |
 
 ## Pending Questions
@@ -63,6 +65,7 @@ None.
 
 ## Recent Work
 
+- [2026-03-25 23:30] PLAN-021 Phase 5 complete — documentation done. Final report at research/PLAN-021-final-report.md. SYSTEM_STATUS.md updated (Playwright MCP added). CLAUDE.md updated (MCP config section added). --chrome removed from mayor-check.sh (confirmed ineffective in headless; Playwright is the correct path). Plan marked complete.
 - [2026-03-25 23:00] PLAN-021 Phase 4 complete — architecture design done. Recommendation: Option B1 — replace fetchWebPage() in url-resolver.js with Playwright chromium. Keep gallery-dl + tweet-processor unchanged. ~50 line change, 3-4h effort. Full comparison of 3 options in research/PLAN-021-phase4-architecture.md. Awaiting checkpoint.
 - [2026-03-25 22:30] PLAN-021 Phase 3 complete — 6 page types tested. Static blogs/GitHub/Substack/docs: excellent (90-100%). Paywalled news (NYT): partial (headline + first 4 paragraphs). YouTube: partial (title + channel only without extra scroll/wait). No JS-rendered page types failed outright. Results in research/PLAN-021-phase3-web-results.md. Advancing to Phase 4.
 - [2026-03-25 17:10] PLAN-021 Phase 1 + 2 complete — checkpoint signaled. Phase 1: 22 Playwright tools confirmed, example.com smoke test PASS. Phase 2: X/Twitter profile + tweet pages readable without login (tweet text, timestamps, link cards, image alt text). Replies require login. Preliminary recommendation: keep gallery-dl for tweet capture, use Playwright for linked article reading. Results in research/PLAN-021-phase1-results.md and research/PLAN-021-phase2-twitter-results.md.
@@ -99,11 +102,14 @@ None.
 
 ## Queue
 
+No pending work. Awaiting Mayor dispatch.
+
+### PLAN-021 Phases (COMPLETE)
 - [x] PLAN-021 Phase 1: Install + Verify Playwright MCP — COMPLETE 2026-03-25
-- [x] PLAN-021 Phase 2: Twitter/X Deep Test — COMPLETE 2026-03-25, awaiting checkpoint
+- [x] PLAN-021 Phase 2: Twitter/X Deep Test — COMPLETE 2026-03-25
 - [x] PLAN-021 Phase 3: General Web Reading Tests — COMPLETE 2026-03-25
-- [x] PLAN-021 Phase 4: Pipeline Architecture Design — COMPLETE 2026-03-25, awaiting checkpoint
-- [ ] PLAN-021 Phase 5: Documentation + Cleanup — ACTIVE
+- [x] PLAN-021 Phase 4: Pipeline Architecture Design — COMPLETE 2026-03-25
+- [x] PLAN-021 Phase 5: Documentation + Cleanup — COMPLETE 2026-03-25
 
 ### Completed
 - [x] PLAN-019 Phase 1: Enable Agent Teams + Verify Communication — COMPLETE 2026-03-23

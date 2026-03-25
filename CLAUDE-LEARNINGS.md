@@ -14,6 +14,11 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 
 ## Entries
 
+### 2026-03-25 — PLAN-021: Playwright MCP
+- MCP servers are configured via `claude mcp add -s user <name> -- <command>`, NOT via `settings.json`. The `settings.json` file rejects `mcpServers` as an unrecognized field. Config writes to `~/.claude.json`.
+- `@playwright/mcp` at user scope is available in all Claude Code sessions including headless launchd (mayor-check.sh) invocations — no per-project config needed.
+- `--chrome` in headless sessions loads the MCP server but cannot connect to the browser extension (requires a visible browser window). Playwright MCP is the correct headless path. Removed `--chrome` from mayor-check.sh.
+
 ### 2026-02-25 — PLAN-003: mayor-dashboard
 - chokidar on macOS misses events on git-managed files; always pair with polling fallback (`usePolling: true` in chokidar options)
 - Node.js `ws` library needs explicit ping/pong for connection health — browser WebSocket doesn't auto-reconnect on silent drops

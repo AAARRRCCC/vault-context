@@ -161,3 +161,9 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 - STRUCTURE.md's External Infrastructure section is manually maintained and preserved by sync-context.sh (the `---` separator divides the auto-generated file tree from the manual section). Edit the manual section in vault-context directly — changes survive future syncs.
 - `!answer` exists as `cmdAnswer` in bot.js but is not registered in the COMMANDS map — lost during a simplification pass. Typing `!answer <text>` gives "Unknown command". Confirmed broken as of 2026-03-15. Bug was not in scope for PLAN-015 (docs audit only); needs a fix WO.
 - When auditing bot commands, grep for `COMMANDS = {` and verify each entry. Don't trust the help text or function existence — both can outlive removal from the COMMANDS map and create false documentation.
+
+### 2026-03-25 — PLAN-022 dispatch race condition
+
+- Never dispatch a new plan while the current plan is still running. The completing plan's final STATE.md update resets `active_plan: none` and `worker_status: idle`, which clobbers the new plan's activation. Always wait for the `complete` signal before dispatching the next plan.
+- This applies to both Mayor (Claude Web) and any future automation that chains plans. The two-step dispatch (push plan file + update STATE.md) is not atomic with respect to a running plan's completion — the completing plan writes STATE.md last and wins.
+- Workaround if you need to queue: leave the plan file in `plans/` but do NOT update STATE.md until the current plan signals `complete`. The plan file sitting in `plans/` without STATE.md activation is harmless (worker ignores it).

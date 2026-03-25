@@ -1,11 +1,11 @@
 ---
-updated: 2026-03-25T23:55:00Z
+updated: 2026-03-26T00:15:00Z
 active_plan: PLAN-022-playwright-url-resolver
 phase: 2
-phase_status: pending
-worker_status: processing
-last_signal: notify
-last_signal_time: 2026-03-25T23:55:00Z
+phase_status: checkpoint
+worker_status: idle
+last_signal: checkpoint
+last_signal_time: 2026-03-26T00:15:00Z
 ---
 
 # System State
@@ -13,7 +13,7 @@ last_signal_time: 2026-03-25T23:55:00Z
 ## Active Plan
 
 PLAN-022 — Implement Option B1: Playwright URL Resolution
-- **Current phase:** 2 of 3 — "Integration Testing"
+- **Current phase:** 2 of 3 — "Integration Testing" (CHECKPOINT — awaiting Mayor review)
 - **Started:** 2026-03-25
 - **Blockers:** None
 - **Plan file:** plans/PLAN-022-playwright-url-resolver.md
@@ -69,6 +69,7 @@ None.
 
 ## Recent Work
 
+- [2026-03-26 00:15] PLAN-022 Phase 2 checkpoint — Integration tests PASS. GitHub API unchanged ✅. JS-rendered SPAs (contextplus.vercel.app, component.gallery) return full content ✅. YouTube returns title (channel selector miss — partial) ✅. No orphan processes ✅. Graceful error handling ✅. Discord !tweet not run (automated). Minor: YouTube channel null. Results in research/PLAN-022-test-results.md. Awaiting checkpoint approval.
 - [2026-03-25 23:55] PLAN-022 Phase 1 complete — Playwright url-resolver implemented. playwright 1.58.2 installed. fetchWebPage() replaced with Playwright chromium. fetchYouTube() added (title + channel). Single browser per resolveUrls() call, shared across pages. browser.close() in finally block. TOTAL_TIMEOUT_MS → 120s. Smoke test PASS (example.com). Module loads cleanly. Advancing to Phase 2.
 - [2026-03-25 23:30] PLAN-021 Phase 5 complete — documentation done. Final report at research/PLAN-021-final-report.md. SYSTEM_STATUS.md updated (Playwright MCP added). CLAUDE.md updated (MCP config section added). --chrome removed from mayor-check.sh (confirmed ineffective in headless; Playwright is the correct path). Plan marked complete.
 - [2026-03-25 23:00] PLAN-021 Phase 4 complete — architecture design done. Recommendation: Option B1 — replace fetchWebPage() in url-resolver.js with Playwright chromium. Keep gallery-dl + tweet-processor unchanged. ~50 line change, 3-4h effort. Full comparison of 3 options in research/PLAN-021-phase4-architecture.md. Awaiting checkpoint.

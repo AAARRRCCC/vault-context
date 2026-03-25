@@ -5,6 +5,7 @@ created: 2026-03-25
 mayor: Claude Web (Opus)
 phases: 3
 current_phase: 2
+phase_status: checkpoint
 ---
 
 # PLAN-022 — Implement Option B1: Playwright URL Resolution in Tweet Pipeline

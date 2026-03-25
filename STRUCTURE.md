@@ -241,7 +241,7 @@
 - `reminder-engine.js` — conversational meds reminder with Haiku model
 - `tweet-processor.js` — gallery-dl output → clean content.md inbox entry
 - `tweet-researcher.js` — background tweet research agent; scans inbox, calls claude -p, writes research.md
-- `url-resolver.js` — fetches and extracts text from linked GitHub READMEs, blog posts, articles
+- `url-resolver.js` — fetches and extracts text from linked URLs; Playwright chromium for JS-rendered pages and YouTube; GitHub repos via API
 - `metrics.js` — swarm run metrics computation from transcript files
 - `transcript-parser.js` — parses swarm transcript files into structured message arrays
 - `foreman-prompt.md` — Foreman's personality and system prompt

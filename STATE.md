@@ -1,22 +1,22 @@
 ---
-updated: 2026-03-26T00:15:00Z
-active_plan: PLAN-022-playwright-url-resolver
-phase: 2
-phase_status: checkpoint
+updated: 2026-03-26T04:00:00Z
+active_plan: none
+phase: null
+phase_status: null
 worker_status: idle
-last_signal: checkpoint
-last_signal_time: 2026-03-26T00:15:00Z
+last_signal: complete
+last_signal_time: 2026-03-26T04:00:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-PLAN-022 — Implement Option B1: Playwright URL Resolution
-- **Current phase:** 2 of 3 — "Integration Testing" (CHECKPOINT — awaiting Mayor review)
-- **Started:** 2026-03-25
-- **Blockers:** None
-- **Plan file:** plans/PLAN-022-playwright-url-resolver.md
+None. Awaiting Mayor dispatch.
+
+**PLAN-022 — Playwright URL Resolution — COMPLETE (2026-03-26)**
+- All 3 phases done. url-resolver.js rewritten with Playwright chromium. Integration tests PASS (5 URL types). YouTube returns title instead of skip. No orphan processes. Docs updated. Discord end-to-end deferred to manual verification.
+- Final implementation: `~/foreman-bot/url-resolver.js`
 
 **PLAN-021 — Playwright MCP Browser Automation — COMPLETE (2026-03-25)**
 - All 5 phases done. Playwright MCP installed and verified. Twitter/X, static blogs, SPAs, Substack, paywalled news all tested. Architecture designed. Recommendation: Option B1 — replace `fetchWebPage()` in `url-resolver.js` with Playwright chromium. ~50 line change, 3-4h effort.
@@ -69,7 +69,8 @@ None.
 
 ## Recent Work
 
-- [2026-03-26 00:15] PLAN-022 Phase 2 checkpoint — Integration tests PASS. GitHub API unchanged ✅. JS-rendered SPAs (contextplus.vercel.app, component.gallery) return full content ✅. YouTube returns title (channel selector miss — partial) ✅. No orphan processes ✅. Graceful error handling ✅. Discord !tweet not run (automated). Minor: YouTube channel null. Results in research/PLAN-022-test-results.md. Awaiting checkpoint approval.
+- [2026-03-26 04:00] PLAN-022 Phase 3 complete — Docs updated. SYSTEM_STATUS.md, STRUCTURE.md, CLAUDE-LEARNINGS.md all updated. PLAN-022 complete.
+- [2026-03-26 00:15] PLAN-022 Phase 2 checkpoint — Integration tests PASS. GitHub API unchanged ✅. JS-rendered SPAs (contextplus.vercel.app, component.gallery) return full content ✅. YouTube returns title (channel selector miss — partial) ✅. No orphan processes ✅. Graceful error handling ✅. Discord !tweet not run (automated). Minor: YouTube channel null. Results in research/PLAN-022-test-results.md.
 - [2026-03-25 23:55] PLAN-022 Phase 1 complete — Playwright url-resolver implemented. playwright 1.58.2 installed. fetchWebPage() replaced with Playwright chromium. fetchYouTube() added (title + channel). Single browser per resolveUrls() call, shared across pages. browser.close() in finally block. TOTAL_TIMEOUT_MS → 120s. Smoke test PASS (example.com). Module loads cleanly. Advancing to Phase 2.
 - [2026-03-25 23:30] PLAN-021 Phase 5 complete — documentation done. Final report at research/PLAN-021-final-report.md. SYSTEM_STATUS.md updated (Playwright MCP added). CLAUDE.md updated (MCP config section added). --chrome removed from mayor-check.sh (confirmed ineffective in headless; Playwright is the correct path). Plan marked complete.
 - [2026-03-25 23:00] PLAN-021 Phase 4 complete — architecture design done. Recommendation: Option B1 — replace fetchWebPage() in url-resolver.js with Playwright chromium. Keep gallery-dl + tweet-processor unchanged. ~50 line change, 3-4h effort. Full comparison of 3 options in research/PLAN-021-phase4-architecture.md. Awaiting checkpoint.
@@ -112,10 +113,10 @@ None.
 
 No pending work. Awaiting Mayor dispatch.
 
-### PLAN-022 Phases
+### PLAN-022 (Complete)
 - [x] PLAN-022 Phase 1: Install + Implement — COMPLETE 2026-03-25
-- [ ] PLAN-022 Phase 2: Integration Testing (checkpoint)
-- [ ] PLAN-022 Phase 3: Cleanup + Docs
+- [x] PLAN-022 Phase 2: Integration Testing — COMPLETE 2026-03-26
+- [x] PLAN-022 Phase 3: Cleanup + Docs — COMPLETE 2026-03-26
 
 ### PLAN-021 (Complete)
 - [x] PLAN-021 Phase 1: Install + Verify Playwright MCP — COMPLETE 2026-03-25

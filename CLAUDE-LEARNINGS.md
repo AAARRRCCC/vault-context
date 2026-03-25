@@ -162,6 +162,13 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 - `!answer` exists as `cmdAnswer` in bot.js but is not registered in the COMMANDS map — lost during a simplification pass. Typing `!answer <text>` gives "Unknown command". Confirmed broken as of 2026-03-15. Bug was not in scope for PLAN-015 (docs audit only); needs a fix WO.
 - When auditing bot commands, grep for `COMMANDS = {` and verify each entry. Don't trust the help text or function existence — both can outlive removal from the COMMANDS map and create false documentation.
 
+### 2026-03-26 — PLAN-022: Playwright url-resolver upgrade
+
+- Single browser per `resolveUrls()` call is the correct pattern — launch once, pass `browser` to `fetchWebPage()` and `fetchYouTube()`, close in the outer `finally`. Launching per-URL multiplies process overhead and is unnecessary since pages are fetched concurrently on the same browser.
+- YouTube channel selectors (`ytd-channel-name a`, `#channel-name a`, etc.) are unreliable — YouTube DOM varies significantly between video pages and channel pages. `page.title()` is always reliable and sufficient for the research use case. Accept partial YouTube extraction (title only) rather than adding fragile selector chains.
+- Playwright's `page.evaluate()` with a `max` argument (passed from Node.js closure) works cleanly for slicing `document.body.innerText` — pass the constant as an argument, don't close over it from within the eval string.
+- TOTAL_TIMEOUT_MS needs to be much higher than individual page timeouts when Playwright is involved. Each page has a 30s `goto` timeout + 2s wait; with 5 URLs in parallel, the outer deadline must allow all to complete. 120s is appropriate.
+
 ### 2026-03-25 — PLAN-022 dispatch race condition
 
 - Never dispatch a new plan while the current plan is still running. The completing plan's final STATE.md update resets `active_plan: none` and `worker_status: idle`, which clobbers the new plan's activation. Always wait for the `complete` signal before dispatching the next plan.

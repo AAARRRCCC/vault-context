@@ -1,11 +1,11 @@
 ---
-updated: 2026-03-25T16:45:00Z
+updated: 2026-03-25T18:00:00Z
 active_plan: PLAN-021-playwright-browser-automation
 phase: 1
-phase_status: pending
+phase_status: in-progress
 worker_status: idle
-last_signal: complete
-last_signal_time: 2026-03-25T16:45:00Z
+last_signal: checkpoint
+last_signal_time: 2026-03-25T18:00:00Z
 ---
 
 # System State
@@ -62,6 +62,7 @@ None.
 
 ## Recent Work
 
+- [2026-03-25 18:00] PLAN-021 Phase 1 config complete — Playwright MCP added to user config (`~/.claude.json` via `claude mcp add -s user`). Health check passed (`claude mcp list` shows Connected). Smoke test needs new session (MCP tools load at session start). Start new session + /autonomous-loop to complete Phase 1 verification and proceed to Phase 2.
 - [2026-03-25 16:45] WO-076 complete — Chrome diagnostic confirms: `--chrome` flag loads MCP server (tools appear as deferred), but `tabs_context_mcp` returns "No Chrome extension connected." in headless session. Verdict: chrome tools require interactive session with extension running. `--chrome` in mayor-check.sh is harmless but ineffective for automation. Recommend `@playwright/mcp` for headless browser use.
 - [2026-03-25 16:30] WO-075 complete — `--chrome` added to mayor-check.sh heartbeat invocation. Browser spike: Chrome tools not available in this session (no `claude-in-chrome` MCP — only basic-memory). Critical finding: `--chrome` likely fails silently in headless launchd sessions. Next heartbeat cycle is real test. Recommend `@playwright/mcp` for guaranteed headless browser use.
 - [2026-03-25 14:00] WO-074 blocked — Session not started with --chrome. Flag exists (confirmed via claude --help) but must be set at invocation. Brady needs to run `claude --chrome` manually to test.

@@ -136,6 +136,12 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 - The `!help` reply exceeds Discord's 2000-character limit as of PLAN-009 P4 — the help text has grown too large. Pre-existing issue; needs split-message or embed fix if Brady wants it.
 - Adding a command alias is one line in the COMMANDS map: `'!twitter': cmdTweet`. No other changes needed.
 
+### 2026-03-25 — PLAN-021: Playwright MCP setup
+
+- `~/.claude/settings.json` does NOT support `mcpServers` field — it validates strictly and rejects it. Correct way to add MCP servers: `claude mcp add -s user <name> -- npx <package>`. This writes to `~/.claude.json`. Scope options: `local` (project, not committed), `user` (global), `project` (writes `.mcp.json` in project root).
+- MCP servers load at session start. A server added mid-session appears in `claude mcp list` (health check passes) but its tools are NOT available as deferred tools in the current session. Smoke tests must wait for a new session.
+- `claude mcp list` is the health check — shows Connected/Error/Needs authentication per server. Run this after any MCP config change to confirm it works before declaring done.
+
 ### 2026-03-15 — PLAN-015: docs-audit-repair
 
 - STRUCTURE.md's External Infrastructure section is manually maintained and preserved by sync-context.sh (the `---` separator divides the auto-generated file tree from the manual section). Edit the manual section in vault-context directly — changes survive future syncs.

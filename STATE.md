@@ -1,18 +1,22 @@
 ---
 updated: 2026-03-25T23:30:00Z
-active_plan: none
+active_plan: PLAN-022-playwright-url-resolver
 phase: 1
-phase_status: complete
-worker_status: idle
-last_signal: complete
-last_signal_time: 2026-03-25T23:30:00Z
+phase_status: pending
+worker_status: processing
+last_signal: notify
+last_signal_time: 2026-03-25T16:00:00Z
 ---
 
 # System State
 
 ## Active Plan
 
-None.
+PLAN-022 — Implement Option B1: Playwright URL Resolution
+- **Current phase:** 1 of 3 — "Install + Implement"
+- **Started:** 2026-03-25
+- **Blockers:** None
+- **Plan file:** plans/PLAN-022-playwright-url-resolver.md
 
 **PLAN-021 — Playwright MCP Browser Automation — COMPLETE (2026-03-25)**
 - All 5 phases done. Playwright MCP installed and verified. Twitter/X, static blogs, SPAs, Substack, paywalled news all tested. Architecture designed. Recommendation: Option B1 — replace `fetchWebPage()` in `url-resolver.js` with Playwright chromium. ~50 line change, 3-4h effort.

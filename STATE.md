@@ -1,7 +1,7 @@
 ---
 updated: 2026-03-25T23:30:00Z
 active_plan: none
-phase: 5
+phase: 1
 phase_status: complete
 worker_status: idle
 last_signal: complete
@@ -73,6 +73,8 @@ None.
 - [2026-03-25 16:45] WO-076 complete — Chrome diagnostic confirms: `--chrome` flag loads MCP server (tools appear as deferred), but `tabs_context_mcp` returns "No Chrome extension connected." in headless session. Verdict: chrome tools require interactive session with extension running. `--chrome` in mayor-check.sh is harmless but ineffective for automation. Recommend `@playwright/mcp` for headless browser use.
 - [2026-03-25 16:30] WO-075 complete — `--chrome` added to mayor-check.sh heartbeat invocation. Browser spike: Chrome tools not available in this session (no `claude-in-chrome` MCP — only basic-memory). Critical finding: `--chrome` likely fails silently in headless launchd sessions. Next heartbeat cycle is real test. Recommend `@playwright/mcp` for guaranteed headless browser use.
 - [2026-03-25 14:00] WO-074 blocked — Session not started with --chrome. Flag exists (confirmed via claude --help) but must be set at invocation. Brady needs to run `claude --chrome` manually to test.
+- [2026-03-25 15:30] PLAN-022 dispatched — Implement Option B1. 3 phases: install+implement, integration testing (checkpoint), cleanup+docs.
+- [2026-03-25 15:15] PLAN-021 complete — Playwright MCP investigation done. Option B1 approved.
 - [2026-03-25 15:00] PLAN-021 Phase 4 checkpoint approved — Option B1 accepted. Advancing to Phase 5 (docs + cleanup).
 - [2026-03-25 14:15] PLAN-021 dispatched — Playwright MCP browser automation. 5 phases: install, Twitter test, general web test, architecture design, docs.
 - [2026-03-25 14:00] WO-076 complete — Chrome loads MCP but cannot connect headlessly. Interactive-only. Playwright is the path.
@@ -105,6 +107,11 @@ None.
 No pending work. Awaiting Mayor dispatch.
 
 ### PLAN-021 Phases (COMPLETE)
+- [ ] PLAN-022 Phase 1: Install + Implement
+- [ ] PLAN-022 Phase 2: Integration Testing (checkpoint)
+- [ ] PLAN-022 Phase 3: Cleanup + Docs
+
+### PLAN-021 (Complete)
 - [x] PLAN-021 Phase 1: Install + Verify Playwright MCP — COMPLETE 2026-03-25
 - [x] PLAN-021 Phase 2: Twitter/X Deep Test — COMPLETE 2026-03-25
 - [x] PLAN-021 Phase 3: General Web Reading Tests — COMPLETE 2026-03-25

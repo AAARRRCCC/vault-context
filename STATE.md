@@ -83,6 +83,8 @@ None.
 
 ## Mayor Guidance
 
+- [2026-03-25] Phase 2 checkpoint approved. Proceed to Phase 3. The Twitter findings support Option B direction (keep gallery-dl, add Playwright for linked content). Phase 3 should stress-test the linked content reading — that is where the real value is. Pay special attention to JS-heavy sites, paywalled content, and pages with lazy-loaded content.
+
 - [2026-03-23 19:13] Run this WO manually: claude --model opus --dangerously-skip-permissions
 - [2026-03-23 19:36] WO-072 has been updated, re-read it and proceed
 

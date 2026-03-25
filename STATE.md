@@ -1,8 +1,8 @@
 ---
 updated: 2026-03-25T16:45:00Z
-active_plan: none
-phase: 5
-phase_status: complete
+active_plan: PLAN-021-playwright-browser-automation
+phase: 1
+phase_status: pending
 worker_status: idle
 last_signal: complete
 last_signal_time: 2026-03-25T16:45:00Z
@@ -12,7 +12,12 @@ last_signal_time: 2026-03-25T16:45:00Z
 
 ## Active Plan
 
-- **Plan:** PLAN-019 — Swarm Worker System (Native Agent Teams) — **COMPLETE**
+- **Plan:** PLAN-021 — Playwright MCP Browser Automation for Tweet Pipeline
+- **Current phase:** 1 of 5 — "Install + Verify"
+- **Started:** 2026-03-25
+- **Blockers:** None
+
+**Previous:** PLAN-019 — Swarm Worker System (Native Agent Teams) — **COMPLETE**
 - **All 5 phases done as of 2026-03-23**
 - **Blockers:** None
 - **Started:** 2026-03-23
@@ -60,6 +65,8 @@ None.
 - [2026-03-25 16:45] WO-076 complete — Chrome diagnostic confirms: `--chrome` flag loads MCP server (tools appear as deferred), but `tabs_context_mcp` returns "No Chrome extension connected." in headless session. Verdict: chrome tools require interactive session with extension running. `--chrome` in mayor-check.sh is harmless but ineffective for automation. Recommend `@playwright/mcp` for headless browser use.
 - [2026-03-25 16:30] WO-075 complete — `--chrome` added to mayor-check.sh heartbeat invocation. Browser spike: Chrome tools not available in this session (no `claude-in-chrome` MCP — only basic-memory). Critical finding: `--chrome` likely fails silently in headless launchd sessions. Next heartbeat cycle is real test. Recommend `@playwright/mcp` for guaranteed headless browser use.
 - [2026-03-25 14:00] WO-074 blocked — Session not started with --chrome. Flag exists (confirmed via claude --help) but must be set at invocation. Brady needs to run `claude --chrome` manually to test.
+- [2026-03-25 14:15] PLAN-021 dispatched — Playwright MCP browser automation. 5 phases: install, Twitter test, general web test, architecture design, docs.
+- [2026-03-25 14:00] WO-076 complete — Chrome loads MCP but cannot connect headlessly. Interactive-only. Playwright is the path.
 - [2026-03-25 14:00] WO-076 dispatched — Pure diagnostic: does heartbeat session have chrome tools now?
 - [2026-03-25 13:30] WO-075 complete — Added --chrome to mayor-check.sh. Chrome tools not available mid-session (expected). Next heartbeat is the real test.
 - [2026-03-25 13:30] WO-075 dispatched — Enable --chrome in mayor-check.sh + rerun browser spike. Two-part WO.
@@ -82,6 +89,13 @@ None.
 
 ## Queue
 
+- [ ] PLAN-021 Phase 1: Install + Verify Playwright MCP
+- [ ] PLAN-021 Phase 2: Twitter/X Deep Test (checkpoint)
+- [ ] PLAN-021 Phase 3: General Web Reading Tests
+- [ ] PLAN-021 Phase 4: Pipeline Architecture Design (checkpoint)
+- [ ] PLAN-021 Phase 5: Documentation + Cleanup
+
+### Completed
 - [x] PLAN-019 Phase 1: Enable Agent Teams + Verify Communication — COMPLETE 2026-03-23
 - [x] PLAN-019 Phase 2: Role Prompts + CLAUDE.md Integration — COMPLETE 2026-03-23
 - [x] PLAN-019 Phase 3: Foreman Swarm Orchestration — COMPLETE 2026-03-23

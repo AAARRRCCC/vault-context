@@ -1,7 +1,7 @@
 ---
 id: WO-074
 title: "Spike: Claude in Chrome Browser Use Test (Round 2)"
-status: in-progress
+status: blocked
 priority: high
 created: 2026-03-25T13:00:00Z
 mayor: Claude Web (Opus)

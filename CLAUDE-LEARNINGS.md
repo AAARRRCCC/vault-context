@@ -14,11 +14,6 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 
 ## Entries
 
-### 2026-03-25 — PLAN-021: Playwright MCP
-- MCP servers are configured via `claude mcp add -s user <name> -- <command>`, NOT via `settings.json`. The `settings.json` file rejects `mcpServers` as an unrecognized field. Config writes to `~/.claude.json`.
-- `@playwright/mcp` at user scope is available in all Claude Code sessions including headless launchd (mayor-check.sh) invocations — no per-project config needed.
-- `--chrome` in headless sessions loads the MCP server but cannot connect to the browser extension (requires a visible browser window). Playwright MCP is the correct headless path. Removed `--chrome` from mayor-check.sh.
-
 ### 2026-02-25 — PLAN-003: mayor-dashboard
 - chokidar on macOS misses events on git-managed files; always pair with polling fallback (`usePolling: true` in chokidar options)
 - Node.js `ws` library needs explicit ping/pong for connection health — browser WebSocket doesn't auto-reconnect on silent drops
@@ -141,36 +136,8 @@ Accumulated knowledge from autonomous execution. Read at session start, append a
 - The `!help` reply exceeds Discord's 2000-character limit as of PLAN-009 P4 — the help text has grown too large. Pre-existing issue; needs split-message or embed fix if Brady wants it.
 - Adding a command alias is one line in the COMMANDS map: `'!twitter': cmdTweet`. No other changes needed.
 
-### 2026-03-25 — PLAN-021: Playwright MCP setup
-
-- `~/.claude/settings.json` does NOT support `mcpServers` field — it validates strictly and rejects it. Correct way to add MCP servers: `claude mcp add -s user <name> -- npx <package>`. This writes to `~/.claude.json`. Scope options: `local` (project, not committed), `user` (global), `project` (writes `.mcp.json` in project root).
-- MCP servers load at session start. A server added mid-session appears in `claude mcp list` (health check passes) but its tools are NOT available as deferred tools in the current session. Smoke tests must wait for a new session.
-- `claude mcp list` is the health check — shows Connected/Error/Needs authentication per server. Run this after any MCP config change to confirm it works before declaring done.
-
-### 2026-03-25 — PLAN-021 Phase 3-4: Playwright web reading tests
-
-- Playwright `browser_snapshot` returns the full rendered accessibility tree — includes JS-hydrated content (React SPAs, Next.js docs sites). Raw snapshot on large pages (GitHub: 78KB, YouTube: 66KB) exceeds the inline response limit and gets saved to disk. Use `browser_evaluate` with targeted selectors for large pages.
-- YouTube requires a 3-4s `browser_wait_for` after `browser_navigate` for hydration. Even then, only title + channel are reliably in the DOM without scrolling. Description and comments are below-fold and absent from initial snapshot.
-- GitHub `.markdown-body` selector reliably extracts README content. The `#readme article` selector fails on newer GitHub page structure — use `.markdown-body` instead.
-- Playwright accessibility snapshots are text-only — images are represented as alt text only. No way to download binary media files via Playwright (gallery-dl remains necessary for media capture).
-- Metered paywalls (NYT) show first 4 paragraphs + login modal. The login modal appears in the accessibility tree alongside article content — article text is still readable from the snapshot. Hard paywalls (FT) would block all content.
-- Phase 3 reliability summary: blogs/GitHub/Substack/docs = excellent; paywalled news = partial (headline + ledes); YouTube = partial (title + channel only).
-
 ### 2026-03-15 — PLAN-015: docs-audit-repair
 
 - STRUCTURE.md's External Infrastructure section is manually maintained and preserved by sync-context.sh (the `---` separator divides the auto-generated file tree from the manual section). Edit the manual section in vault-context directly — changes survive future syncs.
 - `!answer` exists as `cmdAnswer` in bot.js but is not registered in the COMMANDS map — lost during a simplification pass. Typing `!answer <text>` gives "Unknown command". Confirmed broken as of 2026-03-15. Bug was not in scope for PLAN-015 (docs audit only); needs a fix WO.
 - When auditing bot commands, grep for `COMMANDS = {` and verify each entry. Don't trust the help text or function existence — both can outlive removal from the COMMANDS map and create false documentation.
-
-### 2026-03-26 — PLAN-022: Playwright url-resolver upgrade
-
-- Single browser per `resolveUrls()` call is the correct pattern — launch once, pass `browser` to `fetchWebPage()` and `fetchYouTube()`, close in the outer `finally`. Launching per-URL multiplies process overhead and is unnecessary since pages are fetched concurrently on the same browser.
-- YouTube channel selectors (`ytd-channel-name a`, `#channel-name a`, etc.) are unreliable — YouTube DOM varies significantly between video pages and channel pages. `page.title()` is always reliable and sufficient for the research use case. Accept partial YouTube extraction (title only) rather than adding fragile selector chains.
-- Playwright's `page.evaluate()` with a `max` argument (passed from Node.js closure) works cleanly for slicing `document.body.innerText` — pass the constant as an argument, don't close over it from within the eval string.
-- TOTAL_TIMEOUT_MS needs to be much higher than individual page timeouts when Playwright is involved. Each page has a 30s `goto` timeout + 2s wait; with 5 URLs in parallel, the outer deadline must allow all to complete. 120s is appropriate.
-
-### 2026-03-25 — PLAN-022 dispatch race condition
-
-- Never dispatch a new plan while the current plan is still running. The completing plan's final STATE.md update resets `active_plan: none` and `worker_status: idle`, which clobbers the new plan's activation. Always wait for the `complete` signal before dispatching the next plan.
-- This applies to both Mayor (Claude Web) and any future automation that chains plans. The two-step dispatch (push plan file + update STATE.md) is not atomic with respect to a running plan's completion — the completing plan writes STATE.md last and wins.
-- Workaround if you need to queue: leave the plan file in `plans/` but do NOT update STATE.md until the current plan signals `complete`. The plan file sitting in `plans/` without STATE.md activation is harmless (worker ignores it).

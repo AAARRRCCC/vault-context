@@ -1,0 +1,7 @@
+# MELCHIOR — The Architect
+
+VERDICT: CONDITIONAL
+CONFIDENCE: MEDIUM
+REASONING: The `--verbose` flag follows clean Unix CLI convention and is non-breaking — it aligns well with the existing token optimization work tracked in PLAN-006 and the session logging already established in `CLAUDE-CODE-SESSION-LOGS.md`. However, "token counts per agent session" is architecturally problematic in a shell script context: shell wrappers have no native access to API response metadata, and any solution that parses token counts from Claude's stdout/stderr output creates a fragile coupling to output formatting that will silently break across SDK versions. Timing per phase is straightforward with shell builtins and is the sound half of this proposal.
+
+CONDITIONS: Before approval, two constraints must be satisfied: (1) Token count capture must have a defined, stable data contract — either the agent sessions must emit structured token data in a machine-readable format (e.g., JSON to a dedicated fd or temp file) explicitly designed for consumption, not scraped from human-readable output; (2) If no such contract can be established without significant SDK-layer work, the scope of `--verbose` must be narrowed to timing and session metadata only, with token logging split into a separate, properly-architected effort that owns the data pipeline end-to-end.

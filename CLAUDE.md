@@ -1,357 +1,139 @@
-# Brady's Obsidian Vault — Claude Configuration
+# Mayor v2 — Harness System
 
-Generated: February 19, 2026
-Vault: knowledge-base (PARA method)
-Primary uses: Research, Project management, Daily notes, Data Science & Programming
+This repo (`vault-context`) is the operational center for Brady's autonomous development system running on a Mac Mini M4.
 
 ---
 
-## Core Rules (Always Follow)
+## Architecture
 
-### Before Creating Any Note
-1. **Search the vault first** — check for existing notes on the topic to avoid duplicates
-2. **Every new note requires YAML frontmatter** with at minimum:
-   ```yaml
-   ---
-   type: note|project|resource|daily|area
-   tags: []
-   status: draft|active|complete|archived
-   created: YYYY-MM-DD
-   ---
-   ```
-3. **File to 00_Inbox/** unless Brady explicitly specifies a destination
+**Mayor v2** is a three-agent harness with a persistent daemon and MAGI council.
 
-### Linking and Navigation
-- Use `[[wikilinks]]` for ALL internal links — never markdown-style `[text](path)` links
-- Link generously between notes; prefer linking over nesting
-- Never move or rename existing notes without asking first
+### Harness Orchestrator (`harness/run.sh`)
+Spawns three agents in sequence via `claude -p`:
+- **Planner** — expands a brief task description into a full spec with acceptance criteria
+- **Generator** — reads the plan and builds it, feature by feature
+- **Evaluator** — tests the result via Playwright/curl/code inspection, grades against criteria
 
-### File Operations
-- Use `--silent` flag when creating files via the Obsidian CLI
-- Use `mv` not `cp` when organizing files (no duplicates)
-- Verify destination folders exist before moving
+Generator and Evaluator loop up to N rounds until the Evaluator passes the work.
 
-### Git Workflow
-- After any batch of file changes: stage and commit with a descriptive message
-- Start sessions with `git pull`
-- End sessions by committing and pushing any changes
-- Use `git status` to track modifications
+### Mayor Daemon (`~/mayor-daemon/`)
+Persistent Node.js process managed by launchd. Replaces the old `bot.js` and `mayor-check.sh`.
+- **Discord listener** — receives natural language from Brady, classifies intent via NL router (keyword matching + Haiku fallback), dispatches harness runs or research tasks
+- **Run manager** — task queue, spawns `run.sh`, monitors completion, collects metrics
+- **MAGI council** — three independent Sonnet sessions (MELCHIOR/BALTHASAR/CASPER) that deliberate on major decisions (self-improvement proposals, high-cost runs, architecture changes). Each gets different context. 2/3 majority needed.
+- **Self-improvement loop** — daily scheduled analysis of run metrics, generates prompt improvement proposals, submits to MAGI, benchmarks before/after
+- **NL router** — two-tier intent classifier (fast keyword match → Haiku LLM fallback)
 
-### New Project Setup
-When starting a new project, create these files inside `01_Projects/[ProjectName]/`:
-- `overview.md` — objectives, context, and timeline
-- `tasks.md` — actionable task list
-- `ideas.md` — loose thoughts and exploration
+### Dashboard (`~/mayor-dashboard/`)
+Web UI at `localhost:3847`. Shows run stats, active pipeline, token usage charts, cost per run, pass rate ring, signal log. Real-time via WebSocket + chokidar file watchers.
 
-Document architecture decisions and solved bugs **in the project folder** — not scattered in inbox or root.
-
-### Research Workflow
-1. Search the vault first for existing notes
-2. Only go external (WebSearch/WebFetch) if vault has nothing useful
-3. Save external findings back to vault with proper frontmatter
-
-### Writing in Brady's Voice
-- Direct and grounded — no buzzwords, no filler
-- No em-dashes
-- Statements stand on their own — no lead-ins like "It's worth noting that..."
-- Mixed format: use bullets when scanning helps, prose when context flows
+### Research Tools (`harness/tools/`)
+- `research.js` — general-purpose web research via Playwright + DuckDuckGo + Claude
+- `url-resolver.js` — URL content extraction with Playwright (JS-rendered pages, GitHub API, YouTube)
+- `tweet-processor.js`, `tweet-researcher.js`, `tweet-synthesizer.js` — tweet capture/research pipeline
 
 ---
 
-## Folder Structure (PARA)
+## Directory Structure
 
 ```
-knowledge-base/
-├── 00_Inbox/           # Default capture point — process weekly
-│   └── Clippings/      # Web saves from Firecrawl/WebFetch
-├── 01_Projects/        # Active, time-bound work
-│   └── [ProjectName]/
-│       ├── overview.md
-│       ├── tasks.md
-│       └── ideas.md
-├── 02_Areas/           # Ongoing responsibilities (no end date)
-│   ├── Learning/
-│   └── Finance/
-├── 03_Resources/       # Reference by topic
-│   ├── Data-Science-ML/
-│   ├── Programming-Dev-Tools/
-│   ├── Productivity-Systems/
-│   └── Tech-Radar/           # Cool libs/tools from Twitter et al.
-├── 04_Archive/         # Completed/inactive
-├── 05_Attachments/     # All non-text files
-│   └── Organized/
-└── 06_Metadata/
-    ├── Reference/
-    ├── Plans/
-    └── Templates/
+vault-context/
+├── harness/
+│   ├── config/
+│   │   ├── planner-prompt.md      # Planner agent instructions
+│   │   ├── generator-prompt.md    # Generator agent instructions
+│   │   ├── evaluator-prompt.md    # Evaluator agent instructions
+│   │   ├── eval-criteria.md       # Grading rubric
+│   │   └── benchmark-task.md      # Fixed task for self-improvement A/B testing
+│   ├── runs/
+│   │   └── {RUN-YYYYMMDD-HHMMSS}/
+│   │       ├── request.md         # Original task description
+│   │       ├── plan.md            # Planner output
+│   │       ├── build-log.md       # Generator output
+│   │       ├── eval-round-N.md    # Evaluator feedback
+│   │       ├── status.md          # Current run state
+│   │       ├── result.md          # Final summary
+│   │       ├── metrics.json       # Cost, tokens, scores
+│   │       └── orchestrator.log   # Timing log
+│   ├── magi/
+│   │   └── {MAGI-timestamp}/      # Council decision transcripts
+│   ├── tools/                     # Standalone research/pipeline tools
+│   └── learnings.md               # Cross-run accumulated knowledge
+├── inbox/tweets/                  # Tweet capture staging
+├── library/tweets/                # Researched tweet briefs
+├── research/                      # Research outputs
+├── archive/v1/                    # Old Mayor-Worker system files
+├── STATE.md                       # System state (legacy, still used for orientation)
+├── CLAUDE-LEARNINGS.md            # Cross-session learnings (legacy format)
+└── SYSTEM_STATUS.md               # Infrastructure inventory
 ```
 
 ---
 
-## File Naming Conventions
+## Key Locations on This Machine
 
-- Daily notes: `YYYY-MM-DD`
-- Meeting notes: `Meeting - [Topic] - YYYY-MM-DD`
-- Research notes: `[Topic] - [Source or Subtopic]`
-- Ideas / captures: `Idea - [Brief Description]`
-- Resources: `[Topic] - [Source]`
-
----
-
-## Key Reference Links
-
-- [Obsidian CLI docs](https://help.obsidian.md/cli)
-- [Claude Code docs](https://docs.anthropic.com/en/docs/claude-code)
-- [kepano obsidian-skills](https://github.com/kepano/obsidian-skills)
+| Path | What |
+|------|------|
+| `~/Documents/vault-context/` | This repo — harness, research, library |
+| `~/mayor-daemon/` | Daemon process (Discord, run manager, MAGI, self-improve) |
+| `~/mayor-dashboard/` | Dashboard web app (port 3847) |
+| `~/foreman-bot/` | Legacy Discord bot (tweet pipeline source, meds reminders) |
+| `~/Documents/knowledge-base/` | Brady's Obsidian vault (PARA method) |
+| `~/.claude/channels/discord/` | Discord plugin config |
+| `~/.local/log/` | Log files (daemon, dashboard, signals) |
+| `~/.local/state/` | Persistent state files |
 
 ---
 
-## Daily Workflows
-
-### Start of Day
-1. `git pull`
-2. Check `00_Inbox/` for items to process
-3. Review active projects in `01_Projects/`
-
-### End of Day
-1. Process new inbox items
-2. Commit and push all changes
-3. Update project task lists
-
-### Weekly Review (Every Week)
-Use `/weekly-synthesis` skill. Cover:
-1. Process entire `00_Inbox/`
-2. Archive completed projects → `04_Archive/`
-3. Update `02_Areas/` notes
-4. Review and consolidate `03_Resources/`
-5. Plan next week's focus
-
----
-
-## PARA Reference
-
-| Folder | What Goes Here | When to Move |
-|--------|---------------|--------------|
-| 00_Inbox | Everything new | Weekly processing |
-| 01_Projects | Active work with end date | On completion → 04_Archive |
-| 02_Areas | Ongoing responsibilities | Never (ongoing by definition) |
-| 03_Resources | Reference by topic | When outdated → 04_Archive |
-| 04_Archive | Done / inactive | On reactivation → back to PARA |
-
----
-
-## Available Commands
+## Running a Harness Task
 
 ```bash
-# Vault
-pnpm vault:stats              # Vault statistics
-pnpm attachments:list         # Unprocessed attachments
-pnpm attachments:organized    # Count organized files
+# From CLI
+~/Documents/vault-context/harness/run.sh "task description" [--project-dir /path] [--model opus] [--max-rounds 3]
 
-# Git (run these regularly)
-git pull                      # Sync at session start
-git add . && git commit -m "" # Commit after changes
-git push                      # Push to remote
+# Via Discord (when daemon is active)
+# Just DM the bot: "build a rate limiter for the dashboard API"
 ```
-
-### Claude Skills
-- `/daily-review` — Review your day
-- `/weekly-synthesis` — Weekly synthesis and planning
-- `/thinking-partner` — Collaborative exploration mode
-- `/research-assistant` — Structured research workflow
-- `/inbox-processor` — Process inbox items
-- `/obsidian-markdown` — Create Obsidian-flavored notes
 
 ---
 
-## Inbox Management
+## LaunchD Services
 
-- Inbox is a **temporary** landing pad, not permanent storage
-- Target: process weekly, keep under 20 items
-- Processing flow: Delete obsolete → Move to PARA → Convert actions to tasks → Tag `#needs-processing` if unresolved
-
----
-
-## Project Lifecycle
-
-**Starting**: Create folder in `01_Projects/`, add `overview.md`, `tasks.md`, `ideas.md`
-**During**: Keep everything in project folder. Commit regularly. Document decisions.
-**Completing**: Write summary note → move folder to `04_Archive/` → commit with "complete" message
+| Plist | What |
+|-------|------|
+| `com.mayor.daemon` | Mayor daemon (Discord + run manager + MAGI) |
+| `com.mayor.dashboard` | Dashboard web server (port 3847) |
 
 ---
 
-## AI Assistant Constraints
+## MCP Servers
 
-- **Don't** reorganize or rename existing notes without explicit permission
-- **Don't** use complex piped shell commands — prefer simple operations
-- **Don't** scatter notes across root or inbox when a clear PARA location exists
-- **Do** ask when destination is ambiguous
-- **Do** respect numbered core folders (never move 00–06 prefixed items)
-- **Do** search vault before creating new notes or fetching external content
-
----
-
-## Mayor-Worker System
-
-Claude Web (Opus) acts as Mayor — it plans and dispatches tasks by pushing markdown files to `AAARRRCCC/vault-context`. Claude Code is the worker — it picks up pending work orders, executes them in the private vault, and writes results back.
-
-### Orientation protocol (every session, every actor, every time)
-
-1. `git -C /Users/rbradmac/Documents/vault-context pull`
-2. Read `STATE.md` — this is your orientation
-3. If `active_plan` is set, read the active plan file in `vault-context/plans/`
-4. Read `CLAUDE-LEARNINGS.md` (project root) — skim for entries relevant to the current task. This file is also synced to vault-context for Mayor access.
-5. If you need vault structure context, read `STRUCTURE.md`
-6. Now you're oriented. Act.
-7. Before ending session: update `STATE.md`, commit vault-context, push
-
-**Standing rule:** `STATE.md` updated timestamp must not be more than 15 minutes stale during active work. If it is, something crashed.
-
-### Session start
-
-On every session start, check `vault-context/work-orders/` for pending work:
-
-```bash
-git -C /Users/rbradmac/Documents/vault-context pull
-grep -l "status: pending" /Users/rbradmac/Documents/vault-context/work-orders/*.md 2>/dev/null
-```
-
-Run `/process-work-orders` if any pending orders are found.
-
-### Work order format
-
-```yaml
----
-id: WO-NNN
-status: pending        # pending → in-progress → complete | blocked | cancelled
-priority: urgent       # urgent | normal | low
-created: YYYY-MM-DD
-mayor: claude-web
----
-```
-
-### Reporting results
-
-Write `WO-NNN-result.md` to `vault-context/results/`, then commit and push vault-context.
-
-Result file frontmatter: `id`, `status: complete`, `completed: YYYY-MM-DD`, `worker: claude-code`.
-
-Update the work order's `status` field in its frontmatter before pushing.
-
-### Plans and the autonomous loop
-
-For multi-phase work, Mayor writes a plan file to `vault-context/plans/PLAN-NNN-slug.md` instead of a single work order. Run `/autonomous-loop` to work through phases, signal Brady via Discord at each phase boundary, and maintain STATE.md throughout.
-
-Plan format: frontmatter with `id`, `status`, `phases`, `current_phase`; body with Goal, Phases (each with objective, steps, acceptance criteria, decision guidance, signal type), Fallback Behavior, Success Criteria.
-
-Signal types: `notify` → continue to next phase; `checkpoint`/`blocked`/`error`/`stalled` → pause and wait for Mayor; `complete` → mark done, go idle.
-
-The `mayor-check.sh` heartbeat checks STATE.md for active plans first, falls back to one-off work orders if none. See `vault-context/LOOP.md` for the full reference protocol.
-
-### Worker worktree
-
-Background work orders execute in a dedicated git worktree at `~/knowledge-base-worker/` (on the `worker` branch). This allows headless Claude Code sessions to run concurrently with interactive sessions without filesystem conflict.
-
-- Changes from background execution are merged into main vault by `mayor-check.sh` after each run
-- The interactive session should `git pull` at session start to pick up any background work
-- Do not open `~/knowledge-base-worker/` in Obsidian — only the main vault directory should be used with Obsidian
-
-### Signaling Brady via Discord
-
-Use `mayor-signal.sh` to send DMs to Brady through the Mayor bot (reads JSON from stdin):
-
-```bash
-jq -n \
-  --arg title "Message title" \
-  --arg desc "One-sentence description" \
-  '{title: $title, description: $desc}' | ~/.local/bin/mayor-signal.sh <type>
-```
-
-Signal types: `started` (blurple), `notify` (green), `checkpoint` (orange), `blocked` (red), `stalled` (gold), `complete` (blue), `error` (dark red), `idle` (muted purple). Optional `fields` array for structured details.
-
-Use this for meaningful events — work order completion, blockers, errors — not routine progress. Env vars `MAYOR_DISCORD_TOKEN` and `MAYOR_DISCORD_USER_ID` must be set (they're in `~/.zshrc`).
-
-`process-work-orders` fires Discord signals automatically after committing each result: `complete` on success, `blocked` on failure, `error` on unexpected errors.
-
-### Rollback tags
-
-Before starting any plan or work order, create a rollback tag so Brady can undo bad changes with one command:
-
-```bash
-# For plans:
-git tag -f "pre-PLAN-NNN" HEAD
-git push origin "pre-PLAN-NNN" --force
-
-# For work orders:
-git tag -f "pre-WO-NNN" HEAD
-git push origin "pre-WO-NNN" --force
-```
-
-To rollback:
-
-```bash
-# Rollback a bad plan:
-git reset --hard pre-PLAN-003
-git push --force
-
-# Rollback a bad work order:
-git reset --hard pre-WO-015
-git push --force
-```
-
-The `-f` flag overwrites if the tag already exists (safe for retries after a crash).
-
-### Idle nudge
-
-When the system has been idle (no active plan, no pending work orders) for 4+ hours, `mayor-check.sh` sends Brady a Discord DM nudging him to dispatch new work. The nudge repeats every 4 hours if still idle. Quiet hours (midnight–8am Eastern) are suppressed.
-
-The idle clock resets whenever real work is picked up or a nudge is sent. Last activity timestamp: `~/.local/state/mayor-last-activity.txt` (epoch seconds).
-
-### Worker status
-
-When Brady asks "what's the worker doing?", "worker status", or similar, run `mayor-status.sh` and report the results:
-
-```bash
-~/.local/bin/mayor-status.sh          # human-friendly status
-~/.local/bin/mayor-status.sh --json   # raw JSON
-~/.local/bin/mayor-log.sh             # last 30 log lines
-~/.local/bin/mayor-log.sh -f          # follow log live
-```
-
-The status file is at `~/.local/state/mayor-worker-status.json` — states are `idle`, `processing`, or `error`.
+| Server | What |
+|--------|------|
+| Playwright | 22 browser automation tools (navigate, click, screenshot, etc.) |
+| Context7 | Library documentation lookup |
+| Discord | Discord channel plugin (DM bridge) |
+| Figma | Figma design tools |
 
 ---
 
-## basic-memory MCP
+## Design Principles
 
-basic-memory indexes the vault as a knowledge graph (SQLite-backed). Use it to search across sessions and build context from linked notes.
+1. **The bureaucracy is load-bearing.** Formal planning before execution keeps work aligned and recoverable.
+2. **Separate generation from evaluation.** The Evaluator must actually use the product (Playwright, curl), not just review code.
+3. **File-based communication between agents.** Each agent gets a clean context.
+4. **Rollback safety.** Git tags before execution. `git reset --hard` to recover.
+5. **Learnings accumulate.** Cross-run knowledge in `learnings.md`.
+6. **Simplify when possible.** Every harness component encodes an assumption. Re-examine as capabilities improve.
+7. **Don't over-specify plans.** Constrain deliverables, not implementation paths.
 
-### Search before acting
+---
 
-```
-search_notes(query="topic keywords")
-search_by_metadata(filters={"type": "resource", "tags": ["python"]})
-build_context(url="memory://03_Resources/Data-Science-ML")
-```
+## Cross-Session Learnings
 
-`build_context` traverses wikilinks — good for getting oriented at session start or before diving into a project.
-
-### Writing notes via basic-memory
-
-Always pass `directory` to route into the right PARA folder:
-
-| Note type | directory |
-|-----------|-----------|
-| Quick capture / unsorted | `00_Inbox` |
-| Project files | `01_Projects/[ProjectName]` |
-| Ongoing area notes | `02_Areas/[Area]` |
-| Reference material | `03_Resources/[Topic]` |
-| Claude-generated context | `06_Metadata/Memory` |
-
-All written notes must include vault frontmatter (`type`, `tags`, `status`, `created`). Use `[[wikilinks]]` for internal links — basic-memory parses these as graph relations.
-
-### What basic-memory does NOT do
-
-- Does not modify existing notes (`format_on_save: false`)
-- Does not add `permalink` frontmatter to existing notes
-- Claude auto-memory (`~/.claude/projects/.../memory/MEMORY.md`) is separate — leave it in place
+See `harness/learnings.md` for the full list. Key entries:
+- gallery-dl tweet IDs are 64-bit (use string IDs in JS)
+- `--cookies-from-browser chrome` only works as CLI flag, not in gallery-dl config.json
+- Never run `node bot.js` directly — use launchctl
+- Always read current styles before modifying UI (the Olive Garden palette incident)
+- Always read the frontend-design skill before UI work

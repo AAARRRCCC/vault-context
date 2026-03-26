@@ -1,0 +1,1 @@
+Add a /metrics endpoint to the Mayor Dashboard server (~/mayor-dashboard/server.js) that returns JSON with: uptime in seconds, total requests served since startup, current timestamp, and node version. The endpoint should be at GET /api/metrics. Include a simple request counter middleware. Do not break the existing /health or /api/dashboard endpoints.

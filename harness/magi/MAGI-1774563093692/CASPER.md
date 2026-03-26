@@ -1,0 +1,6 @@
+# CASPER — The Scientist
+
+VERDICT: CONDITIONAL
+CONFIDENCE: MEDIUM
+REASONING: Adding an opt-in `--verbose` flag is additive and non-breaking by nature — it cannot regress existing behavior since it changes nothing when omitted. However, the proposal is underspecified in two critical areas: "phases" is undefined (startup? agent spawn? tool execution? teardown?), and token-count capture assumes the harness already surfaces usage metadata from API responses, which is unverified. The accumulated learnings note a significant performance gap between sequential and parallel agent spawning (~35 min vs ~1 min), suggesting timing instrumentation would have real diagnostic value — but only if the phase boundaries are meaningful and consistently instrumented.
+CONDITIONS: (1) Define "phases" explicitly before implementation — e.g., `[init → agent_spawn → execution → teardown]` — so timing boundaries are unambiguous and reproducible. (2) Confirm the harness actually receives and can expose token usage data from API responses before promising token counts in the flag's output; if not available, scope the flag to timing only and document the limitation. (3) Specify whether verbose output goes to stdout, stderr, or a log file — mixing it with normal stdout risks breaking any downstream parsers of `run.sh` output.

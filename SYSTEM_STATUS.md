@@ -1,419 +1,89 @@
-# Mac Mini Setup — Verification Report
+# Mac Mini System Status
 
-**Verified by:** Claude Code (Sonnet 4.6)
-**Date:** 2026-02-19
+**Updated:** 2026-03-26
+**System:** Mayor v2 (Harness + Daemon + MAGI)
 
 ---
 
 ## Hardware & OS
 
-- ✅ **Mac Mini (Apple Silicon)** — Apple M4
-- ✅ **macOS** — 15.5 (Build 24F74)
-
-## Core Software Stack
-
-- ✅ **Claude Code** — v2.1.70
-- ✅ **Obsidian** — v1.12.2 (installer 1.11.7), vault `knowledge-base` confirmed
-- ✅ **Obsidian CLI** — v1.12.2 (ships with Obsidian)
-- ✅ **Node.js / pnpm** — Node v25.6.1, pnpm v9.15.4
-- ✅ **gallery-dl** — Python tool for downloading Twitter content + metadata (installed via brew)
-- ✅ **Git remote** — `https://github.com/AAARRRCCC/knowledge-base.git`
-  - Note: checklist said `vault-context` but that is the public mirror — the vault's own remote is correctly `knowledge-base`
-
-## Vault Structure
-
-- ⚠️ **Root follows claudesidian template** — PARA folders all present, but root has extra noise: `CHANGELOG.md`, `CONTRIBUTING.md`, `install.sh`, `LICENSE`, `node_modules/`, `package.json`, `package-lock.json`, `pnpm-lock.yaml`, `Untitled.canvas`, `Untitled 1.canvas`. These are claudesidian scaffolding leftovers.
-- ✅ **Folder structure** — all seven present: `00_Inbox/` through `06_Metadata/`
-- ✅ **`CLAUDE.md`** at vault root
-- ✅ **`.claude/` directory** — `commands/`, `hooks/`, `mcp-servers/`, `skills/` all present
-
-## Claude Code Configuration
-
-- ✅ **`settings.json` and `settings.local.json`** — both present
-- ✅ **`vault-config.json`** — present
-- ✅ **Skills** — all 8 installed: defuddle, git-worktrees, json-canvas, obsidian-bases, obsidian-cli, obsidian-markdown, skill-creator, systematic-debugging
-- ✅ **Commands** — all 15 present: add-frontmatter, create-command, daily-review, de-ai-ify, download-attachment, inbox-processor, init-bootstrap, install-claudesidian-command, pragmatic-review, pull-request, release, research-assistant, thinking-partner, upgrade, weekly-synthesis
-
-## MCP Integration
-
-- ✅ **basic-memory** — v0.18.4, project `main` pointing to vault, 41 entities indexed
-- ✅ **Gemini Vision MCP server** — present in `.claude/mcp-servers/`
-- ✅ **Playwright MCP** — `@playwright/mcp` v0.0.68, installed at user scope (`~/.claude.json`) via `claude mcp add -s user playwright -- npx @playwright/mcp@latest`. 22 browser automation tools available in all Claude Code sessions. Used by tweet pipeline for reading linked JS-rendered pages. (Added PLAN-021, 2026-03-25)
-- ⚠️ **basic-memory note modification** — `format_on_save: false` ✅, but `disable_permalinks: false` means it injected `permalink:` frontmatter into existing notes during initial `reset --reindex`. Now accepted behavior. To prevent entirely: set `disable_permalinks: true` in `~/.basic-memory/config.json`.
-
-## Scripts
-
-- ✅ All 7 present in `.scripts/`: `firecrawl-batch.sh`, `firecrawl-scrape.sh`, `fix-renamed-links.js`, `sync-context.sh`, `transcript-extract.sh`, `update-attachment-links.js`, `vault-stats.sh`
-
-## Git Workflow
-
-- ✅ Git repo with remote configured
-- ✅ `.gitignore` present
-- ✅ Session-end auto-commit — `Stop` hook in `.claude/settings.json` commits and pushes on session end
-- ✅ Post-commit hook — `.git/hooks/post-commit` runs `sync-context.sh` to update public mirror on every commit
-
----
-
-## System Details
-
-| Item | Value |
-|------|-------|
-| macOS version | 15.5 |
-| Apple Silicon chip | M4 |
-| Claude Code version | 2.1.70 |
-| Obsidian version | 1.12.2 |
-| Obsidian CLI version | 1.12.2 (bundled with Obsidian) |
-| basic-memory version | 0.18.4 |
-| Cron jobs | None |
-| launchd agents | `com.mayor.workorder-check` (heartbeat, 120s), `com.mayor.dashboard` (web UI, port 3847), `com.foreman.bot` (Discord bot, persistent), `com.foreman.tweet-researcher` (tweet research agent, 300s) |
-| GitHub PAT | Present in keychain for `AAARRRCCC` |
-| Vault remote | `github.com/AAARRRCCC/knowledge-base` (private) |
-| Context mirror | `github.com/AAARRRCCC/vault-context` (public) |
-
----
-
-## Open Items
-
-- Root-level scaffolding files (`CHANGELOG.md`, `install.sh`, `node_modules/`, etc.) are claudesidian template leftovers. Could be cleaned up or left as-is.
-- `disable_permalinks` is `false` — basic-memory will add `permalink:` frontmatter to any note it indexes. Intentional for now.
-- Obsidian Git plugin not yet installed (auto-commit safety net — manual install required via Obsidian settings).
-
----
-
-## Mayor-Worker System
-
-**Verified by:** Claude Code (worker, WO-004)
-**Date:** 2026-02-24
-
-| Component | Status | Details |
-|-----------|--------|---------|
-| launchd agent | ✅ Running | `com.mayor.workorder-check` (PID 62306), interval 120s |
-| Worker worktree | ✅ Active | `~/knowledge-base-worker/` on `worker` branch |
-| `mayor-check.sh` | ✅ Updated | Checks STATE.md for active plans first → runs `/autonomous-loop`; falls back to `/process-work-orders` |
-| `mayor-status.sh` | ✅ Present | `~/.local/bin/mayor-status.sh` — status display + `--json` |
-| `mayor-log.sh` | ✅ Present | `~/.local/bin/mayor-log.sh` — log tail wrapper |
-| Status file | ✅ Writing | `~/.local/state/mayor-worker-status.json` — updated each run |
-| Worker log | ✅ Present | `~/.local/log/mayor-check.log` |
-| `/process-work-orders` | ✅ Updated | Fires Discord signals after each WO; reads/writes STATE.md |
-| `/autonomous-loop` | ✅ Present | `.claude/commands/autonomous-loop.md` — multi-phase plan executor |
-| `STATE.md` | ✅ Active | `vault-context/STATE.md` — canonical system state, orientation doc |
-| `plans/` directory | ✅ Present | `vault-context/plans/` — multi-phase plan files |
-| `LOOP.md` | ✅ Present | `vault-context/LOOP.md` — autonomous loop reference protocol |
-| Discord signaling | ✅ Working | `mayor-signal.sh` wired into process-work-orders and autonomous-loop |
-| Idle nudge | ✅ Active | `mayor-check.sh` sends Discord DM after 4h idle; quiet hours midnight–8am ET; timestamp at `~/.local/state/mayor-last-activity.txt` |
-| vault-context sync | ✅ Working | `sync-context.sh` post-commit hook; syncs CLAUDE.md, CLAUDE-LEARNINGS.md, STRUCTURE.md, RECENT_CHANGES.md |
-| Mayor Dashboard | ✅ Running | `com.mayor.dashboard` launchd service; Node.js server at `http://localhost:3847`; also accessible via Tailscale at `http://100.78.129.90:3847` |
-| **Swarm System** | ✅ Operational | Native agent teams (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`); roles at `~/foreman-bot/swarm/roles/`; hooks in `.claude/settings.json` (`TeammateIdle`, `TaskCompleted`); transcripts at `vault-context/transcripts/`; retros at `vault-context/retros/`; full spec at `vault-context/plans/PLAN-019-swarm-worker-system.md` |
-
-**Work orders completed:** WO-001 through WO-067 (see RECENT_CHANGES.md for full list)
-**Plans completed:** PLAN-001 through PLAN-020, PLAN-021 (Playwright MCP browser automation investigation + architecture design), PLAN-022 (Playwright url-resolver.js upgrade — JS-rendered pages + YouTube title extraction)
-**Plans in progress:** None
-**System operational since:** 2026-02-24
-**Autonomous loop operational since:** 2026-02-24
-**Foreman v2 (PLAN-008) complete:** 2026-02-27 — conversation memory, proactive alerts, task scheduling, account failover
-**Twitter inbox pipeline (PLAN-009) complete:** 2026-03-01 — gallery-dl capture, vault-context inbox, Foreman integration
-**NTS Plan C (PLAN-017) complete:** 2026-03-20 — Docker demo network, asyncio scheduler, topology snapshots, anomaly detection (IsolationForest + rule-based), scan optimizer API, settings API. Full pipeline: `./demo.sh up && ./demo.sh scan` produces a topology graph with nodes and edges. Branch: `plan-c/data-pipeline` on `borumea/Network-Topology-Scanner`.
-
----
-
-## Mayor Dashboard
-
-**Added:** 2026-02-25 (PLAN-003)
-
-| Property | Value |
-|----------|-------|
-| URL | `http://localhost:3847` |
-| Health check | `http://localhost:3847/health` |
-| launchd label | `com.mayor.dashboard` |
-| Service file | `~/Library/LaunchAgents/com.mayor.dashboard.plist` |
-| Server code | `~/mayor-dashboard/server.js` |
-| Frontend | `~/mayor-dashboard/public/index.html` |
-| Stdout log | `~/.local/log/mayor-dashboard.log` |
-| Stderr log | `~/.local/log/mayor-dashboard-error.log` |
-| Log rotation | Server-side check at startup and hourly; rotates at 10MB |
-| Port env var | `MAYOR_DASHBOARD_PORT` (default 3847) |
-
-**Layout modes:**
-- **Active Plan mode** (active_plan ≠ 'none'): Hero pipeline visualization (64-80px animated nodes, SVG glow filter, shimmer connectors) + Live Session (left, 62%) + Signals (right, 38%) + Work Orders footer
-- **Idle mode** (active_plan = 'none'): Last-completed work card + Pending WO list (priority-sorted) + Signals panel + Work Orders footer
-
-**Hero pipeline:** Custom CSS/SVG hybrid — real DOM nodes with inline connectors, `state-done/active/upcoming/paused/error` CSS classes, `filter: url(#node-glow)` SVG blur on active node, `@keyframes pipeline-pulse` (box-shadow ring + scale), shimmer `@keyframes line-shimmer` (background-position) on active connector. Do NOT use DaisyUI steps component — pseudo-element architecture, not scalable.
-
-**Panels (active mode):** Hero Pipeline · Live Session · Signals · Work Orders footer
-**Panels (idle mode):** Last Completed card · Pending Work · Signals · Work Orders footer
-
-**Data sources:** STATE.md, plans/, work-orders/, mayor-signals.jsonl, Claude Code JSONL session logs
-
-**To manage:**
-```bash
-launchctl list com.mayor.dashboard        # check status
-launchctl stop com.mayor.dashboard        # stop
-launchctl start com.mayor.dashboard       # start
-launchctl unload ~/Library/LaunchAgents/com.mayor.dashboard.plist  # disable
-mayor-status.sh                           # includes dashboard status
-```
-
----
-
-## Foreman Discord Bot
-
-**Added:** 2026-02-25 (PLAN-004, Phase 1)
-
-| Property | Value |
-|----------|-------|
-| Bot name | Foreman#7084 |
-| launchd label | `com.foreman.bot` |
-| Service file | `~/Library/LaunchAgents/com.foreman.bot.plist` |
-| Bot code | `~/foreman-bot/bot.js` |
-| Stdout log | `~/.local/log/foreman-bot.log` |
-| Stderr log | `~/.local/log/foreman-bot-error.log` |
-| Auth | Responds only to `MAYOR_DISCORD_USER_ID` DMs |
-| Reconnect | Auto via launchd KeepAlive |
-
-**Commands:**
-
-| Group | Commands |
-|-------|---------|
-| Status | `!status`, `!queue`, `!uptime`, `!log`, `!signals` |
-| Control | `!resume`, `!pause`, `!cancel`, `!confirm`, `!answer <text>` |
-| Diagnostics | `!doctor`, `!ratelimit`, `!accounts`, `!switch <id>`, `!alerts [on\|off]`, `!investigate <subsystem>`, `!fix [lockfile\|heartbeat\|dashboard\|bot\|git\|ratelimit]`, `!tail [heartbeat\|dashboard\|bot\|session]` |
-| Scheduling | `!schedule <time> <task>`, `!schedules`, `!unschedule <id>`, `!snooze <id> <duration>` |
-| Conversation | `!clear`, `!context` |
-| Tweet inbox | `!tweet <url>`, `!tweet <url> <note>`, `!tweet refresh`, `!tweet cleanup`, `!inbox`, `!inbox clear` |
-| Tweet research | `!research`, `!research run`, `!research <tweet-id>` |
-| Tweet library | `!library [<page>]` |
-| Tweet synthesis | `!synthesize`, `!synthesize full`, `!synthesize last` |
-| Meds | `!meds`, `!meds history`, `!meds skip <type>`, `!meds pause <duration>`, `!meds on\|off`, `!alarm [<time>]` |
-| Other | `!ping`, `!help`, `!twitter` (alias for `!tweet`) |
-
-**Conversational relay (PLAN-008 P2):** Non-command messages route to `claude -p` with a Foreman system prompt, STATE.md context, and per-user conversation history (last 10 exchange pairs, 30-minute session timeout). History stored in `~/.local/state/foreman-conversations.json`. Max budget $2.00/relay call, timeout 180s.
-
-**Proactive system alerts (PLAN-008 P3):** `system-monitor.js` runs every 5 minutes, checking disk space (warn 85%, critical 95%), stale lockfile, dead heartbeat, failed/blocked WOs, git divergence, and long idle. Alerts to Brady's DM as embeds (yellow/red). 1-hour cooldown per alert type. Toggle with `!alerts on/off`.
-
-**Task scheduling (PLAN-008 P4):** `scheduler.js` with `chrono-node` for natural language time parsing. Schedule one-off or recurring tasks from Discord. Storage: `~/.local/state/foreman-schedule.json`. Missed tasks skipped if >15 min late. 3 consecutive failures disables + alerts.
-
-**Rate limit detection (PLAN-008 P1):** `mayor-check.sh` detects rate limit output, writes `~/.local/state/rate-limited.json`, sends one Discord alert (no repeated errors). Heartbeat skips Claude invocation while limited. `!ratelimit` shows status; `!fix ratelimit` clears the flag.
-
-**Account failover (PLAN-008 P5):** `~/.local/state/foreman-accounts.json` tracks configured accounts. `!accounts` shows status. `!switch <id>` updates active account + clears rate limit flag. Actual auth switch requires `claude auth login` in terminal (OAuth-only, no automated switching). Rate limit alerts include next-available-account suggestion.
-
-**Audit trail (added PLAN-005):** `!resume`, `!pause`, `!cancel`, `!answer` append a row to STATE.md's Decision Log table with timestamp, action, and "Discord command" reasoning.
-
-**Interactive signals:** `checkpoint` and `blocked` signals include a reply prompt in the embed footer. Context file `~/.local/state/last-signal-context.json` persists signal context for `!resume`/`!answer`.
-
-**Presence:** Updates every 30 seconds. Green/online = processing; yellow/idle = paused; invisible = idle.
-
-**Prompt file:** `~/foreman-bot/foreman-prompt.md`
-**Bot modules:** `~/foreman-bot/conversation-store.js`, `~/foreman-bot/system-monitor.js`, `~/foreman-bot/scheduler.js`
-
-**To manage:**
-```bash
-launchctl list com.foreman.bot                          # check status
-launchctl stop com.foreman.bot                         # stop
-launchctl start com.foreman.bot                        # start
-launchctl unload ~/Library/LaunchAgents/com.foreman.bot.plist   # disable
-tail -f ~/.local/log/foreman-bot.log                   # live log
-```
-
----
-
-## Tweet Inbox Pipeline
-
-**Added:** 2026-03-01 (PLAN-009)
-
-Brady shares tweet URLs in Foreman DMs; gallery-dl captures full content to vault-context for later Mayor review.
-
-| Component | Path | Role |
-|-----------|------|------|
-| gallery-dl config | `~/.config/gallery-dl/config.json` | Twitter extractor settings (text-tweets, conversations, expand, quoted) |
-| Cookie source | Chrome (via `--cookies-from-browser chrome` CLI flag) | Auth for Twitter API — must be logged in via Chrome on Mac Mini |
-| Staging dir | `~/.local/share/tweet-staging/` | Temp download area, cleaned after each capture |
-| Capture script | `~/.local/bin/tweet-capture.sh` | Orchestrates gallery-dl → post-process → git commit |
-| Post-processor | `~/foreman-bot/tweet-processor.js` | Converts gallery-dl output to clean `content.md` + inbox entry |
-| Inbox | `~/Documents/vault-context/inbox/tweets/` | Active pending entries (`TWEET-{id}/`) |
-| Archive | `~/Documents/vault-context/inbox/tweets/archive/` | Reviewed entries (moved by `!inbox clear`) |
-| Cleanup script | `~/.local/bin/tweet-inbox-cleanup.sh` | Removes images from archive entries >30 days old |
-
-**Foreman commands:**
-
-| Command | Action |
-|---------|--------|
-| `!tweet <url>` | Capture a tweet explicitly |
-| `!tweet <url> <note>` | Capture with Brady's note attached |
-| `!tweet refresh` | Check if Twitter cookies are still valid |
-| `!tweet cleanup` | Remove old images from archive (manual, on demand) |
-| `!inbox` | List pending tweets with author + preview |
-| `!inbox clear` | Archive all pending items |
-| Auto-detect | Any x.com/twitter.com URL in DM triggers capture automatically |
-
-**Inbox entry format:**
-Each `TWEET-{id}/` directory contains:
-- `content.md` — verbatim tweet text, author info (bio, followers, verified), image references
-- `metadata.json` — raw gallery-dl dump
-- Image files (if any)
-
-Threads are stitched into a single `content.md` in chronological order. Brady's optional note appears as a blockquote at the top.
-
-**Cookie refresh:** When cookies expire, `!tweet refresh` will report it. Fix: log into Twitter in Chrome on Mac Mini, cookies refresh automatically.
-
-**Review flow:** During Mayor sessions, Brady says "let's go through the inbox." Mayor reads each `content.md` via GitHub API. Brady decides action. After review, `!inbox clear` moves all to archive.
-
-**Repo size management:** Images are committed to vault-context (active inbox has full media). Run `!tweet cleanup` periodically to strip images from archive entries older than 30 days. Text and metadata are kept permanently.
-
----
-
-## Tweet Research Agent
-
-**Added:** 2026-03-12 (PLAN-014)
-
-Background agent that transforms raw tweet captures into structured research briefs. Runs every 5 minutes as a launchd service, processes one tweet per pass by default.
-
-| Component | Path | Role |
-|-----------|------|------|
-| Research agent | `~/foreman-bot/tweet-researcher.js` | Main entry point — scans inbox, calls claude -p, writes research.md |
-| URL resolver | `~/foreman-bot/url-resolver.js` | Fetches and extracts text from linked URLs. Uses Playwright chromium for JS-rendered pages and YouTube title extraction. GitHub repos fetched via API (unchanged). Upgraded from plain fetch in PLAN-022. |
-| launchd plist | `~/Library/LaunchAgents/com.foreman.tweet-researcher.plist` | Runs agent every 300 seconds |
-| Log | `~/.local/log/tweet-researcher.log` | Rotates automatically at 10 MB |
-
-**Pipeline:**
-```
-content.md (status: pending)
-  → url-resolver.js (fetches GitHub READMEs, blog posts, articles)
-  → claude -p sonnet (generates structured research brief)
-  → research.md (written to TWEET-{id}/ directory)
-  → content.md status: researched
-  → git commit + push
-```
-
-**Foreman commands:**
-
-| Command | Action |
-|---------|--------|
-| `!research` | Show queue status (pending / researched / failed counts) |
-| `!research run` | Trigger an immediate research pass |
-| `!research <tweet-id>` | Force re-research a specific tweet |
-
-**research.md format:** frontmatter with `researched`, `category`, `signal` (high/medium/low), `actionable`; sections for Substance, Linked Content, Relevance, Verdict.
-
-**Image descriptions:** Supported via `--with-images` flag (opt-in). Spawns a separate `claude -p --dangerously-skip-permissions` call per image; claude reads the image file and returns a description. Not run by default due to added latency. Mayor can always view images directly via the tweet URL.
-
-**To manage:**
-```bash
-launchctl list com.foreman.tweet-researcher    # check status
-launchctl stop com.foreman.tweet-researcher    # stop
-launchctl start com.foreman.tweet-researcher   # start
-tail -f ~/.local/log/tweet-researcher.log      # live log
-node ~/foreman-bot/tweet-researcher.js --batch 5   # manual backlog clear
-node ~/foreman-bot/tweet-researcher.js --with-images  # with image descriptions
-```
-
----
-
-## Tweet Library
-
-**Added:** 2026-03-15 (WO-058)
-
-Researched tweets are organized into a permanent library at `vault-context/library/tweets/`. After Mayor reviews and decides to keep a tweet, it moves from inbox to library.
-
-| Path | Contents |
-|------|----------|
-| `vault-context/library/tweets/` | Permanent library root — `YYYY-MM-DD-slug/` directories |
-| `vault-context/inbox/tweets/` | Active pending entries awaiting review |
-
-Each library entry: `YYYY-MM-DD-slug/` with `content.md`, `research.md`, and any images.
-
-**Foreman command:** `!library [<page>]` — browse library entries paginated (10 per page).
-
----
-
-## Tweet Synthesis Engine
-
-**Added:** 2026-03-16 (PLAN-016)
-
-On-demand synthesis that reads across the tweet library, clusters themes, cross-references against active projects and system state, and produces actionable WO sketch proposals. Triggered via `!synthesize` in Discord.
-
-| Component | Path | Role |
-|-----------|------|------|
-| Synthesizer script | `~/foreman-bot/tweet-synthesizer.js` | Reads library, builds context, calls Opus, writes output |
-| State file | `~/.local/state/synthesis-last-run.json` | Tracks last run date and processed tweet slugs for incremental mode |
-| Output directory | `~/Documents/vault-context/library/synthesis/` | Dated synthesis files (`YYYY-MM-DD.md`) |
-
-**Foreman commands:**
-
-| Command | Action |
-|---------|--------|
-| `!synthesize` | Run incremental synthesis (new tweets since last run only) |
-| `!synthesize full` | Run full library synthesis (all 60+ tweets) |
-| `!synthesize last` | Show most recent synthesis summary without re-running |
-
-**Pipeline:**
-```
-library/tweets/*/research.md
-  → tweet-synthesizer.js reads frontmatter + substance summaries
-  → loads PROJECTS.md + STATE.md + RECENT_CHANGES.md + CLAUDE-LEARNINGS.md
-  → claude -p opus (clusters themes, cross-refs projects, proposes WO sketches)
-  → library/synthesis/YYYY-MM-DD.md (written + committed to vault-context)
-  → Discord summary embed (theme clusters + top proposals)
-```
-
-**Output format:** Themed clusters with tweet counts, project cross-references, and WO sketch proposals each rated by impact (high/medium/low) and effort (small/medium/large).
-
-**Model:** Opus (`claude -p opus`). High-value, low-frequency — cost is acceptable. Falls back to Sonnet if Opus is rate-limited (noted in output).
-
-**Incremental mode:** Default. Reads only tweets researched after the last synthesis run. First run is always full. Use `--full` flag to re-read everything.
-
-**Guard:** Synthesis is blocked while worker is active (`worker_status: processing` in STATE.md) to prevent git conflicts.
-
-**To manage:**
-```bash
-node ~/foreman-bot/tweet-synthesizer.js            # incremental run
-node ~/foreman-bot/tweet-synthesizer.js --full     # full run
-cat ~/.local/state/synthesis-last-run.json         # check last run state
-ls ~/Documents/vault-context/library/synthesis/    # list output files
-```
-
----
-
-## Matrix Homeserver
-
-**Added:** 2026-03-15 (WO-059)
-
-Self-hosted Matrix homeserver running on Mac Mini via Docker Compose.
-
-| Property | Value |
-|----------|-------|
-| Matrix URL | `https://plvr.net` |
-| Element Web | `https://chat.plvr.net` |
-| Stack location | `~/matrix-server/` |
-| Data | `~/matrix-server/data/tuwunel/` (RocksDB — back this up) |
-| Admin user | `@arc:plvr.net` |
-| Signing key | `~/matrix-server/data/tuwunel/` (generated on first run) |
-
-**Services (Docker Compose):**
-
-| Container | Image | Port |
-|-----------|-------|------|
-| `matrix-server-tuwunel-1` | `jevolk/tuwunel:latest` | `127.0.0.1:8008` |
-| `matrix-server-element-web-1` | `vectorim/element-web:latest` | `127.0.0.1:80` |
-
-**Architecture:** Tuwunel and Element Web run in Docker (Colima) with `restart: unless-stopped`. cloudflared runs natively on Mac as a launchd agent (`~/Library/LaunchAgents/net.cloudflare.cloudflared.plist`) to avoid QUIC/UDP issues inside Colima VM.
-
-**Docker runtime:** Colima (`colima start/stop`). If Colima fails to start with "disk in use" error, remove stale lock: `rm ~/.colima/_lima/_disks/colima/in_use_by`. Note: use `docker-compose` (not `docker compose`) — the Compose plugin is not wired into Colima's Docker.
-
-**cloudflared launchd service:**
-```bash
-launchctl load ~/Library/LaunchAgents/net.cloudflare.cloudflared.plist   # start
-launchctl unload ~/Library/LaunchAgents/net.cloudflare.cloudflared.plist # stop
-cat /tmp/cloudflared.stderr.log   # logs
-```
-Token lives directly in the plist `ProgramArguments` `--token` arg. If tunnel fails with "Invalid tunnel secret", regenerate the token in Cloudflare Zero Trust dashboard (Zero Trust → Networks → Tunnels → plvr.net), then update the plist and unload/reload: `launchctl unload` + update plist + `launchctl load`.
-
-**To manage Docker stack:**
-```bash
-cd ~/matrix-server
-docker-compose up -d          # start
-docker-compose down           # stop
-docker-compose ps             # check status
-docker-compose logs -f        # live logs
-```
-
-**Current status (2026-03-17, WO-065 complete):** All services running and healthy. Tunnel reconnected with refreshed token. All 4 cloudflared connections registered (atl11/atl12/atl14). `plvr.net/_matrix/client/versions` → 200, `chat.plvr.net` → 200, federation `/version` verified. Auto-recovery: Docker services have `restart: unless-stopped`; cloudflared has `KeepAlive: true` in launchd plist.
+- **Machine:** Mac Mini M4, 16GB RAM
+- **macOS:** 15.5 (Darwin 25.3.0)
+
+## Software
+
+| Tool | Version | Path |
+|------|---------|------|
+| Claude Code | 2.1.84 | ~/.local/bin/claude |
+| Node.js | v25.6.1 | /opt/homebrew/bin/node |
+| Bun | 1.3.11 | ~/.bun/bin/bun |
+| gallery-dl | latest | /opt/homebrew/bin/gallery-dl |
+| Playwright | 1.58.x | via MCP + harness/tools |
+| uv | latest | (for autoresearch, future) |
+
+## Services (LaunchAgents)
+
+| Plist | Status | What |
+|-------|--------|------|
+| `com.mayor.daemon` | Ready (not yet activated) | Mayor daemon — Discord listener, run manager, MAGI council, self-improvement |
+| `com.mayor.dashboard` | Running | Dashboard web server at localhost:3847 |
+| `com.foreman.bot` | Stopped | Legacy Discord bot (stopped to avoid token conflict with daemon/plugin) |
+| `com.mayor.workorder-check` | Legacy | Old heartbeat — to be disabled when daemon activates |
+| `com.foreman.tweet-researcher` | Legacy | Old tweet researcher cron — replaced by harness tools |
+
+## MCP Servers
+
+| Server | Scope | Status |
+|--------|-------|--------|
+| Playwright | user | Connected — 22 browser automation tools |
+| Context7 | plugin | Connected — library documentation lookup |
+| Discord | plugin | Connected — DM bridge to Brady |
+| Figma | plugin | Connected — design tools |
+| Gmail | plugin | Needs auth |
+| Google Calendar | plugin | Needs auth |
+
+## Key Directories
+
+| Path | Purpose |
+|------|---------|
+| `~/Documents/vault-context/` | Main repo — harness, research, library, STATE.md |
+| `~/mayor-daemon/` | Daemon process (NOT in a git repo yet) |
+| `~/mayor-dashboard/` | Dashboard web app (NOT in a git repo) |
+| `~/foreman-bot/` | Legacy Discord bot + tweet pipeline source |
+| `~/Documents/knowledge-base/` | Brady's Obsidian vault (PARA method) |
+| `~/.claude/channels/discord/` | Discord plugin config + access.json |
+| `~/.local/log/` | Logs (daemon, dashboard, signals) |
+| `~/.local/state/` | Persistent state (meds, schedule, lockfiles) |
+
+## What Changed (v1 → v2)
+
+### New
+- Harness orchestrator (Planner → Generator → Evaluator pipeline)
+- MAGI council (3 independent Sonnet sessions for major decisions)
+- NL router (keyword + Haiku intent classification)
+- Mayor daemon (replaces heartbeat + bot)
+- Dashboard v2 (Geist font, data viz, harness-aware)
+- Research tool (Playwright + DuckDuckGo + Claude)
+- Self-improvement loop (daily metrics analysis + prompt optimization)
+
+### Archived (in vault-context/archive/v1/)
+- 24 plan files (PLAN-001 through PLAN-022)
+- 75 work order files
+- 88 result files
+- Swarm transcripts and retros
+- Old system docs (AUTONOMOUS-LOOP.md, LOOP.md, MAYOR_ONBOARDING.md, etc.)
+
+### Retired (to be removed)
+- `mayor-check.sh` heartbeat polling loop
+- `mayor-signal.sh` / `mayor-status.sh` / `mayor-log.sh` shell scripts
+- `~/knowledge-base-worker/` git worktree
+- Claude Web as Mayor (replaced by local Opus)
+- Work orders as a concept (replaced by harness runs)
+- `sync-context.sh` post-commit hook mirroring
+
+### Preserved
+- Tweet capture pipeline (gallery-dl + tweet-processor + url-resolver + tweet-researcher)
+- Meds reminder engine (in foreman-bot, to be extracted to daemon)
+- Dashboard (rebuilt, same port 3847)
+- Cross-session learnings (carried forward to harness/learnings.md)
+- Frontend design skill (~/.claude/skills/frontend-design/)

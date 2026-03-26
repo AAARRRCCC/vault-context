@@ -1,0 +1,6 @@
+# MELCHIOR — The Architect
+
+VERDICT: CONDITIONAL
+CONFIDENCE: HIGH
+REASONING: Option B (separate repos with private remotes) is the only architecturally coherent choice. The directories are already bounded by function and sensitivity — collapsing them into vault-context (Option A) would violate the public/private boundary by exposing operational internals, system prompts, and daemon architecture on a public repo. Leaving them untracked (Option C) is architecturally negligent given acknowledged disk failure risk and the system's demonstrated value. Separate repos respect the natural seams already present in the design: vault-context is the public knowledge layer, mayor-daemon is the sensitive operational core, and mayor-dashboard is a distinct service artifact.
+CONDITIONS: mayor-daemon must be initialized as a **private** GitHub repo — not public, not unlisted, private. The `.env` file must be confirmed in `.gitignore` before the first push, with a `.env.example` committed instead. mayor-dashboard may be public or private at Brady's discretion since it contains no credentials, but it should not be a subdirectory of vault-context as it is a separate deployable service with its own lifecycle. foreman-bot should be evaluated for the same treatment in a follow-on pass — local-only git with no remote is only marginally better than Option C.

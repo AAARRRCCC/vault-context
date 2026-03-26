@@ -1,0 +1,1 @@
+Proposal: Add a --verbose flag to run.sh that enables detailed logging of each agent session including token counts and timing per phase.

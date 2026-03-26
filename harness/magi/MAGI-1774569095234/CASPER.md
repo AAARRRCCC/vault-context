@@ -1,0 +1,6 @@
+# CASPER — The Scientist
+
+VERDICT: CONDITIONAL
+CONFIDENCE: HIGH
+REASONING: Option C is empirically ruled out — the accumulated learnings explicitly document that the prior system's lack of git tracking for these directories is a known failure mode, and a disk failure would destroy irreplaceable state. Option A introduces a measurable security exposure: vault-context is public, and adding mayor-daemon there would make system prompts, bot architecture, and operational internals publicly indexable — even with .env gitignored, the structural metadata is sensitive. Option B is the correct approach, but only if mayor-daemon is initialized as a **private** repo; mayor-dashboard carries no sensitivity and can be public or private at Brady's preference.
+CONDITIONS: Option B must be implemented with mayor-daemon as a **private** GitHub repo (not public). Verify that `.env`, any files containing tokens, and system prompt files are covered by `.gitignore` *before* the first push — not after. A post-init audit of what `git status` would commit should be performed and reviewed before `git push`. mayor-dashboard may follow whatever visibility Brady prefers since it contains no sensitive material.

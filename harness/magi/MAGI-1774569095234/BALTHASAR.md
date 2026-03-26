@@ -1,0 +1,6 @@
+# BALTHASAR — The Builder
+
+VERDICT: APPROVE
+CONFIDENCE: HIGH
+REASONING: Option B is the only answer that solves all three real problems simultaneously — backup/recovery, security, and clean separation of concerns. Option A puts sensitive system internals in a public repo, which is a hard no. Option C leaves Brady one disk failure away from losing the daemon, dashboard, and all their history. Two private repos costs nothing, takes 10 minutes to set up, and maps cleanly to the actual boundary that already exists: sensitive daemon vs. non-sensitive dashboard. mayor-dashboard can even be public if Brady ever wants to share it.
+CONDITIONS: N/A — but implementation note: mayor-daemon should be initialized as a **private** GitHub repo, `.env` should be in `.gitignore` before the first commit (not retroactively), and system prompt files should be reviewed before push. mayor-dashboard can be private or public at Brady's discretion. foreman-bot should also get a remote while we're at it — no reason to leave it orphaned.
